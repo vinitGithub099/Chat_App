@@ -6,7 +6,6 @@ exports.signUp = (req, res) => {
   const user = new User({
     fullName: req.body.fullName,
     email: req.body.email,
-    role: req.body.role,
     password: bcrypt.hashSync(req.body.password, 8),
   });
 
@@ -25,11 +24,13 @@ exports.signUp = (req, res) => {
 };
 
 exports.signIn = (req, res) => {
+  console.log(req.body);
   User.findOne({
     email: req.body.email,
   })
     .exec()
     .then((user) => {
+      console.log(user);
       if (!user) {
         return res.status(404).send({
           message: "User Not found.",
