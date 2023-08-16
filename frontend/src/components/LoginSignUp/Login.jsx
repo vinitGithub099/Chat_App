@@ -7,7 +7,7 @@ import {
 import { IoMdUnlock } from "react-icons/io";
 import { MdEmail } from "react-icons/md";
 import Form from "../../Form/Form";
-import { EMAIL_REGEX } from "../../Form/formExpressions";
+import { EMAIL_REGEX } from "../../Form/FormExpressions";
 import { authAPI } from "../../api/authAPI";
 import SocialIconList from "./SocialIconList";
 

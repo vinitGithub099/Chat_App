@@ -2,11 +2,12 @@ import { useFormContext } from "react-hook-form";
 import _ from "underscore";
 import FormError from "../FormError";
 
-export default function PasswordInput({
+export default function PhoneNumberInput({
   type,
   label,
   name,
   id,
+  pattern,
   defaultValue,
   className,
   inputClassName,
@@ -18,6 +19,7 @@ export default function PasswordInput({
     register,
     formState: { errors },
   } = useFormContext();
+
   const buildClassName = (instanceClassName) => {
     let defaultClassName = `w-full border flex items-center outline-none`;
 
@@ -29,9 +31,9 @@ export default function PasswordInput({
     return `${defaultClassName} ${className} ${instanceClassName} ${errorClassName}`;
   };
   return (
-    <div className="w-full flex flex-col">
+    <div className="w-full mb-4 flex flex-col">
+      {!_.isEmpty(label) ? <label htmlFor={name}>{label}</label> : null}
       <div className={buildClassName(``)}>
-        {_.isEmpty(label) ? <label htmlFor={name}>{label}</label> : null}
         {!_.isEmpty(icon) ? (
           <div className={icon.className}>
             <icon.icon size={icon.size}></icon.icon>
@@ -41,8 +43,9 @@ export default function PasswordInput({
           type={type}
           id={name}
           name={name}
+          pattern={pattern}
           defaultValue={defaultValue || ""}
-          placeholder={!_.isEmpty(placeholder) ? placeholder : ""}
+          placeholder={placeholder ? placeholder : ""}
           className={inputClassName}
           {...register(name, validation)}
         />

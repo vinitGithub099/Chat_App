@@ -1,6 +1,8 @@
 import _ from "underscore";
 import EmailInput from "./EmailInput";
+import MultiLineInput from "./MultiLineInput";
 import PasswordInput from "./PasswordInput";
+import PhoneNumberInput from "./PhoneNumberInput";
 import TextInput from "./TextInput";
 export default function Input({ field }) {
   switch (field.type) {
@@ -8,6 +10,10 @@ export default function Input({ field }) {
       return <EmailInput {...field}></EmailInput>;
     case "text":
       return <TextInput {...field}></TextInput>;
+    case "textarea":
+      return <MultiLineInput {...field}></MultiLineInput>;
+    case "tel":
+      return <PhoneNumberInput {...field}></PhoneNumberInput>;
     case "select":
       return <SelectInput {...field}></SelectInput>;
     case "password":

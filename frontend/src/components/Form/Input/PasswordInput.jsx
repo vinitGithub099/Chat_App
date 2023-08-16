@@ -2,7 +2,7 @@ import { useFormContext } from "react-hook-form";
 import _ from "underscore";
 import FormError from "../FormError";
 
-export default function EmailInput({
+export default function PasswordInput({
   type,
   label,
   name,
@@ -29,21 +29,20 @@ export default function EmailInput({
     return `${defaultClassName} ${className} ${instanceClassName} ${errorClassName}`;
   };
   return (
-    <div className="w-full flex flex-col">
+    <div className="w-full mb-4 flex flex-col">
+      {!_.isEmpty(label) ? <label htmlFor={name}>{label}</label> : null}
       <div className={buildClassName(``)}>
-        {!_.isEmpty(label) ? <label htmlFor={name}>{label}</label> : null}
         {!_.isEmpty(icon) ? (
           <div className={icon.className}>
             <icon.icon size={icon.size}></icon.icon>
           </div>
         ) : null}
-        <div></div>
         <input
           type={type}
           id={name}
           name={name}
           defaultValue={defaultValue || ""}
-          placeholder={placeholder ? placeholder : ""}
+          placeholder={!_.isEmpty(placeholder) ? placeholder : ""}
           className={inputClassName}
           {...register(name, validation)}
         />
