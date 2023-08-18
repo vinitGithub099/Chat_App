@@ -7,9 +7,9 @@ import {
 } from "react-icons/ai";
 import { IoMdUnlock } from "react-icons/io";
 import { MdEmail } from "react-icons/md";
-import Form from "../../Form/Form";
-import { EMAIL_REGEX, PASSWORD_REGEX } from "../../Form/FormExpressions";
 import { authAPI } from "../../api/authAPI";
+import Form from "../Form/Form";
+import { EMAIL_REGEX, PASSWORD_REGEX } from "../Form/FormExpressions";
 import SocialIconList from "./SocialIconList";
 
 export default function SignUp({ className }) {

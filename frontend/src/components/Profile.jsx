@@ -4,7 +4,7 @@ import {
   EMAIL_REGEX,
   PASSWORD_REGEX,
   PHONE_REGEX,
-} from "./Form/formExpressions";
+} from "./Form/FormExpressions";
 import Header from "./Header";
 
 export default function Profile({ className }) {

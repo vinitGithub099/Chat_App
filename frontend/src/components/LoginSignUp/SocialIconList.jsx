@@ -1,5 +1,5 @@
 import _ from "underscore";
-import Button from "../../Form/Button";
+import Button from "../Form/Button";
 
 export default function SocialIconList({ iconsList, className }) {
   return (
