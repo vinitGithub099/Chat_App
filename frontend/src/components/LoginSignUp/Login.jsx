@@ -117,7 +117,7 @@ const LoginFields = [
     defaultValue: "",
     className: "border-2 rounded-md my-2 p-2",
     inputClassName: "w-full pl-2 outline-none",
-    placeholder: "******",
+    placeholder: "password",
     required: true,
     icon: {
       className: "text-gray-500",

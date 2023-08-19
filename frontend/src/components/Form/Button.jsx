@@ -23,7 +23,7 @@ export default function Button({
 
 const SubmitButton = ({ label, handleClick, className, children, ...rest }) => {
   return (
-    <button className={className} onClick={handleClick} {...rest}>
+    <button type="submit" className={className} onClick={handleClick} {...rest}>
       {!_.isEmpty(children) ? children : label}
     </button>
   );
@@ -32,6 +32,7 @@ const SubmitButton = ({ label, handleClick, className, children, ...rest }) => {
 const NavButton = ({ label, handleClick, className, children, ...rest }) => {
   return (
     <button
+      type="button"
       className={`px-4 py-2 font-semibold rounded-sm text-md ${className} transition-all duration-200`}
       onClick={handleClick}
       {...rest}
@@ -44,6 +45,7 @@ const NavButton = ({ label, handleClick, className, children, ...rest }) => {
 const IconButton = ({ handleClick, className, children, ...rest }) => {
   return (
     <button
+      type="button"
       className={`${className} transition-all duration-200`}
       onClick={handleClick}
       {...rest}
