@@ -5,6 +5,7 @@ const generateToken = require("../configs/generateToken");
  * * status: working
  * @description Register user
  * @method POST /api/user/register
+ * @purpose to register user into the database/app
  */
 const registerUser = async (req, res) => {
   const { name, email, password, pic, bio, phone, isAdmin } = req.body;
@@ -53,6 +54,7 @@ const registerUser = async (req, res) => {
  * * status: working
  * @description Login user
  * @method POST /api/user/login
+ * @purpose to login a previously registered user into the database/app
  */
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
@@ -81,6 +83,7 @@ const loginUser = async (req, res) => {
  * * status: working
  * @description Get all users
  * @method GET /api/user/allUsers
+ * @purpose to get the data of all the users
  */
 const allUsers = async (req, res) => {
   const keyword = req.query.search

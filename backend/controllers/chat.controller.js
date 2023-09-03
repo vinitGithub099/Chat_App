@@ -5,6 +5,7 @@ const User = require("../models/userModel");
  * * status: working
  * @description access to all the chats of a user
  * @method POST /api/chat/accessChat
+ * @purpose to establish chat connection between individuals
  */
 const accessChat = async (req, res) => {
   const { userId } = req.body;
@@ -55,6 +56,7 @@ const accessChat = async (req, res) => {
  * * status: working
  * @description fetch all the chats
  * @method GET /api/chat/fetchChats
+ * @purpose to retrieve all the chats of a user
  */
 const fetchChats = async (req, res) => {
   try {
@@ -81,6 +83,7 @@ const fetchChats = async (req, res) => {
  * ! isAdmin param is extra in every user object in response. Also the isAdmin key of admin shows value false both in users and groupAdmin
  * @description create a group
  * @method POST /api/chat/groupChat
+ * @purpose to establish a chat group or a chat room between individuals
  */
 const createGroupChat = async (req, res) => {
   if (!req.body.users || !req.body.name) {
@@ -120,6 +123,7 @@ const createGroupChat = async (req, res) => {
  * * status:  working
  * @description rename a group
  * @method POST /api/chat/rename
+ * @purpose to rename the chat group having chatId a,s sent along with the request, with the specified name
  */
 const renameGroup = async (req, res) => {
   const { chatId, chatName } = req.body;
@@ -147,6 +151,7 @@ const renameGroup = async (req, res) => {
  * * status: working
  * @description add user to a group
  * @method POST /api/chat/addToGroup
+ * @purpose to add a user with userId to chat group/chat room with chatId
  */
 const addToGroup = async (req, res) => {
   const { chatId, userId } = req.body;
@@ -175,6 +180,7 @@ const addToGroup = async (req, res) => {
  * * status: working
  * @description add user to a group
  * @method POST /api/chat/removeFromGroup
+ * @purpose to remove a user with userId from chat group/chat room with chatId
  */
 const removeFromGroup = async (req, res) => {
   const { chatId, userId } = req.body;

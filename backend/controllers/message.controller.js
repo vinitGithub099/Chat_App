@@ -6,6 +6,7 @@ const User = require("../models/userModel");
  * * status: working
  * @description send message
  * @method POST /api/message/sendMessage
+ * @purpose to send message to a group or individual
  */
 const sendMessage = async (req, res) => {
   const { content, chatId } = req.body;
@@ -45,6 +46,7 @@ const sendMessage = async (req, res) => {
  * * status: working
  * @description access to all messages of a chatId
  * @method POST /api/message/messages/:chatId
+ * @purpose to retrieve all messages of user with from chat specified by chatId in the url params
  */
 const allMessages = async (req, res) => {
   try {
