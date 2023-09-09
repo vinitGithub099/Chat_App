@@ -1,48 +1,21 @@
-import Footer from "./Footer";
-import Form from "./Form/Form";
 import {
   EMAIL_REGEX,
   PASSWORD_REGEX,
   PHONE_REGEX,
-} from "./Form/FormExpressions";
-import Header from "./Header";
+} from "../Form/FormExpressions";
 
-export default function Profile({ className }) {
-  const handelProfileSubmit = (profileData) => {
-    console.log(profileData);
-  };
-  return (
-    <div className={`w-full ${className}`}>
-      <Header className={`border`}></Header>
-      <section className="py-2 px-4 mx-auto border-2 max-w-md">
-        <h1 className="text-2xl font-semibold">Change Info</h1>
-        <p className="mb-2 text-xs text-gray-400">
-          changes will be reflected to every services
-        </p>
-        <Form
-          className="max-w-sm p-2"
-          fields={ProfileFields}
-          buttonConfigs={{
-            type: "submit",
-            label: "Save",
-            className: "mt-1 mb-2 py-2 px-4 bg-blue-500 rounded-lg text-white",
-          }}
-          handleSubmit={handelProfileSubmit}
-        ></Form>
-      </section>
-      <Footer className={`border`}></Footer>
-    </div>
-  );
-}
+const containerClassName = "mb-4 flex flex-col";
+const className = "border-2 rounded-lg mt-1 mb-2 p-2 col-span-2";
 
-const ProfileFields = [
+export const getProfileFields = (userProfile) => [
   {
     type: "text",
     label: "Name",
-    name: "fullName",
-    id: "fullName",
-    defaultValue: "",
-    className: "border-2 rounded-lg mt-1 mb-2 p-2",
+    name: "name",
+    id: "name",
+    defaultValue: userProfile.name,
+    containerClassName: containerClassName,
+    className: className,
     inputClassName: "w-full pl-2 outline-none",
     placeholder: "Name",
     required: true,
@@ -60,8 +33,9 @@ const ProfileFields = [
     id: "bio",
     rows: 5,
     cols: 40,
-    defaultValue: "",
-    className: "border-2 rounded-lg mt-1 mb-2 p-2",
+    defaultValue: userProfile.bio,
+    containerClassName: containerClassName,
+    className: className,
     inputClassName: "w-full pl-2 outline-none",
     placeholder: "Enter your bio",
     required: true,
@@ -79,8 +53,9 @@ const ProfileFields = [
     id: "phone",
     rows: 5,
     cols: 40,
-    defaultValue: "",
-    className: "border-2 rounded-lg mt-1 mb-2 p-2",
+    defaultValue: userProfile.phone,
+    containerClassName: containerClassName,
+    className: className,
     inputClassName: "w-full pl-2 outline-none",
     placeholder: "Enter phone number",
     required: true,
@@ -100,8 +75,9 @@ const ProfileFields = [
     label: "Email",
     name: "email",
     id: "email",
-    defaultValue: "",
-    className: "border-2 rounded-lg mt-1 mb-2 p-2",
+    defaultValue: userProfile.email,
+    containerClassName: containerClassName,
+    className: className,
     inputClassName: "w-full pl-2 outline-none",
     placeholder: "Email",
     required: true,
@@ -121,8 +97,9 @@ const ProfileFields = [
     label: "Password",
     name: "password",
     id: "password",
-    defaultValue: "",
-    className: "border-2 rounded-lg mt-1 mb-2 p-2",
+    defaultValue: userProfile.password,
+    containerClassName: containerClassName,
+    className: className,
     inputClassName: "w-full pl-2 outline-none",
     placeholder: "******",
     required: true,

@@ -31,12 +31,7 @@ const SubmitButton = ({ label, handleClick, className, children, ...rest }) => {
 
 const NavButton = ({ label, handleClick, className, children, ...rest }) => {
   return (
-    <button
-      type="button"
-      className={`px-4 py-2 font-semibold rounded-sm text-md ${className} transition-all duration-200`}
-      onClick={handleClick}
-      {...rest}
-    >
+    <button type="button" className={className} onClick={handleClick} {...rest}>
       {_.isEmpty(label) ? children : label}
     </button>
   );

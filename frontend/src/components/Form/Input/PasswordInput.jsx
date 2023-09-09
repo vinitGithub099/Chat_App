@@ -12,6 +12,7 @@ export default function PasswordInput({
   id,
   defaultValue,
   className,
+  containerClassName,
   inputClassName,
   placeholder,
   validation,
@@ -49,7 +50,7 @@ export default function PasswordInput({
   };
 
   return (
-    <div className="w-full mb-4 flex flex-col">
+    <div className={`w-full ${containerClassName}`}>
       {!_.isEmpty(label) ? <label htmlFor={name}>{label}</label> : null}
       <div className={buildClassName(``)}>
         {!_.isEmpty(icon) ? (

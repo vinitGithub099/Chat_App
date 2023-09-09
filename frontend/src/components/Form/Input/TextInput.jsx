@@ -8,6 +8,7 @@ export default function TextInput({
   name,
   id,
   defaultValue,
+  containerClassName,
   className,
   inputClassName,
   placeholder,
@@ -30,7 +31,7 @@ export default function TextInput({
     return `${defaultClassName} ${className} ${instanceClassName} ${errorClassName}`;
   };
   return (
-    <div className="w-full mb-4 flex flex-col">
+    <div className={`w-full ${containerClassName}`}>
       {!_.isEmpty(label) ? <label htmlFor={name}>{label}</label> : null}
       <div className={buildClassName(``)}>
         {!_.isEmpty(icon) ? (

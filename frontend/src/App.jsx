@@ -5,14 +5,14 @@ import SampleHome from "./SampleHome";
 import ProtectedRoute from "./components/Auth/ProtectedRoute";
 import Login from "./components/LoginSignUp/Login";
 import SignUp from "./components/LoginSignUp/SignUp";
-import Profile from "./components/Profile";
+import { default as EditProfile } from "./components/Profile/EditProfile";
+import Profile from "./components/Profile/Profile";
 import "./index.css";
 import { authorize } from "./store/Features/AuthSlice";
 
 export default function App() {
   useEffect(() => {
     const token = localStorage.getItem("token");
-    console.log(token);
     if (!_.isEmpty(token)) {
       authorize({ payload: { authorized: true } });
     }
@@ -26,10 +26,18 @@ export default function App() {
         <Route path="/login" element={<Login></Login>}></Route>
         <Route path="/register" element={<SignUp></SignUp>}></Route>
         <Route
+          path="/edit-profile"
+          element={
+            <ProtectedRoute>
+              <EditProfile className=""></EditProfile>
+            </ProtectedRoute>
+          }
+        ></Route>
+        <Route
           path="/profile"
           element={
             <ProtectedRoute>
-              <Profile></Profile>
+              <Profile className=""></Profile>
             </ProtectedRoute>
           }
         ></Route>
