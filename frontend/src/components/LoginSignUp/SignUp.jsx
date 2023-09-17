@@ -1,3 +1,4 @@
+import { unwrapResult } from "@reduxjs/toolkit";
 import {
   AiOutlineGithub,
   AiOutlineGoogle,
@@ -7,54 +8,59 @@ import {
 } from "react-icons/ai";
 import { IoMdUnlock } from "react-icons/io";
 import { MdEmail } from "react-icons/md";
-import { authAPI } from "../../api/authAPI";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { registerUser } from "../../store/Features/AuthActions";
 import Form from "../Form/Form";
-import { EMAIL_REGEX, PASSWORD_REGEX } from "../Form/FormExpressions";
+import { EMAIL_REGEX } from "../Form/FormExpressions";
 import SocialIconList from "./SocialIconList";
 
 export default function SignUp({ className }) {
-  const handleLoginSubmit = (signUpData) => {
-    console.log(signUpData);
-    registerUser(signUpData);
-  };
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const registerUser = (userData) => {
-    authAPI
-      .registerUser(userData)
-      .then((res) => console.log(res))
+  const handleLoginSubmit = async (signUpData) => {
+    console.log(signUpData);
+    dispatch(registerUser(signUpData))
+      .then(unwrapResult)
+      .then(() => setTimeout(() => navigate("/login"), 1000))
+      /* .then((res) => setTimeout(() => navigate("/login"), 1000)) */
       .catch((error) => console.log(error));
   };
+
   return (
-    <section className={`max-w-sm border-2 rounded-md p-4${className}`}>
-      <h1 className="p-2 font-bold text-lg">SignUp</h1>
-      <Form
-        className="max-w-sm p-2"
-        fields={SignUpFields}
-        buttonConfigs={{
-          type: "submit",
-          label: "Submit",
-          className: "w-full my-2 py-2 px-1 bg-blue-500 rounded-md text-white",
-        }}
-        handleSubmit={handleLoginSubmit}
-      ></Form>
-      {/* Registration link */}
-      <p className="text-center font-light text-sm mt-4">
-        {`or continue with your social profile`}
-      </p>
+    <div className={`w-full ${className}`}>
+      <section className="mx-auto max-w-sm border-2 rounded-md p-4">
+        <h1 className="p-2 font-bold text-lg">SignUp</h1>
+        <Form
+          className="max-w-sm p-2"
+          fields={SignUpFields}
+          buttonConfigs={{
+            type: "submit",
+            label: "Submit",
+            className:
+              "w-full my-2 py-2 px-1 bg-blue-500 rounded-md text-white",
+          }}
+          handleSubmit={handleLoginSubmit}
+        ></Form>
+        <p className="text-center font-light text-sm mt-4">
+          {`or continue with your social profile`}
+        </p>
 
-      <SocialIconList
-        className="flex flex-row justify-center my-4"
-        iconsList={socialIconList}
-      ></SocialIconList>
+        <SocialIconList
+          className="flex flex-row justify-center my-4"
+          iconsList={socialIconList}
+        ></SocialIconList>
 
-      {/* Registration link */}
-      <div className="text-center font-light text-sm my-2">
-        {`Already have an account? `}
-        <span className="text-blue-500 font-semibold hover:cursor-pointer">
-          Login
-        </span>
-      </div>
-    </section>
+        {/* Registration link */}
+        <div className="text-center font-light text-sm my-2">
+          {`Already have an account? `}
+          <span className="text-blue-500 font-semibold hover:cursor-pointer">
+            Login
+          </span>
+        </div>
+      </section>
+    </div>
   );
 }
 
@@ -81,14 +87,18 @@ const socialIconList = [
   },
 ];
 
+const containerClassName = "mb-4";
+const className = "border-2 rounded-md my-2 p-2";
+
 const SignUpFields = [
   {
     type: "text",
     label: "",
-    name: "fullName",
-    id: "fullName",
+    name: "name",
+    id: "name",
     defaultValue: "",
-    className: "border-2 rounded-md my-2 p-2",
+    containerClassName: containerClassName,
+    className: className,
     inputClassName: "w-full pl-2 outline-none",
     placeholder: "Name",
     required: true,
@@ -109,7 +119,8 @@ const SignUpFields = [
     label: "",
     name: "email",
     id: "email",
-    className: "border-2 rounded-md my-2 p-2",
+    containerClassName: containerClassName,
+    className: className,
     inputClassName: "w-full pl-2 outline-none",
     placeholder: "Email",
     required: true,
@@ -131,10 +142,11 @@ const SignUpFields = [
   },
   {
     type: "password",
-    label: "password",
+    label: "",
     name: "password",
     id: "password",
-    className: "border-2 rounded-md my-2 p-2",
+    containerClassName: containerClassName,
+    className: className,
     inputClassName: "w-full pl-2 outline-none",
     placeholder: "******",
     required: true,
@@ -152,11 +164,11 @@ const SignUpFields = [
         value: 8,
         message: "Password must have at least 8 characters",
       },
-      pattern: {
-        value: PASSWORD_REGEX,
-        message:
-          "Password should contain minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character",
-      },
+      // pattern: {
+      //   value: PASSWORD_REGEX,
+      //   message:
+      //     "Password should contain minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character",
+      // },
     },
   },
 ];

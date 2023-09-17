@@ -26,7 +26,7 @@ export default function Profile({ className }) {
 
 function ProfileInfoInfoHeader() {
   const navigate = useNavigate();
-  const handleClick = () => navigate("/edit-profile");
+  const handleClick = () => navigate("/profile/edit");
   return (
     <div className="w-full p-4 flex flex-row justify-between border-b-2">
       <div className="">
