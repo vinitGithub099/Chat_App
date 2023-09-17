@@ -11,15 +11,17 @@ const registerUser = async (req, res) => {
   const { name, email, password, pic, bio, phone, isAdmin } = req.body;
 
   if (!name && !email && !password) {
-    res.status(400);
-    throw new Error("Please Enter all the fields");
+    res.status(400).send("Please Enter all the fields");
+    // throw new Error("Please Enter all the fields");
+    return;
   }
 
   const userExists = await User.findOne({ email });
 
   if (userExists) {
-    res.status(400);
-    throw new Error("User already exists");
+    res.status(400).send("User already exists");
+    // throw new Error("User already exists");
+    return;
   }
 
   const user = await User.create({
@@ -33,7 +35,7 @@ const registerUser = async (req, res) => {
   });
 
   if (user) {
-    res.status(201).json({
+    res.status(200).json({
       _id: user._id,
       name: user.name,
       email: user.email,
@@ -45,8 +47,8 @@ const registerUser = async (req, res) => {
       token: generateToken(user._id),
     });
   } else {
-    res.status(400);
-    throw new Error("Failed to create the User");
+    res.status(400).send("Failed to create the User");
+    // throw new Error("Failed to create the User");
   }
 };
 
@@ -74,8 +76,8 @@ const loginUser = async (req, res) => {
       token: generateToken(user._id),
     });
   } else {
-    res.status(401);
-    throw new Error("Invalid Email or Password");
+    res.status(401).send("Invalid Email or Password");
+    // throw new Error("Invalid Email or Password");
   }
 };
 
