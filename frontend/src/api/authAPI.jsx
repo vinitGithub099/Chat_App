@@ -3,7 +3,7 @@ import { api } from "./axiosConfigs";
 export const authAPI = {
   loginUser: async (data) => {
     const result = await api.request({
-      url: `/login`,
+      url: `/user/login`,
       method: `POST`,
       data: data,
       signal: new AbortController().signal,
@@ -12,12 +12,12 @@ export const authAPI = {
     if (result.status === 200) {
       return result.data;
     } else {
-      return result.message;
+      throw new Error(result.message);
     }
   },
   registerUser: async (data) => {
     const result = await api.request({
-      url: `/register`,
+      url: `/user/register`,
       method: `POST`,
       data: data,
       signal: new AbortController().signal,
@@ -26,7 +26,7 @@ export const authAPI = {
     if (result.status === 200) {
       return result.data;
     } else {
-      return result.message;
+      throw new Error(result.message);
     }
   },
 };

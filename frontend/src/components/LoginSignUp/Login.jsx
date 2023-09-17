@@ -1,3 +1,4 @@
+import { unwrapResult } from "@reduxjs/toolkit";
 import {
   AiOutlineGithub,
   AiOutlineGoogle,
@@ -6,56 +7,58 @@ import {
 } from "react-icons/ai";
 import { IoMdUnlock } from "react-icons/io";
 import { MdEmail } from "react-icons/md";
-import { authAPI } from "../../api/authAPI";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../../store/Features/AuthActions";
 import Form from "../Form/Form";
 import { EMAIL_REGEX } from "../Form/FormExpressions";
 import SocialIconList from "./SocialIconList";
 
 export default function Login({ className }) {
-  const handleLoginSubmit = (loginData) => {
-    console.log(loginData);
-    loginUser(loginData);
-  };
+  const dispatch = useDispatch();
 
-  const loginUser = (userData) => {
-    authAPI
-      .loginUser(userData)
+  const handleLoginSubmit = async (loginData) => {
+    console.log(loginData);
+    dispatch(loginUser(loginData))
+      .then(unwrapResult)
       .then((res) => console.log(res))
       .catch((error) => console.log(error));
   };
 
   return (
-    <section className={`max-w-sm border-2 rounded-md p-4${className}`}>
-      <h1 className="p-2 font-bold text-lg">Login</h1>
-      <Form
-        className="max-w-sm p-2"
-        fields={LoginFields}
-        buttonConfigs={{
-          type: "submit",
-          label: "Submit",
-          className: "w-full my-2 py-2 px-1 bg-blue-500 rounded-md text-white",
-        }}
-        handleSubmit={handleLoginSubmit}
-      ></Form>
+    <div className={`w-full ${className}`}>
+      <section className="mx-auto max-w-sm border-2 rounded-md p-4">
+        <h1 className="p-2 font-bold text-lg">Login</h1>
+        <Form
+          className="w-full p-2"
+          fields={LoginFields}
+          buttonConfigs={{
+            type: "submit",
+            label: "Submit",
+            className:
+              "w-full my-2 py-2 px-1 bg-blue-500 rounded-md text-white",
+          }}
+          handleSubmit={handleLoginSubmit}
+        ></Form>
 
-      {/* Registration link */}
-      <p className="text-center font-light text-sm mt-4">
-        {`or continue with your social profile`}
-      </p>
+        {/* Registration link */}
+        <p className="text-center font-light text-sm mt-4">
+          {`or continue with your social profile`}
+        </p>
 
-      <SocialIconList
-        className="flex flex-row justify-center my-4"
-        iconsList={socialIconList}
-      ></SocialIconList>
+        <SocialIconList
+          className="flex flex-row justify-center my-4"
+          iconsList={socialIconList}
+        ></SocialIconList>
 
-      {/* Registration link */}
-      <div className="text-center font-light text-sm my-2">
-        {`Don't have an account yet? `}
-        <span className="text-blue-500 font-semibold hover:cursor-pointer">
-          Register
-        </span>
-      </div>
-    </section>
+        {/* Registration link */}
+        <div className="text-center font-light text-sm my-2">
+          {`Don't have an account yet? `}
+          <span className="text-blue-500 font-semibold hover:cursor-pointer">
+            Register
+          </span>
+        </div>
+      </section>
+    </div>
   );
 }
 
@@ -82,6 +85,9 @@ const socialIconList = [
   },
 ];
 
+const containerClassName = "mb-4";
+const className = "border-2 rounded-md my-2 p-2";
+
 const LoginFields = [
   {
     type: "email",
@@ -89,7 +95,8 @@ const LoginFields = [
     name: "email",
     id: "email",
     defaultValue: "",
-    className: "border-2 rounded-md my-2 p-2",
+    containerClassName: containerClassName,
+    className: className,
     inputClassName: "w-full pl-2 outline-none",
     placeholder: "Email",
     required: true,
@@ -111,11 +118,12 @@ const LoginFields = [
   },
   {
     type: "password",
-    label: "password",
+    label: "",
     name: "password",
     id: "password",
     defaultValue: "",
-    className: "border-2 rounded-md my-2 p-2",
+    containerClassName: containerClassName,
+    className: className,
     inputClassName: "w-full pl-2 outline-none",
     placeholder: "password",
     required: true,
@@ -136,14 +144,3 @@ const LoginFields = [
     },
   },
 ];
-
-/**
- *  name,
-  label,
-  type,
-  id,
-  placeholder,
-  validation,
-  multiline,
-  className,
- */
