@@ -2,7 +2,12 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      minWidth: {
+        msgMaxWidth: "80%",
+        msgMinWidth: "40%",
+      },
+    },
   },
   plugins: [],
 };

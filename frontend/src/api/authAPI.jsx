@@ -26,7 +26,7 @@ export const authAPI = {
     if (result.status === 200) {
       return result.data;
     } else {
-      throw new Error(result.message);
+      throw new Error(result.mewssage);
     }
   },
 };
