@@ -11,7 +11,7 @@ const initialState = {
   loading: false,
   error: null,
   email: null,
-  name: null,
+  name: "Vinit",
   token: null,
   authorized: false,
 };

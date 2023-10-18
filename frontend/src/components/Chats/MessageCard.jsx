@@ -1,37 +1,52 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import userLogo from "../../assets/profile-user_64572.png";
 import UserAvatar from "./UserAvatar";
+
 export default function MessageCard({
   className,
   senderName,
   timeStamp,
   message,
 }) {
-  const getTimeFromDate = (timestamp) =>
-    new Date(timestamp * 1000).toLocaleTimeString();
-
   return (
     <div
       className={`min-w-msgMinWidth max-w-msgMaxWidth p-2 grid grid-cols-10 ${className}`}
     >
-      {
-        <UserAvatar
-          className="col-span-1 pr-1"
-          config="xs"
-          imgSrc={userLogo}
-        ></UserAvatar>
-      }
+      <SenderAvatar senderName={senderName}></SenderAvatar>
       <div className="col-span-9 flex flex-row justify-between">
-        <div className="mb-2 flex flex-col items-baseline justify-between">
-          <h6 className="text-xs mb-1 sm:text-sm font-semibold">
-            {senderName ? senderName : "Sender Name"}
-          </h6>
-          <MessageText message={message}></MessageText>
-        </div>
-        <p className="text-xs">
-          {timeStamp ? getTimeFromDate(timeStamp) : "time"}
-        </p>
+        <ChatDetail senderName={senderName} message={message}></ChatDetail>
+        <MessageDeliveryTime timeStamp={timeStamp}></MessageDeliveryTime>
       </div>
+    </div>
+  );
+}
+
+function SenderAvatar({ senderName }) {
+  const userName = useSelector((state) => state.auth.name);
+
+  return (
+    senderName != userName && (
+      <UserAvatar
+        className="col-span-1 pr-1"
+        config="xs"
+        imgSrc={userLogo}
+      ></UserAvatar>
+    )
+  );
+}
+
+function ChatDetail({ senderName, message }) {
+  const userName = useSelector((state) => state.auth.name);
+
+  return (
+    <div className="mb-2 flex flex-col items-baseline justify-between">
+      {senderName != userName && (
+        <h6 className="text-xs mb-1 sm:text-sm font-semibold">
+          {senderName ? senderName : "Sender Name"}
+        </h6>
+      )}
+      <MessageText message={message}></MessageText>
     </div>
   );
 }
@@ -69,5 +84,13 @@ function MessageText({ message }) {
         <span className="italic">This is a was deleted or not fetched!</span>
       )}
     </div>
+  );
+}
+
+function MessageDeliveryTime({ timeStamp }) {
+  const getTimeFromDate = (timestamp) =>
+    new Date(timestamp * 1000).toLocaleTimeString();
+  return (
+    <p className="text-xs">{timeStamp ? getTimeFromDate(timeStamp) : "time"}</p>
   );
 }

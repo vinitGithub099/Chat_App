@@ -29,7 +29,7 @@ export default function Form({
         {fields.map((field, index) => {
           return <Input key={index} field={field}></Input>;
         })}
-        <Button {...buttonConfigs}></Button>
+        {buttonConfigs && <Button {...buttonConfigs}></Button>}
       </form>
     </FormProvider>
   ) : (

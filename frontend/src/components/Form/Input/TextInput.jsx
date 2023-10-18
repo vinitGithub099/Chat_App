@@ -14,6 +14,7 @@ export default function TextInput({
   placeholder,
   validation,
   icon,
+  onChange,
 }) {
   const {
     register,
@@ -47,6 +48,7 @@ export default function TextInput({
           placeholder={placeholder ? placeholder : ""}
           className={inputClassName}
           {...register(name, validation)}
+          onChange={onChange}
         />
       </div>
       {errors && errors[id] ? (

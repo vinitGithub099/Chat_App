@@ -1,12 +1,33 @@
 import { useEffect, useRef } from "react";
+import { useSelector } from "react-redux";
 import Form from "../Form/Form";
 import MessageCard from "./MessageCard";
 
 export default function ChatScreen({ className }) {
-  const buildMessageClassName = (isSender) => {
+  return (
+    <div className={`p-2 max-h-screen flex flex-col flex-1 ${className}`}>
+      <ChannelHeader channelName={""}></ChannelHeader>
+      <DisplayChatsComponent messages={messages}></DisplayChatsComponent>
+      <SendMessageComponent></SendMessageComponent>
+    </div>
+  );
+}
+
+function ChannelHeader({ channelName }) {
+  return (
+    <div className="py-2 mb-4 border-2 text-md font-semibold">
+      {channelName ? channelName : "Channel Name"}
+    </div>
+  );
+}
+
+function DisplayChatsComponent({ messages }) {
+  const userName = useSelector((state) => state.auth.name);
+
+  const buildMessageClassName = (senderName) => {
     let defaultClassName = "border-2 mb-4 rounded-md ";
-    if (isSender) defaultClassName += "self-start";
-    else defaultClassName += "self-end";
+    if (userName == senderName) defaultClassName += "self-end";
+    else defaultClassName += "self-start";
     return defaultClassName;
   };
 
@@ -21,41 +42,41 @@ export default function ChatScreen({ className }) {
   }, []);
 
   return (
-    <div className={`p-2 max-h-screen flex flex-col flex-1 ${className}`}>
-      <div className="py-2 mb-4 border-2 text-md font-semibold">
-        Channel Name
-      </div>
-      <div className="overflow-y-auto flex flex-col">
-        {messages.map(({ senderName, isSender, timeStamp, message }, index) => {
-          return (
-            <MessageCard
-              key={index}
-              className={buildMessageClassName(isSender)}
-              senderName={senderName}
-              timeStamp={timeStamp}
-              message={message}
-            ></MessageCard>
-          );
-        })}
-        <div ref={messagesEndRef} />
-      </div>
-      <Form
-        className="w-full flex flex-row items-center gap-4"
-        fields={formfFields}
-        buttonConfigs={{
-          type: "submit",
-          label: "Save",
-          className: "mt-1 mb-2 py-2 px-4 bg-blue-500 rounded-lg text-white",
-        }}
-        handleSubmit={(e) => console.log(e)}
-      ></Form>
+    <div className="overflow-y-auto flex flex-col">
+      {messages.map(({ senderName, timeStamp, message }, index) => {
+        return (
+          <MessageCard
+            key={index}
+            className={buildMessageClassName(senderName)}
+            senderName={senderName}
+            timeStamp={timeStamp}
+            message={message}
+          ></MessageCard>
+        );
+      })}
+      <div ref={messagesEndRef} />
     </div>
+  );
+}
+
+function SendMessageComponent() {
+  return (
+    <Form
+      className="w-full flex flex-row items-center gap-4"
+      fields={formFields}
+      buttonConfigs={{
+        type: "submit",
+        label: "Save",
+        className: "mt-1 mb-2 py-2 px-4 bg-blue-500 rounded-lg text-white",
+      }}
+      handleSubmit={(e) => console.log(e)}
+    ></Form>
   );
 }
 
 const containerClassName = "";
 const className = "rounded-md";
-const formfFields = [
+const formFields = [
   {
     type: "text",
     label: "",
@@ -67,170 +88,108 @@ const formfFields = [
     inputClassName: "p-2 w-full outline-none",
     placeholder: "Send Message",
     required: true,
-    validation: {
-      required: {
-        value: true,
-        message: "Email is required",
-      },
-    },
   },
 ];
 
 const messages = [
   {
-    senderName: "Alice",
-    isSender: true,
+    senderName: "Vinit",
     timeStamp: 1634385600,
-    message: "Hello there!",
+    message: "Hey Ayush, how's it going?",
   },
   {
-    senderName: "Bob",
-    isSender: false,
+    senderName: "Ayush",
     timeStamp: 1634385900,
-    message: "Hi Alice, how are you?",
+    message: "I'm good, Vinit. How about you?",
   },
   {
-    senderName: "Alice",
-    isSender: true,
+    senderName: "Vinit",
     timeStamp: 1634386200,
-    message: "I'm doing well, thanks for asking!",
+    message: "I'm doing well, thanks!",
   },
   {
-    senderName: "Charlie",
-    isSender: false,
+    senderName: "Ayush",
     timeStamp: 1634386500,
-    message: "Hey, what's up?",
+    message: "That's great to hear.",
   },
   {
-    senderName: "Alice",
-    isSender: true,
+    senderName: "Vinit",
     timeStamp: 1634386800,
-    message: "Not much, just working on a project.",
+    message: "What have you been up to lately?",
   },
   {
-    senderName: "David",
-    isSender: false,
+    senderName: "Ayush",
     timeStamp: 1634387100,
-    message: "That sounds interesting. Tell me more.",
+    message: "I've been working on a new project at work.",
   },
   {
-    senderName: "Alice",
-    isSender: true,
+    senderName: "Vinit",
     timeStamp: 1634387400,
-    message: "Sure, it's about artificial intelligence.",
+    message: "Tell me more about it.",
   },
   {
-    senderName: "Eve",
-    isSender: false,
+    senderName: "Ayush",
     timeStamp: 1634387700,
-    message: "I love AI! What's the project's goal?",
+    message: "It's a software development project for a client.",
   },
   {
-    senderName: "Alice",
-    isSender: true,
+    senderName: "Vinit",
     timeStamp: 1634388000,
-    message: "We're developing a chatbot.",
+    message: "Sounds interesting. What technologies are you using?",
   },
   {
-    senderName: "Frank",
-    isSender: false,
+    senderName: "Ayush",
     timeStamp: 1634388300,
-    message: "That sounds cool! What's it called?",
+    message: "We're primarily using Python and Django for the backend.",
   },
   {
-    senderName: "Alice",
-    isSender: true,
+    senderName: "Vinit",
     timeStamp: 1634388600,
-    message: "We haven't decided on a name yet.",
+    message: "Nice! Python is a great choice for web development.",
   },
   {
-    senderName: "Grace",
-    isSender: false,
+    senderName: "Ayush",
     timeStamp: 1634388900,
-    message: "Let me know when it's ready!",
+    message: "Yes, it's versatile and has a strong ecosystem.",
   },
   {
-    senderName: "Alice",
-    isSender: true,
+    senderName: "Vinit",
     timeStamp: 1634389200,
-    message: "I will, thanks!",
+    message: "Absolutely. Good luck with your project!",
   },
   {
-    senderName: "Harry",
-    isSender: false,
+    senderName: "Ayush",
     timeStamp: 1634389500,
-    message: "Bye for now!",
+    message: "Thanks, Vinit! How about you? Any exciting projects?",
   },
   {
-    senderName: "Alice",
-    isSender: true,
+    senderName: "Vinit",
     timeStamp: 1634389800,
-    message: "Goodbye!",
+    message: "I'm working on a mobile app for a startup.",
   },
   {
-    senderName: "Isabel",
-    isSender: false,
+    senderName: "Ayush",
     timeStamp: 1634390100,
-    message: "Hello there!",
+    message: "That sounds cool. What's it about?",
   },
   {
-    senderName: "Alice",
-    isSender: true,
+    senderName: "Vinit",
     timeStamp: 1634390400,
-    message: "Hi Isabel, how are you?",
+    message: "It's a social networking app.",
   },
   {
-    senderName: "Jacob",
-    isSender: false,
+    senderName: "Ayush",
     timeStamp: 1634390700,
-    message: "I'm doing well, thanks for asking!",
+    message: "Interesting. I'd love to hear more about it.",
   },
   {
-    senderName: "Alice",
-    isSender: true,
+    senderName: "Vinit",
     timeStamp: 1634391000,
-    message: "Hey, what's up?",
+    message: "Sure, I'll fill you in later. Got to run for a meeting now.",
   },
   {
-    senderName: "Kevin",
-    isSender: false,
+    senderName: "Ayush",
     timeStamp: 1634391300,
-    message: "Not much, just working on a project.",
-  },
-  {
-    senderName: "Alice",
-    isSender: true,
-    timeStamp: 1634391600,
-    message: "That sounds interesting. Tell me more.",
-  },
-  {
-    senderName: "Linda",
-    isSender: false,
-    timeStamp: 1634391900,
-    message: "I love AI! What's the project's goal?",
-  },
-  {
-    senderName: "Alice",
-    isSender: true,
-    timeStamp: 1634392200,
-    message: "We're developing a chatbot.",
-  },
-  {
-    senderName: "Mike",
-    isSender: false,
-    timeStamp: 1634392500,
-    message: "That sounds cool! What's it called?",
-  },
-  {
-    senderName: "Alice",
-    isSender: true,
-    timeStamp: 1634392800,
-    message: "We haven't decided on a name yet.",
-  },
-  {
-    senderName: "Nancy",
-    isSender: false,
-    timeStamp: 1634393100,
-    message: "Let me know when it's ready!",
+    message: "No problem. Catch you later, Vinit!",
   },
 ];
