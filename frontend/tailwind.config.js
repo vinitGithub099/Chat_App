@@ -4,8 +4,15 @@ export default {
   theme: {
     extend: {
       minWidth: {
-        msgMaxWidth: "80%",
-        msgMinWidth: "40%",
+        msgMaxWidth: "200px",
+        msgMinWidth: "100px",
+      },
+      width: {
+        sidebar: "80%",
+        dropdown: "150px",
+      },
+      screens: {
+        mobile: "426px",
       },
     },
   },

@@ -1,22 +1,31 @@
 import { useEffect, useRef } from "react";
+import { GiHamburgerMenu } from "react-icons/gi";
 import { useSelector } from "react-redux";
 import Form from "../Form/Form";
 import MessageCard from "./MessageCard";
 
-export default function ChatScreen({ className }) {
+export default function ChatScreen({ className, toggleSideBar }) {
   return (
     <div className={`p-2 max-h-screen flex flex-col flex-1 ${className}`}>
-      <ChannelHeader channelName={""}></ChannelHeader>
+      <ChannelHeader
+        channelName={""}
+        toggleSideBar={toggleSideBar}
+      ></ChannelHeader>
       <DisplayChatsComponent messages={messages}></DisplayChatsComponent>
       <SendMessageComponent></SendMessageComponent>
     </div>
   );
 }
 
-function ChannelHeader({ channelName }) {
+function ChannelHeader({ channelName, toggleSideBar }) {
   return (
-    <div className="py-2 mb-4 border-2 text-md font-semibold">
-      {channelName ? channelName : "Channel Name"}
+    <div className="py-2 mb-4 border-2 flex flex-row items-center">
+      <div className="mobile:hidden py-1 pr-4" onClick={toggleSideBar}>
+        <GiHamburgerMenu size={20}></GiHamburgerMenu>
+      </div>
+      <div className="text-xl font-semibold">
+        {channelName ? channelName : "Channel Name"}
+      </div>
     </div>
   );
 }
@@ -62,12 +71,12 @@ function DisplayChatsComponent({ messages }) {
 function SendMessageComponent() {
   return (
     <Form
-      className="w-full flex flex-row items-center gap-4"
+      className="w-full flex flex-row items-center gap-2"
       fields={formFields}
       buttonConfigs={{
         type: "submit",
-        label: "Save",
-        className: "mt-1 mb-2 py-2 px-4 bg-blue-500 rounded-lg text-white",
+        label: "Send",
+        className: "py-2 px-4 bg-blue-500 rounded-lg text-white",
       }}
       handleSubmit={(e) => console.log(e)}
     ></Form>
@@ -85,7 +94,7 @@ const formFields = [
     defaultValue: "",
     containerClassName: containerClassName,
     className: className,
-    inputClassName: "p-2 w-full outline-none",
+    inputClassName: "p-2 w-full outline-none rounded-md",
     placeholder: "Send Message",
     required: true,
   },
@@ -105,7 +114,8 @@ const messages = [
   {
     senderName: "Vinit",
     timeStamp: 1634386200,
-    message: "I'm doing well, thanks!",
+    message:
+      "I'm doing well, thanks!I'm doing well, thanks!I'm doing well, thanks!I'm doing well, thanks!I'm doing well, thanks!I'm doing well, thanks!I'm doing well, thanks!I'm doing well, thanks!I'm doing well, thanks!I'm doing well, thanks!I'm doing well, thanks!I'm doing well, thanks!I'm doing well, thanks!I'm doing well, thanks!I'm doing well, thanks!I'm doing well, thanks!I'm doing well, thanks!I'm doing well, thanks!I'm doing well, thanks!I'm doing well, thanks!I'm doing well, thanks!I'm doing well, thanks!",
   },
   {
     senderName: "Ayush",

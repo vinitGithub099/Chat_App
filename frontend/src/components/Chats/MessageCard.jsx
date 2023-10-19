@@ -11,10 +11,10 @@ export default function MessageCard({
 }) {
   return (
     <div
-      className={`min-w-msgMinWidth max-w-msgMaxWidth p-2 grid grid-cols-10 ${className}`}
+      className={`min-w-msgMinWidth max-w-msgMaxWidth p-1 grid grid-cols-10 ${className}`}
     >
       <SenderAvatar senderName={senderName}></SenderAvatar>
-      <div className="col-span-9 flex flex-row justify-between">
+      <div className="col-span-9 flex flex-row justify-between  items-baseline gap-2">
         <ChatDetail senderName={senderName} message={message}></ChatDetail>
         <MessageDeliveryTime timeStamp={timeStamp}></MessageDeliveryTime>
       </div>
@@ -40,7 +40,7 @@ function ChatDetail({ senderName, message }) {
   const userName = useSelector((state) => state.auth.name);
 
   return (
-    <div className="mb-2 flex flex-col items-baseline justify-between">
+    <div className="flex flex-col items-baseline justify-between">
       {senderName != userName && (
         <h6 className="text-xs mb-1 sm:text-sm font-semibold">
           {senderName ? senderName : "Sender Name"}
