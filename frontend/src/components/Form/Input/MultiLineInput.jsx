@@ -23,7 +23,7 @@ export default function MultiLineInput({
   } = useFormContext();
 
   const buildClassName = (instanceClassName) => {
-    let defaultClassName = `w-full border flex items-center outline-none`;
+    let defaultClassName = `w-full flex items-center outline-none`;
 
     let errorClassName = ``;
     if (errors && errors[id]) {
@@ -56,7 +56,7 @@ export default function MultiLineInput({
       {errors && errors[id] ? (
         <FormError
           message={errors[id].message}
-          className={`font-light text-xs italic text-red-500`}
+          className={`text-xs italic text-red-500`}
         ></FormError>
       ) : null}
     </div>

@@ -19,6 +19,7 @@ export default function EmailInput({
     register,
     formState: { errors },
   } = useFormContext();
+
   const buildClassName = (instanceClassName) => {
     let defaultClassName = `w-full border flex items-center outline-none`;
 
@@ -52,7 +53,7 @@ export default function EmailInput({
       {errors && errors[id] ? (
         <FormError
           message={errors[id].message}
-          className={`font-light text-xs italic text-red-500`}
+          className={`text-xs italic text-warning`}
         ></FormError>
       ) : null}
     </div>

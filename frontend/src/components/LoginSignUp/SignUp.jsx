@@ -101,7 +101,6 @@ const SignUpFields = [
     className: className,
     inputClassName: "w-full pl-2 outline-none",
     placeholder: "Name",
-    required: true,
     icon: {
       className: "text-gray-500",
       icon: AiOutlineUser,

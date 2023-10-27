@@ -3,7 +3,7 @@ import ChatScreen from "../components/Chats/ChatScreen";
 import SideBar from "../components/Chats/SideBar";
 
 export default function ChatsPage({ className }) {
-  const [isSideBarOpen, setIsSideBarOpen] = useState(false);
+  const [isSideBarOpen, setIsSideBarOpen] = useState(true);
   const toggleSideBar = () => setIsSideBarOpen((prev) => !prev);
   return (
     <div className={`w-full max-h-screen flex flex-row ${className}`}>

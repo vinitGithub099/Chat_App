@@ -1,4 +1,4 @@
-import { useFormContext } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 import _ from "underscore";
 import FormError from "../FormError";
 
@@ -14,49 +14,60 @@ export default function TextInput({
   placeholder,
   validation,
   icon,
-  onChange,
+  onChange: handleChange,
 }) {
   const {
     register,
     formState: { errors },
+    control,
   } = useFormContext();
 
+  // const handleChange = (e) => onChange(e);/
+
   const buildClassName = (instanceClassName) => {
-    let defaultClassName = `w-full border flex items-center outline-none`;
+    let defaultClassName = `w-full flex items-center outline-none`;
 
     let errorClassName = ``;
     if (errors && errors[id]) {
-      errorClassName = `border border-red-500`;
+      errorClassName = `border border-warning`;
     }
 
     return `${defaultClassName} ${className} ${instanceClassName} ${errorClassName}`;
   };
   return (
-    <div className={`w-full ${containerClassName}`}>
-      {!_.isEmpty(label) ? <label htmlFor={name}>{label}</label> : null}
-      <div className={buildClassName(``)}>
-        {!_.isEmpty(icon) ? (
-          <div className={icon.className}>
-            <icon.icon size={icon.size}></icon.icon>
+    <Controller
+      control={control}
+      id={name}
+      name={name}
+      render={({ field: { onChange } }) => (
+        <div className={`w-full ${containerClassName}`}>
+          {!_.isEmpty(label) ? <label htmlFor={name}>{label}</label> : null}
+          <div className={buildClassName(``)}>
+            {!_.isEmpty(icon) ? (
+              <div className={icon.className}>
+                <icon.icon size={icon.size}></icon.icon>
+              </div>
+            ) : null}
+            <input
+              type={type}
+              defaultValue={defaultValue || ""}
+              placeholder={placeholder ? placeholder : ""}
+              className={inputClassName}
+              {...register(name, validation)}
+              onChange={(e) => {
+                onChange(e);
+                if (handleChange) handleChange(e);
+              }}
+            />
           </div>
-        ) : null}
-        <input
-          type={type}
-          id={name}
-          name={name}
-          defaultValue={defaultValue || ""}
-          placeholder={placeholder ? placeholder : ""}
-          className={inputClassName}
-          {...register(name, validation)}
-          onChange={onChange}
-        />
-      </div>
-      {errors && errors[id] ? (
-        <FormError
-          message={errors[id].message}
-          className={`font-light text-xs italic text-red-500`}
-        ></FormError>
-      ) : null}
-    </div>
+          {errors && errors[id] ? (
+            <FormError
+              message={errors[id].message}
+              className={`text-xs italic text-warning`}
+            ></FormError>
+          ) : null}
+        </div>
+      )}
+    />
   );
 }

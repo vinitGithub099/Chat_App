@@ -1,1 +1,8 @@
 Reference link for the project: https://www.youtube.com/playlist?list=PLKhlp2qtUcSZsGkxAdgnPcHioRr-4guZf
+
+#Issues:
+    - Fix the sidebar default open close issue
+    - padding issue and validation issue 
+
+#fixed issues:
+    - text input validation due to onChange

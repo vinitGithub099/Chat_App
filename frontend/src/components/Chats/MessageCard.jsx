@@ -3,21 +3,25 @@ import { useSelector } from "react-redux";
 import userLogo from "../../assets/profile-user_64572.png";
 import UserAvatar from "./UserAvatar";
 
-export default function MessageCard({
-  className,
-  senderName,
-  timeStamp,
-  message,
-}) {
+export default function MessageCard({ senderName, timeStamp, message }) {
+  const userName = useSelector((state) => state.auth.name);
+
+  const buildMessageClassName = (senderName) => {
+    let defaultClassName =
+      "my-4 rounded-md max-w-[90%] flex flex-row items-start gap-4 ";
+    if (userName == senderName) defaultClassName += "self-end";
+    else defaultClassName += "self-start";
+    return defaultClassName;
+  };
+
   return (
-    <div
-      className={`min-w-msgMinWidth max-w-msgMaxWidth p-1 grid grid-cols-10 ${className}`}
-    >
+    <div className={buildMessageClassName(senderName)}>
       <SenderAvatar senderName={senderName}></SenderAvatar>
-      <div className="col-span-9 flex flex-row justify-between  items-baseline gap-2">
-        <ChatDetail senderName={senderName} message={message}></ChatDetail>
-        <MessageDeliveryTime timeStamp={timeStamp}></MessageDeliveryTime>
-      </div>
+      <ChatDetail
+        senderName={senderName}
+        message={message}
+        timeStamp={timeStamp}
+      ></ChatDetail>
     </div>
   );
 }
@@ -28,24 +32,49 @@ function SenderAvatar({ senderName }) {
   return (
     senderName != userName && (
       <UserAvatar
-        className="col-span-1 pr-1"
-        config="xs"
+        className="border-2"
+        config="m"
         imgSrc={userLogo}
       ></UserAvatar>
     )
   );
 }
 
-function ChatDetail({ senderName, message }) {
+function ChatDetail({ senderName, message, timeStamp }) {
   const userName = useSelector((state) => state.auth.name);
+  const getSenderName = (senderName) => {
+    /**
+     * handle error here
+     *  if (_.isEmpty(senderName)) throw new Error();
+     * */
+    if (senderName != userName) return senderName;
+    return "You";
+  };
 
+  const buildClassName = (senderName) => {
+    let defaultClassName = "w-full flex flex-col bg-light-3 p-2 rounded-md ";
+    const decoratorClassName =
+      "relative before:absolute before:content-[''] before:w-4 before:h-4 before:bg-light-3 before:rotate-45 before: before:top-1 ";
+
+    defaultClassName += decoratorClassName;
+
+    if (senderName != userName) defaultClassName += "before:-left-1";
+    else defaultClassName += "before:-right-1";
+
+    return defaultClassName;
+  };
   return (
-    <div className="flex flex-col items-baseline justify-between">
-      {senderName != userName && (
-        <h6 className="text-xs mb-1 sm:text-sm font-semibold">
-          {senderName ? senderName : "Sender Name"}
+    <div className={buildClassName(senderName)}>
+      {/* <div className="text-sm p-5 w-[75%] bg-slate-600 text-slate-100 rounded-lg relative before:absolute before:content-[''] before:w-3 before:h-3 before:bg-slate-600 before:rotate-45 before: before:-left-1 before:top-4"> */}
+      {/* 
+      text-sm p-5 w-[75%] bg-slate-600 text-slate-100 rounded-lg relative before:absolute before:content-[''] before:w-3 before:h-3 before:bg-slate-600 before:rotate-45 before: before:-left-1 before:top-4
+      */}
+      <div className="flex flex-row items-baseline justify-between gap-4">
+        <h6 className="text-sm mb-1 sm:text-md font-semibold text-light-2">
+          {getSenderName(senderName)}
         </h6>
-      )}
+        <MessageDeliveryTime timeStamp={timeStamp}></MessageDeliveryTime>
+      </div>
       <MessageText message={message}></MessageText>
     </div>
   );
@@ -60,7 +89,7 @@ function MessageText({ message }) {
   const MessageWrapper = () => {
     let modifiedMsg = message.substring(0, 200);
     return (
-      <>
+      <p className="text-light-1">
         {modifiedMsg}
         <span
           className="hover:cursor-pointer text-blue-500"
@@ -68,12 +97,12 @@ function MessageText({ message }) {
         >
           Read More...
         </span>
-      </>
+      </p>
     );
   };
 
   return (
-    <div className="text-xs sm:text-sm">
+    <div className="text-sm sm:text-md text-light-1">
       {message ? (
         compressMessage ? (
           <MessageWrapper></MessageWrapper>
@@ -88,9 +117,53 @@ function MessageText({ message }) {
 }
 
 function MessageDeliveryTime({ timeStamp }) {
-  const getTimeFromDate = (timestamp) =>
-    new Date(timestamp * 1000).toLocaleTimeString();
   return (
-    <p className="text-xs">{timeStamp ? getTimeFromDate(timeStamp) : "time"}</p>
+    <p className="text-xs text-light-2">
+      {timeStamp ? formatTimestampToText(timeStamp) : "time"}
+    </p>
   );
+}
+
+function formatTimestampToText(timestamp) {
+  // Create a Date object from the timestamp
+  const date = new Date(timestamp);
+
+  // Get the current date for comparison
+  const currentDate = new Date();
+
+  // Check if it's today
+  if (
+    date.getDate() === currentDate.getDate() &&
+    date.getMonth() === currentDate.getMonth() &&
+    date.getFullYear() === currentDate.getFullYear()
+  ) {
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const period = hours >= 12 ? "pm" : "am";
+    const formattedHours = hours % 12 || 12; // Convert to 12-hour format
+    return `Today at ${formattedHours}:${minutes
+      .toString()
+      .padStart(2, "0")} ${period}`;
+  }
+  // Check if it's yesterday
+  else if (
+    date.getDate() === currentDate.getDate() - 1 &&
+    date.getMonth() === currentDate.getMonth() &&
+    date.getFullYear() === currentDate.getFullYear()
+  ) {
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const period = hours >= 12 ? "pm" : "am";
+    const formattedHours = hours % 12 || 12; // Convert to 12-hour format
+    return `Yesterday at ${formattedHours}:${minutes
+      .toString()
+      .padStart(2, "0")} ${period}`;
+  }
+  // For other days, display the full date and time
+  else {
+    return `${date.toLocaleDateString()} at ${date.getHours()}:${date
+      .getMinutes()
+      .toString()
+      .padStart(2, "0")}`;
+  }
 }

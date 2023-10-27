@@ -1,6 +1,6 @@
-export default function UserAvatar({ className, imgSrc, altText, config }) {
+export default function UserAvatar({ imgSrc, className, altText, config }) {
   const buildClassName = (config) => {
-    let defaultClassName = "";
+    let defaultClassName = "flex justify-center items-center ";
     if (config == "xs") {
       defaultClassName += "w-5 h-5";
     } else if (config == "s") {
@@ -12,12 +12,13 @@ export default function UserAvatar({ className, imgSrc, altText, config }) {
     } else {
       defaultClassName += "w-5 h-5";
     }
+    defaultClassName += className;
     return defaultClassName;
   };
   return (
-    <div className={`${className}`}>
+    <div className={buildClassName(config)}>
       <img
-        className={`mx-auto ${buildClassName(config)}`}
+        className={`mx-auto border border-light-1 flex flex-1 bg-light-1 rounded-full`}
         src={imgSrc}
         alt={altText}
       ></img>

@@ -1,17 +1,16 @@
 import { useEffect, useRef } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { useSelector } from "react-redux";
 import Form from "../Form/Form";
 import MessageCard from "./MessageCard";
 
 export default function ChatScreen({ className, toggleSideBar }) {
   return (
-    <div className={`p-2 max-h-screen flex flex-col flex-1 ${className}`}>
+    <div className={`max-h-screen flex flex-col flex-1 bg-dark-1 ${className}`}>
       <ChannelHeader
         channelName={""}
         toggleSideBar={toggleSideBar}
       ></ChannelHeader>
-      <DisplayChatsComponent messages={messages}></DisplayChatsComponent>
+      <DisplayChats messages={messages}></DisplayChats>
       <SendMessageComponent></SendMessageComponent>
     </div>
   );
@@ -19,27 +18,18 @@ export default function ChatScreen({ className, toggleSideBar }) {
 
 function ChannelHeader({ channelName, toggleSideBar }) {
   return (
-    <div className="py-2 mb-4 border-2 flex flex-row items-center">
+    <div className="py-4 px-2 mb-8 text-extra-light flex flex-row items-center shadow-sm shadow-dark-3">
       <div className="mobile:hidden py-1 pr-4" onClick={toggleSideBar}>
         <GiHamburgerMenu size={20}></GiHamburgerMenu>
       </div>
-      <div className="text-xl font-semibold">
+      <div className="mobile:ml-12 text-xl font-semibold text-light-1">
         {channelName ? channelName : "Channel Name"}
       </div>
     </div>
   );
 }
 
-function DisplayChatsComponent({ messages }) {
-  const userName = useSelector((state) => state.auth.name);
-
-  const buildMessageClassName = (senderName) => {
-    let defaultClassName = "border-2 mb-4 rounded-md ";
-    if (userName == senderName) defaultClassName += "self-end";
-    else defaultClassName += "self-start";
-    return defaultClassName;
-  };
-
+function DisplayChats({ messages }) {
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -51,12 +41,11 @@ function DisplayChatsComponent({ messages }) {
   }, []);
 
   return (
-    <div className="overflow-y-auto flex flex-col">
+    <div className="px-8 w-full overflow-y-scroll scrollbar-msg flex flex-col">
       {messages.map(({ senderName, timeStamp, message }, index) => {
         return (
           <MessageCard
             key={index}
-            className={buildMessageClassName(senderName)}
             senderName={senderName}
             timeStamp={timeStamp}
             message={message}
@@ -70,21 +59,21 @@ function DisplayChatsComponent({ messages }) {
 
 function SendMessageComponent() {
   return (
-    <Form
-      className="w-full flex flex-row items-center gap-2"
-      fields={formFields}
-      buttonConfigs={{
-        type: "submit",
-        label: "Send",
-        className: "py-2 px-4 bg-blue-500 rounded-lg text-white",
-      }}
-      handleSubmit={(e) => console.log(e)}
-    ></Form>
+    <div className="my-4 mx-8">
+      <Form
+        className="w-full flex flex-row gap-2"
+        fields={formFields}
+        buttonConfigs={{
+          type: "submit",
+          label: "Send",
+          className: "py-2 px-4 bg-blue-500 rounded-lg text-white bg-dark",
+        }}
+        handleSubmit={(e) => console.log(e)}
+      ></Form>
+    </div>
   );
 }
 
-const containerClassName = "";
-const className = "rounded-md";
 const formFields = [
   {
     type: "text",
@@ -92,11 +81,11 @@ const formFields = [
     name: "chatBox",
     id: "chat",
     defaultValue: "",
-    containerClassName: containerClassName,
-    className: className,
-    inputClassName: "p-2 w-full outline-none rounded-md",
+    containerClassName: "",
+    className: "rounded-md bg-light-3",
+    inputClassName:
+      "p-2 w-full outline-none rounded-md bg-light-3 text-light-1",
     placeholder: "Send Message",
-    required: true,
   },
 ];
 
@@ -105,6 +94,21 @@ const messages = [
     senderName: "Vinit",
     timeStamp: 1634385600,
     message: "Hey Ayush, how's it going?",
+  },
+  {
+    senderName: "Ayush",
+    timeStamp: 1634385900,
+    message: "I'm good, Vinit. How about you?",
+  },
+  {
+    senderName: "Ayush",
+    timeStamp: 1634385900,
+    message: "I'm good, Vinit. How about you?",
+  },
+  {
+    senderName: "Ayush",
+    timeStamp: 1634385900,
+    message: "I'm good, Vinit. How about you?",
   },
   {
     senderName: "Ayush",
@@ -121,6 +125,21 @@ const messages = [
     senderName: "Ayush",
     timeStamp: 1634386500,
     message: "That's great to hear.",
+  },
+  {
+    senderName: "Vinit",
+    timeStamp: 1634386800,
+    message: "What have you been up to lately?",
+  },
+  {
+    senderName: "Vinit",
+    timeStamp: 1634386800,
+    message: "What have you been up to lately?",
+  },
+  {
+    senderName: "Vinit",
+    timeStamp: 1634386800,
+    message: "What have you been up to lately?",
   },
   {
     senderName: "Vinit",
