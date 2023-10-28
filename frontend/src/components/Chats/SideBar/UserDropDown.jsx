@@ -1,7 +1,7 @@
 import { BiSolidUserCircle } from "react-icons/bi";
 import { PiSignOutBold } from "react-icons/pi";
 import { useNavigate } from "react-router-dom";
-import ListComponent from "../ListComponent";
+import ListComponent from "../../ListComponent";
 
 export default function UserDropDown() {
   return (

@@ -1,6 +1,6 @@
 import { useState } from "react";
-import ChatScreen from "../components/Chats/ChatScreen";
-import SideBar from "../components/Chats/SideBar";
+import ChatScreen from "../components/Chats/ChatScreen/ChatScreen";
+import SideBar from "../components/Chats/SideBar/SideBar";
 
 export default function ChatsPage({ className }) {
   const [isSideBarOpen, setIsSideBarOpen] = useState(true);

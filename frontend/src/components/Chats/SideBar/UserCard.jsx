@@ -1,4 +1,4 @@
-import UserAvatar from "./UserAvatar";
+import UserAvatar from "../UserAvatar";
 
 export default function UserCard({ className, imgSrc, name }) {
   return (

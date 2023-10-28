@@ -1,7 +1,6 @@
-import { useEffect, useRef } from "react";
-import { GiHamburgerMenu } from "react-icons/gi";
-import Form from "../Form/Form";
-import MessageCard from "./MessageCard";
+import ChannelHeader from "./ChannelHeader";
+import DisplayChats from "./DisplayChats";
+import SendMsgBtn from "./SendMsgBtn";
 
 export default function ChatScreen({ className, toggleSideBar }) {
   return (
@@ -11,83 +10,10 @@ export default function ChatScreen({ className, toggleSideBar }) {
         toggleSideBar={toggleSideBar}
       ></ChannelHeader>
       <DisplayChats messages={messages}></DisplayChats>
-      <SendMessageComponent></SendMessageComponent>
+      <SendMsgBtn></SendMsgBtn>
     </div>
   );
 }
-
-function ChannelHeader({ channelName, toggleSideBar }) {
-  return (
-    <div className="py-4 px-2 mb-8 text-extra-light flex flex-row items-center shadow-sm shadow-dark-3">
-      <div className="mobile:hidden py-1 pr-4" onClick={toggleSideBar}>
-        <GiHamburgerMenu size={20}></GiHamburgerMenu>
-      </div>
-      <div className="mobile:ml-12 text-xl font-semibold text-light-1">
-        {channelName ? channelName : "Channel Name"}
-      </div>
-    </div>
-  );
-}
-
-function DisplayChats({ messages }) {
-  const messagesEndRef = useRef(null);
-
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  useEffect(() => {
-    scrollToBottom();
-  }, []);
-
-  return (
-    <div className="px-8 w-full overflow-y-scroll scrollbar-msg flex flex-col">
-      {messages.map(({ senderName, timeStamp, message }, index) => {
-        return (
-          <MessageCard
-            key={index}
-            senderName={senderName}
-            timeStamp={timeStamp}
-            message={message}
-          ></MessageCard>
-        );
-      })}
-      <div ref={messagesEndRef} />
-    </div>
-  );
-}
-
-function SendMessageComponent() {
-  return (
-    <div className="my-4 mx-8">
-      <Form
-        className="w-full flex flex-row gap-2"
-        fields={formFields}
-        buttonConfigs={{
-          type: "submit",
-          label: "Send",
-          className: "py-2 px-4 bg-blue-500 rounded-lg text-white bg-dark",
-        }}
-        handleSubmit={(e) => console.log(e)}
-      ></Form>
-    </div>
-  );
-}
-
-const formFields = [
-  {
-    type: "text",
-    label: "",
-    name: "chatBox",
-    id: "chat",
-    defaultValue: "",
-    containerClassName: "",
-    className: "rounded-md bg-light-3",
-    inputClassName:
-      "p-2 w-full outline-none rounded-md bg-light-3 text-light-1",
-    placeholder: "Send Message",
-  },
-];
 
 const messages = [
   {

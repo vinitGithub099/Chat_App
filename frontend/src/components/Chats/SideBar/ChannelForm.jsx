@@ -1,7 +1,7 @@
 import { AiFillCloseCircle } from "react-icons/ai";
-import Button from "../Form/Button";
-import Form from "../Form/Form";
-import Modal from "../Modal";
+import Button from "../../Form/Button";
+import Form from "../../Form/Form";
+import Modal from "../../Modal";
 
 export default function ChannelForm({ showModal, toggleModal }) {
   return (

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import userLogo from "../../assets/profile-user_64572.png";
-import UserAvatar from "./UserAvatar";
+import userLogo from "../../../assets/profile-user_64572.png";
+import UserAvatar from "../UserAvatar";
 
 export default function MessageCard({ senderName, timeStamp, message }) {
   const userName = useSelector((state) => state.auth.name);
@@ -54,21 +54,17 @@ function ChatDetail({ senderName, message, timeStamp }) {
   const buildClassName = (senderName) => {
     let defaultClassName = "w-full flex flex-col bg-light-3 p-2 rounded-md ";
     const decoratorClassName =
-      "relative before:absolute before:content-[''] before:w-4 before:h-4 before:bg-light-3 before:rotate-45 before: before:top-1 ";
+      "relative after:absolute after:content-[''] after:w-3 after:h-3 after:bg-light-3 after:rotate-45 after: after:top-1 ";
 
     defaultClassName += decoratorClassName;
 
-    if (senderName != userName) defaultClassName += "before:-left-1";
-    else defaultClassName += "before:-right-1";
+    if (senderName != userName) defaultClassName += "after:-left-1";
+    else defaultClassName += "after:-right-1";
 
     return defaultClassName;
   };
   return (
     <div className={buildClassName(senderName)}>
-      {/* <div className="text-sm p-5 w-[75%] bg-slate-600 text-slate-100 rounded-lg relative before:absolute before:content-[''] before:w-3 before:h-3 before:bg-slate-600 before:rotate-45 before: before:-left-1 before:top-4"> */}
-      {/* 
-      text-sm p-5 w-[75%] bg-slate-600 text-slate-100 rounded-lg relative before:absolute before:content-[''] before:w-3 before:h-3 before:bg-slate-600 before:rotate-45 before: before:-left-1 before:top-4
-      */}
       <div className="flex flex-row items-baseline justify-between gap-4">
         <h6 className="text-sm mb-1 sm:text-md font-semibold text-light-2">
           {getSenderName(senderName)}

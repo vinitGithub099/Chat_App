@@ -1,8 +1,8 @@
 import { FiSearch } from "react-icons/fi";
-import userLogo from "../../assets/profile-user_64572.png";
-import Form from "../Form/Form";
-import ListComponent from "../ListComponent";
-import UserAvatar from "./UserAvatar";
+import userLogo from "../../../assets/profile-user_64572.png";
+import Form from "../../Form/Form";
+import ListComponent from "../../ListComponent";
+import UserAvatar from "../UserAvatar";
 
 export default function SearchChat() {
   return (

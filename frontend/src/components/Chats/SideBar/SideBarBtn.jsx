@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { IoIosArrowBack } from "react-icons/io";
 import { RiAddFill } from "react-icons/ri";
-import Button from "../Form/Button";
+import Button from "../../Form/Button";
 import ChannelForm from "./ChannelForm";
 
 export default function SideBarBtn({ toggleSideBar }) {
