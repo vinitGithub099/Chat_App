@@ -1,49 +1,48 @@
+import App from "../App";
 import SampleHome from "../SampleHome";
 import userLogo from "../assets/profile-user_64572.png";
 import ProtectedRoute from "../components/Auth/ProtectedRoute";
-import ChatScreen from "../components/Chats/ChatScreen";
+import ChatScreen from "../components/Chats/ChatScreen/ChatScreen";
 import MessageCard from "../components/Chats/SideBar/MessageCard";
 import SideBar from "../components/Chats/SideBar/SideBar";
 import UserCard from "../components/Chats/SideBar/UserCard";
 import UserAvatar from "../components/Chats/UserAvatar";
+import IntermediateLoader from "../components/IntermediateLoader";
 import Login from "../components/LoginSignUp/Login";
 import SignUp from "../components/LoginSignUp/SignUp";
 import EditProfile from "../components/Profile/EditProfile";
 import Profile from "../components/Profile/Profile";
 import ChatsPage from "../pages/ChatsPage";
+
 export const router = [
   {
+    path: "/",
+    element: <App></App>,
     children: [
+      { path: "", element: <SampleHome></SampleHome> },
       {
-        path: "/",
-        element: <SampleHome></SampleHome>,
+        path: "intermediate-loader",
+        element: <IntermediateLoader className={""}></IntermediateLoader>,
       },
       {
         path: "login",
-        element: <Login className="mt-20"></Login>,
+        element: <Login className=""></Login>,
       },
       {
         path: "register",
-        element: <SignUp className="mt-20"></SignUp>,
+        element: <SignUp className=""></SignUp>,
       },
       {
         path: "profile/",
+        element: <ProtectedRoute></ProtectedRoute>,
         children: [
           {
             path: "",
-            element: (
-              <ProtectedRoute>
-                <Profile className=""></Profile>
-              </ProtectedRoute>
-            ),
+            element: <Profile className=""></Profile>,
           },
           {
             path: "edit",
-            element: (
-              <ProtectedRoute>
-                <EditProfile className=""></EditProfile>
-              </ProtectedRoute>
-            ),
+            element: <EditProfile className=""></EditProfile>,
           },
         ],
       },

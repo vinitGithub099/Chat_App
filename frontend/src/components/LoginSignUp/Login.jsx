@@ -1,36 +1,52 @@
 import { unwrapResult } from "@reduxjs/toolkit";
-import {
-  AiOutlineGithub,
-  AiOutlineGoogle,
-  AiOutlineLinkedin,
-  AiOutlineTwitter,
-} from "react-icons/ai";
-import { IoMdUnlock } from "react-icons/io";
-import { MdEmail } from "react-icons/md";
 import { useDispatch } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
 import { loginUser } from "../../store/Features/AuthActions";
 import Form from "../Form/Form";
-import { EMAIL_REGEX } from "../Form/FormExpressions";
+import FormNavLink from "./FormNavLink";
 import SocialIconList from "./SocialIconList";
+import { loginFormFields } from "./utils/formFields";
+import { socialIconList } from "./utils/iconsList";
 
 export default function Login({ className }) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleLoginSuccess = () => {
+    console.log(location);
+    const path = location.state?.from ? location.state.from : "/";
+    navigate("/intermediate-loader", {
+      state: {
+        message: "Login Successful! Redirecting to where you left from",
+        from: path,
+      },
+    });
+  };
 
   const handleLoginSubmit = async (loginData) => {
     console.log(loginData);
     dispatch(loginUser(loginData))
       .then(unwrapResult)
-      .then((res) => console.log(res))
+      .then((res) => {
+        console.log(res);
+        // const initialToken = localStorage.getItem("access_token");
+        // console.log(initialToken);
+        const { accessToken } = res;
+        localStorage.setItem("access_token", accessToken);
+        // console.log(initialToken == accessToken);
+        // console.log(initialToken === accessToken);
+        handleLoginSuccess();
+      })
       .catch((error) => console.log(error));
   };
-
   return (
-    <div className={`w-full ${className}`}>
-      <section className="mx-auto max-w-sm border-2 rounded-md p-4">
-        <h1 className="p-2 font-bold text-lg">Login</h1>
+    <div className={`w-full p-2 h-screen bg-dark-3 ${className}`}>
+      <section className="mt-20 mx-auto max-w-sm bg-dark-1 rounded-md p-4">
+        <h1 className="p-2 font-bold text-lg text-light-2">Login</h1>
         <Form
           className="w-full p-2"
-          fields={LoginFields}
+          fields={loginFormFields}
           buttonConfigs={{
             type: "submit",
             label: "Submit",
@@ -39,107 +55,20 @@ export default function Login({ className }) {
           }}
           handleSubmit={handleLoginSubmit}
         ></Form>
-
-        {/* Registration link */}
-        <p className="text-center font-light text-sm mt-4">
+        <p className="text-center font-light text-sm mt-4 text-light-1">
           {`or continue with your social profile`}
         </p>
-
         <SocialIconList
           className="flex flex-row justify-center my-4"
           iconsList={socialIconList}
         ></SocialIconList>
-
-        {/* Registration link */}
-        <div className="text-center font-light text-sm my-2">
-          {`Don't have an account yet? `}
-          <span className="text-blue-500 font-semibold hover:cursor-pointer">
-            Register
-          </span>
-        </div>
+        <FormNavLink
+          className={`text-light-1`}
+          text={`Don't have an account yet? `}
+          label={`Register`}
+          path={`/register`}
+        ></FormNavLink>
       </section>
     </div>
   );
 }
-
-const socialIconList = [
-  {
-    component: () => <AiOutlineGoogle size={30}></AiOutlineGoogle>,
-    handleClick: (e) => console.log(e, "Google link pressed"),
-    className: "border rounded-full text-gray-500 mx-2 p-1",
-  },
-  {
-    component: () => <AiOutlineLinkedin size={30}></AiOutlineLinkedin>,
-    handleClick: (e) => console.log(e, "linkedin link pressed"),
-    className: "border rounded-full text-gray-500 mx-2 p-1",
-  },
-  {
-    component: () => <AiOutlineGithub size={30}></AiOutlineGithub>,
-    handleClick: (e) => console.log(e, "github link pressed"),
-    className: "border rounded-full text-gray-500 mx-2 p-1",
-  },
-  {
-    component: () => <AiOutlineTwitter size={30}></AiOutlineTwitter>,
-    handleClick: (e) => console.log(e, "twitter link pressed"),
-    className: "border rounded-full text-gray-500 mx-2 p-1",
-  },
-];
-
-const containerClassName = "mb-4";
-const className = "border-2 rounded-md my-2 p-2";
-
-const LoginFields = [
-  {
-    type: "email",
-    label: "",
-    name: "email",
-    id: "email",
-    defaultValue: "",
-    containerClassName: containerClassName,
-    className: className,
-    inputClassName: "w-full pl-2 outline-none",
-    placeholder: "Email",
-    icon: {
-      className: "text-gray-500",
-      icon: MdEmail,
-      size: 20,
-    },
-    validation: {
-      required: {
-        value: true,
-        message: "Email is required",
-      },
-      pattern: {
-        value: EMAIL_REGEX,
-        message: "Please enter a valid email",
-      },
-    },
-  },
-  {
-    type: "password",
-    label: "",
-    name: "password",
-    id: "password",
-    defaultValue: "",
-    containerClassName: containerClassName,
-    className: className,
-    inputClassName: "w-full pl-2 outline-none",
-    placeholder: "password",
-    required: true,
-    icon: {
-      className: "text-gray-500",
-      icon: IoMdUnlock,
-      size: 20,
-    },
-    validation: {
-      required: {
-        value: true,
-        message: "Password is required",
-      },
-      minLength: {
-        value: 8,
-        message: "Password must have at least 8 characters",
-      },
-    },
-  },
-];

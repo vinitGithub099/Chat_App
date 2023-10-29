@@ -26,7 +26,7 @@ export default function PasswordInput({
   const [passwordType, setPasswordType] = useState(type || "password");
 
   const buildClassName = (instanceClassName) => {
-    let defaultClassName = `w-full border flex items-center outline-none`;
+    let defaultClassName = `w-full flex items-center outline-none`;
 
     let errorClassName = ``;
     if (errors && errors[id]) {

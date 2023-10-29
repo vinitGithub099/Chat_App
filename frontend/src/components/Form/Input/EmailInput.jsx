@@ -21,7 +21,7 @@ export default function EmailInput({
   } = useFormContext();
 
   const buildClassName = (instanceClassName) => {
-    let defaultClassName = `w-full border flex items-center outline-none`;
+    let defaultClassName = `w-full flex items-center outline-none`;
 
     let errorClassName = ``;
     if (errors && errors[id]) {

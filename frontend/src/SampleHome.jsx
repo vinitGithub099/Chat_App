@@ -1,9 +1,14 @@
 import { Link } from "react-router-dom";
+import ListComponent from "./components/ListComponent";
 
 const list = [
   {
     path: "/login",
     text: "login",
+  },
+  {
+    path: "/intermediate-loader",
+    text: "intermediate loader",
   },
   {
     path: "/register",
@@ -33,15 +38,17 @@ const list = [
 
 export default function SampleHome() {
   return (
-    <div className="w-full mt-4 flex flex-col items-center">
-      <h3 className="text-2xl font-bold">Sample Components</h3>
-      {list && list.length
-        ? list.map(({ path, text }, index) => (
-            <div key={index} className="underline p-2">
-              <Link to={path}>{text}</Link>
-            </div>
-          ))
-        : null}
+    <div className="w-full h-screen flex flex-col items-center bg-dark-3">
+      <h3 className="p-4 text-2xl font-bold text-light-2">Sample Components</h3>
+      <ListComponent list={list} subComponent={SubComponent}></ListComponent>
+    </div>
+  );
+}
+
+function SubComponent({ path, text }) {
+  return (
+    <div className="underline p-2 text-light-1">
+      <Link to={path}>{text}</Link>
     </div>
   );
 }

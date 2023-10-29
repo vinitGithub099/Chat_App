@@ -1,4 +1,4 @@
-import { api } from "./axiosConfigs";
+import api from "./axiosConfigs";
 
 export const authAPI = {
   loginUser: async (data) => {
@@ -10,6 +10,7 @@ export const authAPI = {
       headers: { "Content-Type": "application/json" },
     });
     if (result.status === 200) {
+      console.log(result);
       return result.data;
     } else {
       throw new Error(result.message);

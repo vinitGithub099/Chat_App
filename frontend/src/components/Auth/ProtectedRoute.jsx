@@ -1,17 +1,21 @@
-import { useSelector } from "react-redux";
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 import _ from "underscore";
 
-export default function ProtectedRoute({ children }) {
+export default function ProtectedRoute() {
   const location = useLocation();
-  const token = useSelector((state) => state.auth.token);
-  return _.isEmpty(token) ? (
-    children
+  console.log(location);
+  const token = localStorage.getItem("access_token");
+  return !_.isEmpty(token) ? (
+    <Outlet></Outlet>
   ) : (
     <Navigate
-      to="/login"
+      to="/intermediate-loader"
       replace
-      state={{ path: location.pathname }}
+      state={{
+        from: location.pathname,
+        to: "/login",
+        message: "You are not logged in! \n Redirecting you to login page.",
+      }}
     ></Navigate>
   );
 }
