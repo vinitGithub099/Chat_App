@@ -1,5 +1,8 @@
 const User = require("../models/userModel");
-const generateToken = require("../configs/generateToken");
+const {
+  generateAccessToken,
+  generateRefreshToken,
+} = require("../configs/generateToken");
 
 /**
  * * status: working
@@ -64,17 +67,26 @@ const loginUser = async (req, res) => {
   const user = await User.findOne({ email });
 
   if (user && user.matchPassword(password)) {
-    res.json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      password: user.password,
-      phone: user.phone,
-      bio: user.bio,
-      pic: user.pic,
-      isAdmin: user.isAdmin,
-      token: generateToken(user._id),
-    });
+    const accessToken = generateAccessToken(user._id);
+    const refreshToken = generateRefreshToken(user._id);
+
+    res
+      .cookie("refresh_token", refreshToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+      })
+      .status(200)
+      .json({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        password: user.password,
+        phone: user.phone,
+        bio: user.bio,
+        pic: user.pic,
+        isAdmin: user.isAdmin,
+        accessToken: accessToken,
+      });
   } else {
     res.status(401).send("Invalid Email or Password");
     // throw new Error("Invalid Email or Password");
@@ -101,4 +113,28 @@ const allUsers = async (req, res) => {
   res.send(users);
 };
 
-module.exports = { loginUser, registerUser, allUsers };
+/**
+ * * status: working
+ * @description Refresh Token
+ * @method GET /api/user/refresh-token
+ * @purpose to renew the access token and refresh token if access token expires or is not received in the headers of request
+ */
+const refreshToken = async (req, res) => {
+  const cookieRefreshToken = req.refreshToken;
+  const { id } = jwt.verify(cookieRefreshToken, process.env.JWT_SECRET);
+
+  const accessToken = generateAccessToken(id);
+  const refreshToken = generateRefreshToken(id);
+
+  res
+    .cookie("refresh_token", refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+    })
+    .status(200)
+    .json({
+      accessToken: accessToken,
+    });
+};
+
+module.exports = { loginUser, registerUser, allUsers, refreshToken };
