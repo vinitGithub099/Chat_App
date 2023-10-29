@@ -4,6 +4,7 @@ const {
   loginUser,
   registerUser,
   allUsers,
+  refreshToken,
 } = require("../controllers/user.controller.js");
 
 const { protect } = require("../middlewares/authMiddleware.js");
@@ -16,5 +17,8 @@ router.post("/login", loginUser);
 
 /** status: Working */
 router.get("/allUsers", protect, allUsers);
+
+/** status: Working */
+router.post("/refresh-token", protect, refreshToken);
 
 module.exports = router;
