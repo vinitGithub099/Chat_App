@@ -12,16 +12,16 @@ connectDB();
 
 const PORT = process.env.PORT || 5050;
 
+app.use(cookieParser());
+app.use(express.json());
 app.use(
-  cookieParser({
-    origin: "http://localhost:5173",
+  cors({
+    origin: "http://127.0.0.1:5173",
     credentials: true,
     methods: ["GET", "PUT", "POST", "DELETE"],
     optionSuccessStatus: 200,
   })
 );
-app.use(express.json());
-app.use(cors());
 app.use(express.json());
 
 // parse requests of content-type - application/x-www-form-urlencoded

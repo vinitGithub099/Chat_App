@@ -73,6 +73,7 @@ const loginUser = async (req, res) => {
     res
       .cookie("refresh_token", refreshToken, {
         httpOnly: true,
+        expire: process.env.JWT_REFRESH_TOKEN_EXPIRATION,
         secure: process.env.NODE_ENV === "production",
       })
       .status(200)
@@ -129,6 +130,7 @@ const refreshToken = async (req, res) => {
   res
     .cookie("refresh_token", refreshToken, {
       httpOnly: true,
+      expire: process.env.JWT_REFRESH_TOKEN_EXPIRATION,
       secure: process.env.NODE_ENV === "production",
     })
     .status(200)
