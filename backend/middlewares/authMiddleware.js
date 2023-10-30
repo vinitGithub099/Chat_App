@@ -14,19 +14,21 @@ const protect = async (req, res, next) => {
   ) {
     try {
       token = req.headers.authorization.split(" ")[1];
-      console.log("backend: ", token)
+      console.log("backend: ", token);
       // decodes token id
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
       req.user = await User.findById(decoded.id).select("-password");
       next();
     } catch (error) {
-      res.status(401);
-      throw new Error("Not authorized, token failed");
+      console.log("Expired token");
+      res.status(403).send("Not authorized, Expired token failed");
+      // throw new Error("Not authorized, token failed");
     }
   }
   if (!token) {
-    res.status(401);
-    throw new Error("Not authorized, no token found");
+    console.log("token not received");
+    res.status(401).send("Token not received");
+    // throw new Error("Not authorized, no token found");
   }
 };
 
