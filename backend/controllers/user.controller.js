@@ -38,17 +38,7 @@ const registerUser = async (req, res) => {
   });
 
   if (user) {
-    res.status(200).json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      password: user.password,
-      phone: user.phone,
-      bio: user.bio,
-      pic: user.pic,
-      isAdmin: user.isAdmin,
-      token: generateToken(user._id),
-    });
+    res.status(200).json({});
   } else {
     res.status(400).send("Failed to create the User");
     // throw new Error("Failed to create the User");
@@ -65,8 +55,13 @@ const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email });
+  const isPasswordValid = await user.matchPassword(password);
+  console.log(user);
+  console.log(user?.matchPassword(password).then((res) => res));
 
-  if (user && user.matchPassword(password)) {
+  if (!user) {
+    res.status(404).send("User does not exist!");
+  } else if (isPasswordValid) {
     const accessToken = generateAccessToken(user._id);
     const refreshToken = generateRefreshToken(user._id);
 
@@ -78,18 +73,11 @@ const loginUser = async (req, res) => {
       })
       .status(200)
       .json({
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        password: user.password,
-        phone: user.phone,
-        bio: user.bio,
-        pic: user.pic,
-        isAdmin: user.isAdmin,
+        user: user,
         accessToken: accessToken,
       });
   } else {
-    res.status(401).send("Invalid Email or Password");
+    res.status(401).json({ message: "Invalid Password" });
     // throw new Error("Invalid Email or Password");
   }
 };
@@ -123,7 +111,7 @@ const allUsers = async (req, res) => {
 const refreshToken = async (req, res) => {
   const cookieRefreshToken = req.refreshToken;
   const { id } = jwt.verify(cookieRefreshToken, process.env.JWT_SECRET);
-
+  console.log("refresh route");
   const accessToken = generateAccessToken(id);
   const refreshToken = generateRefreshToken(id);
 

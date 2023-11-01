@@ -16,10 +16,16 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://127.0.0.1:5173",
+    // origin: "*",
+    origin: ["http://127.0.0.1:5173", "http://localhost:5173"],
     credentials: true,
     methods: ["GET", "PUT", "POST", "DELETE"],
     optionSuccessStatus: 200,
+    "Access-Control-Allow-Origin": [
+      "http://127.0.0.1:5173",
+      "http://localhost:5173",
+    ],
+    "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
   })
 );
 app.use(express.json());
