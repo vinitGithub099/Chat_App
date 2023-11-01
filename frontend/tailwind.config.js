@@ -18,9 +18,17 @@ export default {
         "dark-2": "#120F13",
         "dark-3": "#0B090C",
         btn: "#2F80ED",
-        warning: "#EF4444",
+        error: "#EF4444",
+        success: "#22c55e",
+        warning: "#f97316",
       },
     },
   },
   plugins: [],
+  safelist: [
+    {
+      pattern:
+        /(bg|text|border)-(light-1|light-2|light-3|dark-1|dark-2|dark-3|btn|success|error|warning)/,
+    },
+  ],
 };

@@ -53,7 +53,7 @@ export default function EmailInput({
       {errors && errors[id] ? (
         <FormError
           message={errors[id].message}
-          className={`text-xs italic text-warning`}
+          className={`text-xs italic text-error`}
         ></FormError>
       ) : null}
     </div>

@@ -38,11 +38,7 @@ function ChannelHeader({ toggleModal }) {
   return (
     <div className="w-full mb-6 flex flex-row justify-between items-center rounded-md">
       <h3 className="text-2xl font-semibold text-white">New Channel</h3>
-      <Button
-        type="icon"
-        className="text-warning text-2xl"
-        onClick={toggleModal}
-      >
+      <Button type="icon" className="text-error text-2xl" onClick={toggleModal}>
         <AiFillCloseCircle></AiFillCloseCircle>
       </Button>
     </div>

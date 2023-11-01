@@ -39,6 +39,6 @@ const userDropDownList = [
     label: "Sign Out",
     path: "/login",
     icon: <PiSignOutBold size={20}></PiSignOutBold>,
-    fontClass: "text-warning",
+    fontClass: "text-error",
   },
 ];

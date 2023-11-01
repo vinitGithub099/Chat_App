@@ -7,6 +7,11 @@ const list = [
     text: "login",
   },
   {
+    path: "/toast-demo",
+    text: "toastDemo",
+  },
+
+  {
     path: "/intermediate-loader",
     text: "intermediate loader",
   },

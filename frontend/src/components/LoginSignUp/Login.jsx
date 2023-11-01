@@ -1,7 +1,7 @@
 import { unwrapResult } from "@reduxjs/toolkit";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { loginUser } from "../../store/Features/AuthActions";
+import { loginUser } from "../../store/Features/User/AuthActions";
 import Form from "../Form/Form";
 import FormNavLink from "./FormNavLink";
 import SocialIconList from "./SocialIconList";
@@ -12,9 +12,9 @@ export default function Login({ className }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+  const { loading } = useSelector((state) => state.auth);
 
   const handleLoginSuccess = () => {
-    console.log(location);
     const path = location.state?.from ? location.state.from : "/";
     navigate("/intermediate-loader", {
       state: {
@@ -25,23 +25,22 @@ export default function Login({ className }) {
   };
 
   const handleLoginSubmit = async (loginData) => {
-    console.log(loginData);
     dispatch(loginUser(loginData))
       .then(unwrapResult)
-      .then((res) => {
-        console.log(res);
-        // const initialToken = localStorage.getItem("access_token");
-        // console.log(initialToken);
-        const { accessToken } = res;
-        localStorage.setItem("access_token", accessToken);
-        // console.log(initialToken == accessToken);
-        // console.log(initialToken === accessToken);
-        handleLoginSuccess();
-      })
+      .then(() => handleLoginSuccess())
       .catch((error) => console.log(error));
   };
+
+  const buildClassName = () => {
+    let defaultClassName = "w-full p-2 h-screen bg-dark-3 ";
+    defaultClassName += className;
+    if (loading) defaultClassName += "opacity-80 ";
+    return defaultClassName;
+  };
+
   return (
-    <div className={`w-full p-2 h-screen bg-dark-3 ${className}`}>
+    <div className={buildClassName()}>
+      {loading && <Loader></Loader>}
       <section className="mt-20 mx-auto max-w-sm bg-dark-1 rounded-md p-4">
         <h1 className="p-2 font-bold text-lg text-light-2">Login</h1>
         <Form
@@ -69,6 +68,14 @@ export default function Login({ className }) {
           path={`/register`}
         ></FormNavLink>
       </section>
+    </div>
+  );
+}
+
+function Loader() {
+  return (
+    <div className="fixed w-full h-screen bg-transparent flex items-start justify-center">
+      <div className="w-20 h-20 my-10 rounded-full border-2 border-t-dark-2 animate-spin"></div>
     </div>
   );
 }

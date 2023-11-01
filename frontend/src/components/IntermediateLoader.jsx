@@ -5,7 +5,6 @@ export default function IntermediateLoader({ className }) {
   const location = useLocation();
   const navigate = useNavigate();
 
-  console.log(location);
   useEffect(() => {
     setTimeout(() => {
       navigate(
@@ -28,7 +27,7 @@ export default function IntermediateLoader({ className }) {
         {location.state?.message ? (
           location.state.message
         ) : (
-          <p className="text-warning">No Message received!</p>
+          <p className="text-error">No Message received!</p>
         )}
       </div>
     </div>

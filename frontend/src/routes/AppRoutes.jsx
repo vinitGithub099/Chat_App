@@ -12,6 +12,7 @@ import Login from "../components/LoginSignUp/Login";
 import SignUp from "../components/LoginSignUp/SignUp";
 import EditProfile from "../components/Profile/EditProfile";
 import Profile from "../components/Profile/Profile";
+import ToastDemo from "../components/Toast/ToastDemo";
 import ChatsPage from "../pages/ChatsPage";
 
 export const router = [
@@ -32,6 +33,11 @@ export const router = [
         path: "register",
         element: <SignUp className=""></SignUp>,
       },
+      {
+        path: "toast-demo",
+        element: <ToastDemo className=""></ToastDemo>,
+      },
+
       {
         path: "profile/",
         element: <ProtectedRoute></ProtectedRoute>,

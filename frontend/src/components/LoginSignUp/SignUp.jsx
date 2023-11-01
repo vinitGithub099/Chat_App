@@ -1,7 +1,7 @@
 import { unwrapResult } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { registerUser } from "../../store/Features/AuthActions";
+import { registerUser } from "../../store/Features/User/AuthActions";
 import Form from "../Form/Form";
 import FormNavLink from "./FormNavLink";
 import SocialIconList from "./SocialIconList";
@@ -25,13 +25,9 @@ export default function SignUp({ className }) {
   };
 
   const handleRegisterSubmit = async (signUpData) => {
-    // console.log(signUpData);
     dispatch(registerUser(signUpData))
       .then(unwrapResult)
-      .then((res) => {
-        console.log(res);
-        // handleRegisterSuccess();
-      })
+      .then(() => handleRegisterSuccess())
       .catch((error) => console.log(error));
   };
 

@@ -29,7 +29,7 @@ export default function TextInput({
 
     let errorClassName = ``;
     if (errors && errors[id]) {
-      errorClassName = `border border-warning`;
+      errorClassName = `border border-error`;
     }
 
     return `${defaultClassName} ${className} ${instanceClassName} ${errorClassName}`;
@@ -63,7 +63,7 @@ export default function TextInput({
           {errors && errors[id] ? (
             <FormError
               message={errors[id].message}
-              className={`text-xs italic text-warning`}
+              className={`text-xs italic text-error`}
             ></FormError>
           ) : null}
         </div>
