@@ -8,10 +8,13 @@ const notFound = (req, res, next) => {
  * * middleware to handle error if no middleware/route is caught before it
  */
 const errorHandler = (err, req, res, next) => {
-  const statusCode = res.statusCode == 200 ? 500 : res.statusCode;
-  res.status(statusCode);
-  res.json({
-    message: err.message,
+  const errStatus = err.statusCode || 500;
+  const errMsg = err.message || "Something went wrong";
+  res.status(errStatus).json({
+    success: false,
+    status: errStatus,
+    message: errMsg,
+    stack: process.env.NODE_ENV === "development" ? err.stack : {},
   });
 };
 

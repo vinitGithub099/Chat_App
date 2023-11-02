@@ -51,17 +51,14 @@ const registerUser = async (req, res) => {
  * @method POST /api/user/login
  * @purpose to login a previously registered user into the database/app
  */
-const loginUser = async (req, res) => {
+const loginUser = async (req, res, next) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email });
-  const isPasswordValid = await user.matchPassword(password);
-  console.log(user);
-  console.log(user?.matchPassword(password).then((res) => res));
 
   if (!user) {
     res.status(404).send("User does not exist!");
-  } else if (isPasswordValid) {
+  } else if (await user.matchPassword(password)) {
     const accessToken = generateAccessToken(user._id);
     const refreshToken = generateRefreshToken(user._id);
 
