@@ -1,6 +1,6 @@
 import { ERROR, SUCCESS, WARNING } from "../../constants/constants";
 import Button from "../Form/Button";
-import { useToast } from "../hooks/useToast";
+import { useToast } from "../Hooks/useToast";
 
 export default function ToastDemo() {
   const { populateToast } = useToast();
