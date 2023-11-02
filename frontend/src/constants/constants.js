@@ -1,6 +1,7 @@
 /* toast */
 const SUCCESS = "success";
-const WARNING = "warning";
+const WARNING = "warn";
 const ERROR = "error";
+const INFO = "info";
 
-export { ERROR, SUCCESS, WARNING };
+export { ERROR, INFO, SUCCESS, WARNING };

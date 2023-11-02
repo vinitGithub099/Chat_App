@@ -12,7 +12,7 @@ export const authAPI = {
     if (result.status === 200) {
       return result.data;
     } else {
-      throw new Error(result.message);
+      throw new Error(result);
     }
   },
   registerUser: async (data) => {
@@ -26,7 +26,21 @@ export const authAPI = {
     if (result.status === 200) {
       return result.data;
     } else {
-      throw new Error(result.message);
+      throw new Error(result);
+    }
+  },
+  refreshToken: async () => {
+    const result = await api.request({
+      url: `/user/refresh-token`,
+      method: `POST`,
+      signal: new AbortController().signal,
+      headers: { "Content-Type": "application/json" },
+      withCredentials: true,
+    });
+    if (result.status === 200) {
+      return result.data;
+    } else {
+      throw new Error(result);
     }
   },
   refreshToken: async () => {

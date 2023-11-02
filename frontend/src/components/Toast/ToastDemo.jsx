@@ -1,16 +1,17 @@
-import { ERROR, SUCCESS, WARNING } from "../../constants/constants";
+import { ERROR, INFO, SUCCESS, WARNING } from "../../constants/constants";
 import Button from "../Form/Button";
-import { useToast } from "../Hooks/useToast";
+import { useToast } from "../hooks/useToast";
 
 export default function ToastDemo() {
-  const { populateToast } = useToast();
+  const { notify } = useToast();
 
-  const notify = (content, type) => populateToast(content, type);
+  // const notify = (content, type) => populateToast(content, type);
 
   const types = [
     { type: SUCCESS, content: `${SUCCESS} notification` },
     { type: WARNING, content: `${WARNING} notification` },
     { type: ERROR, content: `${ERROR} notification` },
+    { type: INFO, content: `${INFO} notification` },
   ];
 
   return (

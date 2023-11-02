@@ -43,7 +43,7 @@ export const authSlice = createSlice({
         error: null,
       };
     });
-    builder.addCase(loginUser.rejected, (state, { payload }) => ({
+    builder.addCase(loginUser.rejected, (state) => ({
       ...state,
       loading: false,
       // error: payload.res,
@@ -54,14 +54,14 @@ export const authSlice = createSlice({
       ...state,
       loading: true,
     }));
-    builder.addCase(registerUser.fulfilled, (state, { payload }) => ({
+    builder.addCase(registerUser.fulfilled, (state) => ({
       ...state,
       loading: false,
       user: null,
       token: null,
       // error: payload.res,
     }));
-    builder.addCase(registerUser.rejected, (state, { payload }) => ({
+    builder.addCase(registerUser.rejected, (state) => ({
       ...state,
       loading: false,
       // error: payload.res,

@@ -16,8 +16,10 @@ function ToastProvider({ children }) {
     setToasts((currToast) => currToast.filter((toast) => toast.id != id));
   };
 
+  const notify = (content, type) => populateToast(content, type);
+
   return (
-    <ToastContext.Provider value={{ populateToast }}>
+    <ToastContext.Provider value={{ notify }}>
       <div className="fixed right-0 flex flex-col-reverse items-end justify-center bg-transparent">
         {toasts &&
           toasts.length &&
@@ -27,7 +29,7 @@ function ToastProvider({ children }) {
               content={toast.content}
               type={toast.type}
               closeToast={() => closeToast(toast.id)}
-              className="w-auto my-2 text-light-1 px-4 py-2 rounded-md"
+              className="my-2 text-light-1 px-4 py-2 rounded-md"
             ></Toast>
           ))}
       </div>
