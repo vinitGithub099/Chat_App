@@ -1,12 +1,10 @@
 import { FiSearch } from "react-icons/fi";
-import userLogo from "../../../assets/profile-user_64572.png";
 import Form from "../../Form/Form";
-import ListComponent from "../../ListComponent";
-import UserAvatar from "../UserAvatar";
+import SearchChatResults from "./SearchChatResults";
 
 export default function SearchChat() {
   return (
-    <div className="w-full flex flex-col overflow-hidden">
+    <div className="w-full flex flex-1 flex-col overflow-hidden">
       <SearchBar></SearchBar>
       <SearchChatResults></SearchChatResults>
     </div>
@@ -23,27 +21,50 @@ function SearchBar() {
   );
 }
 
-function SearchChatResults() {
-  const SubComponent = ({ name }) => (
-    <div className="p-2 flex flex-row items-center gap-4 my-2 rounded-md ">
-      <UserAvatar
-        altText={"hello world"}
-        className=""
-        imgSrc={userLogo}
-        config={"s"}
-      ></UserAvatar>
-      <p className="text text-gray-500 font-bold">{name}</p>
-    </div>
-  );
+/* function SearchChatResults() {
+  const dispatch = useDispatch();
+  const chatList = useSelector((state) => state.chat.chats);
+  const userId = useSelector((state) => state.auth.user._id);
+  const handleClick = (props) => {
+    dispatch(setCurrentChat(props))
+  };
+  function SubComponent(props) {
+    const { chatName, latestMessage } = props;
+    return (
+      <div className="p-2 cursor-pointer" onClick={() => handleClick(props)}>
+        <div className="flex flex-row items-center gap-4 my-2 rounded-md">
+          <UserAvatar
+            altText={"hello world"}
+            className=""
+            imgSrc={userLogo}
+            config={"s"}
+          ></UserAvatar>
+          <p className="text text-light-2 font-bold">{chatName}</p>
+        </div>
+        <div className="flex flex-row justify-end items-center italic text-light-2 text-xs">
+          <span className="pr-1">
+            {userId === latestMessage.sender._id
+              ? `You: `
+              : `${latestMessage.sender.name}: `}
+          </span>
+          <p>{latestMessage.content}</p>
+          <span className="pl-1">
+            {latestMessage?.updatedAt &&
+              formatTimestampToText(latestMessage?.updatedAt)}
+          </span>
+        </div>
+      </div>
+    );
+  }
   return (
     <ListComponent
-      list={names}
+      list={chatList}
       className="mb-2 overflow-y-scroll scrollbar"
       subComponent={SubComponent}
     ></ListComponent>
   );
 }
-
+ */
 const searchFormFields = [
   {
     type: "text",
@@ -61,7 +82,7 @@ const searchFormFields = [
   },
 ];
 
-const names = [
+/* const names = [
   { name: "Hello World!" },
   { name: "Hello World!" },
   { name: "Hello World!" },
@@ -82,3 +103,4 @@ const names = [
   { name: "Hello World!" },
   { name: "Hello World!" },
 ];
+ */

@@ -20,11 +20,12 @@ export const chatAPI = {
   fetchChats: async (data) => {
     const result = await api.request({
       url: `/chat/fetchChats`,
-      method: `POST`,
+      method: `GET`,
       data: data,
       signal: new AbortController().signal,
       headers: { "Content-Type": "application/json" },
     });
+    console.log(result)
     if (result.status === 200) {
       return result.data;
     } else {

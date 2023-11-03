@@ -1,7 +1,31 @@
-
+import { useSelector } from "react-redux";
+import _ from "underscore";
+import { messageAPI } from "../../../api/messageAPI";
+import { ERROR, SUCCESS } from "../../../constants/constants";
 import Form from "../../Form/Form";
+import { useToast } from "../../Hooks/useToast";
 
 export default function SendMsgBtn() {
+  const currentChat = useSelector((state) => state.chat.currentChat);
+  const { notify } = useToast();
+
+  const handleSuccess = () => notify("Message sent!", SUCCESS);
+  const handleFailure = () => notify("Message was not sent!", ERROR);
+
+  const sendMessage = async (data) => {
+    messageAPI
+      .sendMessage(data)
+      .then(() => handleSuccess())
+      .catch(() => handleFailure());
+  };
+
+  const handleSendMessage = (message) => {
+    console.log(message);
+    if (!_.isEmpty(currentChat)) {
+      const { _id: id } = currentChat;
+      sendMessage({ chatId: id, content: message.chatBox });
+    }
+  };
   return (
     <div className="my-4 mx-8">
       <Form
@@ -12,7 +36,7 @@ export default function SendMsgBtn() {
           label: "Send",
           className: "py-2 px-4 bg-blue-500 rounded-lg text-white bg-dark",
         }}
-        handleSubmit={(e) => console.log(e)}
+        handleSubmit={handleSendMessage}
       ></Form>
     </div>
   );

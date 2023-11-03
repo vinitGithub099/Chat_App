@@ -40,7 +40,7 @@ api.interceptors.response.use(
 
       const res = await authAPI.refreshToken();
       const accessToken = res.accessToken;
-      
+
       localStorage.setItem("access_token", accessToken);
 
       api.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;

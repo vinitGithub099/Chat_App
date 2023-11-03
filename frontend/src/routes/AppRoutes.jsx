@@ -54,7 +54,13 @@ export const router = [
       },
       {
         path: "chat",
-        element: <ChatsPage className=""></ChatsPage>,
+        element: <ProtectedRoute></ProtectedRoute>,
+        children: [
+          {
+            path: "",
+            element: <ChatsPage className=""></ChatsPage>,
+          },
+        ],
       },
       {
         path: "message-card",

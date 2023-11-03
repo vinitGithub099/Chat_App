@@ -2,14 +2,15 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import userLogo from "../../../assets/profile-user_64572.png";
 import UserAvatar from "../UserAvatar";
+import { formatTimestampToText } from "../Utils/formatTimestampToText";
 
 export default function MessageCard({ senderName, timeStamp, message }) {
-  const userName = useSelector((state) => state.auth.name);
+  const user = useSelector((state) => state.auth.user);
 
   const buildMessageClassName = (senderName) => {
     let defaultClassName =
       "my-4 rounded-md max-w-[90%] flex flex-row items-start gap-4 ";
-    if (userName == senderName) defaultClassName += "self-end";
+    if (user.name == senderName) defaultClassName += "self-end";
     else defaultClassName += "self-start";
     return defaultClassName;
   };
@@ -27,10 +28,10 @@ export default function MessageCard({ senderName, timeStamp, message }) {
 }
 
 function SenderAvatar({ senderName }) {
-  const userName = useSelector((state) => state.auth.name);
+  const user = useSelector((state) => state.auth.user);
 
   return (
-    senderName != userName && (
+    senderName != user.name && (
       <UserAvatar
         className="border-2"
         config="m"
@@ -41,13 +42,13 @@ function SenderAvatar({ senderName }) {
 }
 
 function ChatDetail({ senderName, message, timeStamp }) {
-  const userName = useSelector((state) => state.auth.name);
+  const user = useSelector((state) => state.auth.user);
   const getSenderName = (senderName) => {
     /**
      * handle error here
      *  if (_.isEmpty(senderName)) throw new Error();
      * */
-    if (senderName != userName) return senderName;
+    if (senderName != user.name) return senderName;
     return "You";
   };
 
@@ -58,7 +59,7 @@ function ChatDetail({ senderName, message, timeStamp }) {
 
     defaultClassName += decoratorClassName;
 
-    if (senderName != userName) defaultClassName += "after:-left-1";
+    if (senderName != user.name) defaultClassName += "after:-left-1";
     else defaultClassName += "after:-right-1";
 
     return defaultClassName;
@@ -118,48 +119,4 @@ function MessageDeliveryTime({ timeStamp }) {
       {timeStamp ? formatTimestampToText(timeStamp) : "time"}
     </p>
   );
-}
-
-function formatTimestampToText(timestamp) {
-  // Create a Date object from the timestamp
-  const date = new Date(timestamp);
-
-  // Get the current date for comparison
-  const currentDate = new Date();
-
-  // Check if it's today
-  if (
-    date.getDate() === currentDate.getDate() &&
-    date.getMonth() === currentDate.getMonth() &&
-    date.getFullYear() === currentDate.getFullYear()
-  ) {
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
-    const period = hours >= 12 ? "pm" : "am";
-    const formattedHours = hours % 12 || 12; // Convert to 12-hour format
-    return `Today at ${formattedHours}:${minutes
-      .toString()
-      .padStart(2, "0")} ${period}`;
-  }
-  // Check if it's yesterday
-  else if (
-    date.getDate() === currentDate.getDate() - 1 &&
-    date.getMonth() === currentDate.getMonth() &&
-    date.getFullYear() === currentDate.getFullYear()
-  ) {
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
-    const period = hours >= 12 ? "pm" : "am";
-    const formattedHours = hours % 12 || 12; // Convert to 12-hour format
-    return `Yesterday at ${formattedHours}:${minutes
-      .toString()
-      .padStart(2, "0")} ${period}`;
-  }
-  // For other days, display the full date and time
-  else {
-    return `${date.toLocaleDateString()} at ${date.getHours()}:${date
-      .getMinutes()
-      .toString()
-      .padStart(2, "0")}`;
-  }
 }

@@ -5,19 +5,62 @@
  */
 
 import { createSlice } from "@reduxjs/toolkit";
+import { fetchChatMessages, fetchChats } from "./ChatActions";
 
 const initialState = {
-  user: null,
-  token: null,
-  loading: false,
+  chats: null,
+  messages: null,
+  loading: {
+    chats: false,
+    messages: false,
+  },
   error: false,
+  currentChat: null,
 };
 
-export const authSlice = createSlice({
-  name: "auth",
+export const chatSlice = createSlice({
+  name: "chat",
   initialState,
-  reducers: {},
-  extraReducers: () => {},
+  reducers: {
+    setCurrentChat: (state, { payload }) => ({
+      ...state,
+      currentChat: payload,
+    }),
+  },
+  extraReducers: (builder) => {
+    /* fetchChats */
+    builder.addCase(fetchChats.pending, (state) => ({
+      ...state,
+      loading: { chats: true, messages: false },
+    }));
+    builder.addCase(fetchChats.fulfilled, (state, { payload }) => ({
+      ...state,
+      loading: { chats: false, messages: false },
+      chats: payload,
+    }));
+    builder.addCase(fetchChats.rejected, (state) => ({
+      ...state,
+      loading: { chats: false, messages: false },
+      chats: null,
+    }));
+
+    /* fetchChatMessages */
+    builder.addCase(fetchChatMessages.pending, (state) => ({
+      ...state,
+      loading: { chats: false, messages: true },
+    }));
+    builder.addCase(fetchChatMessages.fulfilled, (state, { payload }) => ({
+      ...state,
+      loading: { chats: false, messages: true },
+      messages: payload,
+    }));
+    builder.addCase(fetchChatMessages.rejected, (state) => ({
+      ...state,
+      loading: { chats: false, messages: true },
+      messages: null,
+    }));
+  },
 });
 
-export default authSlice.reducer;
+export const { setCurrentChat } = chatSlice.actions;
+export default chatSlice.reducer;

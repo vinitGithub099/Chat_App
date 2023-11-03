@@ -5,10 +5,7 @@ import SendMsgBtn from "./SendMsgBtn";
 export default function ChatScreen({ className, toggleSideBar }) {
   return (
     <div className={`max-h-screen flex flex-col flex-1 bg-dark-1 ${className}`}>
-      <ChannelHeader
-        channelName={""}
-        toggleSideBar={toggleSideBar}
-      ></ChannelHeader>
+      <ChannelHeader toggleSideBar={toggleSideBar}></ChannelHeader>
       <DisplayChats messages={messages}></DisplayChats>
       <SendMsgBtn></SendMsgBtn>
     </div>

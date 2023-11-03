@@ -1,12 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import ChatScreen from "../components/Chats/ChatScreen/ChatScreen";
 import SideBar from "../components/Chats/SideBar/SideBar";
+import { fetchChats } from "../store/Features/Chat/ChatActions";
 
 export default function ChatsPage({ className }) {
   const [isSideBarOpen, setIsSideBarOpen] = useState(true);
   const toggleSideBar = () => setIsSideBarOpen((prev) => !prev);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchChats());
+  }, []);
+
   return (
-    <div className={`w-full max-h-screen flex flex-row ${className}`}>
+    <div className={`w-full h-screen flex flex-row ${className}`}>
       <SideBar
         sidebarOpen={isSideBarOpen}
         toggleSideBar={toggleSideBar}

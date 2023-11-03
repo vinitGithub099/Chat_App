@@ -1,9 +1,9 @@
 import api from "./axiosConfigs";
 
-export const authAPI = {
-  loginUser: async (data) => {
+export const messageAPI = {
+  sendMessage: async (data) => {
     const result = await api.request({
-      url: `/user/login`,
+      url: `/message/sendMessage`,
       method: `POST`,
       data: data,
       signal: new AbortController().signal,
@@ -15,27 +15,12 @@ export const authAPI = {
       throw new Error(result);
     }
   },
-  registerUser: async (data) => {
+  fetchChatMessages: async (id) => {
     const result = await api.request({
-      url: `/user/register`,
-      method: `POST`,
-      data: data,
+      url: `/message/messages/${id}`,
+      method: `GET`,
       signal: new AbortController().signal,
       headers: { "Content-Type": "application/json" },
-    });
-    if (result.status === 200) {
-      return result.data;
-    } else {
-      throw new Error(result);
-    }
-  },
-  refreshToken: async () => {
-    const result = await api.request({
-      url: `/user/refresh-token`,
-      method: `POST`,
-      signal: new AbortController().signal,
-      headers: { "Content-Type": "application/json" },
-      withCredentials: true,
     });
     if (result.status === 200) {
       return result.data;
