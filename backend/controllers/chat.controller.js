@@ -61,7 +61,7 @@ const accessChat = async (req, res) => {
 const fetchChats = async (req, res) => {
   try {
     Chat.find({ users: { $elemMatch: { $eq: req.user._id } } })
-      .populate("users", "=password")
+      .populate("users", "-password")
       .populate("groupAdmin", "-password")
       .populate("latestMessage")
       .sort({ updatedAt: -1 })
@@ -73,7 +73,7 @@ const fetchChats = async (req, res) => {
         res.status(200).send(results);
       });
   } catch (error) {
-    res.status(400);
+    // res.status(400).send({ message: "could not fetch chats" });
     throw new Error(error.message);
   }
 };
