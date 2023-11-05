@@ -1,4 +1,5 @@
 import App from "../App";
+import HomePage from "../Pages/HomePage";
 import SampleHome from "../SampleHome";
 import userLogo from "../assets/profile-user_64572.png";
 import ProtectedRoute from "../components/Auth/ProtectedRoute";
@@ -7,6 +8,7 @@ import MessageCard from "../components/Chats/SideBar/MessageCard";
 import SideBar from "../components/Chats/SideBar/SideBar";
 import UserCard from "../components/Chats/SideBar/UserCard";
 import UserAvatar from "../components/Chats/UserAvatar";
+import ErrorPage from "../components/Error/ErrorPage";
 import IntermediateLoader from "../components/IntermediateLoader";
 import Login from "../components/LoginSignUp/Login";
 import SignUp from "../components/LoginSignUp/SignUp";
@@ -21,6 +23,7 @@ export const router = [
     element: <App></App>,
     children: [
       { path: "", element: <SampleHome></SampleHome> },
+      { path: "home", element: <HomePage></HomePage> },
       {
         path: "intermediate-loader",
         element: <IntermediateLoader className={""}></IntermediateLoader>,
@@ -100,6 +103,10 @@ export const router = [
       {
         path: "chat-screen",
         element: <ChatScreen className=""></ChatScreen>,
+      },
+      {
+        path: "*",
+        element: <ErrorPage></ErrorPage>,
       },
     ],
   },

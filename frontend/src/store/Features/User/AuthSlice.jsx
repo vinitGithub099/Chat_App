@@ -5,7 +5,7 @@
  */
 
 import { createSlice } from "@reduxjs/toolkit";
-import { loginUser, registerUser } from "./AuthActions";
+import { autoLogin, loginUser, registerUser } from "./AuthActions";
 
 const initialState = {
   user: null,
@@ -65,6 +65,23 @@ export const authSlice = createSlice({
       ...state,
       loading: false,
       // error: payload.res,
+    }));
+
+    /* autoLogin */
+    builder.addCase(autoLogin.pending, (state) => ({
+      ...state,
+      loading: true,
+    }));
+    builder.addCase(autoLogin.fulfilled, (state, { payload }) => ({
+      ...state,
+      loading: false,
+      user: payload.user,
+      token: payload.token,
+    }));
+    builder.addCase(autoLogin.rejected, (state) => ({
+      ...state,
+      loading: false,
+      error: true,
     }));
   },
 });

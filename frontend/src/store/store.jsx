@@ -8,4 +8,8 @@ export const store = configureStore({
     profile: profileReducer,
     chat: chatReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });

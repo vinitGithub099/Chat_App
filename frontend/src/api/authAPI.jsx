@@ -35,7 +35,32 @@ export const authAPI = {
       method: `POST`,
       signal: new AbortController().signal,
       headers: { "Content-Type": "application/json" },
-      withCredentials: true,
+    });
+    if (result.status === 200) {
+      return result.data;
+    } else {
+      throw new Error(result);
+    }
+  },
+  autoLogin: async () => {
+    const result = await api.request({
+      url: `/user/auto-login`,
+      method: `POST`,
+      signal: new AbortController().signal,
+      headers: { "Content-Type": "application/json" },
+    });
+    if (result.status === 200) {
+      return result.data;
+    } else {
+      throw new Error(result);
+    }
+  },
+  logout: async () => {
+    const result = await api.request({
+      url: `/user/logout`,
+      method: `POST`,
+      signal: new AbortController().signal,
+      headers: { "Content-Type": "application/json" },
     });
     if (result.status === 200) {
       return result.data;

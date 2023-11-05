@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ERROR, SUCCESS } from "../../constants/constants";
 import { loginUser } from "../../store/Features/User/AuthActions";
-import { useToast } from "../hooks/useToast";
+import { useToast } from "../Hooks/useToast";
 import Template from "./Template";
 import { loginFormFields } from "./utils/loginFormFields";
 
@@ -14,11 +14,13 @@ export default function Login({ className }) {
   const { notify } = useToast();
 
   const handleLoginSuccess = () => {
-    const path = location.state?.from ? location.state.from : "/";
+    const path = location.state?.from ? location.state.from : "/chat";
     notify("Logged in Successfully!", SUCCESS);
     navigate("/intermediate-loader", {
       state: {
-        message: "Redirecting you to where you left from",
+        message: `Redirecting you to ${
+          location.state?.from ? "where you left from" : "Chats page"
+        }`,
         from: path,
       },
     });

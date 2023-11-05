@@ -6,7 +6,6 @@ export const loginUser = createAsyncThunk("auth/login", async (userData) => {
     const res = await authAPI.loginUser(userData);
     return res;
   } catch (error) {
-    console.log(error);p
     throw new Error(error);
   }
 });
@@ -22,3 +21,12 @@ export const registerUser = createAsyncThunk(
     }
   }
 );
+
+export const autoLogin = createAsyncThunk("auth/autLogin", async () => {
+  try {
+    const res = await authAPI.autoLogin();
+    return res;
+  } catch (error) {
+    throw new Error(error);
+  }
+});

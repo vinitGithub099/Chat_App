@@ -3,6 +3,10 @@ import ListComponent from "./components/ListComponent";
 
 const list = [
   {
+    path: "/home",
+    text: "home",
+  },
+  {
     path: "/login",
     text: "login",
   },

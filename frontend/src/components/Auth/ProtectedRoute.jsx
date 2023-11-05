@@ -1,11 +1,12 @@
+import { useSelector } from "react-redux";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import _ from "underscore";
 
 export default function ProtectedRoute() {
   const location = useLocation();
-  console.log(location);
-  const token = localStorage.getItem("access_token");
-  return !_.isEmpty(token) ? (
+  const accessToken = useSelector((state) => state.auth.token);
+
+  return !_.isEmpty(accessToken) ? (
     <Outlet></Outlet>
   ) : (
     <Navigate

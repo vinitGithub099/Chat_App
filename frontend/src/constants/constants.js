@@ -3,5 +3,5 @@ const SUCCESS = "success";
 const WARNING = "warn";
 const ERROR = "error";
 const INFO = "info";
-
-export { ERROR, INFO, SUCCESS, WARNING };
+const ENDPOINT = "http://localhost:5000";
+export { ENDPOINT, ERROR, INFO, SUCCESS, WARNING };
