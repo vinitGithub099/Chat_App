@@ -5,6 +5,8 @@ const {
   registerUser,
   allUsers,
   refreshToken,
+  fetchUserDetails,
+  logout,
 } = require("../controllers/user.controller.js");
 
 const { protect } = require("../middlewares/authMiddleware.js");
@@ -20,5 +22,11 @@ router.get("/allUsers", protect, allUsers);
 
 /** status: Working */
 router.post("/refresh-token", protect, refreshToken);
+
+/** status: Working */
+router.post("/auto-login", protect, fetchUserDetails);
+
+/** status: Working */
+router.post("/logout", logout);
 
 module.exports = router;

@@ -124,4 +124,42 @@ const refreshToken = async (req, res) => {
     });
 };
 
-module.exports = { loginUser, registerUser, allUsers, refreshToken };
+/**
+ * * status: working
+ * @description fetch user details if token is availble
+ * @method GET /api/user/auto-login
+ * @purpose to auto login the user if token is valid
+ */
+const fetchUserDetails = async (req, res) => {
+  const user = req.user;
+  const token = req.headers.authorization.split(" ")[1];
+
+  if (user) {
+    res.status(200).json({ user: user, token: token });
+  } else {
+    res.send(401).json({ message: "User not found!" });
+  }
+};
+
+/**
+ * * status: working
+ * @description fetch user details if token is availble
+ * @method GET /api/user/auto-login
+ * @purpose to auto login the user if token is valid
+ */
+const logout = async (req, res) => {
+  res.clearCookie("refresh_token");
+  res.redirect("/");
+  res.status(200).json({
+    message: "logout",
+  });
+};
+
+module.exports = {
+  loginUser,
+  registerUser,
+  allUsers,
+  refreshToken,
+  fetchUserDetails,
+  logout,
+};
