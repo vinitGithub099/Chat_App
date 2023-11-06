@@ -35,21 +35,20 @@ api.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
-    if (error.response.status === 403 && !originalRequest._retry) {
+    if (error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
       let accessToken;
 
       try {
         const res = await authAPI.refreshToken();
         accessToken = res.accessToken;
+        localStorage.setItem("access_token", accessToken);
       } catch (error) {
         throw new Error(error);
       }
 
-      localStorage.setItem("access_token", accessToken);
-
       api.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
-      
+
       return api(originalRequest);
     }
     return Promise.reject(error);
