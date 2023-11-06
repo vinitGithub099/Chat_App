@@ -38,12 +38,12 @@ export default function ChatsPage({ className }) {
       <SideBar
         sidebarOpen={isSideBarOpen}
         toggleSideBar={toggleSideBar}
-        className="w-1/4"
+        className=""
       ></SideBar>
       <ChatScreen
         sidebarOpen={isSideBarOpen}
         toggleSideBar={toggleSideBar}
-        className="w-3/4"
+        className=""
       ></ChatScreen>
     </div>
   );

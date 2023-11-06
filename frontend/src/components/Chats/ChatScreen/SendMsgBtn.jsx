@@ -1,3 +1,4 @@
+import { AiOutlineSend } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import _ from "underscore";
 import { messageAPI } from "../../../api/messageAPI";
@@ -45,8 +46,8 @@ export default function SendMsgBtn() {
         fields={formFields}
         buttonConfigs={{
           type: "submit",
-          label: "Send",
-          className: "py-2 px-4 bg-blue-500 rounded-lg text-white bg-dark",
+          className: "py-2 px-4 bg-btn rounded-lg text-white bg-dark hover:bg-opacity-80",
+          children: <AiOutlineSend></AiOutlineSend>,
         }}
         handleSubmit={handleSendMessage}
       ></Form>
@@ -62,7 +63,7 @@ const formFields = [
     id: "chat",
     defaultValue: "",
     containerClassName: "",
-    className: "rounded-md bg-light-3",
+    className: "rounded-md bg-light-3 px-4",
     inputClassName:
       "p-2 w-full outline-none rounded-md bg-light-3 text-light-1",
     placeholder: "Send Message",

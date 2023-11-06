@@ -7,13 +7,13 @@ export default function UserDropDown() {
   return (
     <ListComponent
       list={userDropDownList}
-      className="w-dropdown bg-dark-1 p-4 rounded-md absolute bottom-20"
-      subComponent={SubComponent}
+      className="w-dropdown bg-dark-1 outline outline-light-3 p-4 rounded-md absolute left-20 bottom-20"
+      subComponent={ListItem}
     ></ListComponent>
   );
 }
 
-function SubComponent({ label, path, icon, fontClass }) {
+function ListItem({ label, path, icon, fontClass }) {
   const navigate = useNavigate();
   const handelClick = () => navigate(path);
   return (
