@@ -7,7 +7,7 @@ export default function UserDropDown() {
   return (
     <ListComponent
       list={userDropDownList}
-      className="w-dropdown bg-dark-1 outline outline-light-3 p-4 rounded-md absolute left-20 bottom-20"
+      className="w-dropdown bg-dark-1 outline outline-light-3 p-4 rounded-md absolute right-0 bottom-12"
       subComponent={ListItem}
     ></ListComponent>
   );

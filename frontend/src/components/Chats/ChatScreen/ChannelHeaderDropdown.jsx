@@ -17,10 +17,10 @@ export default function ChannelHeaderDropdown({ handleChannelExtras }) {
   );
 }
 
-function ListItem({ icon, name, handleClick }) {
+function ListItem({ icon, name, handleClick, className }) {
   return (
     <div
-      className={`w-full mb-2 p-2 flex flex-row items-center gap-2 rounded-md text-light-1 hover:bg-light-3`}
+      className={`w-full mb-2 p-2 flex flex-row items-center gap-2 rounded-md hover:bg-light-3 ${className}`}
       onClick={() => handleClick(name)}
     >
       <div>{icon}</div>
@@ -33,9 +33,11 @@ const list = [
   {
     name: channelOptions.INFO,
     icon: <FiInfo></FiInfo>,
+    className: "text-light-1",
   },
   {
     name: channelOptions.EXIT_GROUP,
     icon: <RxExit></RxExit>,
+    className: "text-error",
   },
 ];
