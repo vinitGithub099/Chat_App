@@ -10,7 +10,7 @@ export default function SearchChatResults() {
   return (
     <ListComponent
       list={chatList}
-      className="flex-1 mb-2 overflow-y-scroll scrollbar"
+      className="divide-y divide-light-3 flex-1 mb-2 overflow-y-scroll scrollbar"
       subComponent={ListItem}
     ></ListComponent>
   );
@@ -35,7 +35,7 @@ function ListItem(props) {
 
   return (
     <div
-      className="shadow-sm shadow-light-3 p-1 cursor-pointer"
+      className="p-1 cursor-pointer"
       onClick={() => handleClick(props)}
     >
       <div className="flex flex-row items-center gap-4 my-2 rounded-md">

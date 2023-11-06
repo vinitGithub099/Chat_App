@@ -4,5 +4,17 @@ Reference link for the project: https://www.youtube.com/playlist?list=PLKhlp2qtU
     - Fix the sidebar default open close issue
     - padding issue and validation issue 
 
-#fixed issues:
+#Pending:
+    - cursor pointer over hamburger in ChannelHeader
+    - search query
+    - search loading
+    - create channel 
+    - add user to channel
+    - remove user from channel
+    - channel info
+    - channel description to be included in backend modal of messages
+    - error handling in frontend
+    - error responses in backend
+
+#Fixed issues:
     - text input validation due to onChange
