@@ -6,17 +6,13 @@ import ChannelExtras from "./ChannelExtras";
 import ChannelHeaderDropdown from "./ChannelHeaderDropdown";
 
 export default function ChannelHeader({ toggleSideBar }) {
-  const [dropDown, setDropDown] = useState(false);
   const [channelExtras, setChannelExtras] = useState(null);
-  const currChatName = useSelector(
-    (state) => state.chat?.currentChat?.chatName
-  );
-  const toggleDropdown = () => setDropDown((prev) => !prev);
+  const currChat = useSelector((state) => state.chat?.currentChat);
   const handleChannelExtras = (name) => setChannelExtras(name);
   const getShortenedString = (str) => {
     let modifiedStr = str;
-    if (str.length > 20) {
-      modifiedStr = str.substring(0, 20) + "...";
+    if (modifiedStr.length > 15) {
+      modifiedStr = str.substring(0, 15) + "...";
     }
     return modifiedStr;
   };
@@ -32,24 +28,24 @@ export default function ChannelHeader({ toggleSideBar }) {
         </div>
 
         <div className="ml-4 text-xl font-semibold text-light-1">
-          {currChatName ? getShortenedString(currChatName) : "Channel Name"}
+          {currChat &&
+            currChat.chatName &&
+            getShortenedString(currChat.chatName)}
         </div>
-        <div
-          className="text-light-2 hover:cursor-pointer"
-          onClick={toggleDropdown}
-        >
-          <HiOutlineDotsVertical size={30}></HiOutlineDotsVertical>
-          {dropDown && (
+        {currChat && (
+          <div className="text-light-2 hover:cursor-pointer group">
+            <HiOutlineDotsVertical size={30}></HiOutlineDotsVertical>
             <ChannelHeaderDropdown
               handleChannelExtras={handleChannelExtras}
             ></ChannelHeaderDropdown>
-          )}
-        </div>
+          </div>
+        )}
       </div>
       {channelExtras && (
         <ChannelExtras
           channelExtras={channelExtras}
           handleChannelExtras={handleChannelExtras}
+          className="z-30"
         ></ChannelExtras>
       )}
     </>

@@ -9,9 +9,9 @@ export default function SideBar({ className, sidebarOpen, toggleSideBar }) {
       <div
         className={`max-sm:hidden w-auto h-screen max-sm:fixed z-10 flex flex-row ${className}`}
       >
-        <div className="w-80 flex flex-col max-sm:rounded-lg px-4 py-2 bg-dark-2">
+        <div className="w-80 flex flex-col max-sm:rounded-lg py-2 bg-dark-2">
           <SideBarBtn toggleSideBar={toggleSideBar}></SideBarBtn>
-          <SearchChat></SearchChat>
+          <SearchChat toggleSideBar={toggleSideBar}></SearchChat>
           <UserInfo></UserInfo>
         </div>
         <div className="sm:hidden flex flex-1 opacity-60 bg-dark-2"></div>
@@ -22,9 +22,9 @@ export default function SideBar({ className, sidebarOpen, toggleSideBar }) {
         <div
           className={`sm:hidden max-sm:w-full h-screen max-sm:fixed z-10 flex flex-row ${className}`}
         >
-          <div className="w-80 flex flex-col max-sm:rounded-lg px-4 py-2 bg-dark-2 rounded-tr-lg rounded-br-lg">
+          <div className="w-80 flex flex-col max-sm:rounded-lg py-2 bg-dark-2 rounded-tr-lg rounded-br-lg">
             <SideBarBtn toggleSideBar={toggleSideBar}></SideBarBtn>
-            <SearchChat></SearchChat>
+            <SearchChat toggleSideBar={toggleSideBar}></SearchChat>
             <UserInfo></UserInfo>
           </div>
           <div className="sm:hidden flex flex-1 opacity-60 bg-dark-2"></div>

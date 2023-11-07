@@ -5,7 +5,7 @@ import { fetchChatMessages } from "../../../store/Features/Chat/ChatActions";
 import { setMessages } from "../../../store/Features/Chat/ChatSlice";
 import MessageCard from "../SideBar/MessageCard";
 
-export default function DisplayChats() {
+export default function DisplayMessages() {
   const messagesEndRef = useRef(null);
   const dispatch = useDispatch();
   const chatSocket = useSelector((state) => state.chat.chatSocket);
@@ -48,7 +48,7 @@ export default function DisplayChats() {
   });
 
   return (
-    <div className="px-8 w-full overflow-y-scroll scrollbar-msg flex flex-1 flex-col">
+    <div className="px-4 sm:px-8 w-full overflow-y-scroll scrollbar-msg flex flex-1 flex-col">
       {messages && messages.length
         ? messages.map(({ _id, sender, timeStamp, content }) => {
             return (

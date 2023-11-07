@@ -21,17 +21,17 @@ function ToastProvider({ children }) {
   return (
     <ToastContext.Provider value={{ notify }}>
       <div className="fixed right-0 flex flex-col-reverse items-end justify-center bg-transparent">
-        {toasts &&
-          toasts.length &&
-          toasts.map((toast) => (
-            <Toast
-              key={toast.id}
-              content={toast.content}
-              type={toast.type}
-              closeToast={() => closeToast(toast.id)}
-              className="my-2 text-light-1 px-4 py-2 rounded-md"
-            ></Toast>
-          ))}
+        {toasts && toasts.length
+          ? toasts.map((toast) => (
+              <Toast
+                key={toast.id}
+                content={toast.content}
+                type={toast.type}
+                closeToast={() => closeToast(toast.id)}
+                className="my-2 text-light-1 px-4 py-2 rounded-md"
+              ></Toast>
+            ))
+          : null}
       </div>
       {children}
     </ToastContext.Provider>

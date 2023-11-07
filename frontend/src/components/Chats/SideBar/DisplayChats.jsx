@@ -5,13 +5,14 @@ import ListComponent from "../../ListComponent";
 import UserAvatar from "../UserAvatar";
 import { formatTimestampToText } from "../Utils/formatTimestampToText";
 
-export default function SearchChatResults() {
+export default function DisplayChats({ toggleSideBar }) {
   const chatList = useSelector((state) => state.chat.chats);
   return (
     <ListComponent
       list={chatList}
       className="divide-y divide-light-3 flex-1 mb-2 overflow-y-scroll scrollbar"
       subComponent={ListItem}
+      toggleSideBar={toggleSideBar}
     ></ListComponent>
   );
 }
@@ -19,11 +20,11 @@ export default function SearchChatResults() {
 function ListItem(props) {
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.auth.user._id);
+  const { chatName, latestMessage, toggleSideBar } = props;
   const handleClick = (props) => {
     dispatch(setCurrentChat(props));
+    toggleSideBar();
   };
-
-  const { chatName, latestMessage } = props;
 
   const getShortenedString = (str) => {
     let modifiedStr = str;
@@ -35,7 +36,7 @@ function ListItem(props) {
 
   return (
     <div
-      className="p-1 cursor-pointer"
+      className="px-4 py-1 cursor-pointer hover:bg-dark-1"
       onClick={() => handleClick(props)}
     >
       <div className="flex flex-row items-center gap-4 my-2 rounded-md">
@@ -71,4 +72,3 @@ function ListItem(props) {
     </div>
   );
 }
-

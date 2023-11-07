@@ -1,12 +1,12 @@
 import { FiSearch } from "react-icons/fi";
 import Form from "../../Form/Form";
-import SearchChatResults from "./SearchChatResults";
+import DisplayChats from "./DisplayChats";
 
-export default function SearchChat() {
+export default function SearchChat({ toggleSideBar }) {
   return (
     <div className="w-full flex flex-1 flex-col overflow-hidden">
       <SearchBar></SearchBar>
-      <SearchChatResults></SearchChatResults>
+      <DisplayChats toggleSideBar={toggleSideBar}></DisplayChats>
     </div>
   );
 }
@@ -14,13 +14,12 @@ export default function SearchChat() {
 function SearchBar() {
   return (
     <Form
-      className="my-2"
+      className="my-2 px-4"
       fields={searchFormFields}
       handleSubmit={(e) => console.log(e)}
     ></Form>
   );
 }
-
 
 const searchFormFields = [
   {

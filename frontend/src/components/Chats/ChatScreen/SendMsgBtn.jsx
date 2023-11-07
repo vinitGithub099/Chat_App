@@ -40,7 +40,7 @@ export default function SendMsgBtn() {
   };
 
   return (
-    <div className="my-4 mx-8">
+    <div className="py-4 px-4 sm:px-8">
       <Form
         className="w-full flex flex-row gap-2"
         fields={formFields}

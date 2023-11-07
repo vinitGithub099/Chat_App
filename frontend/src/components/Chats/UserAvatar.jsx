@@ -9,6 +9,8 @@ export default function UserAvatar({ imgSrc, className, altText, config }) {
       defaultClassName += "w-12 h-12";
     } else if (config == "l") {
       defaultClassName += "w-16 h-16";
+    } else if (config == "xl") {
+      defaultClassName += "w-24 h-24";
     } else {
       defaultClassName += "w-5 h-5";
     }

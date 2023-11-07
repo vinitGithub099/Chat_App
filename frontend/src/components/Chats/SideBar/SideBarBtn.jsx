@@ -8,7 +8,7 @@ export default function SideBarBtn({ toggleSideBar }) {
   const [showModal, setShowModal] = useState(false);
   const toggleModal = () => setShowModal((prev) => !prev);
   return (
-    <div className="w-full mb-2 p-2 flex flex-row justify-between">
+    <div className="w-full mb-2 py-2 px-4 flex flex-row justify-between">
       <div className="flex gap-2">
         <Button
           className="sm:hidden rounded-sm pr-1 text-light-1"
