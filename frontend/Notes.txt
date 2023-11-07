@@ -5,14 +5,13 @@ Reference link for the project: https://www.youtube.com/playlist?list=PLKhlp2qtU
     - padding issue and validation issue 
 
 #Pending:
-    - cursor pointer over hamburger in ChannelHeader
     - search query
     - search loading
     - create channel 
-    - add user to channel
-    - remove user from channel
+        - select users options to be added in createChannelForm
     - channel info
-    - channel description to be included in backend modal of messages
+        - remove user from channel
+        - drop down functionalities
     - error handling in frontend
     - error responses in backend
 

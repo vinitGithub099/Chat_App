@@ -1,0 +1,3 @@
+const GROUP_MEMBERS_LIMIT = 2;
+
+export { GROUP_MEMBERS_LIMIT };

@@ -4,6 +4,7 @@ const chatModel = mongoose.Schema(
   {
     chatName: { type: String, trim: true },
     isGroupChat: { type: Boolean, default: false },
+    description: { type: String, default: "This is group description" },
     /**
      * * each object will be a reference to the User Model */
     users: [
