@@ -14,6 +14,7 @@ export default function ListComponent({
                 key={fields?._id ? fields._id : index}
                 {...fields}
                 {...rest}
+                index={index}
               ></SubComponent>
             );
           })

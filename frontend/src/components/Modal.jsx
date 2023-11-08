@@ -9,7 +9,7 @@ export default function Modal({
   return showModal ? (
     <>
       <div
-        className="flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+        className="w-full h-screen flex justify-center items-center overflow-x-hidden fixed inset-0 z-50 outline-none focus:outline-none"
         onClick={handleCloseOutSide}
         id="modal"
       >

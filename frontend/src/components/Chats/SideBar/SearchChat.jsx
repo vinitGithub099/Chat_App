@@ -1,27 +1,52 @@
+import { useState } from "react";
 import { FiSearch } from "react-icons/fi";
+import _ from "underscore";
+import { authAPI } from "../../../api/authAPI";
+import userLogo from "../../../assets/profile-user_64572.png";
 import Form from "../../Form/Form";
+import ListComponent from "../../ListComponent";
 import DisplayChats from "./DisplayChats";
+import UserCard from "./UserCard";
 
 export default function SearchChat({ toggleSideBar }) {
+  const [searchChats, setSearchChats] = useState([]);
+  const handleSearchChats = (results) => setSearchChats(results);
   return (
     <div className="w-full flex flex-1 flex-col overflow-hidden">
-      <SearchBar></SearchBar>
-      <DisplayChats toggleSideBar={toggleSideBar}></DisplayChats>
+      <SearchBar handleSearchChats={handleSearchChats}></SearchBar>
+      {searchChats && searchChats.length ? (
+        <SearchResults searchUsers={searchChats}></SearchResults>
+      ) : (
+        <DisplayChats toggleSideBar={toggleSideBar}></DisplayChats>
+      )}
     </div>
   );
 }
 
-function SearchBar() {
+function SearchBar({ handleSearchChats }) {
+  const handleSearch = (query) => {
+    if (_.isEmpty(query)) {
+      handleSearchChats([]);
+      return;
+    }
+    authAPI
+      .searchUser(query.trim())
+      .then((res) => {
+        console.log(res);
+        handleSearchChats(res);
+      })
+      .catch(() => handleSearchChats([]));
+  };
   return (
     <Form
       className="my-2 px-4"
-      fields={searchFormFields}
-      handleSubmit={(e) => console.log(e)}
+      fields={searchFormFields(handleSearch)}
+      handleSubmit={() => {}}
     ></Form>
   );
 }
 
-const searchFormFields = [
+const searchFormFields = (handleSearch) => [
   {
     type: "text",
     label: "",
@@ -34,6 +59,27 @@ const searchFormFields = [
     placeholder: "Search @chat",
     required: true,
     icon: { icon: FiSearch, size: 20, className: "p-2 text-gray-500" },
-    onChange: (e) => console.log(e.target.value),
+    onChange: (e) => handleSearch(e.target.value),
   },
 ];
+
+function SearchResults({ searchUsers }) {
+  return (
+    <ListComponent
+      list={searchUsers}
+      className="flex flex-1 flex-col overflow-y-scroll scrollbar divide-y divide-light-3"
+      subComponent={SubComponent}
+    ></ListComponent>
+  );
+}
+
+function SubComponent(props) {
+  return (
+    <UserCard
+      {...props}
+      imgSrc={userLogo}
+      imgConfig="s"
+      className="text-light-1 py-2 hover:bg-dark-1 px-4"
+    ></UserCard>
+  );
+}

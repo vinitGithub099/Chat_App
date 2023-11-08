@@ -3,6 +3,7 @@ Reference link for the project: https://www.youtube.com/playlist?list=PLKhlp2qtU
 #Issues:
     - Fix the sidebar default open close issue
     - padding issue and validation issue 
+    - scrollbar problem in create channel form
 
 #Pending:
     - search query
@@ -14,6 +15,8 @@ Reference link for the project: https://www.youtube.com/playlist?list=PLKhlp2qtU
         - drop down functionalities
     - error handling in frontend
     - error responses in backend
+    - if user is auto-logged in then chats page on refresh should not redirect to login
+    - bugs in search functionalities
 
 #Fixed issues:
     - text input validation due to onChange

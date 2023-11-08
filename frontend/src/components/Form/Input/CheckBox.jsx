@@ -13,6 +13,7 @@ export const Checkbox = ({
   labelClassName,
   checkedItemClassName,
   checkboxClassName,
+  containerClassName,
   labelComponent,
   optionsList,
   validation,
@@ -24,7 +25,9 @@ export const Checkbox = ({
   } = useFormContext();
 
   const [checkedItems, setCheckedItems] = useState([]);
+
   const handleChange = (e) => {
+    console.log(checkedItems);
     if (e.target.checked) {
       setCheckedItems((prev) => [
         ...prev,
@@ -61,6 +64,7 @@ export const Checkbox = ({
             checkboxClassName={checkboxClassName}
             register={register}
             validation={validation}
+            containerClassName={containerClassName}
           ></ListComponent>
         )}
       />
@@ -84,10 +88,12 @@ function ListInputItem({
   register,
   handleChange,
   validation,
+  index,
+  containerClassName,
   ...rest
 }) {
   return (
-    <div className="w-full mx-auto flex flex-row hover:bg-dark-1">
+    <div className={`w-full mx-auto flex flex-row ${containerClassName}`}>
       <input
         type={type}
         value={rest.name}
@@ -95,8 +101,9 @@ function ListInputItem({
         defaultChecked={defaultChecked}
         {...register(id, validation)}
         onChange={handleChange}
+        id={rest._id ? rest._id : index}
       ></input>
-      <label htmlFor={rest._id} className="flex-1">
+      <label htmlFor={rest.name} className="flex-1">
         <LabelComponent {...rest}></LabelComponent>
       </label>
     </div>

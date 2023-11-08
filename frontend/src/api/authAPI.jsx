@@ -29,6 +29,23 @@ export const authAPI = {
       throw new Error(result);
     }
   },
+  searchUser: async (query) => {
+    const result = await api.request({
+      url: `/user/allUsers`,
+      method: `GET`,
+      signal: new AbortController().signal,
+      headers: { "Content-Type": "application/json" },
+      params: {
+        search: query,
+      },
+    });
+    if (result.status === 200) {
+      console.log(result);
+      return result.data;
+    } else {
+      throw new Error(result);
+    }
+  },
   refreshToken: async () => {
     const result = await api.request({
       url: `/user/refresh-token`,
