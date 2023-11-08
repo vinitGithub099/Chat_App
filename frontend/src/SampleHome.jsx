@@ -43,6 +43,10 @@ const list = [
     path: "/user-card",
     text: "User Card",
   },
+  {
+    path: "/demo-form",
+    text: "demo form",
+  },
 ];
 
 export default function SampleHome() {

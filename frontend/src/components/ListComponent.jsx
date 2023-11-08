@@ -11,7 +11,7 @@ export default function ListComponent({
         ? list.map((fields, index) => {
             return (
               <SubComponent
-                key={fields._id ? fields._id : index}
+                key={fields?._id ? fields._id : index}
                 {...fields}
                 {...rest}
               ></SubComponent>

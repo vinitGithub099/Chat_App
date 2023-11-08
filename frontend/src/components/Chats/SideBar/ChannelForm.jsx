@@ -8,7 +8,7 @@ export default function ChannelForm({ showModal, toggleModal }) {
     <Modal
       showModal={showModal}
       toggleModal={toggleModal}
-      className="w-auto"
+      className="w-auto z-60"
       modalComponent={
         <CreateChannelForm toggleModal={toggleModal}></CreateChannelForm>
       }
@@ -17,6 +17,14 @@ export default function ChannelForm({ showModal, toggleModal }) {
 }
 
 function CreateChannelForm({ toggleModal }) {
+  const handleSubmit = (channelData) => {
+    console.log(channelData);
+    // const data = {
+    //   name: channelData.channelName,
+    //   users: [],
+    //   description: channelData.description,
+    // };
+  };
   return (
     <div className="w-full p-8 bg-dark-2 rounded-lg">
       <ChannelHeader toggleModal={toggleModal}></ChannelHeader>
@@ -28,7 +36,7 @@ function CreateChannelForm({ toggleModal }) {
           label: "Save",
           className: "px-4 py-2 rounded-md bg-btn text-white",
         }}
-        handleSubmit={(e) => console.log(e)}
+        handleSubmit={handleSubmit}
       ></Form>
     </div>
   );
@@ -74,8 +82,50 @@ const channelFormFields = [
     inputClassName:
       "p-2 w-full rounded-md outline-none bg-light-3 text-light-1",
     placeholder: "Describe your channel here",
-    validation: {
-      required: { value: true, message: "Channel Description cannot be empty" },
-    },
+  },
+  {
+    type: "checkbox",
+    name: "usersList",
+    label: "Select Users",
+    className: "p-2 my-2 rounded-md bg-dark-1",
+    showCheckedItems: true,
+    checkedItemsClassName: "w-full p-2",
+    labelClassName: "",
+    optionsList: generateFakeUsers(),
   },
 ];
+
+function generateFakeUsers() {
+  let arr = [];
+  for (let i = 0; i < 10; i++) {
+    arr = [
+      ...arr,
+      {
+        id: i,
+        label: `user${i}`,
+        inputClassName:
+          "p-2 w-full rounded-md outline-none bg-light-3 text-light-1",
+        // checked: false,
+        defaultChecked: false,
+      },
+    ];
+  }
+  return arr;
+}
+
+/* 
+
+{
+    "_id": "64e899c03ac98a5b778af11a",
+    "name": "Vansh",
+    "email": "vansh@gmail.com",
+    "phone": "995052986",
+    "bio": "Hello world",
+    "pic": "",
+    "isAdmin": false,
+    "createdAt": "2023-08-25T12:08:32.631Z",
+    "updatedAt": "2023-08-25T12:08:32.631Z",
+    "__v": 0
+}
+
+*/

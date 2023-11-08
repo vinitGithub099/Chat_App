@@ -1,5 +1,5 @@
 import SearchChat from "./SearchChat";
-import SideBarBtn from "./SideBarBtn";
+import SideBarHeader from "./SideBarHeader";
 import UserInfo from "./UserInfo";
 
 export default function SideBar({ className, sidebarOpen, toggleSideBar }) {
@@ -10,7 +10,7 @@ export default function SideBar({ className, sidebarOpen, toggleSideBar }) {
         className={`max-sm:hidden w-auto h-screen max-sm:fixed z-10 flex flex-row ${className}`}
       >
         <div className="w-80 flex flex-col max-sm:rounded-lg py-2 bg-dark-2">
-          <SideBarBtn toggleSideBar={toggleSideBar}></SideBarBtn>
+          <SideBarHeader toggleSideBar={toggleSideBar}></SideBarHeader>
           <SearchChat toggleSideBar={toggleSideBar}></SearchChat>
           <UserInfo></UserInfo>
         </div>
@@ -23,7 +23,7 @@ export default function SideBar({ className, sidebarOpen, toggleSideBar }) {
           className={`sm:hidden max-sm:w-full h-screen max-sm:fixed z-10 flex flex-row ${className}`}
         >
           <div className="w-80 flex flex-col max-sm:rounded-lg py-2 bg-dark-2 rounded-tr-lg rounded-br-lg">
-            <SideBarBtn toggleSideBar={toggleSideBar}></SideBarBtn>
+            <SideBarHeader toggleSideBar={toggleSideBar}></SideBarHeader>
             <SearchChat toggleSideBar={toggleSideBar}></SearchChat>
             <UserInfo></UserInfo>
           </div>

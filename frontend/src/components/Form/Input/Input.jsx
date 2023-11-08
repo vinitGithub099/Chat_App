@@ -1,4 +1,5 @@
 import _ from "underscore";
+import { Checkbox } from "./CheckBox";
 import EmailInput from "./EmailInput";
 import MultiLineInput from "./MultiLineInput";
 import PasswordInput from "./PasswordInput";
@@ -52,31 +53,3 @@ const SelectInput = ({
     </select>
   </div>
 );
-
-const Checkbox = ({
-  type,
-  label,
-  name,
-  onChange,
-  className,
-  checked,
-  defaultChecked,
-  checkboxClassName,
-  labelClassName,
-}) => {
-  return (
-    <div className={`inline-flex items-center ${className}`}>
-      <input
-        type={type}
-        id={name}
-        name={name}
-        value={label}
-        className={`form-checkbox h-4 w-4 text-indigo-600 ${checkboxClassName}`}
-        checked={checked}
-        defaultChecked={defaultChecked}
-        onChange={onChange}
-      />
-      <p className={`ml-2 text-sm ${labelClassName}`}>{label}</p>
-    </div>
-  );
-};

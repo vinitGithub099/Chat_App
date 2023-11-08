@@ -4,7 +4,7 @@ import { RiAddFill } from "react-icons/ri";
 import Button from "../../Form/Button";
 import ChannelForm from "./ChannelForm";
 
-export default function SideBarBtn({ toggleSideBar }) {
+export default function SideBarHeader({ toggleSideBar }) {
   const [showModal, setShowModal] = useState(false);
   const toggleModal = () => setShowModal((prev) => !prev);
   return (
@@ -13,7 +13,7 @@ export default function SideBarBtn({ toggleSideBar }) {
         <Button
           className="sm:hidden rounded-sm pr-1 text-light-1"
           type="submit"
-          handleClick={toggleSideBar}
+          onClick={toggleSideBar}
         >
           <IoIosArrowBack size={20}></IoIosArrowBack>
         </Button>

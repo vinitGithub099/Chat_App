@@ -8,6 +8,7 @@ import MessageCard from "../components/Chats/SideBar/MessageCard";
 import SideBar from "../components/Chats/SideBar/SideBar";
 import UserCard from "../components/Chats/SideBar/UserCard";
 import UserAvatar from "../components/Chats/UserAvatar";
+import DemoForm from "../components/DemoForm";
 import ErrorPage from "../components/Error/ErrorPage";
 import IntermediateLoader from "../components/IntermediateLoader";
 import Login from "../components/LoginSignUp/Login";
@@ -40,7 +41,10 @@ export const router = [
         path: "toast-demo",
         element: <ToastDemo className=""></ToastDemo>,
       },
-
+      {
+        path: "demo-form",
+        element: <DemoForm></DemoForm>,
+      },
       {
         path: "profile/",
         element: <ProtectedRoute></ProtectedRoute>,

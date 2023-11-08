@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ERROR, SUCCESS } from "../../constants/constants";
 import { registerUser } from "../../store/Features/User/AuthActions";
-import { useToast } from "../hooks/useToast";
+import { useToast } from "../Hooks/useToast";
 import Template from "./Template";
 import { signUpFormFields } from "./utils/registerFormFields";
 
