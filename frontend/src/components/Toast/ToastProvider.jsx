@@ -20,7 +20,7 @@ function ToastProvider({ children }) {
 
   return (
     <ToastContext.Provider value={{ notify }}>
-      <div className="fixed right-0 flex flex-col-reverse items-end justify-center bg-transparent">
+      <div className="fixed right-0 flex flex-col-reverse items-end justify-center bg-transparent z-50">
         {toasts && toasts.length
           ? toasts.map((toast) => (
               <Toast

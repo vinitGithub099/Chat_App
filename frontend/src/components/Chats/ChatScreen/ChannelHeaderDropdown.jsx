@@ -11,7 +11,7 @@ export default function ChannelHeaderDropdown({ handleChannelExtras }) {
   return (
     <ListComponent
       list={modifiedList}
-      className="hidden w-40 border bg-dark-3 border-light-2 p-4 rounded-md fixed right-2 top-12 group-hover:block z-30"
+      className="hidden w-40 border bg-dark-3 border-light-2 p-4 rounded-md fixed right-2 top-2 group-hover:block z-30"
       subComponent={ListItem}
     ></ListComponent>
   );

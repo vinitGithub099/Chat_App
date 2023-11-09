@@ -2,7 +2,6 @@ import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import _ from "underscore";
 import { fetchChatMessages } from "../../../store/Features/Chat/ChatActions";
-import { setMessages } from "../../../store/Features/Chat/ChatSlice";
 import MessageCard from "../SideBar/MessageCard";
 
 export default function DisplayMessages() {
@@ -27,28 +26,28 @@ export default function DisplayMessages() {
     }
   }, [chatSocket, currentChat, dispatch]);
 
-  useEffect(() => {
-    console.log("infinite");
-    // message received
-    if (chatSocket) {
-      console.log(chatSocket);
-      const handleReceivedMessage = (newMessage) => {
-        console.log("inside message received");
-        console.log(newMessage);
-        if (!currentChat || currentChat._id !== newMessage.chat._id) {
-          /* give notification */
-        } else {
-          // updates the receiver messages
-          dispatch(setMessages(newMessage));
-        }
-      };
+  // useEffect(() => {
+  //   console.log("infinite");
+  //   // message received
+  //   if (chatSocket) {
+  //     console.log(chatSocket);
+  //     const handleReceivedMessage = (newMessage) => {
+  //       console.log("inside message received");
+  //       console.log(newMessage);
+  //       if (!currentChat || currentChat._id !== newMessage.chat._id) {
+  //         /* give notification */
+  //       } else {
+  //         // updates the receiver messages
+  //         dispatch(setMessages(newMessage));
+  //       }
+  //     };
 
-      chatSocket.on("message received", handleReceivedMessage);
-    }
-  });
+  //     chatSocket.on("message received", handleReceivedMessage);
+  //   }
+  // });
 
   return (
-    <div className="px-4 sm:px-8 w-full overflow-y-scroll scrollbar-msg flex flex-1 flex-col">
+    <div className="px-4 sm:px-8 w-full overflow-y-scroll scrollbar flex flex-1 flex-col">
       {messages && messages.length
         ? messages.map(({ _id, sender, timeStamp, content }) => {
             return (

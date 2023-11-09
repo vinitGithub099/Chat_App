@@ -34,6 +34,7 @@ function CreateChannelForm({ toggleModal }) {
       users: channelData.userList,
       description: channelData.channelDescription,
     };
+    console.log(data);
 
     chatAPI
       .createGroupChat(data)

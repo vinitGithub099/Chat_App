@@ -1,3 +1,4 @@
+const { GROUP_MEMBERS_LIMIT } = require("../configs/constants");
 const Chat = require("../models/chatModel");
 const User = require("../models/userModel");
 
@@ -185,24 +186,29 @@ const addToGroup = async (req, res) => {
  */
 const removeFromGroup = async (req, res) => {
   const { chatId, userId } = req.body;
+  try {
+    const removed = await Chat.findByIdAndUpdate(
+      chatId,
+      {
+        $pull: { users: userId },
+      },
+      {
+        new: true,
+      }
+    )
+      .populate("users", "-password")
+      .populate("groupAdmin", "-password");
 
-  const removed = await Chat.findByIdAndUpdate(
-    chatId,
-    {
-      $pull: { users: userId },
-    },
-    {
-      new: true,
+    if (!removed) {
+      res.status(404).json({ error: "Chat not found" });
+    } else {
+      res.json(removed);
     }
-  )
-    .populate("users", "-password")
-    .populate("groupAdmin", "-password");
-
-  if (!removed) {
-    res.status(404);
-    throw new Error("Chat not found");
-  } else {
-    res.json(removed);
+  } catch (error) {
+    // Handle any database or other errors here
+    res.status(500).json({
+      error: "An error occurred while removing the user from the group.",
+    });
   }
 };
 
@@ -214,3 +220,5 @@ module.exports = {
   addToGroup,
   removeFromGroup,
 };
+
+// {"_id":"6505f1bec471484717b8b3c3","name":"Sample User 1","email":"sample1@gmail.com","password":"$2b$10$QxSGcOKQmu3FBs1D69m1qOIXZw1dqiMGC1aypUOe/btsdhDK2jWue","isAdmin":false,"createdAt":"2023-09-16T18:19:42.756Z","updatedAt":"2023-09-16T18:19:42.756Z","__v":0,"inputClassName":"p-2 w-full rounded-md outline-none bg-light-3 text-light-1"},{"_id":"6505f22bc471484717b8b3c6","name":"Sample User 2","email":"sample2@gmail.com","password":"$2b$10$nIkoqA1s4zqj57YCrbd7HeVo/sO8wQJn9573OCTJVsAyK4RrbzzmC","isAdmin":false,"createdAt":"2023-09-16T18:21:31.088Z","updatedAt":"2023-09-16T18:21:31.088Z","__v":0,"inputClassName":"p-2 w-full rounded-md outline-none bg-light-3 text-light-1"},{"_id":"6505f2e0c471484717b8b3c9","name":"Sample User 3","email":"sample3@gmail.com","password":"$2b$10$jY0718c1q3vk04oqMCaLU.KSS5x1XpGAlCn9YLrlMuk8zFGoCXfra","isAdmin":false,"createdAt":"2023-09-16T18:24:32.423Z","updatedAt":"2023-09-16T18:24:32.423Z","__v":0,"inputClassName":"p-2 w-full rounded-md outline-none bg-light-3 text-light-1"}

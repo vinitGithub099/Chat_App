@@ -1,3 +1,3 @@
 const GROUP_MEMBERS_LIMIT = 2;
 
-export { GROUP_MEMBERS_LIMIT };
+module.exports = { GROUP_MEMBERS_LIMIT };

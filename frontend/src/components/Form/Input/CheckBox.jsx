@@ -27,14 +27,13 @@ export const Checkbox = ({
   const [checkedItems, setCheckedItems] = useState([]);
 
   const handleChange = (e) => {
-    console.log(checkedItems);
+    // console.log(JSON.parse(e.target.value));
+    const obj = JSON.parse(e.target.value);
+    // console.log(obj);
     if (e.target.checked) {
-      setCheckedItems((prev) => [
-        ...prev,
-        { name: e.target.value, id: e.target.id },
-      ]);
+      setCheckedItems((prev) => [...prev, obj]);
     } else {
-      setCheckedItems((prev) => prev.filter((item) => item.id != e.target.id));
+      setCheckedItems((prev) => prev.filter((item) => item._id !== obj._id));
     }
   };
 
@@ -96,7 +95,7 @@ function ListInputItem({
     <div className={`w-full mx-auto flex flex-row ${containerClassName}`}>
       <input
         type={type}
-        value={rest.name}
+        value={JSON.stringify(rest)}
         className={checkboxClassName}
         defaultChecked={defaultChecked}
         {...register(id, validation)}
@@ -110,10 +109,10 @@ function ListInputItem({
   );
 }
 
-function CheckedItem({ name, id, checkedItemClassName }) {
+function CheckedItem(props) {
   return (
-    <div className={checkedItemClassName} id={id}>
-      {name}
+    <div className={props.checkedItemClassName} id={props.id}>
+      {props.name ? props.name : "hello"}
     </div>
   );
 }
