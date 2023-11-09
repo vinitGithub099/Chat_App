@@ -14,7 +14,7 @@ import UserAvatar from "../UserAvatar";
 export default function ChannelInfo({ handleChannelExtras, className }) {
   return (
     <div
-      className={`w-full sm:w-1/2 h-screen bg-dark-3 fixed right-0 flex flex-col ${className}`}
+      className={`w-full sm:w-1/2 h-screen bg-dark-3 fixed right-0 flex flex-col rounded-tl-lg rounded-bl-lg ${className}`}
     >
       <div className="p-4 text-light-1 flex flex-row items-center border-b border-light-3">
         <Button
@@ -45,11 +45,11 @@ function GroupIcon() {
           config={"xl"}
         ></UserAvatar>
       </div>
-      <h3 className="text-xl text-light-2 py-2 text-center flex-1 font-semibold">
+      <h3 className="text-xl text-light-1 py-2 text-center flex-1 font-semibold">
         {currChat ? currChat.chatName : ""}
       </h3>
       {currChat && currChat.users && currChat.users.length > 2 ? (
-        <span className="text-light-1">{`${currChat.users.length} Participants`}</span>
+        <span className="text-light-2">{`${currChat.users.length} Participants`}</span>
       ) : null}
     </div>
   );

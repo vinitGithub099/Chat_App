@@ -17,24 +17,24 @@
   }
 
   .scrollbar::-webkit-scrollbar-thumb:hover {
-    background: theme("colors.light-2");
-    border: 1px solid red;
+    background: theme("colors.light-3");
+    /* border: 1px solid red; */
   }
 
-  .scrollbar-msg::-webkit-scrollbar {
+  .scrollbar-light::-webkit-scrollbar {
     width: 5px;
   }
 
-  .scrollbar-msg::-webkit-scrollbar-track {
+  .scrollbar-light::-webkit-scrollbar-track {
     border-radius: 100vh;
   }
 
-  .scrollbar-msg::-webkit-scrollbar-thumb {
-    background: theme("colors.light-2");
+  .scrollbar-light::-webkit-scrollbar-thumb {
+    background: theme("colors.light-1");
     border-radius: 100vh;
   }
 
-  .scrollbar-msg::-webkit-scrollbar-thumb:hover {
+  .scrollbar-light::-webkit-scrollbar-thumb:hover {
     background: theme("colors.light-1");
   }
 }

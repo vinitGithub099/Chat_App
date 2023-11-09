@@ -13,9 +13,7 @@ export default function Modal({
         onClick={handleCloseOutSide}
         id="modal"
       >
-        <div
-          className={`relative my-6 mx-auto max-w-3xl rounded-md ${className}`}
-        >
+        <div className={`relative mx-auto max-w-3xl rounded-md ${className}`}>
           {modalComponent}
         </div>
       </div>

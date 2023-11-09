@@ -51,7 +51,6 @@ function CreateChannelForm({ toggleModal }) {
             ...item,
             inputClassName:
               "p-2 w-full rounded-md outline-none bg-light-3 text-light-1",
-            // checked: false,
             defaultChecked: false,
           }))
         );
@@ -60,7 +59,7 @@ function CreateChannelForm({ toggleModal }) {
   };
 
   return (
-    <div className="border border-light-3 w-full p-8 bg-dark-2 rounded-lg">
+    <div className="w-full h-96 border border-light-3 px-8 py-4 bg-dark-2 rounded-lg overflow-y-scroll scrollbar">
       <ChannelHeader toggleModal={toggleModal}></ChannelHeader>
       <Form
         fields={channelFormFields(optionsList, searchUser)}
@@ -78,7 +77,7 @@ function CreateChannelForm({ toggleModal }) {
 
 function ChannelHeader({ toggleModal }) {
   return (
-    <div className="w-full mb-6 flex flex-row justify-between items-center rounded-md">
+    <div className="w-full mb-4 flex flex-row justify-between items-center rounded-md">
       <h3 className="text-2xl font-semibold text-white">New Channel</h3>
       <Button type="icon" className="text-error text-2xl" onClick={toggleModal}>
         <AiFillCloseCircle></AiFillCloseCircle>
@@ -96,7 +95,7 @@ const channelFormFields = (optionsList, searchUser) => {
       id: "channelName",
       defaultValue: "",
       containerClassName: "mb-4 rounded-md",
-      className: "p-2 my-2 rounded-md bg-light-3",
+      className: "my-2 rounded-md bg-light-3",
       inputClassName:
         "p-2 w-full rounded-md outline-none bg-light-3 text-light-1",
       placeholder: "@channelName",
@@ -113,7 +112,7 @@ const channelFormFields = (optionsList, searchUser) => {
       cols: 60,
       rows: 4,
       containerClassName: "mb-4 rounded-md",
-      className: "p-2 my-2 rounded-md bg-light-3",
+      className: "my-2 rounded-md bg-light-3",
       inputClassName:
         "p-2 w-full rounded-md outline-none bg-light-3 text-light-1",
       placeholder: "Describe your channel here",
@@ -124,11 +123,11 @@ const channelFormFields = (optionsList, searchUser) => {
       name: "searchQuery",
       id: "searchQuery",
       defaultValue: "",
-      containerClassName: "rounded-md",
-      className: "p-2 my-2 rounded-md bg-light-3",
+      containerClassName: "rounded-md bg-transparent",
+      className: "py-2 border-b border-light-2",
       inputClassName:
-        "p-2 w-full rounded-md outline-none bg-light-3 text-light-1",
-      placeholder: "@SearchUser",
+        "px-2 bg-transparent w-full rounded-md outline-none text-light-1",
+      placeholder: "@SearchUsers",
       onChange: (e) => {
         if (e.target.value !== "") {
           searchUser(e.target.value);
@@ -139,16 +138,15 @@ const channelFormFields = (optionsList, searchUser) => {
       type: "checkbox",
       name: "usersList",
       id: "userList",
-      label: "Add Users",
-      className: "p-2 my-2 rounded-md bg-light-3",
-      labelClassName: "px-2 text-light-1 mb-4 ",
+      className: "py-2 mb-2 rounded-md overflow-y-scroll scrollbar",
+      labelClassName: "text-light-1",
       showCheckedItems: true,
-      checkedItemsClassName: "w-full p-2 flex gap-2 my-2 flex-wrap",
+      checkedItemsClassName: "w-full flex gap-2 my-2 flex-wrap",
       checkedItemClassName:
-        "border border-light-2 text-light-1 bg-dark-3 px-4 py-2 rounded-md",
+        "border border-light-3 text-light-1 bg-dark-1 px-4 py-2 rounded-md",
       checkboxClassName: "w-6 m-2 checked:accent-light-1",
       containerClassName:
-        "border divide-x border-light-2 bg-dark-1 hover:bg-dark-2",
+        "border border-light-1 divide-x border-light-2 bg-dark-1 hover:bg-dark-2 bg-transparent",
       optionsList: optionsList,
       labelComponent: LabelComponent,
       validation: {

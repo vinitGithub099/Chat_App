@@ -10,6 +10,7 @@ import UserCard from "./UserCard";
 
 export default function SearchChat({ toggleSideBar }) {
   const [searchChats, setSearchChats] = useState([]);
+
   const handleSearchChats = (results) => setSearchChats(results);
   return (
     <div className="w-full flex flex-1 flex-col overflow-hidden">
@@ -24,7 +25,8 @@ export default function SearchChat({ toggleSideBar }) {
 }
 
 function SearchBar({ handleSearchChats }) {
-  const handleSearch = (query) => {
+  const handleSearch = (e) => {
+    const query = e.target.value?.trim();
     if (_.isEmpty(query)) {
       handleSearchChats([]);
       return;
@@ -59,7 +61,7 @@ const searchFormFields = (handleSearch) => [
     placeholder: "Search @chat",
     required: true,
     icon: { icon: FiSearch, size: 20, className: "p-2 text-gray-500" },
-    onChange: (e) => handleSearch(e.target.value),
+    onChange: handleSearch,
   },
 ];
 
