@@ -1,7 +1,5 @@
 import api from "./axiosConfigs";
 
-
-
 export const chatAPI = {
   accessChat: async (data) => {
     const result = await api.request({
@@ -25,7 +23,7 @@ export const chatAPI = {
       signal: new AbortController().signal,
       headers: { "Content-Type": "application/json" },
     });
-    console.log(result)
+    console.log(result);
     if (result.status === 200) {
       return result.data;
     } else {
@@ -77,7 +75,7 @@ export const chatAPI = {
   removeFromGroup: async (data) => {
     const result = await api.request({
       url: `/chat/removeFromGroup`,
-      method: `POST`,
+      method: `PUT`,
       data: data,
       signal: new AbortController().signal,
       headers: { "Content-Type": "application/json" },

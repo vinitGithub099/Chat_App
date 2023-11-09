@@ -1,5 +1,5 @@
 import { channelOptions } from "../../../constants/constants";
-import ChannelInfo from "./ChannelInfo";
+import ChatInfo from "./ChatInfo/ChatInfo";
 import ExitChannel from "./ExitChannel";
 
 export default function ChannelExtras({ channelExtras, ...rest }) {
@@ -12,7 +12,7 @@ export default function ChannelExtras({ channelExtras, ...rest }) {
 const channelExtraList = (props) => [
   {
     name: channelOptions.INFO,
-    component: <ChannelInfo {...props}></ChannelInfo>,
+    component: <ChatInfo {...props}></ChatInfo>,
   },
   {
     name: channelOptions.EXIT_GROUP,

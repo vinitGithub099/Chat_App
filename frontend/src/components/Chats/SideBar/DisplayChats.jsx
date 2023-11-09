@@ -1,9 +1,9 @@
+import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import userLogo from "../../../assets/profile-user_64572.png";
 import { setCurrentChat } from "../../../store/Features/Chat/ChatSlice";
 import ListComponent from "../../ListComponent";
 import UserAvatar from "../UserAvatar";
-import { formatTimestampToText } from "../Utils/formatTimestampToText";
 
 export default function DisplayChats({ toggleSideBar }) {
   const chatList = useSelector((state) => state.chat.chats);
@@ -53,17 +53,17 @@ function ListItem(props) {
           {latestMessage && (
             <div className="flex flex-row justify-between items-center text-light-2 text-xs">
               <span className="flex">
-                <span className="pr-1">
+                <span className="pr-1 font-semibold">
                   {userId === latestMessage.sender._id
                     ? `You: `
                     : `${latestMessage.sender.name}: `}
                 </span>
-                <p>{latestMessage.content}</p>
+                <p className="">{latestMessage.content}</p>
               </span>
               <span className="pl-1">
                 {latestMessage?.updatedAt
-                  ? formatTimestampToText(latestMessage?.updatedAt)
-                  : "time"}
+                  ? moment(latestMessage?.updatedAt).calendar()
+                  : null}
               </span>
             </div>
           )}

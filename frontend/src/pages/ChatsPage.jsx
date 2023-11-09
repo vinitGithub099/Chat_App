@@ -14,9 +14,9 @@ export default function ChatsPage({ className }) {
   const toggleSideBar = () => setIsSideBarOpen((prev) => !prev);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const user = useSelector((state) => state.auth.user);
   // const currentChat = useSelector((state) => state.chat.currentChat);
   // const chatSocket = useSelector((state) => state.chat.chatSocket);
-  const user = useSelector((state) => state.auth.user);
 
   useEffect(() => {
     if (!_.isEmpty(user)) {

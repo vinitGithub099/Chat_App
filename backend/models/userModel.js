@@ -33,11 +33,6 @@ const userSchema = new Schema(
       type: String,
     },
     pic: { type: String, required: false },
-    isAdmin: {
-      type: Boolean,
-      required: true,
-      default: false,
-    },
   },
   { timestamps: true }
 );

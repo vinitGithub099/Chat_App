@@ -35,6 +35,13 @@ export const chatSlice = createSlice({
       ...state,
       chatSocket: payload,
     }),
+    removeChatMember: (state, { payload }) => ({
+      ...state,
+      currentChat: {
+        ...state.currentChat,
+        users: state.users.filer((user) => user._id !== payload),
+      },
+    }),
   },
   extraReducers: (builder) => {
     /* fetchChats */
@@ -71,6 +78,10 @@ export const chatSlice = createSlice({
   },
 });
 
-export const { setCurrentChat, connectChatSocket, setMessages } =
-  chatSlice.actions;
+export const {
+  setCurrentChat,
+  connectChatSocket,
+  setMessages,
+  removeChatMember,
+} = chatSlice.actions;
 export default chatSlice.reducer;

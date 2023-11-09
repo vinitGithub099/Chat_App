@@ -1,14 +1,16 @@
-import { useSelector } from "react-redux";
-import { useToast } from "../../../Hooks/useToast";
+import { HiUserRemove } from "react-icons/hi";
+import { useDispatch, useSelector } from "react-redux";
 import { chatAPI } from "../../../../api/chatAPI";
 import { ERROR, SUCCESS } from "../../../../constants/constants";
-import { HiUserRemove } from "react-icons/hi";
-import { RiAdminFill } from "react-icons/ri";
+import { removeChatMember } from "../../../../store/Features/Chat/ChatSlice";
+import { useToast } from "../../../Hooks/useToast";
 import ListComponent from "../../../ListComponent";
 import { MemberDropdownItem } from "./MemberDropdownItem";
 
 export default function MemberDropdownList({ userId }) {
   const currChat = useSelector((state) => state.chat.currentChat);
+  const dispatch = useDispatch();
+  console.log(currChat);
   const { notify } = useToast();
 
   const removeMember = async (userId) => {
@@ -17,7 +19,10 @@ export default function MemberDropdownList({ userId }) {
         userId: userId,
         chatId: currChat._id,
       })
-      .then(() => notify("User removed successfully", SUCCESS))
+      .then(() => {
+        notify("User removed successfully", SUCCESS);
+        dispatch(removeChatMember(userId));
+      })
       .catch(() => notify("Failed to remove user", ERROR));
   };
 
@@ -26,11 +31,6 @@ export default function MemberDropdownList({ userId }) {
       name: "Remove",
       icon: <HiUserRemove size={20}></HiUserRemove>,
       handleClick: () => removeMember(userId),
-    },
-    {
-      name: "Make Admin",
-      icon: <RiAdminFill size={20}></RiAdminFill>,
-      handleClick: () => {},
     },
   ];
   return (
@@ -42,5 +42,3 @@ export default function MemberDropdownList({ userId }) {
     ></ListComponent>
   );
 }
-
-

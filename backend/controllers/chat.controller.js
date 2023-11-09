@@ -34,8 +34,10 @@ const accessChat = async (req, res) => {
   if (isChat.length > 0) {
     res.send(isChat[0]);
   } else {
+    const sender = await User.findById(userId);
+
     let chatData = {
-      chatName: "sender",
+      chatName: sender.name,
       isGroupChat: false,
       users: [req.user._id, userId],
     };
@@ -124,7 +126,7 @@ const createGroupChat = async (req, res) => {
 /**
  * * status:  working
  * @description rename a group
- * @method POST /api/chat/rename
+ * @method PUT /api/chat/rename
  * @purpose to rename the chat group having chatId a,s sent along with the request, with the specified name
  */
 const renameGroup = async (req, res) => {
@@ -180,7 +182,7 @@ const addToGroup = async (req, res) => {
 
 /**
  * * status: working
- * @description add user to a group
+ * @description remove user from a group
  * @method POST /api/chat/removeFromGroup
  * @purpose to remove a user with userId from chat group/chat room with chatId
  */

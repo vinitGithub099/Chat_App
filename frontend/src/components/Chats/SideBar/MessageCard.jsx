@@ -1,8 +1,8 @@
+import moment from "moment";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import userLogo from "../../../assets/profile-user_64572.png";
 import UserAvatar from "../UserAvatar";
-import { formatTimestampToText } from "../Utils/formatTimestampToText";
 
 export default function MessageCard({ senderName, timeStamp, message }) {
   const user = useSelector((state) => state.auth.user);
@@ -116,7 +116,7 @@ function MessageText({ message }) {
 function MessageDeliveryTime({ timeStamp }) {
   return (
     <p className="text-xs text-light-2">
-      {timeStamp ? formatTimestampToText(timeStamp) : "time"}
+      {timeStamp ? moment(timeStamp).calendar : null}
     </p>
   );
 }

@@ -1,9 +1,5 @@
 Reference link for the project: https://www.youtube.com/playlist?list=PLKhlp2qtUcSZsGkxAdgnPcHioRr-4guZf
-
-#Issues:
-    - Fix the sidebar default open close issue
-    - padding issue and validation issue 
-    - scrollbar problem in create channel form
+    
 
 #Pending:
     - search query
@@ -11,12 +7,20 @@ Reference link for the project: https://www.youtube.com/playlist?list=PLKhlp2qtU
     - create channel 
         - select users options to be added in createChannelForm
     - channel info
-        - remove user from channel
+        - remove user from channel: added but not working
         - drop down functionalities
     - error handling in frontend
     - error responses in backend
     - if user is auto-logged in then chats page on refresh should not redirect to login
     - bugs in search functionalities
+    - chat members ui not updated on removing user
+    - timestamp in ui of chats
 
 #Fixed issues:
     - text input validation due to onChange
+    - create channel 
+        - select users options to be added in createChannelForm
+    - channel info
+        - remove user from channel
+    - scrollbar problem in create channel form
+    - Fix the sidebar default open close issue
