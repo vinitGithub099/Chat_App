@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { IoIosArrowBack } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { updateProfile } from "../../store/Features/ProfileSlice";
@@ -24,21 +25,24 @@ export default function EditProfile({ className }) {
   }, []);
 
   return (
-    <div className={`w-full ${className}`}>
+    <div className={`w-full bg-dark-3 text-light-1 ${className}`}>
       <Header className={`border`}></Header>
-      <div className="mt-8 px-4 max-w-xl mx-auto">
+      <div className="mt-8 px-4 max-w-xl mx-auto flex items-baseline gap-4">
         <Button
           type="navigate"
-          label="< Back"
-          className="text-lg text-blue-400"
+          className="text-lg text-light-1 hover:text-light-2"
           handleClick={handleClick}
-        ></Button>
+        >
+          <IoIosArrowBack size={20}></IoIosArrowBack>
+        </Button>
+        <div className="">
+          <h1 className="text-2xl font-semibold">Change Info</h1>
+          <p className="my-2 text-xs text-gray-400">
+            changes will be reflected to every services
+          </p>
+        </div>
       </div>
-      <section className="max-w-xl my-4 p-4 sm:p-8 mx-auto sm:border-2 sm:rounded-xl">
-        <h1 className="text-2xl font-semibold">Change Info</h1>
-        <p className="mb-8 text-xs text-gray-400">
-          changes will be reflected to every services
-        </p>
+      <section className="max-w-xl my-4 p-4 sm:p-8 mx-auto sm:rounded-xl">
         <Form
           className="w-full"
           fields={getProfileFields(profileData)}

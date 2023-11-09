@@ -5,7 +5,7 @@ import {
 } from "../Form/FormExpressions";
 
 const containerClassName = "mb-4 flex flex-col";
-const className = "border-2 rounded-lg mt-1 mb-2 p-2 col-span-2";
+const className = "rounded-lg mt-1 mb-2 p-2 col-span-2 bg-light-3";
 
 export const getProfileFields = (userProfile) => [
   {
@@ -16,7 +16,7 @@ export const getProfileFields = (userProfile) => [
     defaultValue: userProfile.name,
     containerClassName: containerClassName,
     className: className,
-    inputClassName: "w-full pl-2 outline-none",
+    inputClassName: "w-full bg-light-3 pl-2 outline-none",
     placeholder: "Name",
     required: true,
     validation: {
@@ -36,7 +36,7 @@ export const getProfileFields = (userProfile) => [
     defaultValue: userProfile.bio,
     containerClassName: containerClassName,
     className: className,
-    inputClassName: "w-full pl-2 outline-none",
+    inputClassName: "w-full bg-light-3 pl-2 outline-none",
     placeholder: "Enter your bio",
     required: true,
     validation: {
@@ -56,7 +56,7 @@ export const getProfileFields = (userProfile) => [
     defaultValue: userProfile.phone,
     containerClassName: containerClassName,
     className: className,
-    inputClassName: "w-full pl-2 outline-none",
+    inputClassName: "w-full bg-light-3 pl-2 outline-none",
     placeholder: "Enter phone number",
     required: true,
     validation: {
@@ -78,7 +78,7 @@ export const getProfileFields = (userProfile) => [
     defaultValue: userProfile.email,
     containerClassName: containerClassName,
     className: className,
-    inputClassName: "w-full pl-2 outline-none",
+    inputClassName: "w-full bg-light-3 pl-2 outline-none",
     placeholder: "Email",
     required: true,
     validation: {
@@ -100,7 +100,7 @@ export const getProfileFields = (userProfile) => [
     defaultValue: userProfile.password,
     containerClassName: containerClassName,
     className: className,
-    inputClassName: "w-full pl-2 outline-none",
+    inputClassName: "w-full bg-light-3 pl-2 outline-none",
     placeholder: "******",
     required: true,
     validation: {

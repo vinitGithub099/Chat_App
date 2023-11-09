@@ -14,7 +14,7 @@ export default function MemberCard(props) {
         imgConfig="s"
         className="text-light-1"
       ></UserCard>
-      {props._id === groupAdmin._id ? (
+      {groupAdmin && props._id === groupAdmin._id ? (
         <span className="px-2 py-1 text-xs text-light-1 border border-light-3 bg-dark-1 rounded-md">{`Admin`}</span>
       ) : null}
       <div className="text-light-1 hover:text-light-2 group hover:cursor-pointer flex items-end ">

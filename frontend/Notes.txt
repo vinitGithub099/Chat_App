@@ -14,7 +14,6 @@ Reference link for the project: https://www.youtube.com/playlist?list=PLKhlp2qtU
     - if user is auto-logged in then chats page on refresh should not redirect to login
     - bugs in search functionalities
     - chat members ui not updated on removing user
-    - timestamp in ui of chats
 
 #Fixed issues:
     - text input validation due to onChange
@@ -24,3 +23,4 @@ Reference link for the project: https://www.youtube.com/playlist?list=PLKhlp2qtU
         - remove user from channel
     - scrollbar problem in create channel form
     - Fix the sidebar default open close issue
+    - timestamp in ui of chats
