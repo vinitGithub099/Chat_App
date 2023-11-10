@@ -8,7 +8,7 @@ import UserAvatar from "../UserAvatar";
 
 export default function DisplayChats({ toggleSideBar }) {
   const chatList = useSelector((state) => state.chat.chats);
-  
+
   return (
     <ListComponent
       list={chatList}
@@ -23,8 +23,9 @@ function ListItem(props) {
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.auth.user._id);
 
-  const { chatName, latestMessage, toggleSideBar } = props;
+  const { chatName, latestMessage, toggleSideBar, users } = props;
   const handleClick = (props) => {
+    console.log(props);
     dispatch(setCurrentChat(props));
     toggleSideBar();
   };
@@ -43,7 +44,7 @@ function ListItem(props) {
         ></UserAvatar>
         <div className="flex-1">
           <p className="text-light-1 font-semibold">
-            {getShortenedString(getChatName(chatName, props.users, userId))}
+            {getShortenedString(getChatName(chatName, users, { _id: userId }))}
           </p>
           {latestMessage && (
             <div className="flex flex-row justify-between items-center text-light-2 text-xs">

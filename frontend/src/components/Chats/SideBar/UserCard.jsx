@@ -2,7 +2,6 @@ import { getShortenedString } from "../../Utils/utils";
 import UserAvatar from "../UserAvatar";
 
 export default function UserCard({ className, imgSrc, name, imgConfig }) {
-  console.log(name);
   return (
     <div className={`flex flex-row items-center ${className}`}>
       <UserAvatar
