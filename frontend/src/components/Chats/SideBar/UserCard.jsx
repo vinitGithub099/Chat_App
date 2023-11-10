@@ -1,6 +1,8 @@
+import { getShortenedString } from "../../Utils/utils";
 import UserAvatar from "../UserAvatar";
 
 export default function UserCard({ className, imgSrc, name, imgConfig }) {
+  console.log(name);
   return (
     <div className={`flex flex-row items-center ${className}`}>
       <UserAvatar
@@ -12,11 +14,3 @@ export default function UserCard({ className, imgSrc, name, imgConfig }) {
     </div>
   );
 }
-
-const getShortenedString = (str) => {
-  let modifiedStr = str;
-  if (str.length > 20) {
-    modifiedStr = str.substring(0, 20) + "...";
-  }
-  return modifiedStr;
-};

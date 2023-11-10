@@ -16,7 +16,7 @@ export default function SendMsgBtn() {
   const handleSuccess = (res) => {
     if (!_.isEmpty(chatSocket)) {
       chatSocket.emit("new message", res);
-      // updates the sender messages
+      /* updates the sender messages */
       dispatch(setMessages(res));
       notify("Message sent!", SUCCESS);
     }
@@ -46,7 +46,8 @@ export default function SendMsgBtn() {
         fields={formFields}
         buttonConfigs={{
           type: "submit",
-          className: "py-2 px-4 bg-btn rounded-lg text-white bg-dark hover:bg-opacity-80",
+          className:
+            "py-2 px-4 bg-btn rounded-lg text-white bg-dark hover:bg-opacity-80",
           children: <AiOutlineSend></AiOutlineSend>,
         }}
         handleSubmit={handleSendMessage}

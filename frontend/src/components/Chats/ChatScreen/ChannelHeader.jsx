@@ -2,20 +2,15 @@ import { useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import { useSelector } from "react-redux";
+import { getChatName, getShortenedString } from "../../Utils/utils";
 import ChannelExtras from "./ChannelExtras";
 import ChannelHeaderDropdown from "./ChannelHeaderDropdown";
 
 export default function ChannelHeader({ toggleSideBar }) {
   const [channelExtras, setChannelExtras] = useState(null);
   const currChat = useSelector((state) => state.chat?.currentChat);
+  const currUser = useSelector((state) => state.auth.user);
   const handleChannelExtras = (name) => setChannelExtras(name);
-  const getShortenedString = (str) => {
-    let modifiedStr = str;
-    if (modifiedStr.length > 15) {
-      modifiedStr = str.substring(0, 15) + "...";
-    }
-    return modifiedStr;
-  };
 
   return (
     <>
@@ -30,7 +25,9 @@ export default function ChannelHeader({ toggleSideBar }) {
         <div className="ml-4 text-xl font-semibold text-light-1">
           {currChat &&
             currChat.chatName &&
-            getShortenedString(currChat.chatName)}
+            getShortenedString(
+              getChatName(currChat.chatName, currChat.users, currUser)
+            )}
         </div>
         {currChat && (
           <div className="text-light-2 hover:cursor-pointer group">

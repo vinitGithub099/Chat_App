@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import io from "socket.io-client";
-import _ from "underscore";
 import ChatScreen from "../components/Chats/ChatScreen/ChatScreen";
 import SideBar from "../components/Chats/SideBar/SideBar";
 import { ENDPOINT } from "../constants/constants";
@@ -19,14 +18,10 @@ export default function ChatsPage({ className }) {
   // const chatSocket = useSelector((state) => state.chat.chatSocket);
 
   useEffect(() => {
-    if (!_.isEmpty(user)) {
-      const socket = io(ENDPOINT);
-      socket.emit("setup", user._id);
-      socket.on("connect", () => {
-        console.log("You connected to socket id: ", socket.id);
-      });
-      dispatch(connectChatSocket(socket));
-    }
+    // if (!_.isEmpty(user)) {
+    const socket = io(ENDPOINT);
+    socket.emit("setup", user._id);
+    socket.on("connected", () => dispatch(connectChatSocket(socket)));
   }, [dispatch, navigate, user]);
 
   useEffect(() => {

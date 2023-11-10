@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import _ from "underscore";
 import { fetchChatMessages } from "../../../store/Features/Chat/ChatActions";
+import { setMessages } from "../../../store/Features/Chat/ChatSlice";
 import MessageCard from "../SideBar/MessageCard";
 
 export default function DisplayMessages() {
@@ -21,7 +22,7 @@ export default function DisplayMessages() {
   useEffect(() => {
     if (!_.isEmpty(currentChat)) {
       dispatch(fetchChatMessages(currentChat._id))
-        .then(() => chatSocket.emit("join group", currentChat._id))
+        .then(() => chatSocket.emit("join chat", currentChat._id))
         .catch((error) => console.log(error));
     }
   }, [chatSocket, currentChat, dispatch]);
@@ -45,6 +46,20 @@ export default function DisplayMessages() {
   //     chatSocket.on("message received", handleReceivedMessage);
   //   }
   // });
+  
+  useEffect(() => {
+    chatSocket.on("message received", (newMessageReceived) => {
+      console.log(newMessageReceived);
+      if (
+        !currentChat || // if chat is not selected or doesn't match current chat
+        currentChat._id !== newMessageReceived.chat._id
+      ) {
+        //
+      } else {
+        dispatch(setMessages(newMessageReceived));
+      }
+    });
+  });
 
   return (
     <div className="px-4 sm:px-8 w-full overflow-y-scroll scrollbar flex flex-1 flex-col">

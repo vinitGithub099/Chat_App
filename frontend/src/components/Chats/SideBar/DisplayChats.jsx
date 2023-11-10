@@ -3,10 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import userLogo from "../../../assets/profile-user_64572.png";
 import { setCurrentChat } from "../../../store/Features/Chat/ChatSlice";
 import ListComponent from "../../ListComponent";
+import { getChatName, getShortenedString } from "../../Utils/utils";
 import UserAvatar from "../UserAvatar";
 
 export default function DisplayChats({ toggleSideBar }) {
   const chatList = useSelector((state) => state.chat.chats);
+  
   return (
     <ListComponent
       list={chatList}
@@ -20,18 +22,11 @@ export default function DisplayChats({ toggleSideBar }) {
 function ListItem(props) {
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.auth.user._id);
+
   const { chatName, latestMessage, toggleSideBar } = props;
   const handleClick = (props) => {
     dispatch(setCurrentChat(props));
     toggleSideBar();
-  };
-
-  const getShortenedString = (str) => {
-    let modifiedStr = str;
-    if (str.length > 20) {
-      modifiedStr = str.substring(0, 20) + "...";
-    }
-    return modifiedStr;
   };
 
   return (
@@ -48,7 +43,7 @@ function ListItem(props) {
         ></UserAvatar>
         <div className="flex-1">
           <p className="text-light-1 font-semibold">
-            {getShortenedString(chatName)}
+            {getShortenedString(getChatName(chatName, props.users, userId))}
           </p>
           {latestMessage && (
             <div className="flex flex-row justify-between items-center text-light-2 text-xs">
