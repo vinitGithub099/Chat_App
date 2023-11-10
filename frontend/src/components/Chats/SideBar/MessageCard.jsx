@@ -4,8 +4,11 @@ import { useSelector } from "react-redux";
 import userLogo from "../../../assets/profile-user_64572.png";
 import UserAvatar from "../UserAvatar";
 
-export default function MessageCard({ senderName, timeStamp, message }) {
+export default function MessageCard(props) {
   const user = useSelector((state) => state.auth.user);
+  const senderName = props.sender.name;
+  const message = props.content;
+  const timeStamp = props.updatedAt;
 
   const buildMessageClassName = (senderName) => {
     let defaultClassName =
@@ -44,10 +47,6 @@ function SenderAvatar({ senderName }) {
 function ChatDetail({ senderName, message, timeStamp }) {
   const user = useSelector((state) => state.auth.user);
   const getSenderName = (senderName) => {
-    /**
-     * handle error here
-     *  if (_.isEmpty(senderName)) throw new Error();
-     * */
     if (senderName != user.name) return senderName;
     return "You";
   };
@@ -64,6 +63,7 @@ function ChatDetail({ senderName, message, timeStamp }) {
 
     return defaultClassName;
   };
+
   return (
     <div className={buildClassName(senderName)}>
       <div className="flex flex-row items-baseline justify-between gap-4">
@@ -107,7 +107,9 @@ function MessageText({ message }) {
           message
         )
       ) : (
-        <span className="italic">This is a was deleted or not fetched!</span>
+        <span className="italic">
+          This is message was deleted or not fetched!
+        </span>
       )}
     </div>
   );
@@ -116,7 +118,7 @@ function MessageText({ message }) {
 function MessageDeliveryTime({ timeStamp }) {
   return (
     <p className="text-xs text-light-2">
-      {timeStamp ? moment(timeStamp).calendar : null}
+      {timeStamp ? moment(timeStamp).calendar() : null}
     </p>
   );
 }

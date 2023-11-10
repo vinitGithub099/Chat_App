@@ -11,6 +11,7 @@ import Modal from "../../Modal";
 import UserCard from "./UserCard";
 
 export default function ChannelForm({ showModal, toggleModal }) {
+
   return (
     <Modal
       showModal={showModal}

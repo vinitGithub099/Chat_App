@@ -5,11 +5,18 @@
  */
 
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchChatMessages, fetchChats } from "./ChatActions";
+import {
+  connectChatSocket,
+  fetchChatMessages,
+  fetchChats,
+  joinChat,
+  receiveMessage,
+  sendChatMessage,
+} from "./ChatActions";
 
 const initialState = {
   chats: null,
-  messages: null,
+  messages: [],
   loading: {
     chats: false,
     messages: false,
@@ -17,6 +24,7 @@ const initialState = {
   error: false,
   currentChat: null,
   chatSocket: null,
+  typing: false,
 };
 
 export const chatSlice = createSlice({
@@ -29,11 +37,7 @@ export const chatSlice = createSlice({
     }),
     setMessages: (state, { payload }) => ({
       ...state,
-      messages: [...state.messages, payload],
-    }),
-    connectChatSocket: (state, { payload }) => ({
-      ...state,
-      chatSocket: payload,
+      messages: state.messages.concat(payload),
     }),
     removeChatMember: (state, { payload }) => ({
       ...state,
@@ -75,13 +79,58 @@ export const chatSlice = createSlice({
       loading: { chats: false, messages: true },
       messages: null,
     }));
+
+    /* connectChatSocket */
+    builder.addCase(connectChatSocket.pending, (state) => ({
+      ...state,
+    }));
+    builder.addCase(connectChatSocket.fulfilled, (state, { payload }) => ({
+      ...state,
+      chatSocket: payload.chatSocket,
+    }));
+    builder.addCase(connectChatSocket.rejected, (state) => ({
+      ...state,
+    }));
+
+    /* receiveMessage */
+    builder.addCase(receiveMessage.pending, (state) => ({
+      ...state,
+    }));
+    builder.addCase(receiveMessage.fulfilled, (state, { payload }) => ({
+      ...state,
+      messages: payload.message
+        ? state.messages.concat(payload.message)
+        : state.messages,
+    }));
+    builder.addCase(receiveMessage.rejected, (state) => ({
+      ...state,
+    }));
+
+    /* sendChatMessage */
+    builder.addCase(sendChatMessage.pending, (state) => ({
+      ...state,
+    }));
+    builder.addCase(sendChatMessage.fulfilled, (state, { payload }) => ({
+      ...state,
+      messages: state.messages.concat(payload.newMessage),
+    }));
+    builder.addCase(sendChatMessage.rejected, (state) => ({
+      ...state,
+    }));
+
+    /* sendChatMessage */
+    builder.addCase(joinChat.pending, (state) => ({
+      ...state,
+    }));
+    builder.addCase(joinChat.fulfilled, (state) => ({
+      ...state,
+    }));
+    builder.addCase(joinChat.rejected, (state) => ({
+      ...state,
+    }));
   },
 });
 
-export const {
-  setCurrentChat,
-  connectChatSocket,
-  setMessages,
-  removeChatMember,
-} = chatSlice.actions;
+export const { setCurrentChat, setMessages, removeChatMember } =
+  chatSlice.actions;
 export default chatSlice.reducer;

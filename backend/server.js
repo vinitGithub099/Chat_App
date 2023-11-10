@@ -63,6 +63,16 @@ const io = require("socket.io")(server, {
       process.env.NODE_ENV === "production"
         ? false
         : ["http://localhost:5173", "http://localhost:5174"],
+    credentials: true,
+    methods: ["GET", "PUT", "POST", "DELETE"],
+    optionSuccessStatus: 200,
+    "Access-Control-Allow-Origin": [
+      "http://127.0.0.1:5173",
+      "http://localhost:5173",
+      "http://127.0.0.1:5174",
+      "http://localhost:5174",
+    ],
+    "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
   },
 });
 
@@ -84,11 +94,21 @@ io.on("connection", (socket) => {
 
   socket.on("new message", (newMessageReceived) => {
     var chat = newMessageReceived.chat;
+    console.log(
+      newMessageReceived.sender.name,
+      " sent a message: ",
+      newMessageReceived.content
+    );
 
     if (!chat.users) return console.log("chat.users not defined");
 
     chat.users.forEach((user) => {
       if (user._id == newMessageReceived.sender._id) return;
+      console.log(
+        user.name,
+        " received a message: ",
+        newMessageReceived.content
+      );
 
       socket.in(user._id).emit("message received", newMessageReceived);
     });

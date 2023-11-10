@@ -3,6 +3,7 @@ import SideBarHeader from "./SideBarHeader";
 import UserInfo from "./UserInfo";
 
 export default function SideBar({ className, sidebarOpen, toggleSideBar }) {
+
   return (
     <>
       {/* tablet and desktop view */}

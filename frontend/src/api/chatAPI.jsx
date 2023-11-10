@@ -23,7 +23,6 @@ export const chatAPI = {
       signal: new AbortController().signal,
       headers: { "Content-Type": "application/json" },
     });
-    console.log(result);
     if (result.status === 200) {
       return result.data;
     } else {

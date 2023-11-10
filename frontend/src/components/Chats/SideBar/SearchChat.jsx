@@ -12,6 +12,7 @@ export default function SearchChat({ toggleSideBar }) {
   const [searchChats, setSearchChats] = useState([]);
 
   const handleSearchChats = (results) => setSearchChats(results);
+  
   return (
     <div className="w-full flex flex-1 flex-col overflow-hidden">
       <SearchBar handleSearchChats={handleSearchChats}></SearchBar>

@@ -7,6 +7,8 @@ import ChannelForm from "./ChannelForm";
 export default function SideBarHeader({ toggleSideBar }) {
   const [showModal, setShowModal] = useState(false);
   const toggleModal = () => setShowModal((prev) => !prev);
+
+
   return (
     <div className="w-full mb-2 py-2 px-4 flex flex-row justify-between">
       <div className="flex gap-2">

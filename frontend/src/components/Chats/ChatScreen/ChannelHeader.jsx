@@ -16,7 +16,7 @@ export default function ChannelHeader({ toggleSideBar }) {
     <>
       <div className="py-4 px-2 mb-8 text-extra-light flex flex-row items-center justify-between gap-4 shadow-sm shadow-dark-3">
         <div
-          className="sm:hidden text-light-2 hover:bg-light-3 hover:bg-opacity-50 cursor-pointer"
+          className="sm:hidden text-light-2 hover:bg-light-3 hover:bg-opacity-50 hover:cursor-pointer"
           onClick={toggleSideBar}
         >
           <AiOutlineMenu size={30}></AiOutlineMenu>

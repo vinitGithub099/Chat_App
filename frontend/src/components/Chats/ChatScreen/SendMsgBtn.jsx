@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import _ from "underscore";
 import { messageAPI } from "../../../api/messageAPI";
 import { ERROR, SUCCESS } from "../../../constants/constants";
-import { setMessages } from "../../../store/Features/Chat/ChatSlice";
+import { sendChatMessage } from "../../../store/Features/Chat/ChatActions";
 import Form from "../../Form/Form";
 import { useToast } from "../../Hooks/useToast";
 
@@ -15,9 +15,7 @@ export default function SendMsgBtn() {
 
   const handleSuccess = (res) => {
     if (!_.isEmpty(chatSocket)) {
-      chatSocket.emit("new message", res);
-      /* updates the sender messages */
-      dispatch(setMessages(res));
+      dispatch(sendChatMessage(res));
       notify("Message sent!", SUCCESS);
     }
   };

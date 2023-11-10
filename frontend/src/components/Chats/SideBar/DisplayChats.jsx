@@ -1,6 +1,10 @@
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import userLogo from "../../../assets/profile-user_64572.png";
+import {
+  fetchChatMessages,
+  joinChat,
+} from "../../../store/Features/Chat/ChatActions";
 import { setCurrentChat } from "../../../store/Features/Chat/ChatSlice";
 import ListComponent from "../../ListComponent";
 import { getChatName, getShortenedString } from "../../Utils/utils";
@@ -25,8 +29,9 @@ function ListItem(props) {
 
   const { chatName, latestMessage, toggleSideBar, users } = props;
   const handleClick = (props) => {
-    console.log(props);
     dispatch(setCurrentChat(props));
+    dispatch(joinChat());
+    dispatch(fetchChatMessages());
     toggleSideBar();
   };
 
@@ -54,7 +59,9 @@ function ListItem(props) {
                     ? `You: `
                     : `${latestMessage.sender.name}: `}
                 </span>
-                <p className="">{latestMessage.content}</p>
+                <p className="">
+                  {getShortenedString(latestMessage.content, 10)}
+                </p>
               </span>
               <span className="pl-1">
                 {latestMessage?.updatedAt

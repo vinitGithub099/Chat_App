@@ -1,32 +1,29 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import io from "socket.io-client";
+import { useDispatch } from "react-redux";
 import ChatScreen from "../components/Chats/ChatScreen/ChatScreen";
 import SideBar from "../components/Chats/SideBar/SideBar";
-import { ENDPOINT } from "../constants/constants";
-import { fetchChats } from "../store/Features/Chat/ChatActions";
-import { connectChatSocket } from "../store/Features/Chat/ChatSlice";
+import {
+  connectChatSocket,
+  fetchChats,
+  receiveMessage,
+} from "../store/Features/Chat/ChatActions";
 
 export default function ChatsPage({ className }) {
   const [isSideBarOpen, setIsSideBarOpen] = useState(true);
   const toggleSideBar = () => setIsSideBarOpen((prev) => !prev);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const user = useSelector((state) => state.auth.user);
-  // const currentChat = useSelector((state) => state.chat.currentChat);
-  // const chatSocket = useSelector((state) => state.chat.chatSocket);
 
   useEffect(() => {
-    // if (!_.isEmpty(user)) {
-    const socket = io(ENDPOINT);
-    socket.emit("setup", user._id);
-    socket.on("connected", () => dispatch(connectChatSocket(socket)));
-  }, [dispatch, navigate, user]);
+    dispatch(connectChatSocket());
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(fetchChats());
   }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(receiveMessage());
+  });
 
   return (
     <div className={`w-full h-screen flex flex-row ${className}`}>

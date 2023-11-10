@@ -1,10 +1,9 @@
 export default function ListComponent({
   list,
   className,
-  subComponent,
+  subComponent: SubComponent,
   ...rest
 }) {
-  const SubComponent = subComponent;
   return (
     <div className={className}>
       {list && list.length
