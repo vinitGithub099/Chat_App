@@ -2,6 +2,7 @@ export default function ListComponent({
   list,
   className,
   subComponent: SubComponent,
+  children,
   ...rest
 }) {
   return (
@@ -18,6 +19,7 @@ export default function ListComponent({
             );
           })
         : null}
+      {children}
     </div>
   );
 }

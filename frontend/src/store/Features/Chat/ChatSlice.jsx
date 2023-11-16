@@ -23,7 +23,6 @@ const initialState = {
   },
   error: false,
   currentChat: null,
-  chatSocket: null,
   typing: false,
 };
 
@@ -37,7 +36,7 @@ export const chatSlice = createSlice({
     }),
     setMessages: (state, { payload }) => ({
       ...state,
-      messages: state.messages.concat(payload),
+      messages: state.messages.concat(payload.message),
     }),
     removeChatMember: (state, { payload }) => ({
       ...state,
@@ -96,12 +95,21 @@ export const chatSlice = createSlice({
     builder.addCase(receiveMessage.pending, (state) => ({
       ...state,
     }));
-    builder.addCase(receiveMessage.fulfilled, (state, { payload }) => ({
-      ...state,
-      messages: payload.message
-        ? state.messages.concat(payload.message)
-        : state.messages,
-    }));
+    builder.addCase(receiveMessage.fulfilled, (state, { payload }) => {
+      const newMessage =
+        !state.messages ||
+        (state.messages.length &&
+          state.messages[state.messages.length - 1]._id !==
+            payload.newMessage?._id)
+          ? payload.newMessage
+          : null;
+      return {
+        ...state,
+        messages: newMessage
+          ? state.messages.concat(newMessage)
+          : state.messages,
+      };
+    });
     builder.addCase(receiveMessage.rejected, (state) => ({
       ...state,
     }));

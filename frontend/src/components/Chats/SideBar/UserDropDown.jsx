@@ -7,7 +7,7 @@ export default function UserDropDown() {
   return (
     <ListComponent
       list={userDropDownList}
-      className="w-dropdown bg-dark-1 outline outline-light-3 p-4 rounded-md absolute right-0 bottom-12"
+      className="w-dropdown  bg-dark-1 outline outline-light-3 p-4 rounded-md absolute right-0 bottom-8 hidden group-hover:block"
       subComponent={ListItem}
     ></ListComponent>
   );
@@ -18,7 +18,7 @@ function ListItem({ label, path, icon, fontClass }) {
   const handelClick = () => navigate(path);
   return (
     <div
-      className={`w-full mb-2 p-2 flex flex-row items-center gap-2 rounded-md hover:bg-light-3 ${fontClass}`}
+      className={`w-full mb-2 p-2 flex flex-row items-center gap-2 rounded-md hover:bg-light-3 ${fontClass} hover:cursor-pointer`}
     >
       <div>{icon}</div>
       <p className="text-md text-left font-semibold" onClick={handelClick}>

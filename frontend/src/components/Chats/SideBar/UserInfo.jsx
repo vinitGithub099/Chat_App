@@ -1,28 +1,25 @@
-import { useState } from "react";
 import { BiChevronDown } from "react-icons/bi";
+import { useSelector } from "react-redux";
 import userLogo from "../../../assets/profile-user_64572.png";
-import Button from "../../Form/Button";
 import UserCard from "./UserCard";
 import UserDropDown from "./UserDropDown";
 
 export default function UserInfo() {
-  const [hideDropdown, setHideDropdown] = useState(true);
-  const toggleDropDown = () => setHideDropdown((prev) => !prev);
+  const user = useSelector((state) => state.auth.user);
   return (
-    <div className="p-2 flex flex-row items-center justify-between bg-dark-3 relative">
+    <div className="px-4 py-2 flex flex-row items-center justify-between bg-dark-3 relative">
       <UserCard
         className="text-light-1"
         imgSrc={userLogo}
-        name="Hello World!"
+        name={user.name}
       ></UserCard>
-      <Button
-        className="px-2 text-gray-500"
+      <div
+        className="px-2 text-light-2 group hover:cursor-pointer"
         type="submit"
-        onClick={toggleDropDown}
       >
         <BiChevronDown size={20}></BiChevronDown>
-        {!hideDropdown && <UserDropDown></UserDropDown>}
-      </Button>
+        <UserDropDown></UserDropDown>
+      </div>
     </div>
   );
 }

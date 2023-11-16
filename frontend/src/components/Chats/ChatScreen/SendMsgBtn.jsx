@@ -10,14 +10,11 @@ import { useToast } from "../../Hooks/useToast";
 export default function SendMsgBtn() {
   const currentChat = useSelector((state) => state.chat.currentChat);
   const { notify } = useToast();
-  const chatSocket = useSelector((state) => state.chat.chatSocket);
   const dispatch = useDispatch();
 
   const handleSuccess = (res) => {
-    if (!_.isEmpty(chatSocket)) {
-      dispatch(sendChatMessage(res));
-      notify("Message sent!", SUCCESS);
-    }
+    dispatch(sendChatMessage({ newMessage: res }));
+    notify("Message sent!", SUCCESS);
   };
 
   const handleFailure = () => notify("Message was not sent!", ERROR);

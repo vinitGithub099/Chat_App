@@ -1,10 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { connectChatSocket, receiveMessage } from "./SocketActions";
+import { connectToSocket, disconnectFromSocket } from "./SocketActions";
 
 const initialState = {
-  loading: false,
-  chatSocket: null,
-  typing: false,
+  connectionStatus: null,
 };
 
 export const socketSlice = createSlice({
@@ -12,32 +10,24 @@ export const socketSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    /* connectChatSocket */
-    builder.addCase(connectChatSocket.pending, (state) => ({
-      ...state,
-      loading: true,
-    }));
-    builder.addCase(connectChatSocket.fulfilled, (state, { payload }) => ({
-      ...state,
-      loading: false,
-      chatSocket: payload.chatSocket,
-    }));
-    builder.addCase(connectChatSocket.fulfilled, (state) => ({
-      ...state,
-      loading: false,
-    }));
-
-    /* connectChatSocket */
-    builder.addCase(receiveMessage.pending, (state) => ({
-      ...state,
-    }));
-    builder.addCase(receiveMessage.fulfilled, (state) => ({
-      ...state,
-    }));
-    builder.addCase(receiveMessage.fulfilled, (state) => ({
-      ...state,
-      loading: false,
-    }));
+    builder.addCase(connectToSocket.pending, (state) => {
+      state.connectionStatus = "connecting";
+    });
+    builder.addCase(connectToSocket.fulfilled, (state) => {
+      state.connectionStatus = "connected";
+    });
+    builder.addCase(connectToSocket.rejected, (state) => {
+      state.connectionStatus = "connection failed";
+    });
+    builder.addCase(disconnectFromSocket.pending, (state) => {
+      state.connectionStatus = "disconnecting";
+    });
+    builder.addCase(disconnectFromSocket.fulfilled, (state) => {
+      state.connectionStatus = "disconnected";
+    });
+    builder.addCase(disconnectFromSocket.rejected, (state) => {
+      state.connectionStatus = "disconnection failed";
+    });
   },
 });
 

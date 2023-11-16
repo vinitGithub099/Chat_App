@@ -2,6 +2,7 @@ import moment from "moment";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import userLogo from "../../../assets/profile-user_64572.png";
+import { getShortenedString } from "../../Utils/utils";
 import UserAvatar from "../UserAvatar";
 
 export default function MessageCard(props) {
@@ -12,7 +13,7 @@ export default function MessageCard(props) {
 
   const buildMessageClassName = (senderName) => {
     let defaultClassName =
-      "my-4 rounded-md max-w-[90%] flex flex-row items-start gap-4 ";
+      "my-4 rounded-md max-w-[90%] flex flex-row items-center gap-2 ";
     if (user.name == senderName) defaultClassName += "self-end";
     else defaultClassName += "self-start";
     return defaultClassName;
@@ -37,7 +38,7 @@ function SenderAvatar({ senderName }) {
     senderName != user.name && (
       <UserAvatar
         className="border-2"
-        config="m"
+        config="s"
         imgSrc={userLogo}
       ></UserAvatar>
     )
@@ -84,7 +85,7 @@ function MessageText({ message }) {
   const toggleMessageWrapper = () => setCompressMessage((prev) => !prev);
 
   const MessageWrapper = () => {
-    let modifiedMsg = message.substring(0, 200);
+    let modifiedMsg = getShortenedString(message, 200);
     return (
       <p className="text-light-1">
         {modifiedMsg}
@@ -118,7 +119,7 @@ function MessageText({ message }) {
 function MessageDeliveryTime({ timeStamp }) {
   return (
     <p className="text-xs text-light-2">
-      {timeStamp ? moment(timeStamp).calendar() : null}
+      {timeStamp ? moment(timeStamp).startOf("hour").fromNow() : null}
     </p>
   );
 }

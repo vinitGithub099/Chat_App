@@ -60,57 +60,53 @@ const io = require("socket.io")(server, {
   pingTimeout: 60000,
   cors: {
     origin:
-      process.env.NODE_ENV === "production"
-        ? false
-        : ["http://localhost:5173", "http://localhost:5174"],
+      process.env.NODE_ENV === "production" ? false : ["http://localhost:5173"],
     credentials: true,
     methods: ["GET", "PUT", "POST", "DELETE"],
     optionSuccessStatus: 200,
     "Access-Control-Allow-Origin": [
       "http://127.0.0.1:5173",
       "http://localhost:5173",
-      "http://127.0.0.1:5174",
-      "http://localhost:5174",
     ],
     "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
   },
 });
 
 io.on("connection", (socket) => {
-  console.log("Connected to socket.io");
   socket.on("setup", (userData) => {
+    console.log(userData.name + " connected --- socketId: " + socket.id);
     socket.join(userData._id);
     socket.emit("connected");
   });
 
-  socket.on("join chat", (room) => {
-    socket.join(room);
-    console.log("User Joined Room: " + room);
+  socket.on("join chat", ({ user, room }) => {
+    socket.join(room._id);
+    console.log(user.name + " Joined Room: " + room._id);
   });
 
-  socket.on("typing", (room) => socket.in(room).emit("typing"));
+  // socket.on("typing", (room) => socket.in(room).emit("typing"));
 
-  socket.on("stop typing", (room) => socket.in(room).emit("stop typing"));
+  // socket.on("stop typing", (room) => socket.in(room).emit("stop typing"));
 
-  socket.on("new message", (newMessageReceived) => {
-    var chat = newMessageReceived.chat;
+  socket.on("new message", ({ newMessage }) => {
+    // var chat = message.chat;
+    /* const room = newMessage.chat;
     console.log(
-      newMessageReceived.sender.name,
+      newMessage.sender.name,
       " sent a message: ",
-      newMessageReceived.content
+      newMessage.content + "in room " + room._id
     );
+
+    socket.in(room._id).emit("message received", { room, newMessage }); */
+
+    const chat = newMessage.chat;
 
     if (!chat.users) return console.log("chat.users not defined");
 
     chat.users.forEach((user) => {
-      if (user._id == newMessageReceived.sender._id) return;
-      console.log(
-        user.name,
-        " received a message: ",
-        newMessageReceived.content
-      );
+      if (user._id == newMessage.sender._id) return;
 
-      socket.in(user._id).emit("message received", newMessageReceived);
+      socket.in(user._id).emit("message received", { room: chat, newMessage });
     });
   });
 

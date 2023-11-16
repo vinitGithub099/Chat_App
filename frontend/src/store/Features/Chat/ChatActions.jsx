@@ -3,11 +3,11 @@ import { io } from "socket.io-client";
 import { chatAPI } from "../../../api/chatAPI";
 import { messageAPI } from "../../../api/messageAPI";
 import { ENDPOINT } from "../../../constants/constants";
+import { socketClient } from "../../../main";
 
 export const fetchChats = createAsyncThunk("chat/fetchChats", async () => {
   try {
     const res = await chatAPI.fetchChats();
-    console.log(res);
     return res;
   } catch (error) {
     throw new Error(error);
@@ -44,44 +44,56 @@ export const connectChatSocket = createAsyncThunk(
 export const receiveMessage = createAsyncThunk(
   "chat/receiveMessage",
   async (args, { getState }) => {
-    const chatSocket = getState().chat.chatSocket;
-    const currentChat = getState().chat.currentChat;
-    let newMessage = null;
-    await chatSocket.on("message received", (newMessageReceived) => {
-      console.log(
-        newMessageReceived.sender.name,
-        " sent a message: ",
-        newMessageReceived.content
-      );
-      if (
-        !currentChat || // if chat is not selected or doesn't match current chat
-        currentChat._id !== newMessageReceived.chat._id
-      ) {
-        //
+    const eventHandler = (
+      { room: room, newMessage: newMessageReceived },
+      resolve,
+      reject
+    ) => {
+      const currentChat = getState().chat.currentChat;
+
+      if (!room || !newMessageReceived) reject("Data not received");
+
+      if (!currentChat || currentChat._id != room._id) {
+        resolve({ notification: newMessageReceived });
       } else {
-        console.log("inside receiver messages");
-        newMessage = newMessageReceived;
+        resolve({ newMessage: newMessageReceived });
       }
-    });
-    return { message: newMessage };
+    };
+
+    try {
+      // const res = await socketClient.on("message received", eventHandler);
+      return await socketClient.on("message received", eventHandler);
+      // if (res?.newMessage) {
+      //   return res;
+      // } else {
+      //   console.log(res);
+      // }
+    } catch (error) {
+      console.log(error);
+    }
   }
 );
 
 export const sendChatMessage = createAsyncThunk(
-  "chat/sendMessage",
-  async (message, { getState }) => {
-    const chatSocket = getState().chat.chatSocket;
-    await chatSocket.emit("new message", message);
-    return { newMessage: message };
+  "chat/sendChatMessage",
+  async ({ newMessage }) => {
+    try {
+      await socketClient.emit("new message", { newMessage });
+      return { newMessage: newMessage };
+    } catch (error) {
+      console.log(error);
+    }
   }
 );
 
 export const joinChat = createAsyncThunk(
   "chat/joinChat",
   async (args, { getState }) => {
-    const chatSocket = getState().chat.chatSocket;
     const currentChat = getState().chat.currentChat;
-
-    await chatSocket.emit("join chat", currentChat._id);
+    const user = getState().auth.user;
+    return await socketClient.emit("join chat", {
+      user: user,
+      room: currentChat,
+    });
   }
 );

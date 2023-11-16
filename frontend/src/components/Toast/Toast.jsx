@@ -11,19 +11,20 @@ import { useTimeout } from "../hooks/useTimeout";
 
 const delay = 5000;
 
-function Toast({ className, content, type, closeToast }) {
+function Toast({ className, content, type, closeToast, hideIcon }) {
   useTimeout(closeToast, delay);
-
   const buildClassName = () => {
-    let defaultClassName = `w-80 p-2 m-2 flex flex-row items-center justify-between ${className}`;
+    let defaultClassName = `w-80 flex flex-row items-center ${className}`;
     let decorator = `border-4 border-${type} bg-dark-1 text-${type}`;
     return `${defaultClassName} ${decorator}`;
   };
 
   return (
     <div className={buildClassName()}>
-      <NotificationIcon type={type} size={20}></NotificationIcon>
-      <div className="p-2 text-light-1">{content}</div>
+      {!hideIcon ? (
+        <NotificationIcon type={type} size={20}></NotificationIcon>
+      ) : null}
+      <div className="px-2 text-light-1 flex-1">{content}</div>
       <Button
         type={"icon"}
         onClick={closeToast}

@@ -2,7 +2,6 @@ Reference link for the project: https://www.youtube.com/playlist?list=PLKhlp2qtU
     
 
 #Pending:
-    - search query
     - search loading
     - create channel 
         - select users options to be added in createChannelForm

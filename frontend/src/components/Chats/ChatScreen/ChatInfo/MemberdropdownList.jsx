@@ -10,7 +10,6 @@ import { MemberDropdownItem } from "./MemberDropdownItem";
 export default function MemberDropdownList({ userId }) {
   const currChat = useSelector((state) => state.chat.currentChat);
   const dispatch = useDispatch();
-  console.log(currChat);
   const { notify } = useToast();
 
   const removeMember = async (userId) => {
