@@ -22,8 +22,6 @@ export default function TextInput({
     control,
   } = useFormContext();
 
-  // const handleChange = (e) => onChange(e);/
-
   const buildClassName = (instanceClassName) => {
     let defaultClassName = `w-full flex items-center outline-none`;
 

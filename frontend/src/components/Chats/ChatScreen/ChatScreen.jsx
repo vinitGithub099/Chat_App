@@ -1,18 +1,16 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import ChannelHeader from "./ChannelHeader";
 import DisplayMessages from "./DisplayMessages";
 import SendMsgBtn from "./SendMsgBtn";
 
 export default function ChatScreen({ className, toggleSideBar }) {
   const currentChat = useSelector((state) => state.chat.currentChat);
-  const dispatch = useDispatch();
 
   return (
     <div className={`max-h-screen flex flex-col flex-1 bg-dark-1 ${className}`}>
       <ChannelHeader toggleSideBar={toggleSideBar}></ChannelHeader>
       {currentChat ? (
         <>
-          {/* <ChannelHeader toggleSideBar={toggleSideBar}></ChannelHeader> */}
           <DisplayMessages></DisplayMessages>
           <SendMsgBtn></SendMsgBtn>
         </>

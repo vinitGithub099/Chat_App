@@ -23,7 +23,6 @@ const initialState = {
   },
   error: false,
   currentChat: null,
-  typing: false,
 };
 
 export const chatSlice = createSlice({
@@ -33,10 +32,6 @@ export const chatSlice = createSlice({
     setCurrentChat: (state, { payload }) => ({
       ...state,
       currentChat: payload,
-    }),
-    setMessages: (state, { payload }) => ({
-      ...state,
-      messages: state.messages.concat(payload.message),
     }),
     removeChatMember: (state, { payload }) => ({
       ...state,
@@ -139,6 +134,5 @@ export const chatSlice = createSlice({
   },
 });
 
-export const { setCurrentChat, setMessages, removeChatMember } =
-  chatSlice.actions;
+export const { setCurrentChat, removeChatMember } = chatSlice.actions;
 export default chatSlice.reducer;

@@ -23,6 +23,9 @@ export default {
         "dark-2": "#120F13",
         "dark-3": "#0B090C",
       },
+      fontSize: {
+        xxs: "0.1rem",
+      },
     },
   },
   plugins: [],

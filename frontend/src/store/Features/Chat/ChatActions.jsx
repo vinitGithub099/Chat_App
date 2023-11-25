@@ -61,13 +61,7 @@ export const receiveMessage = createAsyncThunk(
     };
 
     try {
-      // const res = await socketClient.on("message received", eventHandler);
       return await socketClient.on("message received", eventHandler);
-      // if (res?.newMessage) {
-      //   return res;
-      // } else {
-      //   console.log(res);
-      // }
     } catch (error) {
       console.log(error);
     }

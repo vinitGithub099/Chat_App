@@ -93,7 +93,7 @@ function MessageText({ message }) {
           className="hover:cursor-pointer text-blue-500"
           onClick={toggleMessageWrapper}
         >
-          Read More...
+          Read More
         </span>
       </p>
     );

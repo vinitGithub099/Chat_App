@@ -84,21 +84,17 @@ io.on("connection", (socket) => {
     console.log(user.name + " Joined Room: " + room._id);
   });
 
-  // socket.on("typing", (room) => socket.in(room).emit("typing"));
+  socket.on("typing", ({ room, user }) => {
+    console.log(room._id + " has started typing.");
+    socket.in(room._id).emit("typing", { room, user });
+  });
 
-  // socket.on("stop typing", (room) => socket.in(room).emit("stop typing"));
+  socket.on("stop typing", ({ room, user }) => {
+    console.log(room._id + " stopped typing.");
+    socket.in(room._id).emit("stop typing", { room, user });
+  });
 
   socket.on("new message", ({ newMessage }) => {
-    // var chat = message.chat;
-    /* const room = newMessage.chat;
-    console.log(
-      newMessage.sender.name,
-      " sent a message: ",
-      newMessage.content + "in room " + room._id
-    );
-
-    socket.in(room._id).emit("message received", { room, newMessage }); */
-
     const chat = newMessage.chat;
 
     if (!chat.users) return console.log("chat.users not defined");

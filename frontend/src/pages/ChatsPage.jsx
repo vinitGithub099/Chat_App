@@ -35,8 +35,10 @@ export default function ChatsPage({ className }) {
   useEffect(() => {
     dispatch(receiveMessage())
       .then((res) => {
-        const notification = res.payload.notification;
-        notify(notificationComponent(notification), INFO);
+        if (res.payload && res.notification) {
+          const notification = res.payload.notification;
+          notify(notificationComponent(notification), INFO);
+        }
       })
       .catch();
   });
