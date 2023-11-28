@@ -28,12 +28,13 @@ export const Checkbox = ({
 
   const handleChange = (e) => {
     // console.log(JSON.parse(e.target.value));
+    // const obj = e.target.value;
     const obj = JSON.parse(e.target.value);
-    // console.log(obj);
+    console.log(obj);
     if (e.target.checked) {
-      setCheckedItems((prev) => [...prev, obj]);
+      setCheckedItems((prev) => [...prev, { name: obj.name, id: obj._id }]);
     } else {
-      setCheckedItems((prev) => prev.filter((item) => item._id !== obj._id));
+      setCheckedItems((prev) => prev.filter((item) => item.id !== obj._id));
     }
   };
 
@@ -112,7 +113,7 @@ function ListInputItem({
 function CheckedItem(props) {
   return (
     <div className={props.checkedItemClassName} id={props.id}>
-      {props.name ? props.name : "hello"}
+      {props.name ? props.name : null}
     </div>
   );
 }

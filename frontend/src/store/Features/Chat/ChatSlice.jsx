@@ -37,7 +37,7 @@ export const chatSlice = createSlice({
       ...state,
       currentChat: {
         ...state.currentChat,
-        users: state.users.filer((user) => user._id !== payload),
+        users: state.currentChat.users.filter((user) => user._id !== payload),
       },
     }),
   },

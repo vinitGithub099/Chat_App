@@ -155,9 +155,11 @@ const formFields = [
     labelClassName: "px-2 text-light-2 mb-4 font-semibold",
     showCheckedItems: true,
     checkedItemsClassName: "w-full p-2 flex gap-2 my-2",
-    checkedItemClassName: "border border-light-2 text-light-1 bg-dark-3 px-4 py-2 rounded-md",
+    checkedItemClassName:
+      "border border-light-2 text-light-1 bg-dark-3 px-4 py-2 rounded-md",
     checkboxClassName: "w-6 m-2 checked:accent-light-1",
-    containerClassName: "border divide-x border-light-2 bg-dark-1 hover:bg-dark-2",
+    containerClassName:
+      "border divide-x border-light-2 bg-dark-1 hover:bg-dark-2",
     optionsList: generateFakeUsers(),
     labelComponent: LabelComponent,
     validation: {

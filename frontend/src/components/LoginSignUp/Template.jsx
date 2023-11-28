@@ -3,8 +3,6 @@ import Form from "../Form/Form";
 import Header from "../Header";
 import Loader from "../Loader";
 import FormNavLink from "./FormNavLink";
-import SocialIconList from "./SocialIconList";
-import { socialIconList } from "./utils/iconsList";
 
 export default function Template({
   className,
@@ -34,13 +32,6 @@ export default function Template({
           buttonConfigs={buttonConfigs}
           handleSubmit={handleSubmit}
         ></Form>
-        <p className="text-center font-light text-sm mt-4 text-light-1">
-          {`or continue with your social profile`}
-        </p>
-        <SocialIconList
-          className="flex flex-row justify-center my-4"
-          iconsList={socialIconList}
-        ></SocialIconList>
         <FormNavLink
           className={`text-light-1`}
           text={text}

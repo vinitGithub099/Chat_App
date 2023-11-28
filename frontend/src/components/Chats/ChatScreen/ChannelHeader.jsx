@@ -21,7 +21,6 @@ export default function ChannelHeader({ toggleSideBar }) {
         if (data) resolve(data);
         else reject();
       });
-      console.log("Listen start: ", res);
       if (res && currentChat && currentChat._id === res.room._id) {
         setTyping(true);
         setTyperName(res.user.name);
@@ -44,7 +43,6 @@ export default function ChannelHeader({ toggleSideBar }) {
           else reject();
         }
       );
-      console.log("Listen stop: ", res);
       if (res && currentChat && currentChat._id === res.room._id) {
         setTyping(false);
         setTyperName(null);

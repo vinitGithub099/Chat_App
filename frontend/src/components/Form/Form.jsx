@@ -12,11 +12,13 @@ export default function Form({
   fields,
   buttonConfigs,
   handleSubmit,
+  reset,
 }) {
   const methods = useForm();
 
   const handelFormSubmit = (e) => {
     handleSubmit(e);
+    if (reset) methods.reset();
   };
 
   return !_.isEmpty(fields) && fields.length ? (

@@ -69,6 +69,7 @@ export default function SendMsgBtn() {
           children: <AiOutlineSend></AiOutlineSend>,
         }}
         handleSubmit={handleSendMessage}
+        reset={true}
       ></Form>
     </div>
   );

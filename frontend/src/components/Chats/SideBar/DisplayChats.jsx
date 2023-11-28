@@ -44,7 +44,6 @@ function ChatCard(props) {
         if (data) resolve(data);
         else reject();
       });
-      console.log("listening start");
       if (res && chatId === res.room._id) {
         setTyping(true);
         setTyperName(res.user.name);
@@ -55,7 +54,6 @@ function ChatCard(props) {
     } catch (error) {
       setTyping(false);
       setTyperName(null);
-      console.log(error);
     }
   };
 
@@ -68,7 +66,6 @@ function ChatCard(props) {
           else reject();
         }
       );
-      console.log("listening stop");
       if (res && chatId === res.room._id) {
         setTyping(false);
         setTyperName(null);
@@ -76,7 +73,6 @@ function ChatCard(props) {
     } catch (error) {
       setTyping(false);
       setTyperName(null);
-      console.log(error);
     }
   };
 

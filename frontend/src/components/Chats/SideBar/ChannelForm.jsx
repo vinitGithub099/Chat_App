@@ -11,7 +11,6 @@ import Modal from "../../Modal";
 import UserCard from "./UserCard";
 
 export default function ChannelForm({ showModal, toggleModal }) {
-
   return (
     <Modal
       showModal={showModal}
@@ -29,14 +28,18 @@ function CreateChannelForm({ toggleModal }) {
   const [optionsList, setOptionsList] = useState([]);
 
   const handleSubmit = (channelData) => {
-    console.log(channelData);
+    const users =
+      channelData &&
+      channelData.userList?.length &&
+      channelData.userList.map((item) => {
+        const user = JSON.parse(item);
+        return user._id;
+      });
     const data = {
       name: channelData.channelName,
-      users: channelData.userList,
+      users: JSON.stringify(users),
       description: channelData.channelDescription,
     };
-    console.log(data);
-
     chatAPI
       .createGroupChat(data)
       .then(() => notify("Channel created successfully!", SUCCESS))
@@ -47,7 +50,6 @@ function CreateChannelForm({ toggleModal }) {
     authAPI
       .searchUser(query)
       .then((res) => {
-        console.log(res);
         setOptionsList(
           res.map((item) => ({
             ...item,
@@ -173,34 +175,3 @@ function LabelComponent({ name }) {
     </div>
   );
 }
-
-/* 
-function generateFakeUsers() {
-  return users && users.length
-    ? users.map((user) => ({
-        ...user,
-        inputClassName:
-          "p-2 w-full rounded-md outline-none bg-light-3 text-light-1",
-        // checked: false,
-        defaultChecked: false,
-      }))
-    : [];
-}
- */
-
-/* 
-
-{
-    "_id": "64e899c03ac98a5b778af11a",
-    "name": "Vansh",
-    "email": "vansh@gmail.com",
-    "phone": "995052986",
-    "bio": "Hello world",
-    "pic": "",
-    "isAdmin": false,
-    "createdAt": "2023-08-25T12:08:32.631Z",
-    "updatedAt": "2023-08-25T12:08:32.631Z",
-    "__v": 0
-}
-
-*/

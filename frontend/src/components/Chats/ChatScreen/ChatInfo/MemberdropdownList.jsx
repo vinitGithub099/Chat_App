@@ -35,7 +35,7 @@ export default function MemberDropdownList({ userId }) {
   return (
     <ListComponent
       list={options}
-      className="m-1 p-2 hidden group-hover:block bg-dark-2 border border-light-3 rounded-md fixed right-2 mb-4"
+      className="m-1 p-2 hidden group-hover:block bg-dark-2 border border-light-3 rounded-md absolute right-2 mb-4"
       subComponent={MemberDropdownItem}
       userId={userId}
     ></ListComponent>

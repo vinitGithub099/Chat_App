@@ -40,7 +40,6 @@ export const authAPI = {
       },
     });
     if (result.status === 200) {
-      console.log(result);
       return result.data;
     } else {
       throw new Error(result);
