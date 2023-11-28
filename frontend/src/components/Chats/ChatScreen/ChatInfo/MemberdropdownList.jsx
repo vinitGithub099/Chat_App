@@ -1,14 +1,15 @@
 import { HiUserRemove } from "react-icons/hi";
 import { useDispatch, useSelector } from "react-redux";
-import { chatAPI } from "../../../../api/chatAPI";
-import { ERROR, SUCCESS } from "../../../../constants/constants";
 import { removeChatMember } from "../../../../store/Features/Chat/ChatSlice";
 import { useToast } from "../../../Hooks/useToast";
 import ListComponent from "../../../ListComponent";
 import { MemberDropdownItem } from "./MemberDropdownItem";
+import { chatAPI } from "../../../../api/chatAPI";
+import { ERROR, SUCCESS } from "../../../../constants/constants";
 
 export default function MemberDropdownList({ userId }) {
   const currChat = useSelector((state) => state.chat.currentChat);
+  const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
   const { notify } = useToast();
 
@@ -23,6 +24,7 @@ export default function MemberDropdownList({ userId }) {
         dispatch(removeChatMember(userId));
       })
       .catch(() => notify("Failed to remove user", ERROR));
+    dispatch(removeChatMember(userId));
   };
 
   const options = [
@@ -30,6 +32,7 @@ export default function MemberDropdownList({ userId }) {
       name: "Remove",
       icon: <HiUserRemove size={20}></HiUserRemove>,
       handleClick: () => removeMember(userId),
+      disabled: currChat && currChat.groupAdmin._id !== user._id,
     },
   ];
   return (
