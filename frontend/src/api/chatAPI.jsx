@@ -60,7 +60,7 @@ export const chatAPI = {
   addToGroup: async (data) => {
     const result = await api.request({
       url: `/chat/addToGroup`,
-      method: `POST`,
+      method: `PUT`,
       data: data,
       signal: new AbortController().signal,
       headers: { "Content-Type": "application/json" },

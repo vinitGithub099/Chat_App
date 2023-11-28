@@ -33,11 +33,24 @@ export const chatSlice = createSlice({
       ...state,
       currentChat: payload,
     }),
+    populateChat: (state, { payload }) => ({
+      ...state,
+      chats: state.chats.find((chat) => chat._id === payload._id)
+        ? state.chats
+        : state.chats.concat(payload),
+    }),
+    addChatMember: (state, { payload }) => ({
+      ...state,
+      currentChat: {
+        ...state.currentChat,
+        users: payload ? payload : state.currentChat?.users,
+      },
+    }),
     removeChatMember: (state, { payload }) => ({
       ...state,
       currentChat: {
         ...state.currentChat,
-        users: state.currentChat.users.filter((user) => user._id !== payload),
+        users: state.currentChat?.users.filter((user) => user._id !== payload),
       },
     }),
   },
@@ -134,5 +147,6 @@ export const chatSlice = createSlice({
   },
 });
 
-export const { setCurrentChat, removeChatMember } = chatSlice.actions;
+export const { setCurrentChat, removeChatMember, populateChat, addChatMember } =
+  chatSlice.actions;
 export default chatSlice.reducer;

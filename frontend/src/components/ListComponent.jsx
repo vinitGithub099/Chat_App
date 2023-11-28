@@ -3,6 +3,7 @@ export default function ListComponent({
   className,
   subComponent: SubComponent,
   children,
+  emptyMessage,
   ...rest
 }) {
   return (
@@ -18,6 +19,8 @@ export default function ListComponent({
               ></SubComponent>
             );
           })
+        : emptyMessage
+        ? emptyMessage
         : null}
       {children}
     </div>

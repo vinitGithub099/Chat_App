@@ -58,6 +58,8 @@ export default function ChannelHeader({ toggleSideBar }) {
     listenStopTyping();
   });
 
+  useEffect(() => {}, [currentChat]);
+
   return (
     <>
       <div className="py-4 px-2 text-extra-light flex flex-row items-center justify-between gap-4 shadow-sm shadow-dark-3 mb-8">

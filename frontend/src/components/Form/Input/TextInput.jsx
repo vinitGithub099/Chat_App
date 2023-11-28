@@ -15,6 +15,8 @@ export default function TextInput({
   validation,
   icon,
   onChange: handleChange,
+  onFocus: handleFocus,
+  onBlur: handleBlur,
 }) {
   const {
     register,
@@ -56,6 +58,8 @@ export default function TextInput({
                 onChange(e);
                 if (handleChange) handleChange(e);
               }}
+              onFocus={handleFocus ? (e) => handleFocus(e) : null}
+              onBlur={handleBlur ? (e) => handleBlur(e) : null}
             />
           </div>
           {errors && errors[id] ? (

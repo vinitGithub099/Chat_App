@@ -1,11 +1,11 @@
 import { HiUserRemove } from "react-icons/hi";
 import { useDispatch, useSelector } from "react-redux";
+import { chatAPI } from "../../../../api/chatAPI";
+import { ERROR, SUCCESS } from "../../../../constants/constants";
 import { removeChatMember } from "../../../../store/Features/Chat/ChatSlice";
 import { useToast } from "../../../Hooks/useToast";
 import ListComponent from "../../../ListComponent";
 import { MemberDropdownItem } from "./MemberDropdownItem";
-import { chatAPI } from "../../../../api/chatAPI";
-import { ERROR, SUCCESS } from "../../../../constants/constants";
 
 export default function MemberDropdownList({ userId }) {
   const currChat = useSelector((state) => state.chat.currentChat);
@@ -32,7 +32,8 @@ export default function MemberDropdownList({ userId }) {
       name: "Remove",
       icon: <HiUserRemove size={20}></HiUserRemove>,
       handleClick: () => removeMember(userId),
-      disabled: currChat && currChat.groupAdmin._id !== user._id,
+      disabled:
+        currChat && currChat.groupAdmin && currChat.groupAdmin._id !== user._id,
     },
   ];
   return (

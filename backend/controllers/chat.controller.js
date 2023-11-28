@@ -41,10 +41,15 @@ const accessChat = async (req, res) => {
     };
     try {
       const createdChat = await Chat.create(chatData);
-      const fullChat = await Chat.findOne({ _id: createdChat._id }).populate(
-        "users",
-        "password"
-      );
+      let fullChat = await Chat.findOne({ _id: createdChat._id }).populate({
+        path: "users",
+        select: "-password",
+      });
+
+      isChat = await User.populate(isChat, {
+        path: "latestMessage.sender",
+        select: "name pic email",
+      });
 
       res.status(200).json(fullChat);
     } catch (error) {
@@ -152,7 +157,7 @@ const renameGroup = async (req, res) => {
 /**
  * * status: working
  * @description add user to a group
- * @method POST /api/chat/addToGroup
+ * @method PUT /api/chat/addToGroup
  * @purpose to add a user with userId to chat group/chat room with chatId
  */
 const addToGroup = async (req, res) => {

@@ -34,6 +34,7 @@ export default function DisplayChats({ toggleSideBar }) {
 function ChatCard(props) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
+  const currentChat = useSelector((state) => state.chat.currentChat);
   const [typing, setTyping] = useState(false);
   const [typerName, setTyperName] = useState(null);
   const { _id: chatId, chatName, latestMessage, toggleSideBar, users } = props;
@@ -88,11 +89,16 @@ function ChatCard(props) {
     dispatch(fetchChatMessages());
   };
 
+  const buildClassName = () => {
+    let className = "px-4 py-1 cursor-pointer hover:bg-dark-1";
+    if (currentChat && currentChat._id === props._id) {
+      className += " bg-light-3";
+    }
+    return className;
+  };
+
   return (
-    <div
-      className="px-4 py-1 cursor-pointer hover:bg-dark-1"
-      onClick={() => handleClick(props)}
-    >
+    <div className={buildClassName()} onClick={() => handleClick(props)}>
       <div className="flex flex-row items-center gap-4 my-2 rounded-md">
         <UserAvatar
           altText={"hello world"}

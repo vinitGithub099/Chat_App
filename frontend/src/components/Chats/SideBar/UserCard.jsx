@@ -1,9 +1,18 @@
 import { getShortenedString } from "../../Utils/utils";
 import UserAvatar from "../UserAvatar";
 
-export default function UserCard({ className, imgSrc, name, imgConfig }) {
+export default function UserCard({
+  className,
+  imgSrc,
+  name,
+  imgConfig,
+  handleClick,
+}) {
   return (
-    <div className={`flex flex-row items-center ${className}`}>
+    <div
+      className={`flex flex-row items-center ${className}`}
+      onClick={handleClick}
+    >
       <UserAvatar
         className=""
         imgSrc={imgSrc}

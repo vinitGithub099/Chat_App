@@ -2,7 +2,7 @@ import { AiOutlineSend } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import _ from "underscore";
 import { messageAPI } from "../../../api/messageAPI";
-import { ERROR, SUCCESS } from "../../../constants/constants";
+import { ERROR } from "../../../constants/constants";
 import { socketClient } from "../../../main";
 import { sendChatMessage } from "../../../store/Features/Chat/ChatActions";
 import Form from "../../Form/Form";
@@ -21,10 +21,7 @@ export default function SendMsgBtn() {
     await socketClient.emit("stop typing", { room: currentChat, user: user });
 
   const handleSuccess = (res) =>
-    dispatch(sendChatMessage({ newMessage: res })).then(() => {
-      notify("Message sent!", SUCCESS);
-      emitStopTyping();
-    });
+    dispatch(sendChatMessage({ newMessage: res })).then(() => emitStopTyping());
 
   const handleFailure = () => notify("Message was not sent!", ERROR);
 

@@ -5,7 +5,7 @@ import UserCard from "../../SideBar/UserCard";
 import MemberDropdownList from "./MemberdropdownList";
 
 export default function MemberCard(props) {
-  const groupAdmin = useSelector((state) => state.chat.currentChat.groupAdmin);
+  const currentChat = useSelector((state) => state.chat.currentChat);
   return (
     <div className="flex flex-row items-center justify-between gap-4 py-2 hover:bg-dark-1 px-4">
       <UserCard
@@ -14,7 +14,9 @@ export default function MemberCard(props) {
         imgConfig="s"
         className="text-light-1"
       ></UserCard>
-      {groupAdmin && props._id === groupAdmin._id ? (
+      {currentChat &&
+      currentChat.groupAdmin &&
+      props._id === currentChat.groupAdmin._id ? (
         <span className="px-2 py-1 text-xs text-light-1 border border-light-3 bg-dark-1 rounded-md">{`Admin`}</span>
       ) : null}
       <div className="text-light-1 hover:text-light-2 group hover:cursor-pointer flex items-end ">

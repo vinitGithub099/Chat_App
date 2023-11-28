@@ -5,6 +5,7 @@ import MultiLineInput from "./MultiLineInput";
 import PasswordInput from "./PasswordInput";
 import PhoneNumberInput from "./PhoneNumberInput";
 import TextInput from "./TextInput";
+import SingleSelect from "./SingleSelect";
 export default function Input({ field }) {
   switch (field.type) {
     case "email":
@@ -21,6 +22,8 @@ export default function Input({ field }) {
       return <PasswordInput {...field}></PasswordInput>;
     case "checkbox":
       return <Checkbox {...field}></Checkbox>;
+    case "singleSelect":
+      return <SingleSelect {...field}></SingleSelect>;
     default:
       return null;
   }

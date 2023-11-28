@@ -1,6 +1,6 @@
 export const getShortenedString = (str, limit = 20) => {
   let modifiedStr = str;
-  if (modifiedStr.length > limit) {
+  if (modifiedStr?.length > limit) {
     modifiedStr = str.substring(0, limit) + "...";
   }
   return modifiedStr;
