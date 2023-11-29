@@ -14,11 +14,6 @@ const list = [
     path: "/toast-demo",
     text: "toastDemo",
   },
-
-  {
-    path: "/intermediate-loader",
-    text: "intermediate loader",
-  },
   {
     path: "/register",
     text: "register",

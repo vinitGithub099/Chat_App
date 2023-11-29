@@ -1,4 +1,5 @@
 import App from "../App";
+import ChatsPage from "../Pages/ChatsPage";
 import HomePage from "../Pages/HomePage";
 import SampleHome from "../SampleHome";
 import userLogo from "../assets/profile-user_64572.png";
@@ -10,13 +11,11 @@ import UserCard from "../components/Chats/SideBar/UserCard";
 import UserAvatar from "../components/Chats/UserAvatar";
 import DemoForm from "../components/DemoForm";
 import ErrorPage from "../components/Error/ErrorPage";
-import IntermediateLoader from "../components/IntermediateLoader";
 import Login from "../components/LoginSignUp/Login";
 import SignUp from "../components/LoginSignUp/SignUp";
 import EditProfile from "../components/Profile/EditProfile";
 import Profile from "../components/Profile/Profile";
 import ToastDemo from "../components/Toast/ToastDemo";
-import ChatsPage from "../pages/ChatsPage";
 
 export const router = [
   {
@@ -25,10 +24,6 @@ export const router = [
     children: [
       { path: "", element: <SampleHome></SampleHome> },
       { path: "home", element: <HomePage></HomePage> },
-      {
-        path: "intermediate-loader",
-        element: <IntermediateLoader className={""}></IntermediateLoader>,
-      },
       {
         path: "login",
         element: <Login className=""></Login>,

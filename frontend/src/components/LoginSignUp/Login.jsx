@@ -14,16 +14,9 @@ export default function Login({ className }) {
   const { notify } = useToast();
 
   const handleLoginSuccess = () => {
-    const path = location.state?.from ? location.state.from : "/chat";
+    const path = location.state?.from ? location.state.from : "/home";
     notify("Logged in Successfully!", SUCCESS);
-    navigate("/intermediate-loader", {
-      state: {
-        message: `Redirecting you to ${
-          location.state?.from ? "where you left from" : "Chats page"
-        }`,
-        from: path,
-      },
-    });
+    navigate(path);
   };
 
   const handelLoginFailure = () => notify("Log in failed!", ERROR);

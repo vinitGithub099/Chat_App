@@ -14,15 +14,9 @@ export default function SignUp({ className }) {
   const { notify } = useToast();
 
   const handleRegisterSuccess = () => {
-    const path = location.state?.from ? location.state.from : "/";
+    const path = location.state?.from ? location.state.from : "/home";
     notify("Registered in Successfully!", SUCCESS);
-    navigate("/intermediate-loader", {
-      state: {
-        message: "Redirecting to login",
-        from: path,
-        to: "/login",
-      },
-    });
+    navigate(path);
   };
 
   const handelLoginFailure = () => notify("Sign Up failed!", ERROR);
@@ -46,7 +40,7 @@ export default function SignUp({ className }) {
         },
         handleSubmit: handleRegisterSubmit,
       }}
-      heading={"Login"}
+      heading={"Register"}
       navConfigs={{
         text: "Already have an account? ",
         path: "/login",
