@@ -6,7 +6,6 @@
 
 import { createSlice } from "@reduxjs/toolkit";
 import {
-  connectChatSocket,
   fetchChatMessages,
   fetchChats,
   joinChat,
@@ -85,18 +84,6 @@ export const chatSlice = createSlice({
       ...state,
       loading: { chats: false, messages: true },
       messages: null,
-    }));
-
-    /* connectChatSocket */
-    builder.addCase(connectChatSocket.pending, (state) => ({
-      ...state,
-    }));
-    builder.addCase(connectChatSocket.fulfilled, (state, { payload }) => ({
-      ...state,
-      chatSocket: payload.chatSocket,
-    }));
-    builder.addCase(connectChatSocket.rejected, (state) => ({
-      ...state,
     }));
 
     /* receiveMessage */

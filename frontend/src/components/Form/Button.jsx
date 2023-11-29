@@ -17,7 +17,11 @@ export default function Button({
     case "icon":
       return <IconButton {...buttonProps}></IconButton>;
     default:
-      return <button {...buttonProps}>{children}</button>;
+      return (
+        <button className={className} onClick={handleClick}>
+          {children}
+        </button>
+      );
   }
 }
 

@@ -6,16 +6,18 @@ import { useToast } from "./components/Hooks/useToast";
 import Loader from "./components/Loader";
 import { WARNING } from "./constants/constants";
 import "./index.css";
+import { socketClient } from "./main";
 import { autoLogin } from "./store/Features/User/AuthActions";
 
 export default function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const accessToken = localStorage.getItem("access_token");
   const { loading } = useSelector((state) => state.auth);
   const { notify } = useToast();
+  const user = useSelector((state) => state.auth.user);
 
   useEffect(() => {
+    const accessToken = localStorage.getItem("access_token");
     if (_.isEmpty(accessToken)) return;
     dispatch(autoLogin())
       .then()
@@ -23,7 +25,16 @@ export default function App() {
         notify("You are not logged in!", WARNING);
         navigate("/login");
       });
-  }, [accessToken, dispatch, navigate, notify]);
+  }, [dispatch]);
+
+  useEffect(() => {
+    const connectChatSocket = async (user) =>
+      socketClient && (await socketClient.connect(user));
+
+    if (user) {
+      connectChatSocket(user);
+    }
+  }, [user]);
 
   return (
     <main className="w-full min-h-screen">

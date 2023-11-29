@@ -1,8 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { io } from "socket.io-client";
 import { chatAPI } from "../../../api/chatAPI";
 import { messageAPI } from "../../../api/messageAPI";
-import { ENDPOINT } from "../../../constants/constants";
 import { socketClient } from "../../../main";
 
 export const fetchChats = createAsyncThunk("chat/fetchChats", async () => {
@@ -24,20 +22,6 @@ export const fetchChatMessages = createAsyncThunk(
     } catch (error) {
       throw new Error(error);
     }
-  }
-);
-
-export const connectChatSocket = createAsyncThunk(
-  "chat/connectSocket",
-  async (args, { getState }) => {
-    const user = getState().auth.user;
-    const socket = io(ENDPOINT);
-    socket.emit("setup", user._id);
-    socket.on("connected", () => {
-      console.log("Socket connected from frontend with id: ", socket.id);
-    });
-
-    return { chatSocket: socket };
   }
 );
 

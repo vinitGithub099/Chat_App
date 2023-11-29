@@ -8,6 +8,7 @@ export default function SingleSelect({
   labelClassName,
   optionList: options,
   validation,
+  optionComponent: OptionComponent,
 }) {
   const {
     register,
@@ -16,26 +17,26 @@ export default function SingleSelect({
 
   return (
     <div className={containerClassName}>
-      <select
-        className={className}
-        selected={null}
-        {...register(id, validation)}
-      >
-        <option disabled>Select</option>
-        {options && options.length
-          ? options.map((item, index) => {
-              return (
-                <option
-                  key={index}
-                  value={JSON.stringify(item)}
-                  className={labelClassName}
-                >
-                  {item.label ? item.label : "hello"}
-                </option>
-              );
-            })
-          : null}
-      </select>
+      {options && options.length ? (
+        <select
+          className={className}
+          selected={null}
+          {...register(id, validation)}
+        >
+          <option disabled>Select</option>
+          {options.map((item, index) => {
+            return (
+              <option key={index} value={item.value} className={labelClassName}>
+                {/* {OptionComponent ? ( */}
+                <OptionComponent {...item.label}></OptionComponent>
+                {/* ) : item.label ? ( */}
+                {/* item.label */}
+                {/* ) : null} */}
+              </option>
+            );
+          })}
+        </select>
+      ) : null}
       {errors && errors[id] ? (
         <FormError
           message={errors[id].message}
