@@ -22,7 +22,7 @@ export default function ChatInfo({ handleChannelExtras, className }) {
       <div className="p-4 text-light-1 flex flex-row items-center border-b border-light-3">
         <Button
           className="p-1 rounded-full cursor-pointer hover:bg-light-3 hover:bg-opacity-60"
-          handleClick={() => handleChannelExtras(null)}
+          onClick={() => handleChannelExtras(null)}
         >
           <BiArrowBack size={20}></BiArrowBack>
         </Button>
@@ -79,11 +79,12 @@ function AddUserForm() {
   return (
     <Form
       fields={formFields(optionList, searchUser)}
-      className="w-full rounded-md"
+      className="px-4 w-full rounded-md"
       buttonConfigs={{
         type: "submit",
         label: "Add User",
-        className: "px-4 py-2 rounded-md bg-btn text-white",
+        className:
+          "px-4 py-2 rounded-md bg-light-3 btn text-light-1 hover:bg-dark-1",
       }}
       handleSubmit={handleSubmit}
       reset={true}
