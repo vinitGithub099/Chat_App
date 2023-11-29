@@ -17,6 +17,7 @@ export default function ChatsPage({ className }) {
   const { notify } = useToast();
   const [isSideBarOpen, setIsSideBarOpen] = useState(true);
   const toggleSideBar = () => setIsSideBarOpen((prev) => !prev);
+  const [prevToastId, setPrevToastId] = useState(null);
   const dispatch = useDispatch();
   const connectionStatus = useSelector(
     (state) => state.socket.connectionStatus
@@ -35,9 +36,12 @@ export default function ChatsPage({ className }) {
   useEffect(() => {
     dispatch(receiveMessage())
       .then((res) => {
-        if (res.payload && res.notification) {
+        if (res.payload && res.payload.notification) {
           const notification = res.payload.notification;
-          notify(notificationComponent(notification), INFO);
+          if (!prevToastId || prevToastId !== notification._id) {
+            notify(notificationComponent(notification), INFO, true);
+            setPrevToastId(notification._id);
+          }
         }
       })
       .catch();

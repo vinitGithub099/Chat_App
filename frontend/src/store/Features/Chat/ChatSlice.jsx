@@ -108,7 +108,7 @@ export const chatSlice = createSlice({
         !state.messages ||
         (state.messages.length &&
           state.messages[state.messages.length - 1]._id !==
-            payload.newMessage?._id)
+            payload?.newMessage?._id)
           ? payload.newMessage
           : null;
       return {

@@ -52,7 +52,7 @@ export default function ToastDemo() {
                 <Button
                   key={index}
                   type="submit"
-                  onClick={() => notify(content, type, hideIcon)}
+                  handleClick={() => notify(content, type, hideIcon)}
                   className={`py-2 px-4 my-2 text-${type} bg-dark-1 text-light-1 text-xl rounded-md`}
                   label={content}
                 ></Button>

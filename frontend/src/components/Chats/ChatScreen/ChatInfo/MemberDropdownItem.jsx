@@ -7,7 +7,7 @@ export function MemberDropdownItem({ name, icon, handleClick, disabled }) {
       className={`w-full text-light-1 flex items-center gap-2 p-2 hover:bg-dark-1 ${
         disabled ? `hover:cursor-not-allowed` : ``
       }`}
-      onClick={handleClick}
+      handleClick={handleClick}
       disabled={disabled}
     >
       <span>{icon}</span>

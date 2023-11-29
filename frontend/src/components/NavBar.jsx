@@ -55,21 +55,21 @@ export default function NavBar({ className }) {
         <Button
           className="border border-light-2 text-light-2 px-4 py-2 hover:border-light-1 hover:text-light-1"
           type="submit"
-          onClick={handleRegister}
+          handleClick={handleRegister}
           label="Sign up"
         ></Button>
         {token ? (
           <Button
             className="bg-light-2 bg-opacity-30 text-light-1 px-4 py-2 hover:bg-opacity-20"
             type="submit"
-            onClick={handleLogout}
+            handleClick={handleLogout}
             label="Logout"
           ></Button>
         ) : (
           <Button
             className="bg-light-2 bg-opacity-30 text-light-1 px-4 py-2 hover:text-light-2"
             type="submit"
-            onClick={handleLogin}
+            handleClick={handleLogin}
             label="Login"
           ></Button>
         )}
@@ -95,21 +95,21 @@ export default function NavBar({ className }) {
           <Button
             className="border border-light-2 text-light-2 px-4 py-2 hover:border-light-1 hover:text-light-1"
             type="submit"
-            onClick={handleRegister}
+            handleClick={handleRegister}
             label="Sign up"
           ></Button>
           {token ? (
             <Button
               className="bg-light-2 bg-opacity-30 text-light-1 px-4 py-2 hover:bg-opacity-20"
               type="submit"
-              onClick={handleLogout}
+              handleClick={handleLogout}
               label="Logout"
             ></Button>
           ) : (
             <Button
               className="bg-light-2 bg-opacity-30 text-light-1 px-4 py-2 hover:text-light-2"
               type="submit"
-              onClick={handleLogin}
+              handleClick={handleLogin}
               label="Login"
             ></Button>
           )}

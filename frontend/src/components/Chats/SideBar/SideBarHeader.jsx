@@ -15,7 +15,7 @@ export default function SideBarHeader({ toggleSideBar }) {
         <Button
           className="sm:hidden rounded-sm pr-1 text-light-1"
           type="submit"
-          onClick={toggleSideBar}
+          handleClick={toggleSideBar}
         >
           <IoIosArrowBack size={20}></IoIosArrowBack>
         </Button>
@@ -23,7 +23,7 @@ export default function SideBarHeader({ toggleSideBar }) {
       </div>
       <Button
         className="rounded-md text-light-1 bg-light-3 p-2 ml-4"
-        onClick={toggleModal}
+        handleClick={toggleModal}
         type="submit"
       >
         <RiAddFill></RiAddFill>

@@ -22,7 +22,7 @@ export default function ChatInfo({ handleChannelExtras, className }) {
       <div className="p-4 text-light-1 flex flex-row items-center border-b border-light-3">
         <Button
           className="p-1 rounded-full cursor-pointer hover:bg-light-3 hover:bg-opacity-60"
-          onClick={() => handleChannelExtras(null)}
+          handleClick={() => handleChannelExtras(null)}
         >
           <BiArrowBack size={20}></BiArrowBack>
         </Button>

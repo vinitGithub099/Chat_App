@@ -18,7 +18,7 @@ export default function ErrorPage() {
             className="m-4 px-8 py-4 bg-light-3 text-light-1 font-semibold text-xl rounded-md hover:bg-light-1 hover:text-light-3"
             type="submit"
             label="Home"
-            onClick={handleClick}
+            handleClick={handleClick}
           ></Button>
         </div>
         <div className="py-4 flex-1 sm:p-8">

@@ -14,7 +14,7 @@ const delay = 5000;
 function Toast({ className, content, type, closeToast, hideIcon }) {
   useTimeout(closeToast, delay);
   const buildClassName = () => {
-    let defaultClassName = `w-80 flex flex-row items-center ${className}`;
+    let defaultClassName = `w-72 flex flex-row items-center ${className}`;
     let decorator = `border-4 border-${type} bg-dark-1 text-${type}`;
     return `${defaultClassName} ${decorator}`;
   };
@@ -27,7 +27,7 @@ function Toast({ className, content, type, closeToast, hideIcon }) {
       <div className="px-2 text-light-1 flex-1">{content}</div>
       <Button
         type={"icon"}
-        onClick={closeToast}
+        handleClick={closeToast}
         className="p-2 hover:bg-light-1 hover:text-dark-1 rounded-full"
       >
         <IoMdClose></IoMdClose>
