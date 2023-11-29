@@ -18,7 +18,6 @@ export default function ChatsPage({ className }) {
   useEffect(() => {
     dispatch(receiveMessage())
       .then((res) => {
-        console.log(res);
         if (res.payload && res.payload.notification) {
           const notification = res.payload.notification;
           notify(notificationComponent(notification), INFO, true);

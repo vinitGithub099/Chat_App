@@ -23,7 +23,7 @@ export default function NavBar({ className }) {
     >
       <div className="max-sm:w-full max-sm:py-4 py-2 px-4 text-light-2 text-xl flex items-start gap-8 max-sm:shadow-sm max-sm:shadow-light-2">
         <div
-          className="sm:hidden hover:bg-light-3 hover:bg-opacity-50"
+          className="sm:hidden hover:bg-light-3 hover:bg-opacity-50 hover:cursor-pointer"
           onClick={handleNavbar}
         >
           {!navbar ? (

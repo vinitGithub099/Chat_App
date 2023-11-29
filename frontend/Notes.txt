@@ -9,6 +9,8 @@ Reference link for the project: https://www.youtube.com/playlist?list=PLKhlp2qtU
     - forgot password using node-mailer
     - select tab styling
     - remove user in individual chats
+    - duplicate notification issue
+    - logout 
 
 #Fixed issues:
     - text input validation due to onChange
