@@ -3,7 +3,7 @@ import { Controller, useFormContext } from "react-hook-form";
 import ListComponent from "../../ListComponent";
 import FormError from "../FormError";
 
-export const Checkbox = ({
+export default function MultiSelect({
   type,
   id,
   className,
@@ -17,7 +17,7 @@ export const Checkbox = ({
   labelComponent,
   optionsList,
   validation,
-}) => {
+}) {
   const {
     register,
     control,
@@ -27,8 +27,6 @@ export const Checkbox = ({
   const [checkedItems, setCheckedItems] = useState([]);
 
   const handleChange = (e) => {
-    // console.log(JSON.parse(e.target.value));
-    // const obj = e.target.value;
     const obj = JSON.parse(e.target.value);
     console.log(obj);
     if (e.target.checked) {
@@ -77,7 +75,7 @@ export const Checkbox = ({
       ) : null}
     </div>
   );
-};
+}
 
 function ListInputItem({
   type,

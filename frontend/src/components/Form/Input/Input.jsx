@@ -1,11 +1,11 @@
 import _ from "underscore";
-import { Checkbox } from "./CheckBox";
 import EmailInput from "./EmailInput";
 import MultiLineInput from "./MultiLineInput";
+import MultiSelect from "./MultiSelect";
 import PasswordInput from "./PasswordInput";
 import PhoneNumberInput from "./PhoneNumberInput";
-import TextInput from "./TextInput";
 import SingleSelect from "./SingleSelect";
+import TextInput from "./TextInput";
 export default function Input({ field }) {
   switch (field.type) {
     case "email":
@@ -20,8 +20,8 @@ export default function Input({ field }) {
       return <SelectInput {...field}></SelectInput>;
     case "password":
       return <PasswordInput {...field}></PasswordInput>;
-    case "checkbox":
-      return <Checkbox {...field}></Checkbox>;
+    case "multiSelect":
+      return <MultiSelect {...field}></MultiSelect>;
     case "singleSelect":
       return <SingleSelect {...field}></SingleSelect>;
     default:

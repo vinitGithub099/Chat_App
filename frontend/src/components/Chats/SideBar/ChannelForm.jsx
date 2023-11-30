@@ -83,7 +83,11 @@ function ChannelHeader({ toggleModal }) {
   return (
     <div className="w-full mb-4 flex flex-row justify-between items-center rounded-md">
       <h3 className="text-2xl font-semibold text-white">New Channel</h3>
-      <Button type="icon" className="text-error text-2xl" handleClick={toggleModal}>
+      <Button
+        type="icon"
+        className="text-error text-2xl"
+        handleClick={toggleModal}
+      >
         <AiFillCloseCircle></AiFillCloseCircle>
       </Button>
     </div>
@@ -139,7 +143,7 @@ const channelFormFields = (optionsList, searchUser) => {
       },
     },
     {
-      type: "checkbox",
+      type: "multiSelect",
       name: "usersList",
       id: "userList",
       className: "py-2 mb-2 rounded-md overflow-y-scroll scrollbar",

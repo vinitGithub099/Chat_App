@@ -7,10 +7,10 @@ Reference link for the project: https://www.youtube.com/playlist?list=PLKhlp2qtU
     - login expiration page
     - about page
     - forgot password using node-mailer
-    - select tab styling
     - remove user in individual chats
     - duplicate notification issue
     - logout 
+    - multi select selected option state doesn't persists
 
 #Fixed issues:
     - text input validation due to onChange
@@ -30,3 +30,4 @@ Reference link for the project: https://www.youtube.com/playlist?list=PLKhlp2qtU
         - select users options to be added in createChannelForm
     - remove unnecessary files
     - chats-page refresh issue
+    - select tab styling

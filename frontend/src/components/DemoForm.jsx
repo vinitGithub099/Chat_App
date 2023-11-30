@@ -147,7 +147,7 @@ const formFields = [
     },
   },
   {
-    type: "checkbox",
+    type: "multiSelect",
     name: "usersList",
     id: "userList",
     label: "Add Users",
