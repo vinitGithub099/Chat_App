@@ -8,7 +8,7 @@ export default function UserInfo() {
   const user = useSelector((state) => state.auth.user);
   return (
     user && (
-      <div className="px-4 py-2 flex flex-row items-center justify-between bg-dark-3 relative">
+      <div className="px-4 py-2 flex flex-row items-center justify-between hover:bg-dark-1 relative">
         <UserCard
           className="text-light-1"
           imgSrc={userLogo}

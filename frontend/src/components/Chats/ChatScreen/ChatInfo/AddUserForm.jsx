@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { authAPI } from "../../../../api/authAPI";
+import { chatAPI } from "../../../../api/chatAPI";
 import userLogo from "../../../../assets/profile-user_64572.png";
+import { ERROR, INFO, SUCCESS } from "../../../../constants/constants";
+import { addChatMember } from "../../../../store/Features/Chat/ChatSlice";
 import Form from "../../../Form/Form";
 import { useToast } from "../../../Hooks/useToast";
 import UserCard from "../../SideBar/UserCard";
-import { ERROR, INFO, SUCCESS } from "../../../../constants/constants";
-import { addChatMember } from "../../../../store/Features/Chat/ChatSlice";
-import { chatAPI } from "../../../../api/chatAPI";
 
 export default function AddUserForm() {
   const currentChat = useSelector((state) => state.chat.currentChat);
@@ -16,7 +16,6 @@ export default function AddUserForm() {
   const dispatch = useDispatch();
 
   const handleSubmit = (formData) => {
-    console.log(formData);
     const selectedOption = formData.user;
     if (currentChat.users.find((user) => user._id === selectedOption)) {
       notify("Member already exits!", INFO);
@@ -32,12 +31,21 @@ export default function AddUserForm() {
       .catch(() => notify("failed to add user!", ERROR));
   };
 
-  const searchUser = (query) => {
+  const searchUser = (e) => {
+    const query = e.target.value;
+    const searchTerm = query?.trim();
+    if (!searchTerm) {
+      setOptionList([]);
+      return;
+    }
     authAPI
-      .searchUser(query)
+      .searchUser(searchTerm)
       .then((res) => {
-        console.log(res);
-        setOptionList(res.map((item) => ({ value: item._id, label: item })));
+        setOptionList(
+          res && res.length
+            ? res.map((item) => ({ value: item._id, label: item }))
+            : []
+        );
       })
       .catch((error) => console.log(error));
   };
@@ -50,7 +58,7 @@ export default function AddUserForm() {
         type: "submit",
         label: "Add User",
         className:
-          "px-4 py-2 rounded-md bg-light-3 btn text-light-1 hover:bg-dark-1",
+          "my-2 px-4 py-2 rounded-md bg-light-3 btn text-light-1 hover:bg-dark-1",
       }}
       handleSubmit={handleSubmit}
       reset={true}
@@ -58,9 +66,10 @@ export default function AddUserForm() {
   );
 }
 
-function OptionComponent({ name }) {
+function OptionComponent({ name, children }) {
   return (
-    <div className="flex flex-row items-center justify-between gap-4 py-2 px-4">
+    <div className="flex flex-row items-center justify-start gap-4 py-2 px-4 hover:bg-transparent hover:cursor-pointer">
+      {children}
       <UserCard
         imgSrc={userLogo}
         imgConfig="s"
@@ -84,22 +93,18 @@ const formFields = (optionList, searchUser) => {
       inputClassName:
         "px-2 bg-transparent w-full rounded-md outline-none text-light-1",
       placeholder: "@SearchUsers",
-      onChange: (e) => {
-        if (e.target.value !== "") {
-          searchUser(e.target.value);
-        }
-      },
+      onChange: (e) => searchUser(e),
     },
     {
       type: "singleSelect",
       name: "user",
       id: "user",
-      className:
-        "w-full py-2 rounded-md overflow-y-scroll scrollbar bg-dark-1 text-light-2 outline-none",
-      labelClassName:
-        "w-full py-2 mb-2 rounded-md outline-none hover:bg-light-3",
-      containerClassName:
-        "my-2 divide-x bg-dark-1 hover:bg-dark-2 bg-transparent",
+      containerClassName: `${
+        optionList && optionList.length ? `block` : `hidden`
+      } my-2 bg-dark-1 divide-y divide-light-3 rounded-md max-h-40 overflow-y-scroll scrollbar`,
+      inputClassName: "accent-light-1 w-5 h-5 hover:cursor-pointer",
+      optionClassName:
+        "w-full flex flex-row items-center justify-start px-2 hover:bg-light-3 hover:cursor-pointer",
       optionList: optionList,
       optionComponent: OptionComponent,
       validation: {

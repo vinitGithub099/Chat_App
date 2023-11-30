@@ -3,11 +3,11 @@ import FormError from "../FormError";
 
 export default function SingleSelect({
   id,
-  className,
   containerClassName,
-  labelClassName,
+  optionClassName,
   optionList: options,
   validation,
+  inputClassName,
   optionComponent: OptionComponent,
 }) {
   const {
@@ -17,26 +17,21 @@ export default function SingleSelect({
 
   return (
     <div className={containerClassName}>
-      {options && options.length ? (
-        <select
-          className={className}
-          selected={null}
-          {...register(id, validation)}
-        >
-          <option disabled>Select</option>
-          {options.map((item, index) => {
+      {options && options.length
+        ? options.map((item, index) => {
             return (
-              <option key={index} value={item.value} className={labelClassName}>
-                {/* {OptionComponent ? ( */}
+              <div key={index} className={optionClassName}>
+                <input
+                  className={inputClassName}
+                  type="radio"
+                  value={item.value}
+                  {...register(id, validation)}
+                ></input>
                 <OptionComponent {...item.label}></OptionComponent>
-                {/* ) : item.label ? ( */}
-                {/* item.label */}
-                {/* ) : null} */}
-              </option>
+              </div>
             );
-          })}
-        </select>
-      ) : null}
+          })
+        : null}
       {errors && errors[id] ? (
         <FormError
           message={errors[id].message}
