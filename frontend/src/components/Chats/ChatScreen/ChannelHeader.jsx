@@ -70,7 +70,7 @@ export default function ChannelHeader({ toggleSideBar }) {
           <AiOutlineMenu size={30}></AiOutlineMenu>
         </div>
 
-        <div className="ml-4 flex flex-col text-light-1 ">
+        <div className="ml-8 flex flex-col text-light-1 ">
           <div className="text-lg font-semibold">
             {currentChat &&
               currentChat.chatName &&

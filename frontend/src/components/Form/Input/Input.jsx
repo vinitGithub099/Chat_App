@@ -1,10 +1,9 @@
 import _ from "underscore";
 import EmailInput from "./EmailInput";
 import MultiLineInput from "./MultiLineInput";
-import MultiSelect from "./MultiSelect";
 import PasswordInput from "./PasswordInput";
 import PhoneNumberInput from "./PhoneNumberInput";
-import SingleSelect from "./SingleSelect";
+import SelectComponent from "./SelectComponent";
 import TextInput from "./TextInput";
 export default function Input({ field }) {
   switch (field.type) {
@@ -21,9 +20,9 @@ export default function Input({ field }) {
     case "password":
       return <PasswordInput {...field}></PasswordInput>;
     case "multiSelect":
-      return <MultiSelect {...field}></MultiSelect>;
+      return <SelectComponent {...field}></SelectComponent>;
     case "singleSelect":
-      return <SingleSelect {...field}></SingleSelect>;
+      return <SelectComponent {...field}></SelectComponent>;
     default:
       return null;
   }

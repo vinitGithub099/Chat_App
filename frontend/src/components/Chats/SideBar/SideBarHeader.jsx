@@ -5,7 +5,7 @@ import Button from "../../Form/Button";
 import ChannelForm from "./ChannelForm";
 
 export default function SideBarHeader({ toggleSideBar }) {
-  const [showModal, setShowModal] = useState(true);
+  const [showModal, setShowModal] = useState(false);
   const toggleModal = () => setShowModal((currState) => !currState);
 
   return (

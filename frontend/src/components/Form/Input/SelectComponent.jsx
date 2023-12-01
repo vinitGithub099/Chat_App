@@ -3,13 +3,15 @@ import { Controller, useFormContext } from "react-hook-form";
 import Select from "react-select";
 import FormError from "../FormError";
 
-export default function MultiSelect({
+export default function SelectComponent({
   id,
+  type,
   label,
   validation,
   handleSearch,
   optionComponent: Option,
   multiValueLabel: MultiValueLabel,
+  singleValue: SingleValue,
   className,
   inputClassName,
   menuClassName,
@@ -24,6 +26,7 @@ export default function MultiSelect({
   indicatorsContainerClassName,
   clearIndicatorClassName,
   indicatorSeparatorClassName,
+  isClearable,
 }) {
   const {
     control,
@@ -42,15 +45,17 @@ export default function MultiSelect({
         render={({ field }) => (
           <Select
             {...field}
+            isClearable={isClearable}
             options={options}
             isSearchable
-            isMulti
-            onInputChange={(searchQuery) => {
-              if (searchQuery) handleSearch(searchQuery, setOptions);
-            }}
+            isMulti={type === "multiSelect"}
+            onInputChange={(searchQuery) =>
+              handleSearch(searchQuery, setOptions)
+            }
             components={{
               Option: Option,
               MultiValueLabel: MultiValueLabel,
+              SingleValue: SingleValue,
             }}
             classNames={{
               input: () => inputClassName,
