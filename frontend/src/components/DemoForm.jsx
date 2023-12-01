@@ -161,7 +161,7 @@ const formFields = [
     containerClassName:
       "border divide-x border-light-2 bg-dark-1 hover:bg-dark-2",
     optionsList: generateFakeUsers(),
-    labelComponent: LabelComponent,
+    optionComponent: LabelComponent,
     validation: {
       required: {
         value: true,

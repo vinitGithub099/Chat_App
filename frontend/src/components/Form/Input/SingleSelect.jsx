@@ -44,9 +44,9 @@ export default function SingleSelect({
                     type="radio"
                     value={item.value}
                     defaultChecked={
-                      item.checked
+                      selectedValue && selectedValue.value === item.value
                         ? true
-                        : (selectedValue && selectedValue.value) === item.value
+                        : item.checked
                     }
                     {...register(id, validation)}
                     onChange={(e) =>

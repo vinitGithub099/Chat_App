@@ -12,20 +12,18 @@ export default function Form({
   fields,
   buttonConfigs,
   handleSubmit,
-  reset,
 }) {
   const methods = useForm();
 
-  const handelFormSubmit = (e) => {
-    handleSubmit(e);
-    if (reset) methods.reset();
+  const handleFormSubmit = (e) => {
+    handleSubmit(e, methods);
   };
 
   return !_.isEmpty(fields) && fields.length ? (
     <FormProvider {...methods}>
       <form
         className={`w-full ${className}`}
-        onSubmit={methods.handleSubmit(handelFormSubmit)}
+        onSubmit={methods.handleSubmit(handleFormSubmit)}
         noValidate
       >
         {fields.map((field, index) => {

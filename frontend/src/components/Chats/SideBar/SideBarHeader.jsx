@@ -5,9 +5,8 @@ import Button from "../../Form/Button";
 import ChannelForm from "./ChannelForm";
 
 export default function SideBarHeader({ toggleSideBar }) {
-  const [showModal, setShowModal] = useState(false);
-  const toggleModal = () => setShowModal((prev) => !prev);
-
+  const [showModal, setShowModal] = useState(true);
+  const toggleModal = () => setShowModal((currState) => !currState);
 
   return (
     <div className="w-full mb-2 py-2 px-4 flex flex-row justify-between">

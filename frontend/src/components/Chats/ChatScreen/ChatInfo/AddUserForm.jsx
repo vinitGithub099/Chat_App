@@ -15,7 +15,7 @@ export default function AddUserForm() {
   const { notify } = useToast();
   const dispatch = useDispatch();
 
-  const handleSubmit = (formData) => {
+  const handleSubmit = (formData, methods) => {
     const selectedOption = formData.user;
     if (currentChat.users.find((user) => user._id === selectedOption)) {
       notify("Member already exits!", INFO);
@@ -27,6 +27,7 @@ export default function AddUserForm() {
       .then((res) => {
         dispatch(addChatMember(res.users));
         notify("User added successfully", SUCCESS);
+        methods.reset(true);
       })
       .catch(() => notify("failed to add user!", ERROR));
   };
@@ -43,7 +44,11 @@ export default function AddUserForm() {
       .then((res) => {
         setOptionList(
           res && res.length
-            ? res.map((item) => ({ value: item._id, label: item }))
+            ? res.map((item) => ({
+                value: item._id,
+                label: item,
+                checked: false,
+              }))
             : []
         );
       })
@@ -61,7 +66,6 @@ export default function AddUserForm() {
           "my-2 px-4 py-2 rounded-md bg-light-3 btn text-light-1 hover:bg-dark-1",
       }}
       handleSubmit={handleSubmit}
-      reset={true}
     ></Form>
   );
 }
