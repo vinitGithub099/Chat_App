@@ -1,8 +1,10 @@
 import { AiFillCloseCircle } from "react-icons/ai";
+import { useDispatch } from "react-redux";
 import { authAPI } from "../../../api/authAPI";
 import { chatAPI } from "../../../api/chatAPI";
 import userLogo from "../../../assets/profile-user_64572.png";
 import { ERROR, SUCCESS, WARNING } from "../../../constants/constants";
+import { populateChat } from "../../../store/Features/Chat/ChatSlice";
 import Button from "../../Form/Button";
 import Form from "../../Form/Form";
 import { useToast } from "../../Hooks/useToast";
@@ -10,11 +12,14 @@ import UserCard from "./UserCard";
 
 export default function CreateChannelForm({ toggleModal }) {
   const { notify } = useToast();
+  const dispatch = useDispatch();
 
   const createGroupChat = (data) =>
     chatAPI
       .createGroupChat(data)
-      .then(() => {
+      .then((res) => {
+        const ans = dispatch(populateChat(res));
+        console.log(ans);
         notify("Channel created successfully!", SUCCESS);
       })
       .catch(() => notify("Failed to create channel!", ERROR));
@@ -54,7 +59,7 @@ export default function CreateChannelForm({ toggleModal }) {
   };
 
   return (
-    <div className="w-full h-96 border border-light-3 px-8 py-4 bg-dark-2 rounded-lg overflow-y-scroll scrollbar">
+    <div className="w-full sm:w-[90%] h-96 border border-light-3 px-8 py-4 bg-dark-2 rounded-lg overflow-y-scroll scrollbar">
       <ChannelHeader toggleModal={toggleModal}></ChannelHeader>
       <Form
         fields={channelFormFields(searchUser)}
@@ -120,12 +125,13 @@ const channelFormFields = (searchUser) => {
       type: "multiSelect",
       name: "usersList",
       id: "userList",
+      placeholder: "Search Users..",
       className: "my-4",
       inputClassName: "!text-light-1 hover:!cursor-text",
       menuClassName: "!bg-light-3 !rounded-md",
       menuListClassName: "!bg-light-3 !scrollbar !rounded-md",
       valueContainerClassName:
-        "!bg-light-3 !border-none !shadow-none !rounded-tl-md !rounded-bl-md",
+        "!bg-light-3 !border-0 !shadow-none !rounded-tl-md !rounded-bl-md",
       containerClassName:
         "!border-0 bg-light-3 py-1 !outline-none !shadow-none !rounded-md",
       controlClassName:
@@ -133,9 +139,10 @@ const channelFormFields = (searchUser) => {
       dropdownIndicatorClassName:
         "bg-light-3 hover:!cursor-pointer !text-light-2 hover:!text-light-1 !rounded-tr-md !rounded-br-md",
       singleValueClassName: "bg-light-1",
-      multiValueContainerClassName: "bg-light-2 !rounded-md",
+      multiValueContainerClassName:
+        "border !bg-dark-1 !rounded-md !flex !flex-wrap",
       multiValueRemoveClassName:
-        "bg-light-1 !rounded-none !rounded-tr-sm !rounded-br-sm hover:!bg-light-1 hover:!text-light-3",
+        "bg-dark-1 !rounded-none !rounded-tr-sm !rounded-br-sm text-light-2 hover:!bg-dark-1 hover:!text-light-1",
       indicatorsContainerClassName:
         "!border-none !outline-none !shadow-none !rounded-tr-md !rounded-tr-md",
       clearIndicatorClassName:
@@ -174,12 +181,21 @@ function OptionComponent(props) {
 }
 
 function MultiValueLabel(props) {
-  const { innerRef } = props;
+  const { innerProps, innerRef } = props;
   const labelData = JSON.parse(props.data.label);
 
   return (
-    <div ref={innerRef} className="px-2 bg-light-1 rounded-tl-sm rounded-bl-sm">
-      {labelData.name}
+    <div
+      {...innerProps}
+      ref={innerRef}
+      className="bg-dark-1 text-light-1 rounded-tl-sm rounded-bl-md"
+    >
+      <UserCard
+        {...labelData}
+        imgSrc={userLogo}
+        imgConfig="xs"
+        className="text-light-1 py-1 bg-dark-1 px-2 rounded-tl-sm rounded-bl-sm"
+      ></UserCard>
     </div>
   );
 }

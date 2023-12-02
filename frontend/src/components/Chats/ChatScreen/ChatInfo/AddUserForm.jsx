@@ -74,6 +74,7 @@ const formFields = (searchUser) => {
       name: "user",
       id: "user",
       className: "my-4",
+      placeholder: "Search User...",
       inputClassName:
         "border-0 bg !bg-opacity-40 !text-light-1 hover:!cursor-text",
       menuClassName: "!bg-light-3 !rounded-md",

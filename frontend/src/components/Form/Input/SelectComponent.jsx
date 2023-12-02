@@ -7,6 +7,7 @@ export default function SelectComponent({
   id,
   type,
   label,
+  placeholder,
   validation,
   handleSearch,
   optionComponent: Option,
@@ -48,6 +49,7 @@ export default function SelectComponent({
             isClearable={isClearable}
             options={options}
             isSearchable
+            placeholder={placeholder}
             isMulti={type === "multiSelect"}
             onInputChange={(searchQuery) =>
               handleSearch(searchQuery, setOptions)
