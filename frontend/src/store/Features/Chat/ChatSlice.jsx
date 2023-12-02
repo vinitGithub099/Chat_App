@@ -14,7 +14,7 @@ import {
 } from "./ChatActions";
 
 const initialState = {
-  chats: null,
+  chats: [],
   messages: [],
   loading: {
     chats: false,
@@ -37,6 +37,13 @@ export const chatSlice = createSlice({
       chats: state.chats.find((chat) => chat._id === payload._id)
         ? state.chats
         : [payload].concat(state.chats),
+    }),
+    removeChat: (state, { payload }) => ({
+      ...state,
+      chats:
+        state.chats && state.chats.length
+          ? state.chats.filter((chat) => chat._id !== payload._id)
+          : [],
     }),
     addChatMember: (state, { payload }) => ({
       ...state,
@@ -134,6 +141,11 @@ export const chatSlice = createSlice({
   },
 });
 
-export const { setCurrentChat, removeChatMember, populateChat, addChatMember } =
-  chatSlice.actions;
+export const {
+  setCurrentChat,
+  removeChatMember,
+  populateChat,
+  addChatMember,
+  removeChat,
+} = chatSlice.actions;
 export default chatSlice.reducer;

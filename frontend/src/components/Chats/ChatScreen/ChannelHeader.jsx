@@ -13,12 +13,9 @@ export default function ChannelHeader({ toggleSideBar }) {
   const currUser = useSelector((state) => state.auth.user);
   const handleChannelExtras = (name) => {
     setChannelExtras(name);
-    console.log(name);
   };
   const [typing, setTyping] = useState(false);
   const [typerName, setTyperName] = useState(null);
-
-  console.log(channelExtras);
 
   const listenStartTyping = async () => {
     try {

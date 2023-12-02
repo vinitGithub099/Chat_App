@@ -13,7 +13,7 @@ export default function MemberDropdownList({ userId }) {
   const dispatch = useDispatch();
   const { notify } = useToast();
 
-  const removeMember = async (userId) => {
+  const removeMember = (userId) => {
     chatAPI
       .removeFromGroup({
         userId: userId,
