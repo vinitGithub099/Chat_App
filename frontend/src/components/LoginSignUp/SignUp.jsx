@@ -14,7 +14,7 @@ export default function SignUp({ className }) {
   const { notify } = useToast();
 
   const handleRegisterSuccess = () => {
-    const path = location.state?.from ? location.state.from : "/home";
+    const path = location.state?.from ? location.state.from : "/";
     notify("Registered in Successfully!", SUCCESS);
     navigate(path);
   };

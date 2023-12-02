@@ -1,12 +1,14 @@
 Reference link for the project: https://www.youtube.com/playlist?list=PLKhlp2qtUcSZsGkxAdgnPcHioRr-4guZf
     
-
-#Pending:
+#hold: 
+    - forgot password using node-mailer
     - error handling in frontend
     - error responses in backend
-    - login expiration page
     - about page
-    - forgot password using node-mailer
+    -
+
+#Pending:
+    - login expiration page
     - duplicate notification issue
     - logout 
     - delete channel

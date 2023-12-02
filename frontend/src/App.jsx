@@ -34,6 +34,7 @@ export default function App() {
     if (user) {
       connectChatSocket(user);
     }
+    
   }, [user]);
 
   return (

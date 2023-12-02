@@ -27,7 +27,7 @@ export default function Template({
       <div className="max-w-sm mx-auto">
         <Button
           type="navigate"
-          handleClick={() => navigate("/home")}
+          handleClick={() => navigate("/")}
           label="← Got to Home"
           className="bg-dark-1 px-4 py-2 mt-4 text-light-1 rounded-md"
         ></Button>

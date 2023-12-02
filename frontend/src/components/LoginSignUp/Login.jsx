@@ -14,7 +14,7 @@ export default function Login({ className }) {
   const { notify } = useToast();
 
   const handleLoginSuccess = () => {
-    const path = location.state?.from ? location.state.from : "/home";
+    const path = location.state?.from ? location.state.from : "/";
     notify("Logged in Successfully!", SUCCESS);
     navigate(path);
   };

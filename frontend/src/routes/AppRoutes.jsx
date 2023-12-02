@@ -1,7 +1,6 @@
 import App from "../App";
 import ChatsPage from "../Pages/ChatsPage";
 import HomePage from "../Pages/HomePage";
-import SampleHome from "../SampleHome";
 import userLogo from "../assets/profile-user_64572.png";
 import ProtectedRoute from "../components/Auth/ProtectedRoute";
 import ChatScreen from "../components/Chats/ChatScreen/ChatScreen";
@@ -22,8 +21,8 @@ export const router = [
     path: "/",
     element: <App></App>,
     children: [
-      { path: "", element: <SampleHome></SampleHome> },
-      { path: "home", element: <HomePage></HomePage> },
+      /* { path: "/test", element: <SampleHome></SampleHome> }, */
+      { path: "", element: <HomePage></HomePage> },
       {
         path: "login",
         element: <Login className=""></Login>,
