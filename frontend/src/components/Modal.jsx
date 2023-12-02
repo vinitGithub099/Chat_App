@@ -9,7 +9,7 @@ export default function Modal({
   return showModal ? (
     <>
       <div
-        className="w-full h-screen flex justify-center items-center overflow-x-hidden fixed inset-0 z-50 outline-none focus:outline-none"
+        className="w-full h-screen flex justify-center items-center overflow-x-hidden fixed inset-0 z-40 outline-none focus:outline-none"
         onClick={handleCloseOutSide}
         id="modal"
       >
@@ -17,7 +17,7 @@ export default function Modal({
           {modalComponent}
         </div>
       </div>
-      <div className="opacity-25 fixed inset-0 z-40 bg-dark-3"></div>
+      <div className="opacity-25 fixed inset-0 z-30 bg-dark-3"></div>
     </>
   ) : null;
 }

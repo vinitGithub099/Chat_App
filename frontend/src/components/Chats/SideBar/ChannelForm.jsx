@@ -6,7 +6,6 @@ export default function ChannelForm({ showModal, toggleModal, toggleSideBar }) {
     <Modal
       showModal={showModal}
       toggleModal={toggleModal}
-      className="z-60"
       modalComponent={
         <CreateChannelForm
           toggleModal={toggleModal}

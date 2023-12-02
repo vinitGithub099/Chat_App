@@ -11,9 +11,14 @@ export default function ChannelHeader({ toggleSideBar }) {
   const [channelExtras, setChannelExtras] = useState(null);
   const currentChat = useSelector((state) => state.chat?.currentChat);
   const currUser = useSelector((state) => state.auth.user);
-  const handleChannelExtras = (name) => setChannelExtras(name);
+  const handleChannelExtras = (name) => {
+    setChannelExtras(name);
+    console.log(name);
+  };
   const [typing, setTyping] = useState(false);
   const [typerName, setTyperName] = useState(null);
+
+  console.log(channelExtras);
 
   const listenStartTyping = async () => {
     try {
@@ -94,13 +99,12 @@ export default function ChannelHeader({ toggleSideBar }) {
         )}
       </div>
 
-      {channelExtras && (
+      {channelExtras ? (
         <ChannelExtras
           channelExtras={channelExtras}
           handleChannelExtras={handleChannelExtras}
-          className="z-30"
         ></ChannelExtras>
-      )}
+      ) : null}
     </>
   );
 }

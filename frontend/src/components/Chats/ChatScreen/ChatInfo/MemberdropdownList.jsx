@@ -24,7 +24,6 @@ export default function MemberDropdownList({ userId }) {
         dispatch(removeChatMember(userId));
       })
       .catch(() => notify("Failed to remove user", ERROR));
-    dispatch(removeChatMember(userId));
   };
 
   const options = [

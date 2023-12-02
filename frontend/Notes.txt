@@ -9,6 +9,7 @@ Reference link for the project: https://www.youtube.com/playlist?list=PLKhlp2qtU
     - forgot password using node-mailer
     - duplicate notification issue
     - logout 
+    - delete channel
 
 #Fixed issues:
     - text input validation due to onChange

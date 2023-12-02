@@ -6,9 +6,17 @@ export default function Button({
   handleClick,
   className,
   children,
+  disabled,
   ...rest
 }) {
-  const buttonProps = { handleClick, label, className, children, ...rest };
+  const buttonProps = {
+    disabled,
+    handleClick,
+    label,
+    className,
+    children,
+    ...rest,
+  };
   switch (type) {
     case "submit":
       return <SubmitButton {...buttonProps}></SubmitButton>;
@@ -18,7 +26,7 @@ export default function Button({
       return <IconButton {...buttonProps}></IconButton>;
     default:
       return (
-        <button className={className} onClick={handleClick}>
+        <button className={className} onClick={handleClick} disabled={disabled}>
           {children}
         </button>
       );

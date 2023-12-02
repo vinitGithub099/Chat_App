@@ -4,15 +4,12 @@ import { channelOptions } from "../../../constants/constants";
 import ListComponent from "../../ListComponent";
 
 export default function ChannelHeaderDropdown({ handleChannelExtras }) {
-  const modifiedList = list.map((listItem) => ({
-    ...listItem,
-    handleClick: handleChannelExtras,
-  }));
   return (
     <ListComponent
-      list={modifiedList}
-      className="hidden w-40 border bg-dark-3 border-light-2 p-4 rounded-md fixed right-2 top-2 group-hover:block z-30"
+      list={list}
+      className="hidden w-40 border bg-dark-3 border-light-2 p-4 rounded-md fixed right-2 top-2 group-hover:block z-10"
       subComponent={ListItem}
+      handleClick={handleChannelExtras}
     ></ListComponent>
   );
 }
