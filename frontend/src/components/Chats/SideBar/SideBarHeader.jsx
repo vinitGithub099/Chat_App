@@ -30,6 +30,7 @@ export default function SideBarHeader({ toggleSideBar }) {
       <ChannelForm
         showModal={showModal}
         toggleModal={toggleModal}
+        toggleSideBar={toggleSideBar}
       ></ChannelForm>
     </div>
   );

@@ -4,13 +4,16 @@ import { authAPI } from "../../../api/authAPI";
 import { chatAPI } from "../../../api/chatAPI";
 import userLogo from "../../../assets/profile-user_64572.png";
 import { ERROR, SUCCESS, WARNING } from "../../../constants/constants";
-import { populateChat } from "../../../store/Features/Chat/ChatSlice";
+import {
+  populateChat,
+  setCurrentChat,
+} from "../../../store/Features/Chat/ChatSlice";
 import Button from "../../Form/Button";
 import Form from "../../Form/Form";
 import { useToast } from "../../Hooks/useToast";
 import UserCard from "./UserCard";
 
-export default function CreateChannelForm({ toggleModal }) {
+export default function CreateChannelForm({ toggleModal, toggleSideBar }) {
   const { notify } = useToast();
   const dispatch = useDispatch();
 
@@ -18,8 +21,10 @@ export default function CreateChannelForm({ toggleModal }) {
     chatAPI
       .createGroupChat(data)
       .then((res) => {
-        const ans = dispatch(populateChat(res));
-        console.log(ans);
+        dispatch(populateChat(res));
+        toggleModal();
+        dispatch(setCurrentChat(res));
+        toggleSideBar();
         notify("Channel created successfully!", SUCCESS);
       })
       .catch(() => notify("Failed to create channel!", ERROR));

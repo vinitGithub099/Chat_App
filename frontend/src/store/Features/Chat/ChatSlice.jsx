@@ -36,7 +36,7 @@ export const chatSlice = createSlice({
       ...state,
       chats: state.chats.find((chat) => chat._id === payload._id)
         ? state.chats
-        : state.chats.concat(payload),
+        : [payload].concat(state.chats),
     }),
     addChatMember: (state, { payload }) => ({
       ...state,
