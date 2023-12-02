@@ -16,7 +16,7 @@ export default function ChannelExtras({
 
   return component ? (
     <div
-      className={`w-full sm:w-1/2 h-screen sm:h-3/4 bg-dark-3 fixed right-0 sm:right-2 sm:bottom-2 sm:top-2 flex flex-col sm:rounded-lg overflow-y-scroll scrollbar pb-10 z-20 border border-light-3 ${className}`}
+      className={`w-full sm:w-96 h-screen sm:h-3/4 bg-dark-3 fixed right-0 sm:right-2 sm:bottom-2 sm:top-2 flex flex-col sm:rounded-lg overflow-y-scroll scrollbar pb-10 z-20 border border-light-3 ${className}`}
     >
       {/* header */}
       <div className="sticky top-0 bg-dark-3 p-4 text-light-1 flex flex-row-reverse items-center border-b border-light-3">
