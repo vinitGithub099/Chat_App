@@ -1,7 +1,9 @@
 import axios from "axios";
 import { authAPI } from "./authAPI";
 
-const baseUrl = "http://localhost:5000/api";
+const baseUrl = import.meta.env.PROD
+  ? "https://chat-app-backend-f9vy.onrender.com/api"
+  : "http://localhost:5000/api";
 
 const api = axios.create({
   baseURL: baseUrl,
