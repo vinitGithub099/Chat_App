@@ -8,6 +8,7 @@ require("dotenv").config();
 const connectDB = require("./db");
 const { notFound, errorHandler } = require("./middlewares/errorMiddleware");
 const cookieParser = require("cookie-parser");
+const { allowedOrigins } = require("./configs/allowedOrigins");
 connectDB();
 
 const PORT = process.env.PORT || 5050;
@@ -17,27 +18,16 @@ app.use(express.json());
 app.use(
   cors({
     // origin: "*",
-    origin: [
-      "http://127.0.0.1:5173",
-      "http://localhost:5173",
-      "http://127.0.0.1:5174",
-      "http://localhost:5174",
-    ],
+    origin: allowedOrigins,
     credentials: true,
     methods: ["GET", "PUT", "POST", "DELETE"],
     optionSuccessStatus: 200,
-    "Access-Control-Allow-Origin": [
-      "http://127.0.0.1:5173",
-      "http://localhost:5173",
-      "http://127.0.0.1:5174",
-      "http://localhost:5174",
-    ],
+    "Access-Control-Allow-Origin": allowedOrigins,
     "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
   })
 );
 app.use(express.json());
 
-// parse requests of content-type - application/x-www-form-urlencoded
 app.use(
   express.urlencoded({
     extended: true,
@@ -59,15 +49,11 @@ const server = app.listen(PORT, () => {
 const io = require("socket.io")(server, {
   pingTimeout: 60000,
   cors: {
-    origin:
-      process.env.NODE_ENV === "production" ? false : ["http://localhost:5173"],
+    origin: allowedOrigins,
     credentials: true,
     methods: ["GET", "PUT", "POST", "DELETE"],
     optionSuccessStatus: 200,
-    "Access-Control-Allow-Origin": [
-      "http://127.0.0.1:5173",
-      "http://localhost:5173",
-    ],
+    "Access-Control-Allow-Origin": allowedOrigins,
     "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
   },
 });
