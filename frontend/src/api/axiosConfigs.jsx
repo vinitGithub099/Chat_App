@@ -5,6 +5,8 @@ const baseUrl = import.meta.env.PROD
   ? "https://chat-app-backend-f9vy.onrender.com/api"
   : "http://localhost:5000/api";
 
+/* const baseUrl = "http://localhost:5000/api"; */
+
 const api = axios.create({
   baseURL: baseUrl,
   withCredentials: true,
@@ -13,7 +15,7 @@ const api = axios.create({
 export default api;
 
 /**
- * @description Regisater user
+ * @description Register user
  * @purpose to append token to the header of every request made via the "api" axios instance
  */
 api.interceptors.request.use(
