@@ -1,6 +1,4 @@
 import App from "../App";
-import ChatsPage from "../Pages/ChatsPage";
-import HomePage from "../Pages/HomePage";
 import userLogo from "../assets/profile-user_64572.png";
 import ProtectedRoute from "../components/Auth/ProtectedRoute";
 import ChatScreen from "../components/Chats/ChatScreen/ChatScreen";
@@ -15,6 +13,8 @@ import SignUp from "../components/LoginSignUp/SignUp";
 import EditProfile from "../components/Profile/EditProfile";
 import Profile from "../components/Profile/Profile";
 import ToastDemo from "../components/Toast/ToastDemo";
+import ChatsPage from "../pages/ChatsPage";
+import HomePage from "../pages/HomePage";
 
 export const router = [
   {
