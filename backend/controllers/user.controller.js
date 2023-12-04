@@ -109,7 +109,7 @@ const allUsers = async (req, res) => {
 const refreshToken = async (req, res) => {
   const cookieRefreshToken = req.refreshToken;
   const { id } = jwt.verify(cookieRefreshToken, process.env.JWT_SECRET);
-  console.log("refresh route");
+  /* console.log("refresh route"); */
   const accessToken = generateAccessToken(id);
   const refreshToken = generateRefreshToken(id);
 

@@ -9,6 +9,8 @@ const connectDB = require("./db");
 const { notFound, errorHandler } = require("./middlewares/errorMiddleware");
 const cookieParser = require("cookie-parser");
 const { allowedOrigins } = require("./configs/allowedOrigins");
+
+/* connect the database */
 connectDB();
 
 const PORT = process.env.PORT || 5050;
@@ -40,7 +42,7 @@ app.use("/api/message", messageRoutes);
 app.use(notFound);
 app.use(errorHandler);
 
-// start the Express server
+/* start the Express server */
 const server = app.listen(PORT, () => {
   console.log(`Server is running on port: ${PORT}`);
 });
@@ -59,23 +61,23 @@ const io = require("socket.io")(server, {
 
 io.on("connection", (socket) => {
   socket.on("setup", (userData) => {
-    console.log(userData.name + " connected --- socketId: " + socket.id);
+    /* console.log(userData.name + " connected --- socketId: " + socket.id); */
     socket.join(userData._id);
     socket.emit("connected");
   });
 
   socket.on("join chat", ({ user, room }) => {
     socket.join(room._id);
-    console.log(user.name + " Joined Room: " + room._id);
+    /* console.log(user.name + " Joined Room: " + room._id); */
   });
 
   socket.on("typing", ({ room, user }) => {
-    console.log(room._id + " has started typing.");
+    /* console.log(room._id + " has started typing."); */
     socket.in(room._id).emit("typing", { room, user });
   });
 
   socket.on("stop typing", ({ room, user }) => {
-    console.log(room._id + " stopped typing.");
+    /* console.log(room._id + " stopped typing."); */
     socket.in(room._id).emit("stop typing", { room, user });
   });
 
@@ -92,7 +94,7 @@ io.on("connection", (socket) => {
   });
 
   socket.off("setup", () => {
-    console.log("USER DISCONNECTED");
+    /* console.log("USER DISCONNECTED"); */
     socket.leave(userData._id);
   });
 });

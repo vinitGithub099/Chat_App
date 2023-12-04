@@ -16,14 +16,12 @@ export default function ChatsPage({ className }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(receiveMessage())
-      .then((res) => {
-        if (res.payload && res.payload.notification) {
-          const notification = res.payload.notification;
-          notify(notificationComponent(notification), INFO, true);
-        }
-      })
-      .catch();
+    dispatch(receiveMessage()).then((res) => {
+      if (res.payload && res.payload.notification) {
+        const notification = res.payload.notification;
+        notify(notificationComponent(notification), INFO, true);
+      }
+    });
   });
 
   return (

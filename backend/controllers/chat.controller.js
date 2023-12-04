@@ -12,7 +12,7 @@ const accessChat = async (req, res) => {
   const { userId } = req.body;
 
   if (!userId) {
-    console.log("UserId param not sent with the request");
+    /* console.log("UserId param not sent with the request"); */
     return res.sendStatus(400);
   }
 

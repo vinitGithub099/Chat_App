@@ -4,6 +4,7 @@ import { chatAPI } from "../../../../api/chatAPI";
 import userLogo from "../../../../assets/profile-user_64572.png";
 import { ERROR, INFO, SUCCESS } from "../../../../constants/constants";
 import { addChatMember } from "../../../../store/Features/Chat/ChatSlice";
+import { handelTokenExpiration } from "../../../../utils/Utils";
 import Form from "../../../Form/Form";
 import { useToast } from "../../../Hooks/useToast";
 import UserCard from "../../SideBar/UserCard";
@@ -21,7 +22,10 @@ export default function AddUserForm() {
         notify("User added successfully", SUCCESS);
         methods.reset();
       })
-      .catch(() => notify("failed to add user!", ERROR));
+      .catch((error) => {
+        handelTokenExpiration(error, dispatch);
+        notify("failed to add user!", ERROR);
+      });
 
   const handleSubmit = (formData, methods) => {
     const userId = formData.user.value;
@@ -50,7 +54,7 @@ export default function AddUserForm() {
             : []
         );
       })
-      .catch((error) => console.log(error));
+      .catch((error) => handelTokenExpiration(error, dispatch));
   };
 
   return (

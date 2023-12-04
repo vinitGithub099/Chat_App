@@ -2,81 +2,79 @@ import api from "./axiosConfigs";
 
 export const authAPI = {
   loginUser: async (data) => {
-    const result = await api.request({
-      url: `/user/login`,
-      method: `POST`,
-      data: data,
-      headers: { "Content-Type": "application/json" },
-    });
-    if (result.status === 200) {
+    try {
+      const result = await api.request({
+        url: `/user/login`,
+        method: `POST`,
+        data: data,
+        headers: { "Content-Type": "application/json" },
+      });
       return result.data;
-    } else {
-      throw new Error(result);
+    } catch (error) {
+      throw new Error(error);
     }
   },
   registerUser: async (data) => {
-    const result = await api.request({
-      url: `/user/register`,
-      method: `POST`,
-      data: data,
-      headers: { "Content-Type": "application/json" },
-    });
-    if (result.status === 200) {
+    try {
+      const result = await api.request({
+        url: `/user/register`,
+        method: `POST`,
+        data: data,
+      });
       return result.data;
-    } else {
-      throw new Error(result);
+    } catch (error) {
+      throw new Error(error);
     }
   },
   searchUser: async (query) => {
-    const result = await api.request({
-      url: `/user/allUsers`,
-      method: `GET`,
-      headers: { "Content-Type": "application/json" },
-      params: {
-        search: query,
-      },
-    });
-    if (result.status === 200) {
+    try {
+      const result = await api.request({
+        url: `/user/allUsers`,
+        method: `GET`,
+        headers: { "Content-Type": "application/json" },
+        params: {
+          search: query,
+        },
+      });
       return result.data;
-    } else {
-      throw new Error(result);
+    } catch (error) {
+      throw new Error(error);
     }
   },
   refreshToken: async () => {
-    const result = await api.request({
-      url: `/user/refresh-token`,
-      method: `POST`,
-      headers: { "Content-Type": "application/json" },
-    });
-    if (result.status === 200) {
+    try {
+      const result = await api.request({
+        url: `/user/refresh-token`,
+        method: `POST`,
+        headers: { "Content-Type": "application/json" },
+      });
       return result.data;
-    } else {
-      throw new Error(result);
+    } catch (error) {
+      throw new Error(error);
     }
   },
   autoLogin: async () => {
-    const result = await api.request({
-      url: `/user/auto-login`,
-      method: `POST`,
-      headers: { "Content-Type": "application/json" },
-    });
-    console.log(result);
-    if (result.status === 200) {
+    try {
+      const result = await api.request({
+        url: `/user/auto-login`,
+        method: `POST`,
+        headers: { "Content-Type": "application/json" },
+      });
       return result.data;
-    } else {
-      throw new Error(result);
+    } catch (error) {
+      throw new Error(error);
     }
   },
   logout: async () => {
-    const result = await api.request({
-      url: `/user/logout`,
-      method: `POST`,
-      headers: { "Content-Type": "application/json" },
-    });
-    if (result.status === 200) {
+    try {
+      const result = await api.request({
+        url: `/user/logout`,
+        method: `POST`,
+        headers: { "Content-Type": "application/json" },
+      });
       return result.data;
-    } else {
-      throw new Error(result);
+    } catch (error) {
+      throw new Error(error);
     }
   },
 };

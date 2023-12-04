@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ERROR, SUCCESS } from "../../constants/constants";
 import { loginUser } from "../../store/Features/User/AuthActions";
+import { handelTokenExpiration } from "../../utils/Utils";
 import { useToast } from "../Hooks/useToast";
 import Template from "./Template";
 import { loginFormFields } from "./utils/loginFormFields";
@@ -19,16 +20,20 @@ export default function Login({ className }) {
     navigate(path);
   };
 
-  const handelLoginFailure = () => notify("Log in failed!", ERROR);
+  const handelLoginFailure = (error) => {
+    handelTokenExpiration(error, dispatch);
+    notify("Log in failed!", ERROR);
+  };
 
   const handleLoginSubmit = async (loginData) =>
     dispatch(loginUser(loginData))
       .then(unwrapResult)
       .then(() => handleLoginSuccess())
-      .catch(() => handelLoginFailure());
+      .catch((error) => handelLoginFailure(error));
 
   return (
     <Template
+      type="login"
       className={className}
       formConfigs={{
         formClassName: "max-w-sm p-2",

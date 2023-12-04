@@ -25,7 +25,7 @@ export const router = [
       /* { path: "/test", element: <SampleHome></SampleHome> }, */
       { path: "", element: <HomePage></HomePage> },
       {
-        path: "/auth-token-expiration",
+        path: "auth-token-expiration",
         element: <AuthTokenExpiration></AuthTokenExpiration>,
       },
       {

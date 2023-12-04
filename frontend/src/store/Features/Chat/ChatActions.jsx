@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { chatAPI } from "../../../api/chatAPI";
 import { messageAPI } from "../../../api/messageAPI";
 import { socketClient } from "../../../main";
-import { handelTokenExpiration } from "../../Utils/ActionUtils";
+import { handelTokenExpiration } from "../../../utils/Utils";
 
 export const fetchChats = createAsyncThunk(
   "chat/fetchChats",
@@ -65,7 +65,7 @@ export const sendChatMessage = createAsyncThunk(
       await socketClient.emit("new message", { newMessage });
       return { newMessage: newMessage };
     } catch (error) {
-      console.log(error);
+      /* console.log(error); */
     }
   }
 );
@@ -75,9 +75,14 @@ export const joinChat = createAsyncThunk(
   async (args, { getState }) => {
     const currentChat = getState().chat.currentChat;
     const user = getState().auth.user;
-    return await socketClient.emit("join chat", {
-      user: user,
-      room: currentChat,
-    });
+    try {
+      const res = await socketClient.emit("join chat", {
+        user: user,
+        room: currentChat,
+      });
+      return res;
+    } catch (error) {
+      /* console.log(error) */
+    }
   }
 );

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { chatAPI } from "../../../../api/chatAPI";
 import { ERROR, SUCCESS } from "../../../../constants/constants";
 import { removeChatMember } from "../../../../store/Features/Chat/ChatSlice";
+import { handelTokenExpiration } from "../../../../utils/Utils";
 import { useToast } from "../../../Hooks/useToast";
 import { MemberDropdownItem } from "./MemberDropdownItem";
 
@@ -21,7 +22,10 @@ export default function MemberDropdownList({ userId }) {
         notify("User removed successfully", SUCCESS);
         dispatch(removeChatMember(userId));
       })
-      .catch(() => notify("Failed to remove user", ERROR));
+      .catch((error) => {
+        handelTokenExpiration(error, dispatch);
+        notify("Failed to remove user", ERROR);
+      });
   };
 
   const options = [

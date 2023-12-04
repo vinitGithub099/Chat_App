@@ -9,12 +9,14 @@ export default function ProtectedRoute() {
   const { notify } = useToast();
   const user = useSelector((state) => state.auth.user);
   const accessToken = localStorage.getItem("access_token");
+  const token = useSelector((state) => state.auth.token);
 
   useEffect(() => {
-    if (!accessToken || !user) notify("You are not logged in!", WARNING);
-  }, [accessToken, notify, user]);
+    if (!accessToken || !user || !token)
+      notify("You are not logged in!", WARNING);
+  }, [accessToken, notify, token, user]);
 
-  if (!accessToken) {
+  if (accessToken && user && token) {
     return <Outlet></Outlet>;
   } else {
     return (

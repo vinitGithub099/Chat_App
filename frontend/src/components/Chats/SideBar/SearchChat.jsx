@@ -9,6 +9,7 @@ import {
   populateChat,
   setCurrentChat,
 } from "../../../store/Features/Chat/ChatSlice";
+import { handelTokenExpiration } from "../../../utils/Utils";
 import Form from "../../Form/Form";
 import ListComponent from "../../ListComponent";
 import DisplayChats from "./DisplayChats";
@@ -38,6 +39,7 @@ export default function SearchChat({ toggleSideBar }) {
 }
 
 function SearchBar({ handleSearchChats, setShowChats }) {
+  const dispatch = useDispatch();
   const handleSearch = (e) => {
     const query = e.target.value;
     if (_.isEmpty(query)) {
@@ -48,7 +50,10 @@ function SearchBar({ handleSearchChats, setShowChats }) {
     authAPI
       .searchUser(query.trim())
       .then((res) => handleSearchChats(res))
-      .catch(() => handleSearchChats([]));
+      .catch((error) => {
+        handelTokenExpiration(error, dispatch);
+        handleSearchChats([]);
+      });
   };
   const handleFocus = (e) => {
     setShowChats(false);
@@ -107,12 +112,11 @@ function SearchedChatResults(props) {
     chatAPI
       .accessChat({ userId: props._id })
       .then((res) => {
-        console.log(res);
         dispatch(setCurrentChat(res));
         dispatch(populateChat(res));
         setShowChats(true);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => handelTokenExpiration(error, dispatch));
   };
 
   return (

@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { authAPI } from "../../../api/authAPI";
-import { handelTokenExpiration } from "../../Utils/ActionUtils";
+import { handelTokenExpiration } from "../../../utils/Utils";
 
 export const loginUser = createAsyncThunk(
   "auth/login",
@@ -32,7 +32,6 @@ export const autoLogin = createAsyncThunk(
   async (args, { dispatch }) => {
     try {
       const res = await authAPI.autoLogin();
-      console.log(res);
       return res;
     } catch (error) {
       handelTokenExpiration(error, dispatch);

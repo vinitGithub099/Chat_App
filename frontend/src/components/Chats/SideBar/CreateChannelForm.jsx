@@ -8,6 +8,7 @@ import {
   populateChat,
   setCurrentChat,
 } from "../../../store/Features/Chat/ChatSlice";
+import { handelTokenExpiration } from "../../../utils/Utils";
 import Button from "../../Form/Button";
 import Form from "../../Form/Form";
 import { useToast } from "../../Hooks/useToast";
@@ -27,7 +28,10 @@ export default function CreateChannelForm({ toggleModal, toggleSideBar }) {
         toggleSideBar();
         notify("Channel created successfully!", SUCCESS);
       })
-      .catch(() => notify("Failed to create channel!", ERROR));
+      .catch((error) => {
+        handelTokenExpiration(error, dispatch);
+        notify("Failed to create channel!", ERROR);
+      });
 
   const handleSubmit = (channelData) => {
     if (
@@ -60,7 +64,7 @@ export default function CreateChannelForm({ toggleModal, toggleSideBar }) {
             : []
         );
       })
-      .catch((error) => console.log(error));
+      .catch((error) => handelTokenExpiration(error, dispatch));
   };
 
   return (

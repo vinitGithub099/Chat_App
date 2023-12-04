@@ -5,6 +5,7 @@ import {
   removeChat,
   setCurrentChat,
 } from "../../../store/Features/Chat/ChatSlice";
+import { handelTokenExpiration } from "../../../utils/Utils";
 import Button from "../../Form/Button";
 import { useToast } from "../../Hooks/useToast";
 ("../../../constants/constants");
@@ -27,7 +28,10 @@ export default function ExitChannel({ handleChannelExtras }) {
         dispatch(setCurrentChat(null));
         handleChannelExtras(null);
       })
-      .catch(() => notify("Failed to remove user", ERROR));
+      .catch((error) => {
+        handelTokenExpiration(error, dispatch);
+        notify("Failed to remove user", ERROR);
+      });
   };
 
   return (

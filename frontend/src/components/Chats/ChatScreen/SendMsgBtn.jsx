@@ -2,16 +2,14 @@ import { AiOutlineSend } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import _ from "underscore";
 import { messageAPI } from "../../../api/messageAPI";
-import { ERROR } from "../../../constants/constants";
 import { socketClient } from "../../../main";
 import { sendChatMessage } from "../../../store/Features/Chat/ChatActions";
+import { handelTokenExpiration } from "../../../utils/Utils";
 import Form from "../../Form/Form";
-import { useToast } from "../../Hooks/useToast";
 
 export default function SendMsgBtn() {
   const currentChat = useSelector((state) => state.chat.currentChat);
   const user = useSelector((state) => state.auth.user);
-  const { notify } = useToast();
   const dispatch = useDispatch();
 
   const emitStartTyping = async () =>
@@ -20,16 +18,15 @@ export default function SendMsgBtn() {
   const emitStopTyping = async () =>
     await socketClient.emit("stop typing", { room: currentChat, user: user });
 
-  const handleSuccess = (res) =>
-    dispatch(sendChatMessage({ newMessage: res })).then(() => emitStopTyping());
-
-  const handleFailure = () => notify("Message was not sent!", ERROR);
-
   const sendMessage = async (data) =>
     messageAPI
       .sendMessage(data)
-      .then((res) => handleSuccess(res))
-      .catch(() => handleFailure());
+      .then((res) => {
+        dispatch(sendChatMessage({ newMessage: res })).then(() =>
+          emitStopTyping()
+        );
+      })
+      .catch((error) => handelTokenExpiration(error, dispatch));
 
   const handleSendMessage = (message) => {
     if (!_.isEmpty(currentChat)) {

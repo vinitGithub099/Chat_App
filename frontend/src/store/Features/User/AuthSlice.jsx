@@ -10,7 +10,11 @@ import { autoLogin, loginUser, registerUser } from "./AuthActions";
 const initialState = {
   user: null,
   token: null,
-  loading: false,
+  loading: {
+    register: false,
+    autoLogin: false,
+    login: false,
+  },
   tokenExpired: false,
 };
 
@@ -39,7 +43,7 @@ export const authSlice = createSlice({
     /* userLogin */
     builder.addCase(loginUser.pending, (state) => ({
       ...state,
-      loading: true,
+      loading: { ...state.loading, login: true },
     }));
     builder.addCase(loginUser.fulfilled, (state, { payload }) => {
       localStorage.setItem("access_token", payload.accessToken);
@@ -47,44 +51,44 @@ export const authSlice = createSlice({
         ...state,
         user: payload.user,
         token: payload.accessToken,
-        loading: false,
+        loading: { ...state.loading, login: false },
       };
     });
     builder.addCase(loginUser.rejected, (state) => ({
       ...state,
-      loading: false,
+      loading: { ...state.loading, login: false },
     }));
 
     /* registerUser */
     builder.addCase(registerUser.pending, (state) => ({
       ...state,
-      loading: true,
+      loading: { ...state.loading, register: true },
     }));
     builder.addCase(registerUser.fulfilled, (state) => ({
       ...state,
-      loading: false,
+      loading: { ...state.loading, register: false },
       user: null,
       token: null,
     }));
     builder.addCase(registerUser.rejected, (state) => ({
       ...state,
-      loading: false,
+      loading: { ...state.loading, register: false },
     }));
 
     /* autoLogin */
     builder.addCase(autoLogin.pending, (state) => ({
       ...state,
-      loading: true,
+      loading: { ...state.loading, autoLogin: true },
     }));
     builder.addCase(autoLogin.fulfilled, (state, { payload }) => ({
       ...state,
-      loading: false,
+      loading: { ...state.loading, autoLogin: false },
       user: payload.user,
       token: payload.token,
     }));
     builder.addCase(autoLogin.rejected, (state) => ({
       ...state,
-      loading: false,
+      loading: { ...state.loading, autoLogin: false },
     }));
   },
 });

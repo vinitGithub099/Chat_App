@@ -12,11 +12,11 @@ export default function App() {
   const navigate = useNavigate();
   const loading = useSelector((state) => state.auth.loading);
   const user = useSelector((state) => state.auth.user);
+  const token = useSelector((state) => state.auth.token);
   const tokenExpiration = useSelector((state) => state.auth.tokenExpired);
 
   useEffect(() => {
-    const accessToken = localStorage.getItem("access_token");
-    if (!accessToken) return;
+    if (user && token) return;
     dispatch(autoLogin());
   }, [dispatch]);
 
@@ -42,7 +42,11 @@ export default function App() {
 
   return (
     <main className="w-full min-h-screen">
-      {loading ? <Loader message={message}></Loader> : <Outlet></Outlet>}
+      {loading.autLogin ? (
+        <Loader message={message}></Loader>
+      ) : (
+        <Outlet></Outlet>
+      )}
     </main>
   );
 }
