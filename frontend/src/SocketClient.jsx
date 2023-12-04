@@ -1,11 +1,11 @@
 import { io } from "socket.io-client";
-import { ENDPOINT } from "./constants/constants";
+import { BASE_URL } from "./constants/constants";
 
 export default class SocketClient {
   socket;
 
   connect(data) {
-    this.socket = io.connect(ENDPOINT, {
+    this.socket = io.connect(BASE_URL, {
       transports: ["websocket"],
     });
     return new Promise((resolve, reject) => {

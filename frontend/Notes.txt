@@ -5,10 +5,8 @@ Reference link for the project: https://www.youtube.com/playlist?list=PLKhlp2qtU
     - error handling in frontend
     - error responses in backend
     - about page
-    -
 
 #Pending:
-    - login expiration page
     - duplicate notification issue
     - logout 
     - delete channel
@@ -34,3 +32,4 @@ Reference link for the project: https://www.youtube.com/playlist?list=PLKhlp2qtU
     - select tab styling
     - multi select selected option state doesn't persists: solved using react-select
     - remove user in individual chats
+    - login expiration page

@@ -11,7 +11,7 @@ const initialState = {
   user: null,
   token: null,
   loading: false,
-  error: false,
+  tokenExpired: false,
 };
 
 export const authSlice = createSlice({
@@ -30,6 +30,10 @@ export const authSlice = createSlice({
       ...state,
       token: payload,
     }),
+    setTokenExpiration: (state, { payload }) => ({
+      ...state,
+      tokenExpired: payload,
+    }),
   },
   extraReducers: (builder) => {
     /* userLogin */
@@ -44,13 +48,11 @@ export const authSlice = createSlice({
         user: payload.user,
         token: payload.accessToken,
         loading: false,
-        error: null,
       };
     });
     builder.addCase(loginUser.rejected, (state) => ({
       ...state,
       loading: false,
-      // error: payload.res,
     }));
 
     /* registerUser */
@@ -63,12 +65,10 @@ export const authSlice = createSlice({
       loading: false,
       user: null,
       token: null,
-      // error: payload.res,
     }));
     builder.addCase(registerUser.rejected, (state) => ({
       ...state,
       loading: false,
-      // error: payload.res,
     }));
 
     /* autoLogin */
@@ -85,7 +85,6 @@ export const authSlice = createSlice({
     builder.addCase(autoLogin.rejected, (state) => ({
       ...state,
       loading: false,
-      error: true,
     }));
   },
 });

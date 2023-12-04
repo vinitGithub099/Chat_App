@@ -8,6 +8,7 @@ import UserCard from "../components/Chats/SideBar/UserCard";
 import UserAvatar from "../components/Chats/UserAvatar";
 import DemoForm from "../components/DemoForm";
 import ErrorPage from "../components/Error/ErrorPage";
+import AuthTokenExpiration from "../components/Expiration/AuthTokenExpiration";
 import Login from "../components/LoginSignUp/Login";
 import SignUp from "../components/LoginSignUp/SignUp";
 import EditProfile from "../components/Profile/EditProfile";
@@ -23,6 +24,10 @@ export const router = [
     children: [
       /* { path: "/test", element: <SampleHome></SampleHome> }, */
       { path: "", element: <HomePage></HomePage> },
+      {
+        path: "/auth-token-expiration",
+        element: <AuthTokenExpiration></AuthTokenExpiration>,
+      },
       {
         path: "login",
         element: <Login className=""></Login>,

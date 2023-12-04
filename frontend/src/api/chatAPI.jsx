@@ -6,7 +6,6 @@ export const chatAPI = {
       url: `/chat/accessChat`,
       method: `POST`,
       data: data,
-      signal: new AbortController().signal,
       headers: { "Content-Type": "application/json" },
     });
     if (result.status === 200) {
@@ -20,7 +19,6 @@ export const chatAPI = {
       url: `/chat/fetchChats`,
       method: `GET`,
       data: data,
-      signal: new AbortController().signal,
       headers: { "Content-Type": "application/json" },
     });
     if (result.status === 200) {
@@ -34,7 +32,6 @@ export const chatAPI = {
       url: `/chat/groupChat`,
       method: `POST`,
       data: data,
-      signal: new AbortController().signal,
       headers: { "Content-Type": "application/json" },
     });
     if (result.status === 200) {
@@ -48,7 +45,6 @@ export const chatAPI = {
       url: `/chat/groupChat`,
       method: `POST`,
       data: data,
-      signal: new AbortController().signal,
       headers: { "Content-Type": "application/json" },
     });
     if (result.status === 200) {
@@ -62,7 +58,6 @@ export const chatAPI = {
       url: `/chat/addToGroup`,
       method: `PUT`,
       data: data,
-      signal: new AbortController().signal,
       headers: { "Content-Type": "application/json" },
     });
     if (result.status === 200) {
@@ -76,7 +71,6 @@ export const chatAPI = {
       url: `/chat/removeFromGroup`,
       method: `PUT`,
       data: data,
-      signal: new AbortController().signal,
       headers: { "Content-Type": "application/json" },
     });
     if (result.status === 200) {

@@ -6,7 +6,6 @@ export const authAPI = {
       url: `/user/login`,
       method: `POST`,
       data: data,
-      signal: new AbortController().signal,
       headers: { "Content-Type": "application/json" },
     });
     if (result.status === 200) {
@@ -20,7 +19,6 @@ export const authAPI = {
       url: `/user/register`,
       method: `POST`,
       data: data,
-      signal: new AbortController().signal,
       headers: { "Content-Type": "application/json" },
     });
     if (result.status === 200) {
@@ -33,7 +31,6 @@ export const authAPI = {
     const result = await api.request({
       url: `/user/allUsers`,
       method: `GET`,
-      signal: new AbortController().signal,
       headers: { "Content-Type": "application/json" },
       params: {
         search: query,
@@ -49,7 +46,6 @@ export const authAPI = {
     const result = await api.request({
       url: `/user/refresh-token`,
       method: `POST`,
-      signal: new AbortController().signal,
       headers: { "Content-Type": "application/json" },
     });
     if (result.status === 200) {
@@ -62,9 +58,9 @@ export const authAPI = {
     const result = await api.request({
       url: `/user/auto-login`,
       method: `POST`,
-      signal: new AbortController().signal,
       headers: { "Content-Type": "application/json" },
     });
+    console.log(result);
     if (result.status === 200) {
       return result.data;
     } else {
@@ -75,7 +71,6 @@ export const authAPI = {
     const result = await api.request({
       url: `/user/logout`,
       method: `POST`,
-      signal: new AbortController().signal,
       headers: { "Content-Type": "application/json" },
     });
     if (result.status === 200) {
