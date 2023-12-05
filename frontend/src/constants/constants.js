@@ -1,11 +1,13 @@
+/* backend API base url */
+const BASE_URL = import.meta.env.PROD
+  ? "https://chat-app-backend-f9vy.onrender.com"
+  : "http://localhost:5000";
+
 /* toast */
 const SUCCESS = "success";
 const WARNING = "warn";
 const ERROR = "error";
 const INFO = "info";
-const BASE_URL = import.meta.env.PROD
-  ? "https://chat-app-backend-f9vy.onrender.com"
-  : "http://localhost:5000";
 
 const channelOptions = {
   INFO: "Info",

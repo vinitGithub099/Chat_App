@@ -6,13 +6,12 @@ export default function DisplayMessages() {
   const messages = useSelector((state) => state.chat.messages);
   const messagesEndRef = useRef(null);
 
-  const scrollToBottom = () => {
+  const scrollToBottom = () =>
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
 
   useEffect(() => {
     scrollToBottom();
-  }, []);
+  }, [messages]);
 
   return (
     <div className="w-full flex flex-col flex-1 overflow-hidden">
@@ -26,8 +25,8 @@ export default function DisplayMessages() {
             No Messages to show!
           </div>
         )}
+        <div ref={messagesEndRef}></div>
       </div>
-      <div ref={messagesEndRef}></div>
     </div>
   );
 }
