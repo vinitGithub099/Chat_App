@@ -1,9 +1,15 @@
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Button from "../Form/Button";
 
 export default function AuthTokenExpiration() {
   const navigate = useNavigate();
+  const { tokenExpired } = useSelector((state) => state.auth);
   const handleLoginNavigate = () => navigate("/login");
+  useEffect(() => {
+    if (!tokenExpired) navigate(-1);
+  });
   return (
     <div className="w-full h-screen bg-dark-3 px-4 sm:px-16 py-2">
       <section className="bg-dark-2 mx-auto w-full mt-20 max-w-3xl h-60 rounded-lg shadow-lg shadow-light-3 flex flex-col justify-between items-center py-2">

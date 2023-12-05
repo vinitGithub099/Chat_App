@@ -1,3 +1,4 @@
+import AppError from "../error/AppError";
 import api from "./axiosConfigs";
 
 export const chatAPI = {
@@ -11,7 +12,7 @@ export const chatAPI = {
       });
       return result.data;
     } catch (error) {
-      throw new Error(error);
+      throw new AppError(error);
     }
   },
   fetchChats: async (data) => {
@@ -24,7 +25,7 @@ export const chatAPI = {
       });
       return result.data;
     } catch (error) {
-      throw new Error(error);
+      throw new AppError(error);
     }
   },
   createGroupChat: async (data) => {
@@ -37,7 +38,7 @@ export const chatAPI = {
       });
       return result.data;
     } catch (error) {
-      throw new Error(error);
+      throw new AppError(error);
     }
   },
   renameGroup: async (data) => {
@@ -50,7 +51,7 @@ export const chatAPI = {
       });
       return result.data;
     } catch (error) {
-      throw new Error(error);
+      throw new AppError(error);
     }
   },
   addToGroup: async (data) => {
@@ -63,7 +64,7 @@ export const chatAPI = {
       });
       return result.data;
     } catch (error) {
-      throw new Error(error);
+      throw new AppError(error);
     }
   },
   removeFromGroup: async (data) => {
@@ -76,7 +77,7 @@ export const chatAPI = {
       });
       return result.data;
     } catch (error) {
-      throw new Error(error);
+      throw new AppError(error);
     }
   },
 };

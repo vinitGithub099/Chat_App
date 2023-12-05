@@ -59,6 +59,21 @@ export const chatSlice = createSlice({
         users: state.currentChat?.users.filter((user) => user._id !== payload),
       },
     }),
+    populateMessages: (state, { payload }) => {
+      const newMessage =
+        !state.messages ||
+        (state.messages.length &&
+          state.messages[state.messages.length - 1]._id !==
+            payload?.newMessage?._id)
+          ? payload?.newMessage
+          : null;
+      return {
+        ...state,
+        messages: newMessage
+          ? state.messages.concat(newMessage)
+          : state.messages,
+      };
+    },
   },
   extraReducers: (builder) => {
     /* fetchChats */
@@ -84,12 +99,12 @@ export const chatSlice = createSlice({
     }));
     builder.addCase(fetchChatMessages.fulfilled, (state, { payload }) => ({
       ...state,
-      loading: { chats: false, messages: true },
+      loading: { chats: false, messages: false },
       messages: payload,
     }));
     builder.addCase(fetchChatMessages.rejected, (state) => ({
       ...state,
-      loading: { chats: false, messages: true },
+      loading: { chats: false, messages: false },
       messages: null,
     }));
 
@@ -103,7 +118,7 @@ export const chatSlice = createSlice({
         (state.messages.length &&
           state.messages[state.messages.length - 1]._id !==
             payload?.newMessage?._id)
-          ? payload.newMessage
+          ? payload?.newMessage
           : null;
       return {
         ...state,
@@ -147,5 +162,6 @@ export const {
   populateChat,
   addChatMember,
   removeChat,
+  populateMessages,
 } = chatSlice.actions;
 export default chatSlice.reducer;

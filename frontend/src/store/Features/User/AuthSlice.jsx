@@ -5,7 +5,7 @@
  */
 
 import { createSlice } from "@reduxjs/toolkit";
-import { autoLogin, loginUser, registerUser } from "./AuthActions";
+import { loginUser, registerUser } from "./AuthActions";
 
 const initialState = {
   user: null,
@@ -22,14 +22,11 @@ export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    logout: (state) => {
-      localStorage.setItem("access_token", null);
-      return {
-        ...state,
-        user: null,
-        token: null,
-      };
-    },
+    logout: (state) => ({
+      ...state,
+      user: null,
+      token: null,
+    }),
     setTokenAction: (state, { payload }) => ({
       ...state,
       token: payload,
@@ -52,11 +49,13 @@ export const authSlice = createSlice({
         user: payload.user,
         token: payload.accessToken,
         loading: { ...state.loading, login: false },
+        tokenExpired: false,
       };
     });
     builder.addCase(loginUser.rejected, (state) => ({
       ...state,
       loading: { ...state.loading, login: false },
+      tokenExpired: false,
     }));
 
     /* registerUser */
@@ -74,25 +73,9 @@ export const authSlice = createSlice({
       ...state,
       loading: { ...state.loading, register: false },
     }));
-
-    /* autoLogin */
-    builder.addCase(autoLogin.pending, (state) => ({
-      ...state,
-      loading: { ...state.loading, autoLogin: true },
-    }));
-    builder.addCase(autoLogin.fulfilled, (state, { payload }) => ({
-      ...state,
-      loading: { ...state.loading, autoLogin: false },
-      user: payload.user,
-      token: payload.token,
-    }));
-    builder.addCase(autoLogin.rejected, (state) => ({
-      ...state,
-      loading: { ...state.loading, autoLogin: false },
-    }));
   },
 });
 
-export const { logout, setTokenAction } = authSlice.actions;
+export const { logout, setTokenAction, setTokenExpiration } = authSlice.actions;
 
 export default authSlice.reducer;

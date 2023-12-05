@@ -40,6 +40,7 @@ export default class SocketClient {
 
   on(event, callBack) {
     return new Promise((resolve, reject) => {
+      console.log("Inside socket.on");
       if (!this.socket || !this.socket.connected)
         return reject("No socket connection.");
       const eventCallback = (data) => {

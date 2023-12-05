@@ -24,9 +24,6 @@ router.get("/allUsers", protect, allUsers);
 router.post("/refresh-token", protect, refreshToken);
 
 /** status: Working */
-router.post("/auto-login", protect, fetchUserDetails);
-
-/** status: Working */
 router.post("/logout", logout);
 
 module.exports = router;

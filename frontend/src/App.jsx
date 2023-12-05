@@ -4,7 +4,8 @@ import { Outlet, useNavigate } from "react-router-dom";
 import Loader from "./components/Loader";
 import "./index.css";
 import { socketClient } from "./main";
-import { autoLogin } from "./store/Features/User/AuthActions";
+import { setTokenExpiration } from "./store/Features/User/AuthSlice";
+import { verifyAuthInfo } from "./utils/Utils";
 const message = "Verifying Credentials";
 
 export default function App() {
@@ -12,12 +13,14 @@ export default function App() {
   const navigate = useNavigate();
   const loading = useSelector((state) => state.auth.loading);
   const user = useSelector((state) => state.auth.user);
-  const token = useSelector((state) => state.auth.token);
   const tokenExpiration = useSelector((state) => state.auth.tokenExpired);
 
   useEffect(() => {
-    if (user && token) return;
-    dispatch(autoLogin());
+    if (!verifyAuthInfo()) {
+      dispatch(setTokenExpiration(true));
+    } else {
+      dispatch(setTokenExpiration(false));
+    }
   }, [dispatch]);
 
   useEffect(() => {

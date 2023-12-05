@@ -28,10 +28,11 @@ export default function SendMsgBtn() {
       })
       .catch((error) => handelTokenExpiration(error, dispatch));
 
-  const handleSendMessage = (message) => {
+  const handleSendMessage = (message, methods) => {
     if (!_.isEmpty(currentChat)) {
       const { _id: id } = currentChat;
       sendMessage({ chatId: id, content: message.chatBox });
+      methods.reset();
     }
   };
 

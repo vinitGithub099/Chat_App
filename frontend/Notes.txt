@@ -10,6 +10,7 @@ Reference link for the project: https://www.youtube.com/playlist?list=PLKhlp2qtU
     - duplicate notification issue
     - logout 
     - delete channel
+    - replace cross button with back button in mobile view for chat info
 
 #Fixed issues:
     - text input validation due to onChange

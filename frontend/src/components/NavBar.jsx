@@ -7,7 +7,7 @@ import Button from "./Form/Button";
 
 export default function NavBar({ className }) {
   const [navbar, setNavbar] = useState(false);
-  const token = useSelector((state) => state.auth.token);
+  const { token, tokenExpired } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleLogout = () => {
@@ -58,7 +58,7 @@ export default function NavBar({ className }) {
           handleClick={handleRegister}
           label="Sign up"
         ></Button>
-        {token ? (
+        {token && !tokenExpired ? (
           <Button
             className="bg-light-2 bg-opacity-30 text-light-1 px-4 py-2 hover:bg-opacity-20"
             type="submit"

@@ -11,8 +11,8 @@ export const fetchChats = createAsyncThunk(
       const res = await chatAPI.fetchChats();
       return res;
     } catch (error) {
-      handelTokenExpiration(error, dispatch);
-      throw new Error(error);
+      handelTokenExpiration(error.getResObj(), dispatch);
+      throw error;
     }
   }
 );
@@ -26,7 +26,7 @@ export const fetchChatMessages = createAsyncThunk(
       return res;
     } catch (error) {
       handelTokenExpiration(error, dispatch);
-      throw new Error(error);
+      throw error;
     }
   }
 );
@@ -51,9 +51,10 @@ export const receiveMessage = createAsyncThunk(
     };
 
     try {
-      return await socketClient.on("message received", eventHandler);
+      const res = await socketClient.on("message received", eventHandler);
+      return res;
     } catch (error) {
-      throw new Error(error);
+      /* console.log(error) */
     }
   }
 );

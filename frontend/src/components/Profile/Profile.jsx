@@ -5,18 +5,25 @@ import Button from "../Form/Button";
 
 export default function Profile({ className }) {
   return (
-    <div className={`w-full h-screen px-4 bg-dark-3 ${className}`}>
-      <h1 className="w-full pt-8 pb-3 text-3xl font-semibold text-center text-light-1">
-        Personal Info
+    <div className={`w-full h-screen p-4 bg-dark-3 ${className}`}>
+      <h1 className="p-2 mt-20 text-light-1 text-3xl text-center">
+        This page is under construction!
       </h1>
-      <section className="max-w-3xl my-8 mx-auto border border-light-2 rounded-lg text-light-1">
-        <ProfileInfoInfoHeader></ProfileInfoInfoHeader>
-        <ProfileInfoSection></ProfileInfoSection>
-      </section>
     </div>
   );
 }
 
+{
+  /* <div className={`w-full h-screen px-4 bg-dark-3 ${className}`}>
+  <h1 className="w-full pt-8 pb-3 text-3xl font-semibold text-center text-light-1">
+    Personal Info
+  </h1>
+  <section className="max-w-3xl my-8 mx-auto border border-light-2 rounded-lg text-light-1">
+    <ProfileInfoInfoHeader></ProfileInfoInfoHeader>
+    <ProfileInfoSection></ProfileInfoSection>
+  </section>
+</div>; */
+}
 function ProfileInfoInfoHeader() {
   const navigate = useNavigate();
   const handleClick = () => navigate("/profile/edit");
@@ -44,7 +51,10 @@ function ProfileInfoSection() {
   return !_.isEmpty(profileData)
     ? Object.entries(profileData).map(([key, value], index) => {
         return (
-          <div key={index} className="w-full py-4 px-2 sm:p-4 grid grid-cols-3 border border-light-2">
+          <div
+            key={index}
+            className="w-full py-4 px-2 sm:p-4 grid grid-cols-3 border border-light-2"
+          >
             <h4 className="text-md text-gray-400 col-span-1">{key}</h4>
             <p className="col-span-2">
               {!_.isEmpty(value)

@@ -53,18 +53,7 @@ export const authAPI = {
       throw new Error(error);
     }
   },
-  autoLogin: async () => {
-    try {
-      const result = await api.request({
-        url: `/user/auto-login`,
-        method: `POST`,
-        headers: { "Content-Type": "application/json" },
-      });
-      return result.data;
-    } catch (error) {
-      throw new Error(error);
-    }
-  },
+
   logout: async () => {
     try {
       const result = await api.request({

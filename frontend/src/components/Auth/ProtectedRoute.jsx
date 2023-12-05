@@ -7,21 +7,22 @@ import { useToast } from "../Hooks/useToast";
 export default function ProtectedRoute() {
   const location = useLocation();
   const { notify } = useToast();
-  const user = useSelector((state) => state.auth.user);
-  const accessToken = localStorage.getItem("access_token");
-  const token = useSelector((state) => state.auth.token);
+  // const tokenExpired = useSelector((state) => state.auth.tokenExpired);
+  // const user = useSelector((state) => state.auth.user);
+  // const token = useSelector((state) => state.auth.token);
+  const { tokenExpired, user, token } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    if (!accessToken || !user || !token)
+    if (tokenExpired || !user || !token)
       notify("You are not logged in!", WARNING);
-  }, [accessToken, notify, token, user]);
+  }, [tokenExpired, notify, token, user]);
 
-  if (accessToken && user && token) {
+  if (!tokenExpired && user && token) {
     return <Outlet></Outlet>;
   } else {
     return (
       <Navigate
-        to="/login"
+        to="/"
         state={{
           from: location.pathname,
         }}

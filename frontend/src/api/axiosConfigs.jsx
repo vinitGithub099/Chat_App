@@ -2,7 +2,7 @@ import axios from "axios";
 import { BASE_URL } from "../constants/constants";
 import { authAPI } from "./authAPI";
 
-const baseUrl = BASE_URL;
+const baseUrl = `${BASE_URL}/api`;
 
 const api = axios.create({
   baseURL: baseUrl,
@@ -17,7 +17,13 @@ export default api;
  */
 api.interceptors.request.use(
   (config) => {
-    const accessToken = localStorage.getItem("access_token");
+    const key = "persist:auth";
+    const authInfo = localStorage.getItem(key);
+    const parsedAuthInfo = JSON.parse(authInfo);
+    let accessToken;
+    if (parsedAuthInfo && parsedAuthInfo.token) {
+      accessToken = JSON.parse(parsedAuthInfo.token);
+    }
     if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
     }
@@ -43,7 +49,13 @@ api.interceptors.response.use(
       try {
         const res = await authAPI.refreshToken();
         accessToken = res.accessToken;
-        localStorage.setItem("access_token", accessToken);
+        const key = "persist:auth";
+        const authInfo = localStorage.getItem(key);
+        const parsedAuthInfo = JSON.parse(authInfo);
+        if (parsedAuthInfo) {
+          parsedAuthInfo.token = accessToken;
+        }
+        localStorage.setItem(key, JSON.stringify(parsedAuthInfo));
       } catch (error) {
         throw new Error(error);
       }
