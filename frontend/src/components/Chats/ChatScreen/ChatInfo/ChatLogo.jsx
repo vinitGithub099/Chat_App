@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import userLogo from "../../../../assets/profile-user_64572.png";
-import UserAvatar from "../../UserAvatar";
+import UserAvatar from "../../../../components/UserAvatar";
 export default function ChatIcon() {
   const currChat = useSelector((state) => state.chat.currentChat);
   return (

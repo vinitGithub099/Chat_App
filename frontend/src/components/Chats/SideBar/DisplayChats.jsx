@@ -2,6 +2,7 @@ import moment from "moment";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import userLogo from "../../../assets/profile-user_64572.png";
+import UserAvatar from "../../../components/UserAvatar";
 import { socketClient } from "../../../main";
 import {
   fetchChatMessages,
@@ -10,7 +11,6 @@ import {
 } from "../../../store/Features/Chat/ChatActions";
 import { setCurrentChat } from "../../../store/Features/Chat/ChatSlice";
 import { getChatName, getShortenedString } from "../../Utils/utils";
-import UserAvatar from "../UserAvatar";
 
 export default function DisplayChats({ toggleSideBar }) {
   const chatList = useSelector((state) => state.chat.chats);

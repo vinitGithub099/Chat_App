@@ -2,8 +2,8 @@ import moment from "moment";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import userLogo from "../../../assets/profile-user_64572.png";
+import UserAvatar from "../../../components/UserAvatar";
 import { getShortenedString } from "../../Utils/utils";
-import UserAvatar from "../UserAvatar";
 
 export default function MessageCard(props) {
   const user = useSelector((state) => state.auth.user);

@@ -1,14 +1,12 @@
 import userLogo from "../../assets/profile-user_64572.png";
+import UserAvatar from "../../components/UserAvatar";
 import { ERROR, INFO, SUCCESS, WARNING } from "../../constants/constants";
-import UserAvatar from "../Chats/UserAvatar";
 import Button from "../Form/Button";
 import { useToast } from "../Hooks/useToast";
 import { getShortenedString } from "../Utils/utils";
 
 export default function ToastDemo() {
   const { notify } = useToast();
-
-  // const notify = (content, type) => populateToast(content, type);
 
   const types = [
     { type: SUCCESS, content: `${SUCCESS} notification`, hideIcon: false },

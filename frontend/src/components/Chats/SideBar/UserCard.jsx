@@ -1,5 +1,5 @@
+import UserAvatar from "../../../components/UserAvatar";
 import { getShortenedString } from "../../Utils/utils";
-import UserAvatar from "../UserAvatar";
 
 export default function UserCard({
   className,

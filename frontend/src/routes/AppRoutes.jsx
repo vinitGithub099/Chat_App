@@ -5,7 +5,6 @@ import ChatScreen from "../components/Chats/ChatScreen/ChatScreen";
 import MessageCard from "../components/Chats/SideBar/MessageCard";
 import SideBar from "../components/Chats/SideBar/SideBar";
 import UserCard from "../components/Chats/SideBar/UserCard";
-import UserAvatar from "../components/Chats/UserAvatar";
 import DemoForm from "../components/DemoForm";
 import ErrorPage from "../components/Error/ErrorPage";
 import AuthTokenExpiration from "../components/Expiration/AuthTokenExpiration";
@@ -14,6 +13,7 @@ import SignUp from "../components/LoginSignUp/SignUp";
 import EditProfile from "../components/Profile/EditProfile";
 import Profile from "../components/Profile/Profile";
 import ToastDemo from "../components/Toast/ToastDemo";
+import UserAvatar from "../components/UserAvatar";
 import ChatsPage from "../pages/ChatsPage";
 import HomePage from "../pages/HomePage";
 
