@@ -59,21 +59,6 @@ export const chatSlice = createSlice({
         users: state.currentChat?.users.filter((user) => user._id !== payload),
       },
     }),
-    populateMessages: (state, { payload }) => {
-      const newMessage =
-        !state.messages ||
-        (state.messages.length &&
-          state.messages[state.messages.length - 1]._id !==
-            payload?.newMessage?._id)
-          ? payload?.newMessage
-          : null;
-      return {
-        ...state,
-        messages: newMessage
-          ? state.messages.concat(newMessage)
-          : state.messages,
-      };
-    },
   },
   extraReducers: (builder) => {
     /* fetchChats */

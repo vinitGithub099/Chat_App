@@ -6,10 +6,10 @@ export default function ChannelHeaderDropdown({ handleChannelExtras }) {
   return (
     <div className="hidden w-40 border bg-dark-3 border-light-2 p-4 rounded-md fixed right-2 top-2 group-hover:block z-10">
       {list && list.length ? (
-        list.map((chat) => (
+        list.map((lisItem, index) => (
           <DropdownItem
-            key={chat._id}
-            {...{ ...chat, handleClick: handleChannelExtras }}
+            key={index}
+            {...{ ...lisItem, handleClick: handleChannelExtras }}
           ></DropdownItem>
         ))
       ) : (

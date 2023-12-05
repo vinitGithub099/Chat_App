@@ -24,7 +24,9 @@ export default function DisplayChats({ toggleSideBar }) {
     <div className="divide-y divide-light-3 flex-1 mb-2 overflow-y-scroll scrollbar">
       {chatList && chatList.length ? (
         chatList.map((chat) => (
-          <ChatCard key={chat._id} {...{... chat, toggleSideBar }}></ChatCard>
+          <div key={chat._id}>
+            <ChatCard {...{ ...chat, toggleSideBar }}></ChatCard>
+          </div>
         ))
       ) : (
         <div className="text-light-2 font-semibold text-center">No results</div>
