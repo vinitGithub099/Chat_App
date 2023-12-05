@@ -9,6 +9,7 @@ Reference link for the project: https://www.youtube.com/playlist?list=PLKhlp2qtU
 #Pending:
     - duplicate notification issue
     - delete channel
+    - scroll to bottom messages
 
 #Fixed issues:
     - text input validation due to onChange

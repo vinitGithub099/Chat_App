@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import ChannelHeader from "./ChannelHeader";
-import DisplayMessages from "./DisplayMessages";
+import DisplayMessages from "./DisplayMessages.1";
 import SendMsgBtn from "./SendMsgBtn";
 
 export default function ChatScreen({ className, toggleSideBar }) {

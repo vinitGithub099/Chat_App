@@ -1,19 +1,20 @@
 import { BiSolidUserCircle } from "react-icons/bi";
 import { PiSignOutBold } from "react-icons/pi";
 import { useNavigate } from "react-router-dom";
-import ListComponent from "../../ListComponent";
 
 export default function UserDropDown() {
   return (
-    <ListComponent
-      list={userDropDownList}
-      className="w-dropdown  bg-dark-1 outline outline-light-3 p-4 rounded-md absolute right-4 bottom-8 hidden group-hover:block"
-      subComponent={ListItem}
-    ></ListComponent>
+    <div className="w-dropdown  bg-dark-1 outline outline-light-3 p-4 rounded-md absolute right-4 bottom-8 hidden group-hover:block">
+      {userDropDownList && userDropDownList.length
+        ? userDropDownList.map((item, index) => (
+            <DropdownItem key={index} {...item}></DropdownItem>
+          ))
+        : null}
+    </div>
   );
 }
 
-function ListItem({ label, path, icon, fontClass }) {
+function DropdownItem({ label, path, icon, fontClass }) {
   const navigate = useNavigate();
   const handelClick = () => navigate(path);
   return (

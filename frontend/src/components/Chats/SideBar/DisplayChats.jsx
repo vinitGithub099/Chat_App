@@ -9,7 +9,6 @@ import {
   joinChat,
 } from "../../../store/Features/Chat/ChatActions";
 import { setCurrentChat } from "../../../store/Features/Chat/ChatSlice";
-import ListComponent from "../../ListComponent";
 import { getChatName, getShortenedString } from "../../Utils/utils";
 import UserAvatar from "../UserAvatar";
 
@@ -22,12 +21,15 @@ export default function DisplayChats({ toggleSideBar }) {
   }, [dispatch]);
 
   return (
-    <ListComponent
-      list={chatList}
-      className="divide-y divide-light-3 flex-1 mb-2 overflow-y-scroll scrollbar"
-      subComponent={ChatCard}
-      toggleSideBar={toggleSideBar}
-    ></ListComponent>
+    <div className="divide-y divide-light-3 flex-1 mb-2 overflow-y-scroll scrollbar">
+      {chatList && chatList.length ? (
+        chatList.map((chat) => (
+          <ChatCard key={chat._id} {...{... chat, toggleSideBar }}></ChatCard>
+        ))
+      ) : (
+        <div className="text-light-2 font-semibold text-center">No results</div>
+      )}
+    </div>
   );
 }
 

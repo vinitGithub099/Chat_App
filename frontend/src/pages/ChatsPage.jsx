@@ -8,6 +8,7 @@ import { useToast } from "../components/Hooks/useToast";
 import { getShortenedString } from "../components/Utils/utils";
 import { INFO } from "../constants/constants";
 import { receiveMessage } from "../store/Features/Chat/ChatActions";
+import { populateChat } from "../store/Features/Chat/ChatSlice";
 
 export default function ChatsPage({ className }) {
   const { notify } = useToast();
@@ -20,6 +21,7 @@ export default function ChatsPage({ className }) {
       if (res.payload && res.payload.notification) {
         const notification = res.payload.notification;
         notify(notificationComponent(notification), INFO, true);
+        dispatch(populateChat(notification.chat));
       }
     });
   });

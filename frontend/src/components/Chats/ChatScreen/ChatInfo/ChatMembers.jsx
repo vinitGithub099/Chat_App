@@ -1,5 +1,4 @@
 import { useSelector } from "react-redux";
-import ListComponent from "../../../ListComponent";
 import MemberCard from "./MemberCard";
 
 export default function ChatMembers() {
@@ -9,11 +8,13 @@ export default function ChatMembers() {
       <h3 className="mx-4 text-lg text-light-2 py-2 font-semibold border-b border-b-light-3">
         Members
       </h3>
-      <ListComponent
-        list={currentChat.users}
-        subComponent={MemberCard}
-        className="overflow-y-scroll scrollbar"
-      ></ListComponent>
+      <div className="overflow-y-scroll scrollba">
+        {currentChat.users && currentChat.users.length
+          ? currentChat.users.map((user) => (
+              <MemberCard key={user._id} {...user}></MemberCard>
+            ))
+          : null}
+      </div>
     </div>
   ) : null;
 }

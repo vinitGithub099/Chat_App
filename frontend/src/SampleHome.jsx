@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import ListComponent from "./components/ListComponent";
 
 const list = [
   {
@@ -48,7 +47,11 @@ export default function SampleHome() {
   return (
     <div className="w-full h-screen flex flex-col items-center bg-dark-3">
       <h3 className="p-4 text-2xl font-bold text-light-2">Sample Components</h3>
-      <ListComponent list={list} subComponent={SubComponent}></ListComponent>
+      {list && list.length
+        ? list.map((listItem, index) => (
+            <SubComponent key={index} {...listItem}></SubComponent>
+          ))
+        : null}
     </div>
   );
 }

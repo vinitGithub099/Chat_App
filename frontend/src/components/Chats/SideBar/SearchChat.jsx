@@ -11,7 +11,6 @@ import {
 } from "../../../store/Features/Chat/ChatSlice";
 import { handelTokenExpiration } from "../../../utils/Utils";
 import Form from "../../Form/Form";
-import ListComponent from "../../ListComponent";
 import DisplayChats from "./DisplayChats";
 import UserCard from "./UserCard";
 
@@ -28,7 +27,7 @@ export default function SearchChat({ toggleSideBar }) {
       ></SearchBar>
       {!showChats ? (
         <SearchResults
-          searchUsers={searchChats}
+          searchChats={searchChats}
           setShowChats={setShowChats}
         ></SearchResults>
       ) : (
@@ -91,17 +90,20 @@ const searchFormFields = (handleSearch, handleFocus, handleBlur) => [
   },
 ];
 
-function SearchResults({ searchUsers, setShowChats }) {
+function SearchResults({ searchChats, setShowChats }) {
   return (
-    <ListComponent
-      list={searchUsers}
-      className="flex flex-1 flex-col overflow-y-scroll scrollbar divide-y divide-light-3"
-      subComponent={SearchedChatResults}
-      setShowChats={setShowChats}
-      emptyMessage={
+    <div className="flex flex-1 flex-col overflow-y-scroll scrollbar divide-y divide-light-3">
+      {searchChats && searchChats.length ? (
+        searchChats.map((chat) => (
+          <SearchedChatResults
+            key={chat._id}
+            {...{ ...chat, setShowChats }}
+          ></SearchedChatResults>
+        ))
+      ) : (
         <div className="text-light-2 font-semibold text-center">No results</div>
-      }
-    ></ListComponent>
+      )}
+    </div>
   );
 }
 
