@@ -1,27 +1,16 @@
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
 import Loader from "./components/Loader";
 import "./index.css";
 import { socketClient } from "./main";
-import { setTokenExpiration } from "./store/Features/User/AuthSlice";
-import { verifyAuthInfo } from "./utils/Utils";
 const message = "Verifying Credentials";
 
 export default function App() {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const loading = useSelector((state) => state.auth.loading);
   const user = useSelector((state) => state.auth.user);
   const tokenExpiration = useSelector((state) => state.auth.tokenExpired);
-
-  useEffect(() => {
-    if (!verifyAuthInfo()) {
-      dispatch(setTokenExpiration(true));
-    } else {
-      dispatch(setTokenExpiration(false));
-    }
-  }, [dispatch]);
 
   useEffect(() => {
     const expirationTimeout = () => {

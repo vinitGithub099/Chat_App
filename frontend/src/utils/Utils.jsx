@@ -1,3 +1,5 @@
+import { PERSIST_AUTH_KEY } from "../constants/constants";
+
 export function handelTokenExpiration(error, dispatch) {
   if (
     error &&
@@ -11,7 +13,7 @@ export function handelTokenExpiration(error, dispatch) {
 }
 
 export const verifyAuthInfo = () => {
-  const authInfo = localStorage.getItem("persist:auth");
+  const authInfo = localStorage.getItem(PERSIST_AUTH_KEY);
   const parsedAuthInfo = JSON.parse(authInfo);
   return parsedAuthInfo && parsedAuthInfo.user && parsedAuthInfo.token
     ? true

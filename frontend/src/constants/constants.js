@@ -11,4 +11,15 @@ const channelOptions = {
   INFO: "Info",
   EXIT_GROUP: "Exit Group",
 };
-export { BASE_URL, ERROR, INFO, SUCCESS, WARNING, channelOptions };
+
+const PERSIST_AUTH_KEY = "persist:auth";
+
+export {
+  BASE_URL,
+  ERROR,
+  INFO,
+  PERSIST_AUTH_KEY,
+  SUCCESS,
+  WARNING,
+  channelOptions,
+};

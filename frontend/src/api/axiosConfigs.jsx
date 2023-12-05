@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BASE_URL } from "../constants/constants";
+import { BASE_URL, PERSIST_AUTH_KEY } from "../constants/constants";
 import { authAPI } from "./authAPI";
 
 const baseUrl = `${BASE_URL}/api`;
@@ -17,7 +17,7 @@ export default api;
  */
 api.interceptors.request.use(
   (config) => {
-    const key = "persist:auth";
+    const key = PERSIST_AUTH_KEY;
     const authInfo = localStorage.getItem(key);
     const parsedAuthInfo = JSON.parse(authInfo);
     let accessToken;
@@ -49,7 +49,7 @@ api.interceptors.response.use(
       try {
         const res = await authAPI.refreshToken();
         accessToken = res.accessToken;
-        const key = "persist:auth";
+        const key = PERSIST_AUTH_KEY;
         const authInfo = localStorage.getItem(key);
         const parsedAuthInfo = JSON.parse(authInfo);
         if (parsedAuthInfo) {

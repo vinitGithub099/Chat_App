@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ERROR, SUCCESS } from "../../constants/constants";
 import { registerUser } from "../../store/Features/User/AuthActions";
 import { handelTokenExpiration } from "../../utils/Utils";
@@ -10,13 +10,11 @@ import { signUpFormFields } from "./utils/registerFormFields";
 export default function SignUp({ className }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const location = useLocation();
   const { notify } = useToast();
 
   const handleRegisterSuccess = () => {
-    const path = location.state?.from ? location.state.from : "/";
     notify("Registered in Successfully!", SUCCESS);
-    navigate(path);
+    navigate("/login");
   };
 
   const handelLoginFailure = (error) => {
