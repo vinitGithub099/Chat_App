@@ -63,8 +63,8 @@ export default function ChannelHeader({ toggleSideBar }) {
   useEffect(() => {}, [currentChat]);
 
   return (
-    <>
-      <div className="py-4 px-2 text-extra-light flex flex-row items-center justify-between gap-4 shadow-sm shadow-dark-3 mb-8">
+    <div>
+      <div className="py-4 px-2 text-extra-light flex flex-row items-center justify-between gap-4 shadow-sm shadow-dark-3">
         <div
           className="sm:hidden text-light-2 hover:bg-light-3 hover:bg-opacity-50 hover:cursor-pointer"
           onClick={toggleSideBar}
@@ -81,11 +81,7 @@ export default function ChannelHeader({ toggleSideBar }) {
               )}
           </div>
         </div>
-        <div className="w-full text-center fixed top-16">
-          <span className="font-semibold text-info text-xs">
-            {typing ? `${typerName} is typing` : null}
-          </span>
-        </div>
+
         {currentChat && (
           <div className="text-light-2 hover:cursor-pointer group">
             <HiOutlineDotsVertical size={30}></HiOutlineDotsVertical>
@@ -95,6 +91,9 @@ export default function ChannelHeader({ toggleSideBar }) {
           </div>
         )}
       </div>
+      <div className="pt-1 h-6 w-full text-center font-semibold text-info text-sm ">
+        {typing ? `${typerName} is typing...` : null}
+      </div>
 
       {channelExtras ? (
         <ChannelExtras
@@ -102,6 +101,6 @@ export default function ChannelHeader({ toggleSideBar }) {
           handleChannelExtras={handleChannelExtras}
         ></ChannelExtras>
       ) : null}
-    </>
+    </div>
   );
 }
