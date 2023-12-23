@@ -68,7 +68,7 @@ io.on("connection", (socket) => {
 
   socket.on("join chat", ({ user, room }) => {
     socket.join(room._id);
-    /* console.log(user.name + " Joined Room: " + room._id); */
+    console.log(user.name + " Joined Room: " + room._id);
   });
 
   socket.on("typing", ({ room, user }) => {
@@ -81,7 +81,7 @@ io.on("connection", (socket) => {
     socket.in(room._id).emit("stop typing", { room, user });
   });
 
-  socket.on("new message", ({ newMessage }) => {
+  socket.on("new message", ({ newMessage }, callback) => {
     const chat = newMessage.chat;
 
     if (!chat.users) return console.log("chat.users not defined");
@@ -90,6 +90,7 @@ io.on("connection", (socket) => {
       if (user._id == newMessage.sender._id) return;
 
       socket.in(user._id).emit("message received", { room: chat, newMessage });
+      callback();
     });
   });
 

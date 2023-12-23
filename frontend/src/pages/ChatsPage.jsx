@@ -7,24 +7,29 @@ import { useToast } from "../components/Hooks/useToast";
 import UserAvatar from "../components/UserAvatar";
 import { getShortenedString } from "../components/Utils/utils";
 import { INFO } from "../constants/constants";
-import { receiveMessage } from "../store/Features/Chat/ChatActions";
-import { populateChat } from "../store/Features/Chat/ChatSlice";
+import { chatSocket } from "../main";
+import { populateMessages } from "../store/Features/Chat/ChatSlice";
+import { store } from "../store/store";
 
 export default function ChatsPage({ className }) {
-  const { notify } = useToast();
   const [isSideBarOpen, setIsSideBarOpen] = useState(true);
   const toggleSideBar = () => setIsSideBarOpen((prev) => !prev);
   const dispatch = useDispatch();
+  const { notify } = useToast();
 
   useEffect(() => {
-    dispatch(receiveMessage()).then((res) => {
-      if (res.payload && res.payload.notification) {
-        const notification = res.payload.notification;
-        notify(notificationComponent(notification), INFO, true);
-        dispatch(populateChat(notification.chat));
+    chatSocket.on("message received", (res) => {
+      const { room, newMessage } = res;
+      const currentChat = store.getState().chat.currentChat;
+      if (!currentChat || currentChat._id !== room._id) {
+        console.log("notification");
+        notify(notificationComponent(newMessage), INFO, true);
+      } else {
+        console.log("message: ");
+        dispatch(populateMessages(newMessage));
       }
     });
-  });
+  }, []);
 
   return (
     <div className={`w-full h-screen flex flex-row ${className}`}>

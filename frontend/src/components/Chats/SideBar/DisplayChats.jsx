@@ -3,11 +3,10 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import userLogo from "../../../assets/profile-user_64572.png";
 import UserAvatar from "../../../components/UserAvatar";
-import { socketClient } from "../../../main";
+import { chatSocket } from "../../../main";
 import {
   fetchChatMessages,
   fetchChats,
-  joinChat,
 } from "../../../store/Features/Chat/ChatActions";
 import { setCurrentChat } from "../../../store/Features/Chat/ChatSlice";
 import { getChatName, getShortenedString } from "../../Utils/utils";
@@ -43,52 +42,9 @@ function ChatCard(props) {
   const [typerName, setTyperName] = useState(null);
   const { _id: chatId, chatName, latestMessage, toggleSideBar, users } = props;
 
-  const listenStartTyping = async () => {
-    try {
-      const res = await socketClient.on("typing", (data, resolve, reject) => {
-        if (data) resolve(data);
-        else reject();
-      });
-      if (res && chatId === res.room._id) {
-        setTyping(true);
-        setTyperName(res.user.name);
-      } else {
-        setTyping(false);
-        setTyperName(null);
-      }
-    } catch (error) {
-      setTyping(false);
-      setTyperName(null);
-    }
-  };
-
-  const listenStopTyping = async () => {
-    try {
-      const res = await socketClient.on(
-        "stop typing",
-        (data, resolve, reject) => {
-          if (data) resolve(data);
-          else reject();
-        }
-      );
-      if (res && chatId === res.room._id) {
-        setTyping(false);
-        setTyperName(null);
-      }
-    } catch (error) {
-      setTyping(false);
-      setTyperName(null);
-    }
-  };
-
-  useEffect(() => {
-    listenStartTyping();
-    listenStopTyping();
-  });
-
   const handleClick = (props) => {
     dispatch(setCurrentChat(props));
-    dispatch(joinChat());
+    chatSocket.emit("join chat", { user: user, room: props });
     toggleSideBar();
     dispatch(fetchChatMessages());
   };

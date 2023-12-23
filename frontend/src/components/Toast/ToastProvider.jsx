@@ -3,7 +3,7 @@ import _ from "underscore";
 import Toast from "./Toast";
 import ToastContext from "./ToastContext";
 
-function ToastProvider({ children }) {
+export default function ToastProvider({ children }) {
   const [toasts, setToasts] = useState([]);
 
   const populateToast = (content, type, hideIcon) =>
@@ -39,5 +39,3 @@ function ToastProvider({ children }) {
     </ToastContext.Provider>
   );
 }
-
-export default ToastProvider;

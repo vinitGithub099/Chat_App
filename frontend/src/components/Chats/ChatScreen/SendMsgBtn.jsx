@@ -2,29 +2,29 @@ import { AiOutlineSend } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import _ from "underscore";
 import { messageAPI } from "../../../api/messageAPI";
-import { socketClient } from "../../../main";
-import { sendChatMessage } from "../../../store/Features/Chat/ChatActions";
+import { chatSocket } from "../../../main";
+import { populateMessages } from "../../../store/Features/Chat/ChatSlice";
 import { handelTokenExpiration } from "../../../utils/Utils";
 import Form from "../../Form/Form";
 
 export default function SendMsgBtn() {
   const currentChat = useSelector((state) => state.chat.currentChat);
-  const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.user);
 
   const emitStartTyping = async () =>
-    await socketClient.emit("typing", { room: currentChat, user: user });
+    chatSocket.emit("typing", { room: currentChat, user: user });
 
   const emitStopTyping = async () =>
-    await socketClient.emit("stop typing", { room: currentChat, user: user });
+    chatSocket.emit("stop typing", { room: currentChat, user: user });
 
   const sendMessage = async (data) =>
     messageAPI
       .sendMessage(data)
       .then((res) => {
-        dispatch(sendChatMessage({ newMessage: res })).then(() =>
-          emitStopTyping()
-        );
+        chatSocket.emit("new message", { newMessage: res }, () => {
+          dispatch(populateMessages(res));
+        });
       })
       .catch((error) => handelTokenExpiration(error, dispatch));
 

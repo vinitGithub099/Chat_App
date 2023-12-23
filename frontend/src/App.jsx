@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
 import Loader from "./components/Loader";
 import "./index.css";
-import { socketClient } from "./main";
+import { chatSocket } from "./main";
 const message = "Verifying Credentials";
 
 export default function App() {
@@ -24,11 +24,11 @@ export default function App() {
   }, [navigate, tokenExpiration]);
 
   useEffect(() => {
-    const connectChatSocket = async (user) =>
-      socketClient && (await socketClient.connect(user));
-
     if (user) {
-      connectChatSocket(user);
+      chatSocket.emit("setup", user);
+      chatSocket.on("connected", () => {
+        console.log("soceket connected id: ", chatSocket.id);
+      });
     }
   }, [user]);
 
