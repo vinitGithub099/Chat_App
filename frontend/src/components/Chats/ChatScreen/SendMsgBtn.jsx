@@ -12,10 +12,10 @@ export default function SendMsgBtn() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
 
-  const emitStartTyping = async () =>
+  const emitStartTyping = () =>
     chatSocket.emit("typing", { room: currentChat, user: user });
 
-  const emitStopTyping = async () =>
+  const emitStopTyping = () =>
     chatSocket.emit("stop typing", { room: currentChat, user: user });
 
   const sendMessage = async (data) =>
@@ -24,6 +24,7 @@ export default function SendMsgBtn() {
       .then((res) => {
         chatSocket.emit("new message", { newMessage: res }, () => {
           dispatch(populateMessages(res));
+          emitStopTyping();
         });
       })
       .catch((error) => handelTokenExpiration(error, dispatch));

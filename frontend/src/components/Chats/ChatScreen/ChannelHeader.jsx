@@ -1,14 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import { useSelector } from "react-redux";
+import { chatSocket } from "../../../main";
 import { getChatName, getShortenedString } from "../../Utils/utils";
 import ChannelExtras from "./ChannelExtras";
 import ChannelHeaderDropdown from "./ChannelHeaderDropdown";
 
 export default function ChannelHeader({ toggleSideBar }) {
   const [channelExtras, setChannelExtras] = useState(null);
-  const currentChat = useSelector((state) => state.chat?.currentChat);
+  const currentChat = useSelector((state) => state.chat.currentChat);
   const currUser = useSelector((state) => state.auth.user);
   const handleChannelExtras = (name) => {
     setChannelExtras(name);
@@ -16,50 +17,33 @@ export default function ChannelHeader({ toggleSideBar }) {
   const [typing, setTyping] = useState(false);
   const [typerName, setTyperName] = useState(null);
 
-  // const listenStartTyping = async () => {
-  //   try {
-  //     const res = await socketClient.on("typing", (data, resolve, reject) => {
-  //       if (data) resolve(data);
-  //       else reject();
-  //     });
-  //     if (res && currentChat && currentChat._id === res.room._id) {
-  //       setTyping(true);
-  //       setTyperName(res.user.name);
-  //     } else {
-  //       setTyping(false);
-  //       setTyperName(null);
-  //     }
-  //   } catch (error) {
-  //     setTyping(false);
-  //     setTyperName(null);
-  //   }
-  // };
+  useEffect(() => {
+    const listenStartTyping = () => {
+      chatSocket.on("typing", (res) => {
+        if (res && currentChat && res.room._id === currentChat._id) {
+          setTyping(true);
+          setTyperName(
+            res?.room?.users?.find((user) => user._id !== currUser._id)?.name
+          );
+        } else {
+          setTyping(false);
+          setTyperName(null);
+        }
+      });
+    };
 
-  // const listenStopTyping = async () => {
-  //   try {
-  //     const res = await socketClient.on(
-  //       "stop typing",
-  //       (data, resolve, reject) => {
-  //         if (data) resolve(data);
-  //         else reject();
-  //       }
-  //     );
-  //     if (res && currentChat && currentChat._id === res.room._id) {
-  //       setTyping(false);
-  //       setTyperName(null);
-  //     }
-  //   } catch (error) {
-  //     setTyping(false);
-  //     setTyperName(null);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   listenStartTyping();
-  //   listenStopTyping();
-  // });
-
-  // useEffect(() => {}, [currentChat]);
+    const listenStopTyping = () => {
+      chatSocket.on("stop typing", (res) => {
+        if (res && currentChat && res.room._id === currentChat._id) {
+          setTyping(false);
+          setTyperName(null);
+        }
+      });
+    };
+    
+    listenStartTyping();
+    listenStopTyping();
+  });
 
   return (
     <div>

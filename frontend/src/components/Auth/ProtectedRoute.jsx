@@ -7,9 +7,6 @@ import { useToast } from "../Hooks/useToast";
 export default function ProtectedRoute() {
   const location = useLocation();
   const { notify } = useToast();
-  // const tokenExpired = useSelector((state) => state.auth.tokenExpired);
-  // const user = useSelector((state) => state.auth.user);
-  // const token = useSelector((state) => state.auth.token);
   const { tokenExpired, user, token } = useSelector((state) => state.auth);
 
   useEffect(() => {

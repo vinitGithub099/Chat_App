@@ -57,6 +57,34 @@ function ChatCard(props) {
     return className;
   };
 
+  useEffect(() => {
+    const listenStartTyping = () => {
+      chatSocket.on("typing", (res) => {
+        if (res && chatId && res.room._id === chatId) {
+          setTyping(true);
+          setTyperName(
+            res?.room?.users?.find((member) => member._id !== user._id)?.name
+          );
+        } else {
+          setTyping(false);
+          setTyperName(null);
+        }
+      });
+    };
+
+    const listenStopTyping = () => {
+      chatSocket.on("stop typing", (res) => {
+        if (res && chatId && res.room._id === chatId) {
+          setTyping(false);
+          setTyperName(null);
+        }
+      });
+    };
+
+    listenStartTyping();
+    listenStopTyping();
+  });
+
   return (
     <div className={buildClassName()} onClick={() => handleClick(props)}>
       <div className="flex flex-row items-center gap-4 my-2 rounded-md">
