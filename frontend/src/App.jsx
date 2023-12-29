@@ -30,6 +30,12 @@ export default function App() {
         console.log("soceket connected id: ", chatSocket.id);
       });
     }
+    return () => {
+      if (user) {
+        chatSocket.disconnect();
+        console.log("socket disconnected");
+      }
+    };
   }, [user]);
 
   return (
