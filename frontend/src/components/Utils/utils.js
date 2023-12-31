@@ -9,7 +9,6 @@ export const getShortenedString = (str, limit = 20) => {
 export const getChatName = (chatName, users, currUser) => {
   let newChatName = chatName;
   if (chatName === "sender") {
-    console.log("sender");
     const sender = users.find((user) => user._id !== currUser._id);
     newChatName = sender.name;
   }
