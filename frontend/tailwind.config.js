@@ -22,6 +22,11 @@ export default {
         "dark-1": "#252329",
         "dark-2": "#120F13",
         "dark-3": "#0B090C",
+        background: "#0B0C10",
+        primary: "#1F2833",
+        secondary: "#C5C6C7",
+        accent: "#66FCF1",
+        highlight: "#45A29E",
       },
       fontSize: {
         xxs: "0.1rem",

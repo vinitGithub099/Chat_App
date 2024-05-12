@@ -15,7 +15,7 @@ import Profile from "../components/Profile/Profile";
 import ToastDemo from "../components/Toast/ToastDemo";
 import UserAvatar from "../components/UserAvatar";
 import ChatsPage from "../pages/ChatsPage";
-import HomePage from "../pages/HomePage";
+import HomePage from "../pages/Home/index";
 
 export const router = [
   {
