@@ -1,8 +1,3 @@
-/* backend API base url */
-const BASE_URL = import.meta.env.PROD
-  ? "https://chat-app-backend-f9vy.onrender.com"
-  : "http://localhost:5000";
-
 /* toast */
 const SUCCESS = "success";
 const WARNING = "warn";
@@ -14,14 +9,4 @@ const channelOptions = {
   EXIT_GROUP: "Exit Group",
 };
 
-const PERSIST_AUTH_KEY = "persist:auth";
-
-export {
-  BASE_URL,
-  ERROR,
-  INFO,
-  PERSIST_AUTH_KEY,
-  SUCCESS,
-  WARNING,
-  channelOptions,
-};
+export { ERROR, INFO, SUCCESS, WARNING, channelOptions };

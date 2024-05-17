@@ -1,5 +1,5 @@
+import api from "../configs/axiosConfigs";
 import AppError from "../error/AppError";
-import api from "./axiosConfigs";
 
 export const chatAPI = {
   accessChat: async (data) => {

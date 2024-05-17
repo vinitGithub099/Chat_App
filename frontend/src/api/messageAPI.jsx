@@ -1,4 +1,4 @@
-import api from "./axiosConfigs";
+import api from "../configs/axiosConfigs";
 
 export const messageAPI = {
   sendMessage: async (data) => {

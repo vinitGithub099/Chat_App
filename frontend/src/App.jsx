@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
-import Loader from "./components/Loader";
 import "./index.css";
 import { chatSocket } from "./main";
 const message = "Verifying Credentials";
@@ -40,11 +39,7 @@ export default function App() {
 
   return (
     <main className="w-full min-h-screen">
-      {loading.autLogin ? (
-        <Loader message={message}></Loader>
-      ) : (
-        <Outlet></Outlet>
-      )}
+      {loading.autLogin ? <div>{message}</div> : <Outlet></Outlet>}
     </main>
   );
 }

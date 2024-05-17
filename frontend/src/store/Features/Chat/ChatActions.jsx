@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { chatAPI } from "../../../api/chatAPI";
 import { messageAPI } from "../../../api/messageAPI";
-import { handelTokenExpiration } from "../../../utils/Utils";
+import { handelTokenExpiration } from "../../../helpers/helpers";
 
 export const fetchChats = createAsyncThunk(
   "chat/fetchChats",

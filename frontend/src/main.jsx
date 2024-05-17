@@ -3,11 +3,11 @@ import { Provider } from "react-redux";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import persistStore from "redux-persist/es/persistStore";
 import { PersistGate } from "redux-persist/integration/react";
-import { socket } from "./components/Socket/socket";
-import ToastProvider from "./components/Toast/ToastProvider";
 import "./index.css";
+import ToastProvider from "./providers/Toast";
 import { router } from "./routes/AppRoutes";
 import { store } from "./store/store";
+import { socket } from "./utils/socket";
 
 export const chatSocket = socket;
 
