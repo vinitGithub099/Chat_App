@@ -1,5 +1,7 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
+const ForbiddenError = require("../errors/ForbiddenError");
+const UnauthorizedError = require("../errors/UnauthorizedError");
 
 /**
  * * middleware to check if user has JWT token
@@ -20,14 +22,12 @@ const protect = async (req, res, next) => {
       next();
     } catch (error) {
       /* Expired token */
-      res.status(403).send("Not authorized, Expired token failed");
-      /*  throw new Error("Not authorized, token failed") */
+      return next(new ForbiddenError("Not authorized, Expired token failed"));
     }
   }
   if (!token) {
     /* token not received from frontend */
-    res.status(401).send("Token not received");
-    /* throw new Error("Not authorized, no token found"); */
+    return next(new UnauthorizedError("Token not received"));
   }
 };
 

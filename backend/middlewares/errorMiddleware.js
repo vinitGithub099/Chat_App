@@ -4,18 +4,9 @@ const notFound = (req, res, next) => {
   next(error);
 };
 
-/**
- * * middleware to handle error if no middleware/route is caught before it
- */
+/* middleware to handle error if no middleware/route is caught before it */
 const errorHandler = (err, req, res, next) => {
-  const errStatus = err.statusCode || 500;
-  const errMsg = err.message || "Something went wrong";
-  res.status(errStatus).json({
-    success: false,
-    status: errStatus,
-    message: errMsg,
-    stack: process.env.NODE_ENV === "development" ? err.stack : {},
-  });
+  res.status(err.httpCode).json(err.toJSON());
 };
 
 module.exports = { notFound, errorHandler };
