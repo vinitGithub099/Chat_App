@@ -1,5 +1,5 @@
 .container {
-  @apply w-full min-h-screen font-mono;
+  @apply w-full min-h-screen font-mono flex flex-col justify-between;
 
   .header {
     @apply px-8 py-4 w-full flex flex-row justify-between items-center shadow-md shadow-highlight;
