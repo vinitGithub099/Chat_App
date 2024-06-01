@@ -20,14 +20,8 @@ const protect = async (req, res, next) => {
       next();
     } catch (error) {
       /* Expired token */
-      res.status(403).send("Not authorized, Expired token failed");
-      /*  throw new Error("Not authorized, token failed") */
+      return next(new ForbiddenError("token expired!"));
     }
-  }
-  if (!token) {
-    /* token not received from frontend */
-    res.status(401).send("Token not received");
-    /* throw new Error("Not authorized, no token found"); */
   }
 };
 

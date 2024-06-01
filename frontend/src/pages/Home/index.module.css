@@ -7,38 +7,6 @@
     .logo {
       @apply text-4xl font-bold text-accent;
     }
-
-    .nav {
-      @apply w-auto;
-
-      .list {
-        @apply flex flex-row items-baseline text-lg;
-
-        .listItem {
-          @apply px-2 mx-2 text-primary border-2 border-white;
-
-          &:hover {
-            @apply border-b-accent transition-all duration-100 ease-linear cursor-pointer;
-          }
-        }
-
-        .loginBtn {
-          @apply mx-2 px-4 py-2 border-2 border-white text-highlight;
-
-          &:hover {
-            @apply cursor-pointer border-highlight  bg-opacity-10;
-          }
-        }
-
-        .registerBtn {
-          @apply px-4 py-2 border-2 border-highlight border-opacity-10 text-highlight bg-highlight bg-opacity-10;
-
-          &:hover {
-            @apply cursor-pointer;
-          }
-        }
-      }
-    }
   }
 
   .main {

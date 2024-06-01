@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import chatImage from "../../assets/7495.jpg";
+import Navbar from "../../components/Navbar";
 import styles from "./index.module.css";
 
 const HomePage = () => {
@@ -7,20 +8,7 @@ const HomePage = () => {
     <div className={styles.container}>
       <header className={styles.header}>
         <div className={styles.logo}>chathub</div>
-        <nav className={styles.nav}>
-          <ul className={styles.list}>
-            <li className={styles.listItem}>Home</li>
-            <li className={styles.listItem}>Demo</li>
-            <li className={styles.listItem}>Features</li>
-            <li className={styles.listItem}>Help</li>
-            <li className={styles.loginBtn}>
-              <Link to="/login">Login</Link>
-            </li>
-            <li className={styles.registerBtn}>
-              <Link to="/register">Sign Up</Link>
-            </li>
-          </ul>
-        </nav>
+        <Navbar />
       </header>
       <main className={styles.main}>
         <section className={styles.section}>
