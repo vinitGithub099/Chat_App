@@ -1,5 +1,7 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
+const ForbiddenError = require("../errors/ForbiddenError");
+const UnauthorizedError = require("../errors/UnauthorizedError");
 
 /**
  * * middleware to check if user has JWT token

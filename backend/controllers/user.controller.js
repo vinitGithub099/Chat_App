@@ -3,7 +3,11 @@ const jwt = require("jsonwebtoken");
 const {
   generateAccessToken,
   generateRefreshToken,
-} = require("../configs/generateToken");
+} = require("../utils/generateToken");
+const BadRequestError = require("../errors/BadRequestError");
+const ConflictError = require("../errors/ConflictError");
+const InternalServerError = require("../errors/InternalServerError");
+const UnauthorizedError = require("../errors/UnauthorizedError");
 
 /**
  * * status: working
@@ -14,35 +18,30 @@ const {
 const registerUser = async (req, res) => {
   const { name, email, password, pic, bio, phone, isAdmin } = req.body;
 
-  if (!name && !email && !password) {
-    res.status(400).send("Please Enter all the fields");
-    // throw new Error("Please Enter all the fields");
-    return;
+  if (!name || !email || !password) {
+    return next(new BadRequestError("Fields are missing!"));
   }
 
-  const userExists = await User.findOne({ email });
+  try {
+    const userExists = await User.findOne({ email });
 
-  if (userExists) {
-    res.status(400).send("User already exists");
-    // throw new Error("User already exists");
-    return;
-  }
+    if (userExists) {
+      return next(new ConflictError("User already Exists!"));
+    }
 
-  const user = await User.create({
-    name,
-    email,
-    password,
-    phone,
-    bio,
-    pic,
-    isAdmin,
-  });
+    await User.create({
+      name,
+      email,
+      password,
+      phone,
+      bio,
+      pic,
+      isAdmin,
+    });
 
-  if (user) {
-    res.status(200).json({});
-  } else {
-    res.status(400).send("Failed to create the User");
-    // throw new Error("Failed to create the User");
+    res.status(201).json();
+  } catch (error) {
+    return next(new InternalServerError("Failed to create user!"));
   }
 };
 
@@ -55,28 +54,40 @@ const registerUser = async (req, res) => {
 const loginUser = async (req, res, next) => {
   const { email, password } = req.body;
 
-  const user = await User.findOne({ email });
+  if (!email || !password) {
+    return next(new BadRequestError("Fields are missing!"));
+  }
 
-  if (!user) {
-    res.status(404).send("User does not exist!");
-  } else if (await user.matchPassword(password)) {
-    const accessToken = generateAccessToken(user._id);
-    const refreshToken = generateRefreshToken(user._id);
+  try {
+    const user = await User.findOne({ email });
 
-    res
-      .cookie("refresh_token", refreshToken, {
-        httpOnly: true,
-        expire: process.env.JWT_REFRESH_TOKEN_EXPIRATION,
-        secure: process.env.NODE_ENV === "production",
-      })
-      .status(200)
-      .json({
-        user: user,
-        accessToken: accessToken,
-      });
-  } else {
-    res.status(401).json({ message: "Invalid Password" });
-    // throw new Error("Invalid Email or Password");
+    if (!user) {
+      return next(new NotFoundError("User doesn't exists!"));
+    }
+
+    const isPswdMatched = await user.matchPassword(password);
+
+    if (isPswdMatched) {
+      const accessToken = generateAccessToken(user._id);
+      const refreshToken = generateRefreshToken(user._id);
+
+      res
+        .cookie("refresh_token", refreshToken, {
+          httpOnly: true,
+          expire: process.env.JWT_REFRESH_TOKEN_EXPIRATION,
+          secure: process.env.NODE_ENV === "production",
+        })
+        .status(200)
+        .json({
+          user: user,
+          accessToken: accessToken,
+        });
+    } else {
+      return next(new UnauthorizedError("Invalid user info"));
+    }
+  } catch (error) {
+    console.log(error.toString());
+    return next(new InternalServerError("Failed to login!"));
   }
 };
 
@@ -87,17 +98,26 @@ const loginUser = async (req, res, next) => {
  * @purpose to get the data of all the users
  */
 const allUsers = async (req, res) => {
-  const keyword = req.query.search
-    ? {
-        $or: [
-          { name: { $regex: req.query.search, $options: "i" } },
-          { email: { $regex: req.query.search, $options: "i" } },
-        ],
-      }
-    : {};
+  try {
+    const keyword = req.query.search
+      ? {
+          $or: [
+            { name: { $regex: req.query.search, $options: "i" } },
+            { email: { $regex: req.query.search, $options: "i" } },
+          ],
+        }
+      : {};
 
-  const users = await User.find(keyword).find({ _id: { $ne: req.user._id } });
-  res.send(users);
+    if (!req.user || !req.user._id) {
+      return next(new BadRequestError("user info missing from request!"));
+    }
+
+    const users = await User.find(keyword).find({ _id: { $ne: req.user._id } });
+
+    res.send(users);
+  } catch (error) {
+    return next(new InternalServerError("Failed to fetch users!"));
+  }
 };
 
 /**
@@ -106,23 +126,31 @@ const allUsers = async (req, res) => {
  * @method GET /api/user/refresh-token
  * @purpose to renew the access token and refresh token if access token expires or is not received in the headers of request
  */
-const refreshToken = async (req, res) => {
+const refreshToken = async (req, res, next) => {
   const cookieRefreshToken = req.refreshToken;
-  const { id } = jwt.verify(cookieRefreshToken, process.env.JWT_SECRET);
-  /* console.log("refresh route"); */
-  const accessToken = generateAccessToken(id);
-  const refreshToken = generateRefreshToken(id);
 
-  res
-    .cookie("refresh_token", refreshToken, {
-      httpOnly: true,
-      expire: process.env.JWT_REFRESH_TOKEN_EXPIRATION,
-      secure: process.env.NODE_ENV === "production",
-    })
-    .status(200)
-    .json({
-      accessToken: accessToken,
-    });
+  if (!cookieRefreshToken) {
+    return next(new BadRequestError("Refresh not found in request!"));
+  }
+
+  try {
+    const { id } = jwt.verify(cookieRefreshToken, process.env.JWT_SECRET);
+    const accessToken = generateAccessToken(id);
+    const newRefreshToken = generateRefreshToken(id);
+
+    res
+      .cookie("refresh_token", newRefreshToken, {
+        httpOnly: true,
+        expire: process.env.JWT_REFRESH_TOKEN_EXPIRATION,
+        secure: process.env.NODE_ENV === "production",
+      })
+      .status(200)
+      .json({
+        accessToken: accessToken,
+      });
+  } catch (error) {
+    return next(new InternalServerError("Failed to get refresh token!"));
+  }
 };
 
 /**

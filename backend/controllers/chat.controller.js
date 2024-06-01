@@ -1,4 +1,6 @@
 const { GROUP_MEMBERS_LIMIT } = require("../configs/constants");
+const BadRequestError = require("../errors/BadRequestError");
+const NotFoundError = require("../errors/NotFoundError");
 const Chat = require("../models/chatModel");
 const User = require("../models/userModel");
 
@@ -6,55 +8,64 @@ const User = require("../models/userModel");
  * * status: working
  * @description access to all the chats of a user
  * @method POST /api/chat/accessChat
- * @purpose to establish chat connection between individuals
+ * @purpose to establish one-to-one chat 
  */
 const accessChat = async (req, res) => {
   const { userId } = req.body;
 
   if (!userId) {
-    /* console.log("UserId param not sent with the request"); */
-    return res.sendStatus(400);
+    return next(new BadRequestError("UserId param not sent with the request"));
   }
 
-  let isChat = await Chat.find({
-    isGroupChat: false,
-    $and: [
-      { users: { $elemMatch: { $eq: req.user._id } } },
-      { users: { $elemMatch: { $eq: userId } } },
-    ],
-  })
-    .populate("users", "-password")
-    .populate("latestMessage");
+  let chat = null;
 
-  isChat = await User.populate(isChat, {
-    path: "latestMessage.sender",
-    select: "name pic email",
-  });
-
-  if (isChat.length > 0) {
-    res.send(isChat[0]);
-  } else {
-    let chatData = {
-      chatName: "sender",
+  /* find chat if it already exists */
+  try {
+    chat = await Chat.find({
       isGroupChat: false,
-      users: [req.user._id, userId],
-    };
-    try {
-      const createdChat = await Chat.create(chatData);
-      let fullChat = await Chat.findOne({ _id: createdChat._id }).populate({
-        path: "users",
-        select: "-password",
-      });
+      $and: [
+        { users: { $elemMatch: { $eq: req.user._id } } },
+        { users: { $elemMatch: { $eq: userId } } },
+      ],
+    })
+      .populate("users", "-password")
+      .populate("latestMessage");
 
-      isChat = await User.populate(isChat, {
-        path: "latestMessage.sender",
-        select: "name pic email",
-      });
+    chat = await User.populate(chat, {
+      path: "latestMessage.sender",
+      select: "name pic email",
+    });
+  } catch (error) {
+    return next(new InternalServerError("Couldn't access the chat"));
+  }
 
-      res.status(200).json(fullChat);
-    } catch (error) {
-      throw new Error(error);
-    }
+  if (chat?.length > 0) {
+    res.send(chat[0]);
+    return;
+  }
+
+  /* create new chat if it does not exists */
+  let chatData = {
+    chatName: "sender",
+    isGroupChat: false,
+    users: [req.user._id, userId],
+  };
+
+  try {
+    const createdChat = await Chat.create(chatData);
+    let fullChat = await Chat.findOne({ _id: createdChat._id }).populate({
+      path: "users",
+      select: "-password",
+    });
+
+    chat = await User.populate(chat, {
+      path: "latestMessage.sender",
+      select: "name pic email",
+    });
+
+    res.status(200).json(fullChat);
+  } catch (error) {
+    return next(new InternalServerError("Failed to create chat!"));
   }
 };
 
@@ -66,7 +77,7 @@ const accessChat = async (req, res) => {
  */
 const fetchChats = async (req, res) => {
   try {
-    Chat.find({ users: { $elemMatch: { $eq: req.user._id } } })
+    await Chat.find({ users: { $elemMatch: { $eq: req.user._id } } })
       .populate("users", "-password")
       .populate("groupAdmin", "-password")
       .populate("latestMessage")
@@ -79,8 +90,7 @@ const fetchChats = async (req, res) => {
         res.status(200).send(results);
       });
   } catch (error) {
-    // res.status(400).send({ message: "could not fetch chats" });
-    throw new Error(error.message);
+    return next(new InternalServerError("Could not fetch chats!"));
   }
 };
 
@@ -93,15 +103,17 @@ const fetchChats = async (req, res) => {
  */
 const createGroupChat = async (req, res) => {
   if (!req.body.users || !req.body.name) {
-    return res.status(400).send({ message: "Please fill all the fields" });
+    return next(new BadRequestError("Please fill all the fields"));
   }
 
   let users = JSON.parse(req.body.users);
 
   if (users.length < GROUP_MEMBERS_LIMIT) {
-    return res
-      .status(400)
-      .send("More than two users are required to form a group chat");
+    return next(
+      new BadRequestError(
+        "More than two users are required to form a group chat"
+      )
+    );
   }
 
   users.push(req.user);
@@ -121,8 +133,7 @@ const createGroupChat = async (req, res) => {
 
     res.status(200).json(fullGroupChat);
   } catch (error) {
-    res.status(400);
-    throw new Error(error);
+    return next(new InternalServerError("Could't create the chat!"));
   }
 };
 
@@ -134,23 +145,25 @@ const createGroupChat = async (req, res) => {
  */
 const renameGroup = async (req, res) => {
   const { chatId, chatName } = req.body;
-  const updateChat = await Chat.findByIdAndUpdate(
-    chatId,
-    {
-      chatName,
-    },
-    {
-      new: true,
-    }
-  )
-    .populate("users", "-password")
-    .populate("groupAdmin", "-password");
+  try {
+    const updateChat = await Chat.findByIdAndUpdate(
+      chatId,
+      {
+        chatName,
+      },
+      {
+        new: true,
+      }
+    )
+      .populate("users", "-password")
+      .populate("groupAdmin", "-password");
 
-  if (!updateChat) {
-    res.status(404);
-    throw new Error("Chat not found");
-  } else {
+    if (!updateChat) {
+      return next(new NotFoundError("Chat not found"));
+    }
     res.json(updateChat);
+  } catch (error) {
+    return next(new InternalServerError("Could not rename the group!"));
   }
 };
 
@@ -163,23 +176,26 @@ const renameGroup = async (req, res) => {
 const addToGroup = async (req, res) => {
   const { chatId, userId } = req.body;
 
-  const added = await Chat.findByIdAndUpdate(
-    chatId,
-    {
-      $push: { users: userId },
-    },
-    {
-      new: true,
-    }
-  )
-    .populate("users", "-password")
-    .populate("groupAdmin", "-password");
+  try {
+    const added = await Chat.findByIdAndUpdate(
+      chatId,
+      {
+        $push: { users: userId },
+      },
+      {
+        new: true,
+      }
+    )
+      .populate("users", "-password")
+      .populate("groupAdmin", "-password");
 
-  if (!added) {
-    res.status(404);
-    throw new Error("Chat not found");
-  } else {
-    res.json(added);
+    if (!added) {
+      return next(new NotFoundError("Chat not found!"));
+    } else {
+      res.json(added);
+    }
+  } catch (error) {
+    return next(new InternalServerError("Coundn't add to the group!"));
   }
 };
 
@@ -205,15 +221,15 @@ const removeFromGroup = async (req, res) => {
       .populate("groupAdmin", "-password");
 
     if (!removed) {
-      res.status(404).json({ error: "Chat not found" });
-    } else {
-      res.json(removed);
+      return next(new NotFoundError("Chat not found"));
     }
+    res.json(removed);
   } catch (error) {
-    // Handle any database or other errors here
-    res.status(500).json({
-      error: "An error occurred while removing the user from the group.",
-    });
+    return next(
+      new InternalServerError(
+        "An error occurred while removing the user from the group."
+      )
+    );
   }
 };
 
@@ -225,5 +241,3 @@ module.exports = {
   addToGroup,
   removeFromGroup,
 };
-
-// {"_id":"6505f1bec471484717b8b3c3","name":"Sample User 1","email":"sample1@gmail.com","password":"$2b$10$QxSGcOKQmu3FBs1D69m1qOIXZw1dqiMGC1aypUOe/btsdhDK2jWue","isAdmin":false,"createdAt":"2023-09-16T18:19:42.756Z","updatedAt":"2023-09-16T18:19:42.756Z","__v":0,"inputClassName":"p-2 w-full rounded-md outline-none bg-light-3 text-light-1"},{"_id":"6505f22bc471484717b8b3c6","name":"Sample User 2","email":"sample2@gmail.com","password":"$2b$10$nIkoqA1s4zqj57YCrbd7HeVo/sO8wQJn9573OCTJVsAyK4RrbzzmC","isAdmin":false,"createdAt":"2023-09-16T18:21:31.088Z","updatedAt":"2023-09-16T18:21:31.088Z","__v":0,"inputClassName":"p-2 w-full rounded-md outline-none bg-light-3 text-light-1"},{"_id":"6505f2e0c471484717b8b3c9","name":"Sample User 3","email":"sample3@gmail.com","password":"$2b$10$jY0718c1q3vk04oqMCaLU.KSS5x1XpGAlCn9YLrlMuk8zFGoCXfra","isAdmin":false,"createdAt":"2023-09-16T18:24:32.423Z","updatedAt":"2023-09-16T18:24:32.423Z","__v":0,"inputClassName":"p-2 w-full rounded-md outline-none bg-light-3 text-light-1"}
