@@ -8,6 +8,7 @@ const BadRequestError = require("../errors/BadRequestError");
 const ConflictError = require("../errors/ConflictError");
 const InternalServerError = require("../errors/InternalServerError");
 const UnauthorizedError = require("../errors/UnauthorizedError");
+const NotFoundError = require("../errors/NotFoundError");
 
 /**
  * * status: working
@@ -65,16 +66,22 @@ const loginUser = async (req, res, next) => {
       return next(new NotFoundError("User doesn't exists!"));
     }
 
+    // compare password provided in the request with that in the DB
     const isPswdMatched = await user.matchPassword(password);
 
+    // if passwords match then generate new tokens
     if (isPswdMatched) {
+
       const accessToken = generateAccessToken(user._id);
+
+      // refresh token is generated during login only
       const refreshToken = generateRefreshToken(user._id);
 
+      // store the refresh token in the cookies and send the access token in response
       res
-        .cookie("refresh_token", refreshToken, {
+        .cookie("refreshToken", refreshToken, {
           httpOnly: true,
-          expire: process.env.JWT_REFRESH_TOKEN_EXPIRATION,
+          expire: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
           secure: process.env.NODE_ENV === "production",
         })
         .status(200)
@@ -82,11 +89,11 @@ const loginUser = async (req, res, next) => {
           user: user,
           accessToken: accessToken,
         });
+
     } else {
       return next(new UnauthorizedError("Invalid user info"));
     }
   } catch (error) {
-    console.log(error.toString());
     return next(new InternalServerError("Failed to login!"));
   }
 };
@@ -124,32 +131,27 @@ const allUsers = async (req, res) => {
  * * status: working
  * @description Refresh Token
  * @method GET /api/user/refresh-token
- * @purpose to renew the access token and refresh token if access token expires or is not received in the headers of request
+ * @purpose to renew the access token
  */
 const refreshToken = async (req, res, next) => {
-  const cookieRefreshToken = req.refreshToken;
+  // get refresh token from cookies
+  const refreshToken = req.cookies.refreshToken;
 
-  if (!cookieRefreshToken) {
-    return next(new BadRequestError("Refresh not found in request!"));
+  if (!refreshToken) {
+    return next(new UnauthorizedError("Refresh token not found!"));
   }
 
   try {
-    const { id } = jwt.verify(cookieRefreshToken, process.env.JWT_SECRET);
-    const accessToken = generateAccessToken(id);
-    const newRefreshToken = generateRefreshToken(id);
+    // verify the authencity of the refresh token,
+    // if invalid/expired --> error caught in the catch block
+    const decoded = jwt.verify(refreshToken, process.env.REFRESH_JWT_SECRET);
 
-    res
-      .cookie("refresh_token", newRefreshToken, {
-        httpOnly: true,
-        expire: process.env.JWT_REFRESH_TOKEN_EXPIRATION,
-        secure: process.env.NODE_ENV === "production",
-      })
-      .status(200)
-      .json({
-        accessToken: accessToken,
-      });
+    // if the refresh token is valid then generate new access token
+    const accessToken = generateAccessToken(decoded.id);
+
+    res.status(200).json({ accessToken: accessToken });
   } catch (error) {
-    return next(new InternalServerError("Failed to get refresh token!"));
+    return next(new UnauthorizedError("Failed to verify refresh token!"));
   }
 };
 
