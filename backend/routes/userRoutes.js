@@ -21,7 +21,7 @@ router.post("/login", loginUser);
 router.get("/allUsers", protect, allUsers);
 
 /** status: Working */
-router.post("/refresh-token", protect, refreshToken);
+router.post("/refresh-token", refreshToken);
 
 /** status: Working */
 router.post("/logout", logout);
