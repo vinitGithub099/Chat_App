@@ -6,9 +6,6 @@ import ErrorPage from "../pages/Error";
 import AuthTokenExpiration from "../pages/Expire/AuthToken";
 import HomePage from "../pages/Home/index";
 import Profile from "../pages/Profile";
-import Sample from "../pages/Sample";
-import DummyForm from "../pages/Sample/Form";
-import ToastDemo from "../pages/Sample/Toast";
 import ProtectedRoute from "./ProtectedRoutes";
 
 export const router = [
@@ -23,19 +20,13 @@ export const router = [
       },
       {
         path: "login",
-        element: <LoginPage className="" />,
+        element: <LoginPage />,
+        // element: <></>,
       },
       {
         path: "register",
-        element: <RegisterPage className="" />,
-      },
-      {
-        path: "sample/",
-        element: <Sample />,
-        children: [
-          { path: "form", element: <DummyForm /> },
-          { path: "toast", element: <ToastDemo /> },
-        ],
+        element: <RegisterPage />,
+        // element: <></>,
       },
       {
         path: "profile/",
@@ -49,7 +40,7 @@ export const router = [
       },
       {
         path: "chat",
-        element: <ProtectedRoute></ProtectedRoute>,
+        // element: <ProtectedRoute></ProtectedRoute>,
         children: [
           {
             path: "",

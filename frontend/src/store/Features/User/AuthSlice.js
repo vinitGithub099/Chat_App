@@ -15,7 +15,6 @@ const initialState = {
     autoLogin: false,
     login: false,
   },
-  tokenExpired: false,
 };
 
 export const authSlice = createSlice({
@@ -23,14 +22,7 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     logout: () => initialState,
-    setTokenAction: (state, { payload }) => ({
-      ...state,
-      token: payload,
-    }),
-    setTokenExpiration: (state, { payload }) => ({
-      ...state,
-      tokenExpired: payload,
-    }),
+    setToken: (state, {payload}) => ({...state, token: payload}) 
   },
   extraReducers: (builder) => {
     /* userLogin */
@@ -39,7 +31,7 @@ export const authSlice = createSlice({
       loading: { ...state.loading, login: true },
     }));
     builder.addCase(loginUser.fulfilled, (state, { payload }) => {
-      localStorage.setItem("access_token", payload.accessToken);
+      // localStorage.setItem("access_token", payload.accessToken);
       return {
         ...state,
         user: payload.user,

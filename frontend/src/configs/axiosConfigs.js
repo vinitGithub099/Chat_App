@@ -1,10 +1,20 @@
+/* 
+useful links:
+
+https://medium.com/@alokprakash9431810899/how-to-setup-axios-interceptor-independently-with-redux-in-react-a6fe3fd8f4c4
+
+https://dev.to/mihaiandrei97/jwt-authentication-using-axios-interceptors-55be
+
+*/
+
 import axios from "axios";
 import { authAPI } from "../api/authAPI";
+import store from "../store/store";
 import { BASE_URL } from "./baseURL";
-import { PERSIST_AUTH_KEY } from "./keys";
 
 const baseUrl = `${BASE_URL}/api`;
 
+// custom url endpoint
 const api = axios.create({
   baseURL: baseUrl,
   withCredentials: true,
@@ -12,59 +22,73 @@ const api = axios.create({
 
 export default api;
 
-/**
- * @description Register user
- * @purpose to append token to the header of every request made via the "api" axios instance
- */
-api.interceptors.request.use(
-  (config) => {
-    const key = PERSIST_AUTH_KEY;
-    const authInfo = localStorage.getItem(key);
-    const parsedAuthInfo = JSON.parse(authInfo);
-    let accessToken;
-    if (parsedAuthInfo && parsedAuthInfo.token) {
-      accessToken = JSON.parse(parsedAuthInfo.token);
-    }
-    if (accessToken) {
-      config.headers.Authorization = `Bearer ${accessToken}`;
-    }
-    return config;
-  },
-  (error) => Promise.reject(error)
-);
+// function to configure axios interceptors
+export const configureAxios = () => {
+  console.log("axios configured!");
 
-/**
- * @description Register user
- * @purpose handle JWT token expiration
- * * If a request receives a 401 error (Unauthorized) and there is a JWT refreshToken available, use it to fetch a new JWT authToken and update it in localStorage. Then retry the original request with the new authToken.
- */
-
-api.interceptors.response.use(
-  (response) => response,
-  async (error) => {
-    const originalRequest = error.config;
-    if (error.response.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true;
-      let accessToken;
-
-      try {
-        const res = await authAPI.refreshToken();
-        accessToken = res.accessToken;
-        const key = PERSIST_AUTH_KEY;
-        const authInfo = localStorage.getItem(key);
-        const parsedAuthInfo = JSON.parse(authInfo);
-        if (parsedAuthInfo) {
-          parsedAuthInfo.token = accessToken;
-        }
-        localStorage.setItem(key, JSON.stringify(parsedAuthInfo));
-      } catch (error) {
-        throw new Error(error);
+  // request interceptor
+  api.interceptors.request.use(
+    (config) => {
+      console.log(
+        "req interceptor success! req interceptor success! req interceptor success!"
+      );
+      const state = store.getState();
+      const accessToken = state.auth.token;
+      if (accessToken) {
+        config.headers.Authorization = `Bearer ${accessToken}`;
       }
+      return config;
+    },
+    (error) => Promise.reject(error)
+  );
 
-      api.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+  // response interceptor
+  api.interceptors.response.use(
+    (response) => response,
+    async (error) => {
+      const originalRequest = error.config;
+      if (
+        error.response &&
+        error.response.status === 401 &&
+        !originalRequest._retry
+      ) {
+        originalRequest._retry = true;
 
-      return api(originalRequest);
+        try {
+          console.log(
+            "refresh token api hit! refresh token api hit! refresh token api hit! "
+          );
+
+          const refreshResponse = await authAPI.refreshToken();
+
+          console.log(
+            "refresh token api success! refresh token api success! refresh token api success! "
+          );
+
+          console.log(refreshResponse);
+          const newAccessToken = refreshResponse.accessToken;
+
+          // Update the Redux store with the new token
+          store.dispatch({ type: "auth/setToken", payload: newAccessToken });
+
+          // Update the authorization header in the original request
+          originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+
+          console.log(
+            "original req retry! original req retry! original req retry! "
+          );
+
+          return api(originalRequest);
+        } catch (refreshError) {
+          console.log(
+            "refresh token expired! refresh token expired! refresh token expired! "
+          );
+          store.dispatch({ type: "auth/logout" });
+          originalRequest._retry = false;
+          return Promise.reject(refreshError);
+        }
+      }
+      return Promise.reject(error);
     }
-    return Promise.reject(error);
-  }
-);
+  );
+};

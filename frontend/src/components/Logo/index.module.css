@@ -1,0 +1,17 @@
+.logoContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .logoNameSmall {
+    font-size: 1rem; /* Adjust as needed */
+  }
+
+  .logoNameMedium {
+    font-size: 1.5rem; /* Adjust as needed */
+  }
+
+  .logoNameLarge {
+    font-size: 2rem; /* Adjust as needed */
+  }
+}

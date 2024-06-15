@@ -1,8 +1,14 @@
 /** @type {import('tailwindcss').Config} */
-export default {
+import withMT from "@material-tailwind/react/utils/withMT";
+const authCover = "./src/assets/6310507.jpg";
+
+export default withMT({
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      backgroundImage: {
+        "auth-cover": `url(${authCover})`,
+      },
       width: {
         sidebar: "80%",
         dropdown: "150px",
@@ -16,12 +22,6 @@ export default {
         success: "#22c55e",
         warn: "#f97316",
         info: "#0ea5e9",
-        "light-1": "#E0E0E0",
-        "light-2": "#828282",
-        "light-3": "#3C393F",
-        "dark-1": "#252329",
-        "dark-2": "#120F13",
-        "dark-3": "#0B090C",
         background: "#0B0C10",
         primary: "#1F2833",
         secondary: "#C5C6C7",
@@ -33,7 +33,21 @@ export default {
       },
     },
   },
-  plugins: [],
+  darkMode: "class",
+  plugins: [
+    function ({ addUtilities }) {
+      addUtilities(
+        {
+          ".bg-auth-cover": {
+            backgroundImage: `url(${authCover})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          },
+        },
+        ["responsive", "hover", "focus"]
+      );
+    },
+  ],
   safelist: [
     "text-error",
     "text-info",
@@ -42,4 +56,4 @@ export default {
         /(bg|text|border)-(light-1|light-2|light-3|dark-1|dark-2|dark-3|btn|success|error|warn|info)/,
     },
   ],
-};
+});

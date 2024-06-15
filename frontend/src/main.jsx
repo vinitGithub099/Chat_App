@@ -3,20 +3,23 @@ import { Provider } from "react-redux";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import persistStore from "redux-persist/es/persistStore";
 import { PersistGate } from "redux-persist/integration/react";
+import { configureAxios } from "./configs/axiosConfigs";
 import "./index.css";
-import ToastProvider from "./providers/Toast";
 import { router } from "./routes/AppRoutes";
-import { store } from "./store/store";
-import { socket } from "./utils/socket";
+import store from "./store/store";
 
-export const chatSocket = socket;
+import { ThemeProvider } from "@material-tailwind/react";
+
+// export const chatSocket = socket;
+
+configureAxios();
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
     <PersistGate persistor={persistStore(store)}>
-      <ToastProvider>
+      <ThemeProvider>
         <RouterProvider router={createBrowserRouter(router)}></RouterProvider>
-      </ToastProvider>
+      </ThemeProvider>
     </PersistGate>
   </Provider>
 );

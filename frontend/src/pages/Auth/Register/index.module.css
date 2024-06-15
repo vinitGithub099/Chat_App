@@ -1,34 +1,46 @@
-.registerContainer {
-  @apply mx-auto w-full min-h-screen;
+/* Container */
+.container {
+  @apply flex flex-col md:flex-row h-screen w-screen;
+}
 
-  .registerHeading {
-    @apply text-light-2 text-3xl font-bold text-center py-4;
-  }
+/* Form Container */
+.formContainer {
+  @apply flex flex-col justify-center items-center gap-4 flex-1 p-6 md:p-12;
+}
 
-  .registerForm {
-    @apply p-4 mx-auto max-w-sm border border-primary bg-primary rounded-md flex flex-col gap-4;
+.logo {
+}
 
-    .wrapperClassName {
-    }
+/* Form Styles */
+.form {
+  @apply w-full max-w-md;
+}
 
-    .className {
-      @apply p-2 flex border-b-2 border-highlight;
-    }
+.formField {
+  @apply mb-4;
+}
 
-    .labelClassName {
-      @apply pr-2 text-highlight;
-    }
+.label {
+  @apply block text-gray-700 text-sm font-bold mb-2;
+}
 
-    .errorClassName {
-      @apply py-1 text-red-300 text-xs font-light;
-    }
+.input {
+  @apply shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight;
+}
 
-    .inpClassName {
-      @apply px-2 outline-none text-white bg-transparent;
-    }
+.error {
+  @apply text-red-500 text-sm italic mt-1;
+}
 
-    .submitBtnClassName {
-      @apply my-2 p-2 rounded-md bg-highlight;
-    }
-  }
+.extras {
+  @apply flex justify-between;
+}
+
+.registerLink {
+  @apply mt-4 flex justify-center text-sm text-gray-600;
+}
+
+/* Cover Image Container */
+.coverImageContainer {
+  @apply hidden md:flex flex-1 bg-cover bg-center;
 }
