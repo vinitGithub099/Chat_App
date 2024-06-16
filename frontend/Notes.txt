@@ -1,6 +1,0 @@
-# Form using react hook Form
-    - separate resuable input components
-    - each input components should have choice to be used with or without formContext and should not throw errors if used with formContext
-    - validation rules should be customizable
-    - if used with formContext then the basic input should be wrapped under a component to show error message of the input validations
-    - the customized form component should be built using react-hook form so that multiple forms can created

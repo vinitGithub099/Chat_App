@@ -1,0 +1,31 @@
+.header {
+  @apply w-full;
+}
+
+.navbar {
+  @apply mx-auto max-w-screen-xl px-4 py-2;
+}
+
+.navbarContainer {
+  @apply flex items-center justify-between text-blue-gray-900;
+}
+
+.navlist {
+  @apply hidden lg:flex lg:flex-row lg:justify-self-end;
+}
+
+.iconButton {
+  @apply lg:hidden;
+}
+
+.icon {
+  @apply h-6 w-6;
+}
+
+.btnContainer {
+  @apply hidden lg:flex items-center gap-4;
+}
+
+.btnContainerCollapse {
+  @apply flex w-full flex-nowrap items-center gap-2 lg:hidden;
+}

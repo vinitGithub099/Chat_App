@@ -1,0 +1,26 @@
+.avatarBtn {
+  @apply flex items-center rounded-full p-0;
+}
+
+.menuList {
+  @apply p-1;
+}
+
+.menuItem {
+  @apply flex items-center gap-2 rounded;
+}
+
+.lastMenuItem {
+  @apply hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10;
+}
+
+.signOutText {
+  @apply text-red-500;
+}
+
+.icon {
+  @apply h-4 w-4;
+}
+
+.label {
+}

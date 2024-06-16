@@ -1,33 +1,30 @@
 import { Link } from "react-router-dom";
-import chatImage from "../../assets/7495.jpg";
-import Navbar from "../../components/Navbar";
-import styles from "./index.module.css";
+import chatImage from "../../assets/2796777_cropped.jpg";
+import Header from "../../components/Header";
+import classes from "./index.module.css";
 
 const HomePage = () => {
   return (
-    <div className={styles.container}>
-      <header className={styles.header}>
-        <div className={styles.logo}>chathub</div>
-        <Navbar />
-      </header>
-      <main className={styles.main}>
-        <section className={styles.section}>
-          <img className={styles.image} src={chatImage}></img>
+    <div className={classes.container}>
+      <Header className={classes.header} />
+      <main className={classes.main}>
+        <section className={classes.section}>
+          <img className={classes.image} src={chatImage}></img>
         </section>
-        <section className={styles.section}>
-          <div className={styles.content}>
-            <h2 className={styles.line1}>Hey!</h2>
-            <p className={styles.line2}>Ready to chat?</p>
-            <button className={styles.btn}>
+        <section className={classes.section}>
+          <div className={classes.content}>
+            <h2 className={classes.line1}>Hey!</h2>
+            <p className={classes.line2}>Ready to chat?</p>
+            <button className={classes.btn}>
               <Link to="/chat">{`Let's go`}</Link>
             </button>
           </div>
         </section>
       </main>
-      <footer className={styles.footer}>
-        <p className={styles.footerNote}>
+      <footer className={classes.footer}>
+        <p className={classes.footerNote}>
           created and maintained by{" "}
-          <span className={styles.nameLink}>@VinitKumbhare</span>
+          <span className={classes.nameLink}>@VinitKumbhare</span>
         </p>
       </footer>
     </div>

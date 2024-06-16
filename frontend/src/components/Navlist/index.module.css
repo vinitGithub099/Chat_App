@@ -1,0 +1,11 @@
+.header {
+  @apply w-full;
+}
+
+.navList {
+  @apply mt-4 mb-6 p-0 lg:mt-0 lg:mb-0 lg:p-1;
+}
+
+.navListItem {
+  @apply flex items-center gap-2 py-2 pr-4;
+}

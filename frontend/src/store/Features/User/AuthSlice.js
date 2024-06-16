@@ -12,9 +12,9 @@ const initialState = {
   token: null,
   loading: {
     register: false,
-    autoLogin: false,
     login: false,
   },
+  isLoggedIn: false,
 };
 
 export const authSlice = createSlice({
@@ -22,28 +22,28 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     logout: () => initialState,
-    setToken: (state, {payload}) => ({...state, token: payload}) 
+    setToken: (state, { payload }) => ({ ...state, token: payload }),
   },
   extraReducers: (builder) => {
     /* userLogin */
     builder.addCase(loginUser.pending, (state) => ({
       ...state,
       loading: { ...state.loading, login: true },
+      isLoggedIn: false,
     }));
     builder.addCase(loginUser.fulfilled, (state, { payload }) => {
-      // localStorage.setItem("access_token", payload.accessToken);
       return {
         ...state,
         user: payload.user,
         token: payload.accessToken,
         loading: { ...state.loading, login: false },
-        tokenExpired: false,
+        isLoggedIn: true,
       };
     });
     builder.addCase(loginUser.rejected, (state) => ({
       ...state,
       loading: { ...state.loading, login: false },
-      tokenExpired: false,
+      isLoggedIn: false,
     }));
 
     /* registerUser */

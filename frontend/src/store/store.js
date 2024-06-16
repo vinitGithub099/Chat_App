@@ -16,7 +16,7 @@ import authReducer from "./Features/User/AuthSlice";
 const authPersistConfig = {
   key: "auth",
   storage: localStorage,
-  whitelist: ["user", "token"],
+  whitelist: ["user", "token", "isLoggedIn"],
   blacklist: ["loading", "tokenExpired"],
 };
 

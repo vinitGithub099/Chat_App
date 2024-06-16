@@ -1,17 +1,27 @@
 .logoContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  @apply flex flex-col items-center;
+}
 
-  .logoNameSmall {
-    font-size: 1rem; /* Adjust as needed */
-  }
+.logoNameExtraSmall {
+  @apply text-xs;
+}
 
-  .logoNameMedium {
-    font-size: 1.5rem; /* Adjust as needed */
-  }
+.logoNameSmall {
+  @apply text-sm;
+}
 
-  .logoNameLarge {
-    font-size: 2rem; /* Adjust as needed */
-  }
+.logoNameMedium {
+  @apply text-base;
+}
+
+.logoNameLarge {
+  @apply text-lg;
+}
+
+.logoNameExtraLarge {
+  @apply text-xl;
+}
+
+.logoNameDExtraLarge {
+  @apply text-xl;
 }

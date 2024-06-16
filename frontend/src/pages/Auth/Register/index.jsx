@@ -4,7 +4,6 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import loginCover from "../../../assets/6310507.jpg";
 import Logo from "../../../components/Logo";
-import { AVATAR_SIZE } from "../../../constants/avatar";
 import { EMAIL_REGEX } from "../../../constants/regex";
 import { registerUser } from "../../../store/Features/User/AuthActions";
 import classes from "./index.module.css";
@@ -33,7 +32,7 @@ const RegisterPage = () => {
 
   const formContainer = (
     <div className={classes.formContainer}>
-      <Logo className={""} size={AVATAR_SIZE.MEDIUM} />
+      <Logo className="" size="xxl" />
       <Typography variant="h2" className="text-left mb-4">
         Sign Up
       </Typography>

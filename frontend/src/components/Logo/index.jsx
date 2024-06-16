@@ -1,14 +1,16 @@
+import { Avatar } from "@material-tailwind/react";
 import cx from "classnames";
-import logo from "../../assets/logo1.jpg";
-import { AVATAR_SIZE } from "../../constants/avatar";
-import Avatar from "../Avatar";
-import classes from ".//index.module.css";
+import logo from "../../assets/logo2.jpg";
+import classes from "./index.module.css";
 
-const Logo = ({ size = AVATAR_SIZE.MEDIUM, className }) => {
+const Logo = ({ size = "md", className }) => {
   const logoNameClass = cx({
-    [classes.logoNameSmall]: size === AVATAR_SIZE.SMALL,
-    [classes.logoNameMedium]: size === AVATAR_SIZE.MEDIUM,
-    [classes.logoNameLarge]: size === AVATAR_SIZE.LARGE,
+    [classes.logoNameExtraSmall]: size === "xs",
+    [classes.logoNameSmall]: size === "sm",
+    [classes.logoNameMedium]: size === "md",
+    [classes.logoNameLarge]: size === "lg",
+    [classes.logoNameExtraLarge]: size === "xl",
+    [classes.logoNameDExtraLarge]: size === "xxl",
   });
 
   const containerClass = cx(classes.logoContainer, className);
