@@ -7,7 +7,7 @@ export default function App() {
   const loading = useSelector((state) => state.auth.loading);
 
   return (
-    <main className="w-full min-h-screen">
+    <main className="app">
       {loading.autLogin ? <div>{message}</div> : <Outlet></Outlet>}
     </main>
   );

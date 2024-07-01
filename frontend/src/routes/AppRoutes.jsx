@@ -3,7 +3,6 @@ import LoginPage from "../pages/Auth/Login";
 import RegisterPage from "../pages/Auth/Register";
 import Chats from "../pages/Chats";
 import ErrorPage from "../pages/Error";
-import AuthTokenExpiration from "../pages/Expire/AuthToken";
 import HomePage from "../pages/Home/index";
 import Profile from "../pages/Profile";
 import ProtectedRoute from "./ProtectedRoutes";
@@ -14,10 +13,6 @@ export const router = [
     element: <App></App>,
     children: [
       { path: "", element: <HomePage /> },
-      {
-        path: "auth-token-expiration",
-        element: <AuthTokenExpiration />,
-      },
       {
         path: "login",
         element: <LoginPage />,

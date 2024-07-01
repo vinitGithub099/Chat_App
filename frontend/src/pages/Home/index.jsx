@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import chatImage from "../../assets/2796777_cropped.jpg";
 import Header from "../../components/Header";
 import classes from "./index.module.css";
+import { Button } from "@material-tailwind/react";
 
 const HomePage = () => {
   return (
@@ -15,9 +16,9 @@ const HomePage = () => {
           <div className={classes.content}>
             <h2 className={classes.line1}>Hey!</h2>
             <p className={classes.line2}>Ready to chat?</p>
-            <button className={classes.btn}>
+            <Button variant="text" className={classes.btn}>
               <Link to="/chat">{`Let's go`}</Link>
-            </button>
+            </Button>
           </div>
         </section>
       </main>

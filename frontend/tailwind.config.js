@@ -9,24 +9,29 @@ export default withMT({
       backgroundImage: {
         "auth-cover": `url(${authCover})`,
       },
-      width: {
-        sidebar: "80%",
-        dropdown: "150px",
-      },
       screens: {
-        mobile: "426px",
+        sm: "640px",
+
+        md: "768px",
+
+        lg: "1024px",
+
+        xl: "1280px",
+
+        "2xl": "1536px",
       },
       colors: {
-        btn: "#2F80ED",
         error: "#EF4444",
         success: "#22c55e",
         warn: "#f97316",
         info: "#0ea5e9",
-        background: "#0B0C10",
-        primary: "#1F2833",
-        secondary: "#C5C6C7",
-        accent: "#66FCF1",
-        highlight: "#45A29E",
+        primary: "#0f172a",
+        secondary: "#1e293b",
+        "accent-1": "#38bdf8",
+        "accent-2": "#eb6fb1",
+        highlight: "#293548",
+        "primary-text-1": "#e2e8f0",
+        "primary-text-2": "#94a3b8",
       },
       fontSize: {
         xxs: "0.1rem",

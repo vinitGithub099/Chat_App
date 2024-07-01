@@ -1,0 +1,19 @@
+.chatContentContainer {
+  @apply flex flex-col sm:shadow-md sm:shadow-highlight;
+}
+
+.chatContentHeader {
+  @apply mb-2 p-4 flex flex-row items-center gap-4;
+}
+
+.menuIcon {
+  @apply p-2 text-primary-text-1 hover:bg-secondary;
+}
+
+.errBtn {
+  @apply mx-auto flex items-center justify-between gap-4;
+}
+
+.content {
+  @apply w-full flex-1 overflow-auto;
+}

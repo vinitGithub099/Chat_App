@@ -34,11 +34,19 @@
 }
 
 .extras {
-  @apply flex justify-between;
+  @apply flex items-center justify-between text-primary-text-1;
+}
+
+.submitBtn {
+  @apply mt-6 bg-accent-1;
+}
+
+.registerLinkContainer {
+  @apply mt-4 flex justify-center text-sm text-primary-text-1;
 }
 
 .registerLink {
-  @apply mt-4 flex justify-center text-sm text-gray-600;
+  @apply px-2 font-bold text-accent-2 hover:text-primary-text-2;
 }
 
 /* Cover Image Container */

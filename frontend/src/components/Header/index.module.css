@@ -1,21 +1,25 @@
 .header {
-  @apply w-full;
+  @apply w-full sm:w-4/5 mx-auto px-4 bg-secondary lg:rounded-full shadow-sm shadow-accent-1;
 }
 
 .navbar {
-  @apply mx-auto max-w-screen-xl px-4 py-2;
+  @apply w-full mx-auto px-4 py-2 !border-0 shadow-none bg-secondary lg:rounded-full;
+}
+
+.logo {
+  @apply text-primary-text-1;
 }
 
 .navbarContainer {
-  @apply flex items-center justify-between text-blue-gray-900;
+  @apply flex items-center justify-between text-primary;
 }
 
 .navlist {
-  @apply hidden lg:flex lg:flex-row lg:justify-self-end;
+  @apply hidden lg:flex lg:flex-row lg:justify-self-end lg:rounded-full;
 }
 
-.iconButton {
-  @apply lg:hidden;
+.toggleNavBtn {
+  @apply lg:hidden text-primary-text-1 hover:bg-primary;
 }
 
 .icon {
@@ -28,4 +32,12 @@
 
 .btnContainerCollapse {
   @apply flex w-full flex-nowrap items-center gap-2 lg:hidden;
+}
+
+.registerBtn {
+  @apply border-b-2 border-b-accent-1 border-t-2 border-t-accent-2 rounded-full bg-transparent text-accent-1 hover:border-b-accent-2 hover:border-t-accent-1 hover:text-accent-2;
+}
+
+.loginBtn {
+  @apply border-2 border-secondary hover:border-primary hover:bg-primary rounded-full text-accent-2;
 }

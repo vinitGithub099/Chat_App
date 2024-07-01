@@ -2,7 +2,6 @@ import { Button, Checkbox, Input, Typography } from "@material-tailwind/react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import loginCover from "../../../assets/6310507.jpg";
 import Logo from "../../../components/Logo";
 import { EMAIL_REGEX } from "../../../constants/regex";
 import { loginUser } from "../../../store/Features/User/AuthActions";
@@ -80,37 +79,23 @@ const LoginPage = () => {
 
         <div className={classes.extras}>
           <Checkbox
-            label={
-              <Typography
-                variant="small"
-                color="gray"
-                className="flex items-center font-normal"
-              >
-                Remember Me
-              </Typography>
-            }
+            label={<Typography variant="small">Remember Me</Typography>}
             containerProps={{ className: "-ml-2.5" }}
           />
-          <Typography
-            variant="small"
-            color="gray"
-            className="flex items-center font-normal"
-          >
+          <Typography variant="small">
             <Link to="/login">Forgot password?</Link>
           </Typography>
         </div>
-        <Button type="submit" className="mt-6" fullWidth>
+
+        <Button type="submit" className={classes.submitBtn} fullWidth>
           SUBMIT
         </Button>
-        <div className={classes.registerLink}>
-          <Typography variant="small" color="gray" className="">
+
+        <div className={classes.registerLinkContainer}>
+          <Typography variant="small" className="">
             {`Don't have an account?`}
           </Typography>
-          <Typography
-            variant="small"
-            color="black"
-            className="px-2 font-bold hover:text-highlight"
-          >
+          <Typography variant="small" className={classes.registerLink}>
             <Link to="/register">Register</Link>
           </Typography>
         </div>
@@ -121,10 +106,7 @@ const LoginPage = () => {
   return (
     <section className={classes.container}>
       {formContainer}
-      <div
-        className={classes.coverImageContainer}
-        style={{ backgroundImage: `url(${loginCover})` }}
-      ></div>
+      <div className={classes.coverImageContainer}></div>
     </section>
   );
 };

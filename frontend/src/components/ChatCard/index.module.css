@@ -1,0 +1,35 @@
+.chatCard {
+  @apply w-full p-2 flex flex-row items-center gap-4 rounded-md hover:cursor-pointer hover:bg-highlight;
+}
+
+.avatar {
+  @apply bg-primary-text-2;
+}
+
+.active {
+  @apply bg-secondary;
+}
+
+.chatInfo {
+  @apply flex-1;
+}
+
+.chatInfoField {
+  @apply w-full grid grid-cols-4 lg:grid-cols-12 items-center;
+}
+
+.chatName {
+  @apply text-sm font-bold truncate col-span-3 lg:col-span-10;
+}
+
+.updates {
+  @apply text-xs font-bold text-green-500 col-span-1 lg:col-span-2 justify-self-end;
+}
+
+.latestMessage {
+  @apply text-xs text-primary-text-2 truncate font-light col-span-3 lg:col-span-10;
+}
+
+.unreadMsgCount {
+  @apply py-1 px-2 text-xs text-primary bg-success rounded-full col-span-1 lg:col-span-2 justify-self-end;
+}

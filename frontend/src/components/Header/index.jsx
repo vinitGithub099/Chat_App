@@ -1,4 +1,4 @@
-import { Button, Collapse, IconButton, Navbar } from "@material-tailwind/react";
+import { Button, Collapse, Navbar } from "@material-tailwind/react";
 import cx from "classnames";
 import { useEffect, useState } from "react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
@@ -25,6 +25,8 @@ const Header = ({ className }) => {
     navigate(`/${e.target.name}`);
   };
 
+  const toggleNavbar = () => setOpenNav((prev) => !prev);
+
   const authButtons = (isFullWidth) => {
     return (
       <div
@@ -34,23 +36,24 @@ const Header = ({ className }) => {
       >
         <Button
           name="register"
-          variant="gradient"
           size="sm"
+          variant="text"
           fullWidth={isFullWidth}
           onClick={handleClick}
+          className={classes.registerBtn}
         >
           Sign Up
         </Button>
-        {isLoggedIn ? (
+        {!isLoggedIn ? (
           <ProfileMenu />
         ) : (
           <Button
             name="login"
             variant="text"
             size="sm"
-            color="blue-gray"
             fullWidth={isFullWidth}
             onClick={handleClick}
+            className={classes.loginBtn}
           >
             Log In
           </Button>
@@ -59,29 +62,24 @@ const Header = ({ className }) => {
     );
   };
 
-  const iconButton = (
-    <IconButton
-      variant="text"
-      color="blue-gray"
-      className={classes.iconButton}
-      onClick={() => setOpenNav(!openNav)}
-    >
-      {openNav ? (
-        <AiOutlineClose className={classes.icon} size={20} />
-      ) : (
-        <AiOutlineMenu className={classes.icon} size={20} />
-      )}
-    </IconButton>
-  );
-
   return (
     <header className={cx(classes.header, className)}>
       <Navbar className={classes.navbar}>
         <div className={classes.navbarContainer}>
-          <Logo size="sm" />
+          <Logo size="sm" className={classes.logo} />
           <Navlist className={classes.navlist} />
           {authButtons(false)}
-          {iconButton}
+          <Button
+            variant="text"
+            className={classes.toggleNavBtn}
+            onClick={toggleNavbar}
+          >
+            {openNav ? (
+              <AiOutlineClose className={classes.icon} size={20} />
+            ) : (
+              <AiOutlineMenu className={classes.icon} size={20} />
+            )}
+          </Button>
         </div>
         <Collapse open={openNav}>
           <Navlist />

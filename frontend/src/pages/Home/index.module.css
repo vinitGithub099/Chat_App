@@ -1,9 +1,9 @@
 .container {
-  @apply w-full min-h-screen flex flex-col justify-between;
+  @apply w-full min-h-screen flex flex-col items-center justify-between;
 }
 
 .header {
-  @apply w-full fixed;
+  @apply fixed;
 }
 
 .main {
@@ -23,19 +23,15 @@
 }
 
 .line1 {
-  @apply text-4xl md:text-8xl font-bold text-secondary;
+  @apply text-4xl md:text-8xl font-bold text-accent-2;
 }
 
 .line2 {
-  @apply pt-2 text-2xl md:text-4xl font-bold text-primary;
+  @apply pt-2 text-2xl md:text-4xl font-bold text-accent-2;
 }
 
 .btn {
-  @apply my-4 px-8 py-4 text-4xl border-2 border-highlight rounded-md transition-all duration-200 ease-linear;
-
-  &:hover {
-    @apply bg-highlight text-white;
-  }
+  @apply my-4 px-8 py-4 text-4xl border-2 border-highlight rounded-md bg-accent-1 transition-all duration-200 ease-linear hover:bg-highlight hover:text-primary;
 }
 
 .footer {
@@ -47,9 +43,5 @@
 }
 
 .nameLink {
-  @apply font-bold;
-
-  &:hover {
-    @apply cursor-pointer underline text-highlight;
-  }
+  @apply font-bold hover:cursor-pointer hover:underline hover:text-highlight;
 }

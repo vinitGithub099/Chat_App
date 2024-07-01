@@ -1,0 +1,15 @@
+.chatContainer {
+  @apply w-full h-screen flex flex-col sm:flex-row;
+}
+
+.chatContentBar {
+  @apply w-full h-full sm:w-60 md:w-80 lg:w-1/4 overflow-auto;
+}
+
+.chatActivity {
+  @apply w-full h-full sm:flex-1 lg:w-3/4 overflow-auto;
+}
+
+.hide {
+  @apply hidden sm:flex;
+}

@@ -1,0 +1,7 @@
+.activityContainer {
+  @apply w-full flex items-center justify-center;
+}
+
+.errDiv {
+  @apply px-2 py-4 shadow-md m-auto rounded-lg flex items-center gap-4;
+}

@@ -1,0 +1,66 @@
+.messageViewContainer {
+  @apply w-full h-full flex flex-col;
+}
+
+.chatHeader {
+  @apply w-full mb-2 p-4 flex flex-row items-center gap-4 shadow-sm shadow-highlight;
+}
+
+.closeBtn {
+  @apply sm:hidden px-2 py-1 text-primary-text-1;
+}
+
+.avatar {
+  @apply bg-highlight;
+}
+
+.chatName {
+  @apply p-1 truncate;
+}
+
+.messageContainer {
+  @apply w-full py-4 px-2 md:px-8 mx-auto flex-1 flex flex-col-reverse overflow-y-scroll drop-shadow-md;
+
+  &::-webkit-scrollbar {
+    @apply w-1;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    @apply bg-highlight rounded-md;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    @apply bg-primary-text-2;
+  }
+}
+
+.sendMsgForm {
+  @apply w-full py-2 px-4;
+}
+
+.messageForm {
+  @apply max-h-full flex flex-row justify-between gap-2;
+}
+
+.textArea {
+  @apply min-h-full !border-0 focus:border-transparent text-primary-text-1;
+}
+
+.containerProps {
+  @apply grid h-full border-b-2 border-b-highlight;
+}
+
+.labelProps {
+  @apply before:content-none after:content-none;
+}
+
+.sendMsgBtn {
+  @apply bg-accent-1;
+}

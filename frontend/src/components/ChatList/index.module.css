@@ -1,0 +1,54 @@
+.chatListContainer {
+  @apply px-2 w-full h-full flex flex-col;
+}
+
+.searchBar {
+  @apply w-full pl-4 flex flex-row items-center bg-highlight rounded-full border-b-2 border-t-2 border-t-highlight border-b-highlight hover:border-b-accent-1 hover:border-t-accent-2;
+}
+
+.searchClose {
+  @apply hidden p-2 mr-2 text-accent-1 rounded-full hover:bg-primary;
+}
+
+.showCloseBtn {
+  @apply block;
+}
+
+.search {
+  @apply px-2 !border-0 bg-highlight rounded-full focus:!border-0 text-primary-text-1 placeholder:text-primary-text-2 placeholder:opacity-100;
+}
+
+.containerProps {
+  @apply mx-auto px-2;
+}
+
+.labelProps {
+  @apply hidden !border-0 focus:border-0;
+}
+
+.sendMsgBtn {
+  @apply bg-accent-1;
+}
+
+.chatList {
+  @apply px-1 mt-4 w-full overflow-y-scroll;
+
+  &::-webkit-scrollbar {
+    @apply w-1;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    @apply bg-transparent p-0.5;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    @apply bg-highlight rounded-md;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    @apply bg-primary-text-2;
+  }
+}
