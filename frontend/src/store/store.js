@@ -9,10 +9,10 @@ import {
   persistReducer,
 } from "redux-persist";
 import localStorage from "redux-persist/es/storage";
+import { apiSlice } from "./API/apiSlice";
+import authReducer from "./Features/Auth/AuthSlice";
 import chatReducer from "./Features/Chat/ChatSlice";
-import profileReducer from "./Features/ProfileSlice";
 import uiReducer from "./Features/UI/UISlice";
-import authReducer from "./Features/User/AuthSlice";
 
 const authPersistConfig = {
   key: "auth",
@@ -23,9 +23,9 @@ const authPersistConfig = {
 
 const rootReducer = combineReducers({
   auth: persistReducer(authPersistConfig, authReducer),
-  profile: profileReducer,
   chat: chatReducer,
   ui: uiReducer,
+  [apiSlice.reducerPath]: apiSlice.reducer,
 });
 
 const store = configureStore({
@@ -36,7 +36,7 @@ const store = configureStore({
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
         isSerializable: () => true,
       },
-    }),
+    }).concat(apiSlice.middleware),
 });
 
 export default store;
