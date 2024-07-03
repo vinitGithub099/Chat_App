@@ -71,7 +71,6 @@ const loginUser = async (req, res, next) => {
 
     // if passwords match then generate new tokens
     if (isPswdMatched) {
-
       const accessToken = generateAccessToken(user._id);
 
       // refresh token is generated during login only
@@ -89,7 +88,6 @@ const loginUser = async (req, res, next) => {
           user: user,
           accessToken: accessToken,
         });
-
     } else {
       return next(new UnauthorizedError("Invalid user info"));
     }
@@ -158,8 +156,8 @@ const refreshToken = async (req, res, next) => {
 /**
  * * status: working
  * @description fetch user details if token is availble
- * @method GET /api/user/auto-login
- * @purpose to auto login the user if token is valid
+ * @method POST /api/user/logout
+ * @purpose to logout the user
  */
 const logout = async (req, res) => {
   res.clearCookie("refresh_token");
