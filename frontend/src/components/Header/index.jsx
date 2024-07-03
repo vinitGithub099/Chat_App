@@ -75,9 +75,9 @@ const Header = ({ className }) => {
             onClick={toggleNavbar}
           >
             {openNav ? (
-              <AiOutlineClose className={classes.icon} size={20} />
+              <AiOutlineClose size={20} />
             ) : (
-              <AiOutlineMenu className={classes.icon} size={20} />
+              <AiOutlineMenu size={20} />
             )}
           </Button>
         </div>

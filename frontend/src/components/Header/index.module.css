@@ -1,5 +1,5 @@
 .header {
-  @apply w-full sm:w-4/5 mx-auto px-4 bg-secondary lg:rounded-full shadow-sm shadow-accent-1;
+  @apply w-full sm:w-4/5 mx-auto px-4 bg-secondary rounded-lg lg:rounded-full shadow-sm shadow-accent-1;
 }
 
 .navbar {
@@ -19,11 +19,7 @@
 }
 
 .toggleNavBtn {
-  @apply lg:hidden text-primary-text-1 hover:bg-primary;
-}
-
-.icon {
-  @apply h-6 w-6;
+  @apply p-2 lg:hidden text-primary-text-1 hover:bg-primary;
 }
 
 .btnContainer {
