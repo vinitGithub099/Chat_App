@@ -8,9 +8,6 @@
   @apply flex flex-col justify-center items-center gap-4 flex-1 p-6 md:p-12;
 }
 
-.logo {
-}
-
 /* Form Styles */
 .form {
   @apply w-full max-w-md;
@@ -25,22 +22,30 @@
 }
 
 .input {
-  @apply shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight;
+  @apply px-4 !border-0 focus:border-0 focus:shadow-sm focus:shadow-accent-2 bg-highlight text-primary-text-1 placeholder:text-primary-text-2 placeholder:opacity-100 rounded-none;
+}
+
+.labelProps {
+  @apply hidden !border-0 focus:border-0;
 }
 
 .error {
-  @apply text-red-500 text-sm italic mt-1;
+  @apply text-error text-sm italic mt-1 pl-2;
 }
 
-.extras {
-  @apply flex justify-between;
+.submitBtn {
+  @apply mt-6 border-2 text-primary-text-1 border-accent-1 bg-secondary hover:bg-accent-1;
 }
 
-.registerLink {
-  @apply mt-4 flex justify-center text-sm text-gray-600;
+.loginLinkContainer {
+  @apply mt-4 flex justify-center text-sm text-primary-text-1;
+}
+
+.loginLink {
+  @apply px-2 font-bold text-accent-2 hover:text-accent-1;
 }
 
 /* Cover Image Container */
 .coverImageContainer {
-  @apply hidden md:flex flex-1 bg-cover bg-center;
+  @apply hidden md:flex flex-1 bg-cover bg-center bg-auth-cover;
 }
