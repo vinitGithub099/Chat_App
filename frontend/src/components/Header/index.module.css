@@ -3,7 +3,7 @@
 }
 
 .navbar {
-  @apply w-full mx-auto px-4 py-2 !border-0 shadow-none bg-secondary lg:rounded-full;
+  @apply border-0 w-full mx-auto px-4 py-2 shadow-none bg-secondary lg:rounded-full;
 }
 
 .logo {
@@ -15,7 +15,7 @@
 }
 
 .navlist {
-  @apply hidden lg:flex lg:flex-row lg:justify-self-end lg:rounded-full;
+  @apply hidden lg:flex lg:flex-row gap-4 lg:rounded-full;
 }
 
 .toggleNavBtn {
@@ -35,5 +35,5 @@
 }
 
 .loginBtn {
-  @apply border-2 border-secondary hover:border-primary hover:bg-primary rounded-full text-accent-2;
+  @apply border border-accent-1 hover:border-primary hover:bg-primary rounded-full text-accent-2;
 }

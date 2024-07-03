@@ -1,34 +1,23 @@
+import { AiFillHome } from "react-icons/ai";
+import { FaCircleInfo, FaMessage } from "react-icons/fa6";
 import styles from "./index.module.css";
-
 export const navList = [
   {
     path: "/",
     name: "Home",
     className: styles.listItem,
+    icon: AiFillHome,
   },
   {
-    path: "/",
-    name: "Demo",
+    path: "/chat",
+    name: "Chat",
     className: styles.listItem,
+    icon: FaMessage,
   },
   {
-    path: "/",
-    name: "Features",
+    path: "/about",
+    name: "About",
     className: styles.listItem,
+    icon: FaCircleInfo,
   },
-  {
-    path: "/",
-    name: "Help",
-    className: styles.listItem,
-  },
-  /* {
-    path: "/login",
-    name: "Login",
-    className: styles.loginLink,
-  },
-  {
-    path: "/register",
-    name: "Sign Up",
-    className: styles.registerLink,
-  }, */
 ];

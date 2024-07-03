@@ -1,19 +1,23 @@
-import { List, ListItem } from "@material-tailwind/react";
+import { Typography } from "@material-tailwind/react";
 import cx from "classnames";
+import { Link } from "react-router-dom";
 import classes from "./index.module.css";
 import { navList } from "./navList";
 
 const Navlist = ({ className }) => {
   return (
-    <List className={cx(classes.navList, className)}>
+    <ul className={cx(classes.navList, className)}>
       {navList?.length
-        ? navList.map((navItem, index) => (
-            <ListItem key={index} className={classes.navListItem}>
-              {navItem.name}
-            </ListItem>
+        ? navList.map(({ name, icon: Icon, path }, index) => (
+            <Link key={index} to={path}>
+              <li className={classes.navListItem}>
+                <Icon fontSize={16} />
+                <Typography variant="small">{name}</Typography>
+              </li>
+            </Link>
           ))
         : null}
-    </List>
+    </ul>
   );
 };
 
