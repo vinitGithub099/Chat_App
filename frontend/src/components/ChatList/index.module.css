@@ -52,3 +52,11 @@
     @apply bg-primary-text-2;
   }
 }
+
+.spinLoaderContainer {
+  @apply w-full text-accent-1 flex items-center justify-center gap-4;
+}
+
+.spinner {
+  @apply text-accent-1 h-8 w-8;
+}

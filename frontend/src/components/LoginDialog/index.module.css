@@ -1,0 +1,23 @@
+.loginDialog {
+  @apply p-4 bg-highlight;
+}
+
+.loginDialogFeader {
+  @apply text-primary-text-1;
+}
+
+.loginDialogBody {
+  @apply text-primary-text-2;
+}
+
+.loginDialogFooter {
+  @apply flex flex-row gap-4;
+}
+
+.cancelBtn {
+  @apply border-2 border-accent-1 hover:bg-inherit hover:text-accent-1 text-primary-text-1 flex items-center gap-2;
+}
+
+.navigateBtn {
+  @apply bg-success border-2 border-success hover:bg-inherit hover:text-success;
+}

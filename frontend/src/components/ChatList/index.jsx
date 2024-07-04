@@ -1,15 +1,29 @@
-import { Button, Input } from "@material-tailwind/react";
+import { Button, Input, Spinner } from "@material-tailwind/react";
 import cx from "classnames";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
+import { useSelector } from "react-redux";
 import _ from "underscore";
+import { useLazyFetchChatsQuery } from "../../store/Services/chatAPI";
 import ChatCard from "../ChatCard";
-import { chats } from "./chatList";
 import classes from "./index.module.css";
 
-const ChatList = ({ chatList = chats }) => {
+const ChatList = () => {
   const [searchResponse, setSearchResponse] = useState([]);
   const [inputValue, setInputValue] = useState("");
+  const [fetchChats, { isLoading }] = useLazyFetchChatsQuery();
+  const chatList = useSelector((state) => state.chat.chats);
+
+  useEffect(() => {
+    const fetchChatList = async () => {
+      try {
+        await fetchChats();
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchChatList();
+  }, [fetchChats]);
 
   // fetch chats on input change
   const handleInputChange = (query) => {
@@ -18,7 +32,7 @@ const ChatList = ({ chatList = chats }) => {
       return;
     }
 
-    const res = chats.filter((chat) =>
+    const res = chatList.filter((chat) =>
       chat.chatName?.toLowerCase().includes(query)
     );
 
@@ -42,6 +56,8 @@ const ChatList = ({ chatList = chats }) => {
     setSearchResponse([]);
   };
 
+  useEffect(() => {}, []);
+
   return (
     <div className={classes.chatListContainer}>
       <div className={classes.searchBar}>
@@ -64,13 +80,16 @@ const ChatList = ({ chatList = chats }) => {
         </Button>
       </div>
       <div className={classes.chatList}>
-        {searchResponse?.length
-          ? searchResponse.map((chat, index) => (
-              <ChatCard key={index} {...chat} />
-            ))
-          : chatList?.length
-          ? chatList.map((chat, index) => <ChatCard key={index} {...chat} />)
-          : null}
+        {isLoading ? (
+          <div className={classes.spinLoaderContainer}>
+            <Spinner className={classes.spinner} />
+            <span>Loading messages</span>
+          </div>
+        ) : searchResponse?.length ? (
+          searchResponse.map((chat) => <ChatCard key={chat._id} {...chat} />)
+        ) : chatList?.length ? (
+          chatList.map((chat) => <ChatCard key={chat._id} {...chat} />)
+        ) : null}
       </div>
     </div>
   );
