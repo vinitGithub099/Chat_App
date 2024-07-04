@@ -6,41 +6,47 @@ import { MENU_ITEMS } from "../../constants/sideMenu";
 import { setCurrentChat } from "../../store/Features/Chat/ChatSlice";
 import { setActitvityLabel } from "../../store/Features/UI/UISlice";
 import classes from "./index.module.css";
+import { buildChatName, formatTimestamp } from "../../helpers/helpers";
 
-const ChatCard = ({
-  chatName,
-  sender,
-  latestMessage,
-  timeStamp,
-  unreadMsgCount,
-}) => {
+const ChatCard = (props) => {
+  const { _id, chatName, latestMessage, unreadMsgCount, updatedAt } = props;
   const currentChat = useSelector((state) => state.chat.currentChat);
+  const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
 
-  const handelSelectChat = (e) => {
-    dispatch(setCurrentChat(e?.currentTarget?.dataset?.key));
+  const handelSelectChat = () => {
+    dispatch(setCurrentChat(props));
     dispatch(setActitvityLabel(MENU_ITEMS.CHATS.label));
   };
 
   return (
     <div
       className={cx(classes.chatCard, {
-        [classes.active]: currentChat === chatName,
+        [classes.active]: currentChat?._id === _id,
       })}
-      data-key={chatName}
       onClick={handelSelectChat}
     >
-      <Avatar src={userIcon} alt={chatName || ""} size="sm"  className={classes.avatar} />
+      <Avatar
+        src={userIcon}
+        alt={chatName || ""}
+        size="sm"
+        className={classes.avatar}
+      />
       <div className={classes.chatInfo}>
         <div className={classes.chatInfoField}>
-          <h4 className={classes.chatName}>{chatName}</h4>
-          <p className={classes.updates}>{timeStamp}</p>
+          <h4 className={classes.chatName}>{buildChatName(props, user)}</h4>
+          <p className={classes.updates}>{formatTimestamp(updatedAt) ?? ""}</p>
         </div>
         <div className={classes.chatInfoField}>
-          <p
-            className={classes.latestMessage}
-          >{`${sender.user.name}: ${latestMessage}`}</p>
-          <p className={classes.unreadMsgCount}>{unreadMsgCount}</p>
+          <p className={classes.latestMessage}>
+            {latestMessage ? (
+              `${latestMessage?.sender?.name}: ${latestMessage?.content}`
+            ) : (
+              <span>No messages yet!</span>
+            )}
+          </p>
+          {/* replace this with correct/new feature */}
+          <p className={classes.unreadMsgCount}>{unreadMsgCount || 10}</p>
         </div>
       </div>
     </div>

@@ -11,7 +11,7 @@ import classes from "./index.module.css";
 
 const Header = ({ className }) => {
   const [openNav, setOpenNav] = useState(false);
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const token = useSelector((state) => state.auth.token);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -44,7 +44,7 @@ const Header = ({ className }) => {
         >
           Sign Up
         </Button>
-        {!isLoggedIn ? (
+        {token ? (
           <ProfileMenu />
         ) : (
           <Button

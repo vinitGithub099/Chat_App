@@ -5,17 +5,10 @@
  */
 
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchChatMessages, fetchChats } from "./ChatActions";
 
 const initialState = {
   openActivity: true,
   chats: [],
-  messages: [],
-  loading: {
-    chats: false,
-    messages: false,
-  },
-  error: false,
   currentChat: null,
 };
 
@@ -34,12 +27,9 @@ export const chatSlice = createSlice({
     setCurrentChat: (state, { payload }) => {
       state.currentChat = payload;
     },
-    populateChat: (state, { payload }) => ({
-      ...state,
-      chats: state.chats.find((chat) => chat._id === payload._id)
-        ? state.chats
-        : [payload].concat(state.chats),
-    }),
+    populateChats: (state, { payload }) => {
+      state.chats = payload;
+    },
     removeChat: (state, { payload }) => ({
       ...state,
       chats:
@@ -61,49 +51,13 @@ export const chatSlice = createSlice({
         users: state.currentChat?.users.filter((user) => user._id !== payload),
       },
     }),
-    populateMessages: (state, { payload }) => {
-      state.messages.push(payload);
-    },
-  },
-  extraReducers: (builder) => {
-    /* fetchChats */
-    builder.addCase(fetchChats.pending, (state) => ({
-      ...state,
-      loading: { chats: true, messages: false },
-    }));
-    builder.addCase(fetchChats.fulfilled, (state, { payload }) => ({
-      ...state,
-      loading: { chats: false, messages: false },
-      chats: payload,
-    }));
-    builder.addCase(fetchChats.rejected, (state) => ({
-      ...state,
-      loading: { chats: false, messages: false },
-      chats: null,
-    }));
-
-    /* fetchChatMessages */
-    builder.addCase(fetchChatMessages.pending, (state) => ({
-      ...state,
-      loading: { chats: false, messages: true },
-    }));
-    builder.addCase(fetchChatMessages.fulfilled, (state, { payload }) => ({
-      ...state,
-      loading: { chats: false, messages: false },
-      messages: payload,
-    }));
-    builder.addCase(fetchChatMessages.rejected, (state) => ({
-      ...state,
-      loading: { chats: false, messages: false },
-      messages: null,
-    }));
   },
 });
 
 export const {
   setCurrentChat,
   removeChatMember,
-  populateChat,
+  populateChats,
   addChatMember,
   removeChat,
   populateMessages,
