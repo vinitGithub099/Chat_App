@@ -10,7 +10,7 @@ const User = require("../models/userModel");
  * @method POST /api/message/sendMessage
  * @purpose to send message to a group or individual
  */
-const sendMessage = async (req, res) => {
+const sendMessage = async (req, res, next) => {
   const { content, chatId } = req.body;
 
   if (!content || !chatId) {
@@ -48,7 +48,7 @@ const sendMessage = async (req, res) => {
  * @method POST /api/message/messages/:chatId
  * @purpose to retrieve all messages of user with from chat specified by chatId in the url params
  */
-const allMessages = async (req, res) => {
+const allMessages = async (req, res, next) => {
   try {
     const messages = await Message.find({ chat: req.params.chatId })
       .populate("sender", "name pic email")
@@ -56,7 +56,6 @@ const allMessages = async (req, res) => {
 
     res.json(messages);
   } catch (error) {
-    res.status(400);
     return next(new InternalServerError("Couldn't fetch the messages!"));
   }
 };
