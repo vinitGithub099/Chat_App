@@ -9,7 +9,16 @@ const MessageCard = ({ className, sender, content, updatedAt }) => {
   const user = useSelector((state) => state.auth.user);
 
   return (
-    <div className={cx(classes.messageCard, className)}>
+    <div
+      className={cx(
+        classes.messageCard,
+        className,
+        {
+          [classes.floatLeft]: sender._id !== user._id,
+        },
+        { [classes.floatRight]: sender._id === user._id }
+      )}
+    >
       <div className={classes.triangle}></div>
       {sender._id !== user._id ? (
         <Avatar src={logo} alt="user" size="xs" className={classes.avatar} />
