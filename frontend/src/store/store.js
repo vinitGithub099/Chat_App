@@ -12,6 +12,7 @@ import localStorage from "redux-persist/es/storage";
 import { apiSlice } from "./API/apiSlice";
 import authReducer from "./Features/Auth/AuthSlice";
 import chatReducer from "./Features/Chat/ChatSlice";
+import messageReducer from "./Features/Message/MessageSlice";
 import uiReducer from "./Features/UI/UISlice";
 
 const authPersistConfig = {
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   auth: persistReducer(authPersistConfig, authReducer),
   chat: chatReducer,
   ui: uiReducer,
+  message: messageReducer,
   [apiSlice.reducerPath]: apiSlice.reducer,
 });
 
