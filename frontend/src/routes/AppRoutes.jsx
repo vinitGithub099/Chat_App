@@ -5,7 +5,7 @@ import Chats from "../pages/Chats";
 import ErrorPage from "../pages/Error";
 import HomePage from "../pages/Home/index";
 import Profile from "../pages/Profile";
-import ProtectedRoute from "./ProtectedRoutes";
+import ProtectedRoute from "./ProtectedRoute";
 
 export const router = [
   {
@@ -16,12 +16,10 @@ export const router = [
       {
         path: "login",
         element: <LoginPage />,
-        // element: <></>,
       },
       {
         path: "register",
         element: <RegisterPage />,
-        // element: <></>,
       },
       {
         path: "profile/",
@@ -35,7 +33,7 @@ export const router = [
       },
       {
         path: "chat",
-        // element: <ProtectedRoute></ProtectedRoute>,
+        element: <ProtectedRoute></ProtectedRoute>,
         children: [
           {
             path: "",
