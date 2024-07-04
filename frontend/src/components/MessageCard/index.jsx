@@ -5,14 +5,13 @@ import logo from "../../assets/profile-user_64572.png";
 import { formatTimestamp } from "../../helpers/helpers";
 import classes from "./index.module.css";
 
-const MessageCard = ({ className, sender, content, updatedAt }) => {
+const MessageCard = ({ sender, content, updatedAt }) => {
   const user = useSelector((state) => state.auth.user);
 
   return (
     <div
       className={cx(
         classes.messageCard,
-        className,
         {
           [classes.floatLeft]: sender._id !== user._id,
         },

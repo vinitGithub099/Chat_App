@@ -3,10 +3,10 @@ import cx from "classnames";
 import { useDispatch, useSelector } from "react-redux";
 import userIcon from "../../assets/profile-user_64572.png";
 import { MENU_ITEMS } from "../../constants/sideMenu";
+import { buildChatName, formatTimestamp } from "../../helpers/helpers";
 import { setCurrentChat } from "../../store/Features/Chat/ChatSlice";
 import { setActitvityLabel } from "../../store/Features/UI/UISlice";
 import classes from "./index.module.css";
-import { buildChatName, formatTimestamp } from "../../helpers/helpers";
 
 const ChatCard = (props) => {
   const { _id, chatName, latestMessage, unreadMsgCount, updatedAt } = props;

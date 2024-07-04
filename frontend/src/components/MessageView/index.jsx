@@ -14,7 +14,9 @@ import { useDispatch, useSelector } from "react-redux";
 import _ from "underscore";
 import userIcon from "../../assets/profile-user_64572.png";
 import { buildChatName } from "../../helpers/helpers";
+import { chatSocket } from "../../main";
 import { setCurrentChat } from "../../store/Features/Chat/ChatSlice";
+import { appendMessage } from "../../store/Features/Message/MessageSlice";
 import {
   useLazyFetchChatMessagesQuery,
   useSendMessageMutation,
@@ -32,6 +34,7 @@ const MessageView = ({ className }) => {
   const currentChat = useSelector((state) => state.chat.currentChat);
   const messages = useSelector((state) => state.message.messages);
 
+  // fetch chat messages of the current chat when this compoenent mounts and  updates
   useEffect(() => {
     const fetchChatMessages = async (chatId) => {
       try {
@@ -43,19 +46,34 @@ const MessageView = ({ className }) => {
     if (currentChat) fetchChatMessages(currentChat._id);
   }, [currentChat, fetchCurrChatMessages]);
 
+  // join chat room when this compoenent is mounts and updates
+  useEffect(() => {
+    chatSocket.emit("join chat", { user: user, room: currentChat });
+  }, [currentChat, user]);
+
+  const updateMessages = (newMessage) => {
+    dispatch(appendMessage(newMessage));
+  };
+
   const sendMessage = async (formData) => {
     try {
-      await sendChatMessage({
+      const res = await sendChatMessage({
         content: formData?.message,
         chatId: currentChat?._id,
+      });
+      chatSocket.emit("new message", { newMessage: res.data }, () => {
+        updateMessages(res.data);
       });
     } catch (error) {
       console.log(error);
     }
   };
 
+  // optimized send message using throttling
   const throttleSendMessage = _.throttle(sendMessage, 800);
 
+  // deselect currentChat when back button is clicked
+  // this function is meant for mobile screens only
   const closeActivity = () => {
     dispatch(setCurrentChat(null));
   };
