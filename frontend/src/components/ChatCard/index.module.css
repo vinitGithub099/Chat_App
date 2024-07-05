@@ -33,3 +33,7 @@
 .unreadMsgCount {
   @apply py-1 px-2 text-xs text-primary bg-success rounded-full col-span-1 lg:col-span-2 justify-self-end;
 }
+
+.typingStatus {
+  @apply text-xs text-accent-1 truncate col-span-3 lg:col-span-10;
+}

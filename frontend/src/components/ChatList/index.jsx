@@ -4,15 +4,24 @@ import { useEffect, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import _ from "underscore";
+import { chatSocket } from "../../main";
 import { useLazyFetchChatsQuery } from "../../store/Services/chatAPI";
 import ChatCard from "../ChatCard";
 import classes from "./index.module.css";
 
+/* 
+
+Note: modify the search functionlity with original api calls
+Currently it is made with dummy data
+
+*/
+
 const ChatList = () => {
-  const [searchResponse, setSearchResponse] = useState([]);
+  const [filteredChats, updateFilteredChats] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [fetchChats, { isLoading }] = useLazyFetchChatsQuery();
   const chatList = useSelector((state) => state.chat.chats);
+  const user = useSelector((state) => state.auth.user);
 
   useEffect(() => {
     const fetchChatList = async () => {
@@ -25,10 +34,19 @@ const ChatList = () => {
     fetchChatList();
   }, [fetchChats]);
 
+  // subscribe the user to the chat rooms to receive updates
+  useEffect(() => {
+    if (!chatList || !user) return;
+
+    chatList.forEach((chat) => {
+      chatSocket.emit("join chat", { user, room: chat });
+    });
+  }, [chatList, user]);
+
   // fetch chats on input change
   const handleInputChange = (query) => {
     if (!query) {
-      setSearchResponse([]);
+      updateFilteredChats([]);
       return;
     }
 
@@ -36,7 +54,7 @@ const ChatList = () => {
       chat.chatName?.toLowerCase().includes(query)
     );
 
-    setSearchResponse(res);
+    updateFilteredChats(res);
   };
 
   // debounce the change
@@ -53,10 +71,8 @@ const ChatList = () => {
 
   const handleClose = () => {
     setInputValue("");
-    setSearchResponse([]);
+    updateFilteredChats([]);
   };
-
-  useEffect(() => {}, []);
 
   return (
     <div className={classes.chatListContainer}>
@@ -72,7 +88,7 @@ const ChatList = () => {
         <Button
           variant="text"
           className={cx(classes.searchClose, {
-            [classes.showCloseBtn]: searchResponse?.length,
+            [classes.showCloseBtn]: filteredChats?.length,
           })}
           onClick={handleClose}
         >
@@ -85,8 +101,8 @@ const ChatList = () => {
             <Spinner className={classes.spinner} />
             <span>Loading messages</span>
           </div>
-        ) : searchResponse?.length ? (
-          searchResponse.map((chat) => <ChatCard key={chat._id} {...chat} />)
+        ) : filteredChats?.length ? (
+          filteredChats.map((chat) => <ChatCard key={chat._id} {...chat} />)
         ) : chatList?.length ? (
           chatList.map((chat) => <ChatCard key={chat._id} {...chat} />)
         ) : null}

@@ -19,9 +19,9 @@ export const getShortenedString = (str, limit = 20) => {
 };
 
 export const buildChatName = (chat, user) =>
-  chat.isGroupChat
-    ? chat.chatName
-    : chat.users.find((member) => member._id !== user?._id)?.name ?? "Unknown";
+  chat?.isGroupChat
+    ? chat?.chatName
+    : chat?.users.find((member) => member._id !== user?._id)?.name ?? "Unknown";
 
 
 export const formatTimestamp = (timestamp) =>

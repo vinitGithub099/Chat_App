@@ -7,19 +7,37 @@ import { chatSocket } from "../../main";
 import { appendMessage } from "../../store/Features/Message/MessageSlice";
 import classes from "./index.module.css";
 
+/* 
+
+Note: Keep cross checking the erraneous working of useEffect in this component
+
+*/
+
 const Chats = () => {
   const currentChat = useSelector((state) => state.chat.currentChat);
   const dispatch = useDispatch();
 
+  // fix it to run only once
   useEffect(() => {
+    // used for updating messages ui of sender receiver
     const updateMessages = (newMessage) => {
       dispatch(appendMessage(newMessage));
     };
 
-    chatSocket.on("message received", ({ room, newMessage }) => {
-      if (currentChat?._id === room?._id) updateMessages(newMessage);
-    });
-  }, [currentChat?._id, dispatch]);
+    const handleMessageReceived = ({ room, newMessage }) => {
+      if (!currentChat || currentChat._id !== room._id) {
+        console.log("Notification");
+      } else {
+        updateMessages(newMessage);
+      }
+    };
+
+    chatSocket.on("message received", handleMessageReceived);
+
+    return () => {
+      chatSocket.off("message received", handleMessageReceived);
+    };
+  });
 
   return (
     <div className={classes.chatContainer}>
