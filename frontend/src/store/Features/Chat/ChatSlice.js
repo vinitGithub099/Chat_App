@@ -7,7 +7,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  openActivity: true,
   chats: [],
   currentChat: null,
 };
@@ -16,15 +15,7 @@ export const chatSlice = createSlice({
   name: "chat",
   initialState,
   reducers: {
-    toggleActivity: (state) => ({
-      ...state,
-      openActivity: !state.openActivity,
-    }),
-    setActivity: (state, { payload }) => ({
-      ...state,
-      openActivity: payload,
-    }),
-    setCurrentChat: (state, { payload }) => {
+    updateCurrentChat: (state, { payload }) => {
       state.currentChat = payload;
     },
     populateChats: (state, { payload }) => {
@@ -55,7 +46,7 @@ export const chatSlice = createSlice({
 });
 
 export const {
-  setCurrentChat,
+  updateCurrentChat,
   removeChatMember,
   populateChats,
   addChatMember,
