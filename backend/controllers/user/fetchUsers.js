@@ -4,9 +4,9 @@ import User from "../../models/userModel.js";
 
 /**
  * * status: working
- * @description Get all users
- * @method GET /api/user/fetchUsers
- * @purpose to get the data of all the users
+ * @description fetch all users
+ * @method GET
+ * @endpoint /api/user/fetchUsers
  */
 export const fetchUsers = async (req, res, next) => {
   try {
@@ -30,4 +30,3 @@ export const fetchUsers = async (req, res, next) => {
     return next(new InternalServerError("Failed to fetch users!"));
   }
 };
-

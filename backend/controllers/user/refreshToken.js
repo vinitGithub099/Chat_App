@@ -4,9 +4,9 @@ import { generateAccessToken } from "../../utils/generateToken.js";
 
 /**
  * * status: working
- * @description Refresh Token
- * @method GET /api/user/refresh-token
- * @purpose to renew the access token
+ * @description renew the access token using Refresh Token
+ * @method GET
+ * @endpoint /api/user/refreshToken
  */
 export const refreshToken = async (req, res, next) => {
   // get refresh token from cookies

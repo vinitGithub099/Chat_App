@@ -1,4 +1,3 @@
-import { CHAT_UPPER_LIMIT } from "../../configs/constants.js";
 import BadRequestError from "../../errors/BadRequestError.js";
 import ForbiddenError from "../../errors/ForbiddenError.js";
 import InternalServerError from "../../errors/InternalServerError.js";
@@ -8,13 +7,14 @@ import User from "../../models/userModel.js";
 
 /**
  * * status: working
- * @description add member(user) to a group
+ * @description remove user from a group chat
  * @method PUT
- * @endpoint /api/chat/addGroupMember
+ * @endpoint /api/chat/removeGroupMember
  */
-export const addGroupMember = async (req, res, next) => {
+
+export const removeGroupMember = async (req, res, next) => {
   const { chatId, userId } = req.body;
-  const reqUserId = req.user._id;
+  const reqUserId = req.user._id; // Assuming req.user contains the user object with _id
 
   // Validate if chatId and userId are present
   if (!chatId || !userId) {
@@ -39,34 +39,29 @@ export const addGroupMember = async (req, res, next) => {
     // Check if the chat is a group chat
     if (!chat.isGroupChat) {
       return next(
-        new BadRequestError("Only group chats can have members added")
+        new BadRequestError("Only group chats can have members removed")
       );
     }
 
     // Check if the user is the group admin
     if (chat.groupAdmin.toString() !== reqUserId.toString()) {
       return next(
-        new ForbiddenError("Only the group admin can add members to the group")
+        new ForbiddenError(
+          "Only the group admin can remove members from the group"
+        )
       );
     }
 
-    // Check if the user is already a member
-    if (chat.users.includes(userId)) {
-      return next(new BadRequestError("User is already a member of the group"));
+    // Check if the user is a member
+    if (!chat.users.includes(userId)) {
+      return next(new BadRequestError("User is not a member of the group"));
     }
 
-    // Check if adding this member would exceed the group member limit
-    if (chat.users.length >= CHAT_UPPER_LIMIT) {
-      return next(
-        new BadRequestError("Group chat cannot have more than 10 members")
-      );
-    }
-
-    // Add the user to the chat's users array
+    // Remove the user from the chat's users array
     const updatedChat = await Chat.findByIdAndUpdate(
       chatId,
       {
-        $push: { users: userId },
+        $pull: { users: userId },
       },
       {
         new: true,
@@ -83,8 +78,9 @@ export const addGroupMember = async (req, res, next) => {
     // Respond with the updated chat document
     res.json(updatedChat);
   } catch (error) {
-    console.log(error);
     // Handle internal server errors
-    return next(new InternalServerError("Couldn't add member to the group"));
+    return next(
+      new InternalServerError("Couldn't remove member from the group")
+    );
   }
 };

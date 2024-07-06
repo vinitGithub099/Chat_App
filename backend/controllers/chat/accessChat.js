@@ -4,10 +4,9 @@ import Chat from "../../models/chatModel.js";
 import User from "../../models/userModel.js";
 
 /**
- * * status: working
- * @description access to all the chats of a user
- * @method POST /api/chat/accessChat
- * @purpose to establish one-to-one chat
+ * @description Access or create a one-to-one chat between two users
+ * @method POST 
+ * @endpoint /api/chat/accessChat
  */
 export const accessChat = async (req, res, next) => {
   const { userId } = req.body;
@@ -18,7 +17,7 @@ export const accessChat = async (req, res, next) => {
   }
 
   try {
-    // Find existing chat
+    // Find existing chat between current user and userId
     let chat = await Chat.find({
       isGroupChat: false,
       $and: [
@@ -29,6 +28,7 @@ export const accessChat = async (req, res, next) => {
       .populate("users", "-password")
       .populate("latestMessage");
 
+    // Populate sender details for latestMessage
     chat = await User.populate(chat, {
       path: "latestMessage.sender",
       select: "name pic email",
@@ -41,20 +41,24 @@ export const accessChat = async (req, res, next) => {
 
     // Create new chat if no existing chat is found
     const chatData = {
-      chatName: "sender",
+      chatName: "sender", // Adjust as per your naming convention
       isGroupChat: false,
       users: [req.user._id, userId],
     };
 
+    // Create the new chat
     const createdChat = await Chat.create(chatData);
+
+    // Fetch full details of the newly created chat
     const fullChat = await Chat.findOne({ _id: createdChat._id }).populate({
       path: "users",
       select: "-password",
     });
 
+    // Return the full chat details
     res.status(200).json(fullChat);
   } catch (error) {
     // Handle errors during chat find or create
-    return next(new InternalServerError("Failed to access or create chat!"));
+    return next(new InternalServerError("Failed to access or create chat"));
   }
 };

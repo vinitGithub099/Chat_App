@@ -32,8 +32,6 @@ app.use(
     credentials: true,
     methods: ["GET", "PUT", "POST", "DELETE"],
     optionSuccessStatus: 200,
-    "Access-Control-Allow-Origin": allowedOrigins,
-    "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
   })
 );
 
@@ -66,8 +64,6 @@ const io = new Server(server, {
     credentials: true,
     methods: ["GET", "PUT", "POST", "DELETE"],
     optionSuccessStatus: 200,
-    "Access-Control-Allow-Origin": allowedOrigins,
-    "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
   },
 });
 

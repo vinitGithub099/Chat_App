@@ -2,11 +2,12 @@ import BadRequestError from "../../errors/BadRequestError.js";
 import InternalServerError from "../../errors/InternalServerError.js";
 import Chat from "../../models/chatModel.js";
 import Message from "../../models/messageModel.js";
+import User from "../../models/userModel.js";
 
 /**
  * @description Send message
- * @method POST /api/message/sendMessage
- * @purpose Send a message to a group or individual chat
+ * @method POST
+ * @endpoint /api/message/sendMessage
  */
 export const sendMessage = async (req, res, next) => {
   const { content, chatId } = req.body;
@@ -28,10 +29,10 @@ export const sendMessage = async (req, res, next) => {
     let message = await Message.create(newMessage);
 
     // Populate the sender field with name and pic
-    message = await message.populate("sender", "name pic").execPopulate();
+    message = await message.populate("sender", "name pic");
 
     // Populate the chat field
-    message = await message.populate("chat").execPopulate();
+    message = await message.populate("chat");
 
     // Populate the chat.users field with name, pic, and email
     message = await User.populate(message, {
@@ -40,7 +41,7 @@ export const sendMessage = async (req, res, next) => {
     });
 
     // Update the chat's latest message
-    await Chat.UserfindByIdAndUpdate(chatId, { latestMessage: message });
+    await Chat.findByIdAndUpdate(chatId, { latestMessage: message });
 
     // Send the message as the response
     res.json(message);

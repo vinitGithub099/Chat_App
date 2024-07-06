@@ -6,8 +6,8 @@ import User from "../../models/userModel.js";
 /**
  * * status: working
  * @description Register user
- * @method POST /api/user/register
- * @purpose to register user into the database/app
+ * @method POST
+ * @endpoint /api/user/register
  */
 export const registerUser = async (req, res, next) => {
   const { name, email, password, pic, bio, phone, isAdmin } = req.body;
