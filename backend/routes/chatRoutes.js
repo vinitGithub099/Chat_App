@@ -1,10 +1,10 @@
 import { Router } from "express";
 import { accessChat } from "../controllers/chat/accessChat.js";
 import { addGroupMember } from "../controllers/chat/addGroupMember.js";
-import { createGroupChat } from "../controllers/chat/createGroupChat.js";
+import { createGroup } from "../controllers/chat/createGroup.js";
 import { fetchChats } from "../controllers/chat/fetchChats.js";
-import { removeChatMember } from "../controllers/chat/removeChatMember.js";
-import { renameChat } from "../controllers/chat/renameChat.js";
+import { removeGroupMember } from "../controllers/chat/removeGroupMember.js";
+import { renameGroup } from "../controllers/chat/renameGroup.js";
 import { protect } from "../middlewares/authMiddleware.js";
 const router = Router();
 
@@ -19,15 +19,15 @@ router.post("/accessChat", protect, accessChat);
 router.get("/fetchChats", protect, fetchChats);
 
 /** status: working */
-router.post("/createGroupChat", protect, createGroupChat);
+router.post("/createGroup", protect, createGroup);
 
 /** status: working */
-router.put("/rename", protect, renameChat);
+router.put("/renameGroup", protect, renameGroup);
 
 /** status: working */
 router.put("/addGroupMember", protect, addGroupMember);
 
 /** status: working */
-router.put("/removeChatMember", protect, removeChatMember);
+router.put("/removeGroupMember", protect, removeGroupMember);
 
 export default router;

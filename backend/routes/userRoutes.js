@@ -18,7 +18,7 @@ router.post("/login", loginUser);
 router.get("/fetchUsers", protect, fetchUsers);
 
 /** status: Working */
-router.get("/refresh-token", refreshToken);
+router.get("/refreshToken", refreshToken);
 
 /** status: Working */
 router.post("/logout", logout);

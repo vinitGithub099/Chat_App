@@ -1,8 +1,8 @@
 /**
  * * status: working
- * @description fetch user details if token is availble
- * @method POST /api/user/logout
- * @purpose to logout the user
+ * @description logout user
+ * @method POST
+ * @endpoint /api/user/logout
  */
 export const logout = async (req, res) => {
   res.clearCookie("refresh_token");

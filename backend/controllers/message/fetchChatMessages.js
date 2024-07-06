@@ -2,9 +2,9 @@ import InternalServerError from "../../errors/InternalServerError.js";
 import Message from "../../models/messageModel.js";
 
 /**
- * @description Access to all messages of a chatId
- * @method POST /api/message/messages/:chatId
- * @purpose Retrieve all messages of user from chat specified by chatId in the URL params
+ * @description fetch all the messages of a chat
+ * @method POST
+ * @endpoint /api/message/messages/:chatId
  */
 export const fetchChatMessages = async (req, res, next) => {
   try {

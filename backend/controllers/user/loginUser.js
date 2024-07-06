@@ -11,8 +11,8 @@ import {
 /**
  * * status: working
  * @description Login user
- * @method POST /api/user/login
- * @purpose to login a previously registered user into the database/app
+ * @method POST
+ * @endpoint /api/user/login
  */
 export const loginUser = async (req, res, next) => {
   const { email, password } = req.body;
