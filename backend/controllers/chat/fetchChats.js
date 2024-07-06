@@ -5,8 +5,8 @@ import User from "../../models/userModel.js";
 /**
  * * status: working
  * @description fetch all the chats
- * @method GET /api/chat/fetchChats
- * @purpose to retrieve all the chats of a user
+ * @method GET
+ * @endpoint /api/chat/fetchChats
  */
 export const fetchChats = async (req, res, next) => {
   try {

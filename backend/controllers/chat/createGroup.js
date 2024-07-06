@@ -1,16 +1,15 @@
-import { GROUP_MEMBERS_LIMIT } from "../../configs/constants.js";
+import { CHAT_LOWER_LIMIT } from "../../configs/constants.js";
 import BadRequestError from "../../errors/BadRequestError.js";
 import InternalServerError from "../../errors/InternalServerError.js";
 import Chat from "../../models/chatModel.js";
 
 /**
- * * status: partial working
- * ! isAdmin param is extra in every user object in response. Also the isAdmin key of admin shows value false both in users and groupAdmin
- * @description create a group
- * @method POST /api/chat/createGroupChat
- * @purpose to establish a chat group or a chat room between individuals
+ * * status: working
+ * @description create a group chat
+ * @method POST
+ * @endpoint /api/chat/createGroup
  */
-export const createGroupChat = async (req, res, next) => {
+export const createGroup = async (req, res, next) => {
   const { users, name, description } = req.body;
 
   // Check if users and name are provided
@@ -28,7 +27,7 @@ export const createGroupChat = async (req, res, next) => {
   }
 
   // Ensure there are enough users to form a group chat
-  if (parsedUsers.length < GROUP_MEMBERS_LIMIT) {
+  if (parsedUsers.length < CHAT_LOWER_LIMIT) {
     return next(
       new BadRequestError(
         "More than two users are required to form a group chat"
@@ -37,7 +36,7 @@ export const createGroupChat = async (req, res, next) => {
   }
 
   // Add the requesting user to the users array
-  parsedUsers.push(req.user);
+  parsedUsers.push(req.user._id); // Assuming req.user contains the user object with _id
 
   try {
     // Create the group chat
@@ -45,7 +44,7 @@ export const createGroupChat = async (req, res, next) => {
       chatName: name,
       users: parsedUsers,
       isGroupChat: true,
-      groupAdmin: req.user,
+      groupAdmin: req.user._id, // Assuming req.user contains the user object with _id
       description: description,
     });
 
@@ -57,6 +56,6 @@ export const createGroupChat = async (req, res, next) => {
     // Send the response with the full group chat details
     res.status(200).json(fullGroupChat);
   } catch (error) {
-    return next(new InternalServerError("Couldn't create the chat!"));
+    return next(new InternalServerError("Couldn't create the chat"));
   }
 };
