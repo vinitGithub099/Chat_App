@@ -12,4 +12,4 @@ const httpStatusCodes = {
   SERVICE_UNAVAILABLE: 503,
 };
 
-module.exports = httpStatusCodes;
+export default httpStatusCodes;

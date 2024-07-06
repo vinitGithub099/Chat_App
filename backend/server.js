@@ -1,22 +1,31 @@
-const cors = require("cors");
-const express = require("express");
-const app = express();
-const userRoutes = require("./routes/userRoutes");
-const messageRoutes = require("./routes/messageRoutes");
-const chatRoutes = require("./routes/chatRoutes");
-require("dotenv").config();
-const connectDB = require("./db");
-const { notFound, errorHandler } = require("./middlewares/errorMiddleware");
-const cookieParser = require("cookie-parser");
-const { allowedOrigins } = require("./configs/allowedOrigins");
+import cookieParser from "cookie-parser";
+import cors from "cors";
+import dotenv from "dotenv";
+import express, { json, urlencoded } from "express";
+import { Server } from "socket.io";
+import { allowedOrigins } from "./configs/allowedOrigins.js";
+import connectDB from "./db.js";
+import { errorHandler, notFound } from "./middlewares/errorMiddleware.js";
+import chatRoutes from "./routes/chatRoutes.js";
+import messageRoutes from "./routes/messageRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
 
-/* connect the database */
+const app = express();
+dotenv.config();
+
+/* Connect to the database */
 connectDB();
 
+/* Set the port */
 const PORT = process.env.PORT || 5050;
 
+/* Middleware for parsing cookies */
 app.use(cookieParser());
-app.use(express.json());
+
+/* Middleware for parsing JSON bodies */
+app.use(json());
+
+/* Middleware for handling CORS */
 app.use(
   cors({
     origin: allowedOrigins,
@@ -27,27 +36,30 @@ app.use(
     "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
   })
 );
-app.use(express.json());
 
+/* Middleware for parsing URL-encoded bodies */
 app.use(
-  express.urlencoded({
+  urlencoded({
     extended: true,
   })
 );
 
+/* Routes */
 app.use("/api/user", userRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api/message", messageRoutes);
 
+/* Error handling middleware */
 app.use(notFound);
 app.use(errorHandler);
 
-/* start the Express server */
+/* Start the server */
 const server = app.listen(PORT, () => {
-  console.log(`Server is running on port: ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
 
-const io = require("socket.io")(server, {
+/* Set up Socket.io */
+const io = new Server(server, {
   pingTimeout: 60000,
   cors: {
     origin: allowedOrigins,
