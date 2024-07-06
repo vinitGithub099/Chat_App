@@ -6,5 +6,7 @@ export const notFound = (req, res, next) => {
 
 /* middleware to handle error if no middleware/route is caught before it */
 export const errorHandler = (err, req, res, next) => {
-  res.status(err.httpCode).json(err.toJSON());
+  res
+    .status(err?.httpCode || 500)
+    .json(err?.toJSON() || "something is misconfigured");
 };
