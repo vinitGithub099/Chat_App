@@ -1,15 +1,12 @@
-const express = require("express");
-const router = express.Router();
-const {
-  loginUser,
-  registerUser,
-  allUsers,
-  refreshToken,
-  fetchUserDetails,
-  logout,
-} = require("../controllers/user.controller.js");
+import { Router } from "express";
+import { fetchUsers } from "../controllers/user/fetchUsers.js";
+import { loginUser } from "../controllers/user/loginUser.js";
+import { logout } from "../controllers/user/logout.js";
+import { refreshToken } from "../controllers/user/refreshToken.js";
+import { registerUser } from "../controllers/user/registerUser.js";
+import { protect } from "../middlewares/authMiddleware.js";
 
-const { protect } = require("../middlewares/authMiddleware.js");
+const router = Router();
 
 /** status: Working */
 router.post("/register", registerUser);
@@ -18,7 +15,7 @@ router.post("/register", registerUser);
 router.post("/login", loginUser);
 
 /** status: Working */
-router.get("/allUsers", protect, allUsers);
+router.get("/fetchUsers", protect, fetchUsers);
 
 /** status: Working */
 router.get("/refresh-token", refreshToken);
@@ -26,4 +23,4 @@ router.get("/refresh-token", refreshToken);
 /** status: Working */
 router.post("/logout", logout);
 
-module.exports = router;
+export default router;

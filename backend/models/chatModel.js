@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+import { Schema, model } from "mongoose";
 
-const chatModel = mongoose.Schema(
+const chatModel = Schema(
   {
     chatName: { type: String, trim: true },
     isGroupChat: { type: Boolean, default: false },
@@ -9,20 +9,20 @@ const chatModel = mongoose.Schema(
      * * each object will be a reference to the User Model */
     users: [
       {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: "User",
       },
     ],
     /**
      * * object will be a reference to the object of Message Model */
     latestMessage: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "Message",
     },
     /**
      * * object will be a reference to the User Model */
     groupAdmin: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "User",
     },
   },
@@ -31,5 +31,5 @@ const chatModel = mongoose.Schema(
   }
 );
 
-const Chat = mongoose.model("Chat", chatModel);
-module.exports = Chat;
+const Chat = model("Chat", chatModel);
+export default Chat;

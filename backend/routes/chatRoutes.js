@@ -1,15 +1,12 @@
-const express = require("express");
-const {
-  accessChat,
-  fetchChats,
-  createGroupChat,
-  renameGroup,
-  addToGroup,
-  removeFromGroup,
-} = require("../controllers/chat.controller.js");
-const { protect } = require("../middlewares/authMiddleware.js");
-
-const router = express.Router();
+import { Router } from "express";
+import { accessChat } from "../controllers/chat/accessChat.js";
+import { addGroupMember } from "../controllers/chat/addGroupMember.js";
+import { createGroupChat } from "../controllers/chat/createGroupChat.js";
+import { fetchChats } from "../controllers/chat/fetchChats.js";
+import { removeChatMember } from "../controllers/chat/removeChatMember.js";
+import { renameChat } from "../controllers/chat/renameChat.js";
+import { protect } from "../middlewares/authMiddleware.js";
+const router = Router();
 
 /**
  * * below routes have a middleware "protect" to check if header of the request contain authorization token
@@ -21,16 +18,16 @@ router.post("/accessChat", protect, accessChat);
 /** status: working */
 router.get("/fetchChats", protect, fetchChats);
 
-/** status: partial working */
-router.post("/groupChat", protect, createGroupChat);
+/** status: working */
+router.post("/createGroupChat", protect, createGroupChat);
 
 /** status: working */
-router.put("/rename", protect, renameGroup);
+router.put("/rename", protect, renameChat);
 
 /** status: working */
-router.put("/addToGroup", protect, addToGroup);
+router.put("/addGroupMember", protect, addGroupMember);
 
 /** status: working */
-router.put("/removeFromGroup", protect, removeFromGroup);
+router.put("/removeChatMember", protect, removeChatMember);
 
-module.exports = router;
+export default router;

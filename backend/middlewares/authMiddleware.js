@@ -1,14 +1,13 @@
-const jwt = require("jsonwebtoken");
-const User = require("../models/userModel");
-const ForbiddenError = require("../errors/ForbiddenError");
-const UnauthorizedError = require("../errors/UnauthorizedError");
+import jwt from "jsonwebtoken";
+import UnauthorizedError from "../errors/UnauthorizedError.js";
+import User from "../models/userModel.js";
 
 /**
  * * middleware to check if user has access token
  * * it authenticates the user
  * @param {*} next: to call next middleware/route
  */
-const protect = async (req, res, next) => {
+export const protect = async (req, res, next) => {
   if (
     req.headers.authorization &&
     req.headers.authorization.startsWith("Bearer")
@@ -31,8 +30,8 @@ const protect = async (req, res, next) => {
       return next(new UnauthorizedError("Not authorized, token expired!"));
     }
   } else {
-    return next(new UnauthorizedError("Not authorized, token missing in request!"));
+    return next(
+      new UnauthorizedError("Not authorized, token missing in request!")
+    );
   }
 };
-
-module.exports = { protect };
