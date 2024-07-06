@@ -1,5 +1,5 @@
-const httpStatusCodes = require("../utils/httpStatusCodes.js");
-const AppError = require("./AppError.js");
+import httpStatusCodes from "../utils/httpStatusCodes.js";
+import AppError from "./AppError.js";
 
 class NotFoundError extends AppError {
   constructor(description) {
@@ -7,4 +7,4 @@ class NotFoundError extends AppError {
   }
 }
 
-module.exports = NotFoundError;
+export default NotFoundError;

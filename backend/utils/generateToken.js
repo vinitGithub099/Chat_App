@@ -1,4 +1,4 @@
-const jwt = require("jsonwebtoken");
+import jwt from "jsonwebtoken";
 
 const generateAccessToken = (id) => {
   return jwt.sign({ id }, process.env.ACCESS_JWT_SECRET, {
@@ -12,4 +12,4 @@ const generateRefreshToken = (id) => {
   });
 };
 
-module.exports = { generateAccessToken, generateRefreshToken };
+export { generateAccessToken, generateRefreshToken };

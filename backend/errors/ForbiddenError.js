@@ -1,5 +1,5 @@
-const httpStatusCodes = require("../utils/httpStatusCodes.js");
-const AppError = require("./AppError.js");
+import httpStatusCodes from "../utils/httpStatusCodes.js";
+import AppError from "./AppError.js";
 
 class ForbiddenError extends AppError {
   constructor(description) {
@@ -7,4 +7,4 @@ class ForbiddenError extends AppError {
   }
 }
 
-module.exports = ForbiddenError;
+export default ForbiddenError;
