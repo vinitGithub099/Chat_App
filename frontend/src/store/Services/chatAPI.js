@@ -32,7 +32,7 @@ export const chatApiSlice = apiSlice.injectEndpoints({
 
     createGroupChat: builder.mutation({
       query: (data) => ({
-        url: `/chat/groupChat`,
+        url: `/chat/createGroup`,
         method: `POST`,
         body: data,
         headers: { "Content-Type": "application/json" },
@@ -41,25 +41,25 @@ export const chatApiSlice = apiSlice.injectEndpoints({
 
     renameGroup: builder.mutation({
       query: (data) => ({
-        url: `/chat/groupChat`,
+        url: `/chat/renameGroup`,
         method: `POST`,
         body: data,
         headers: { "Content-Type": "application/json" },
       }),
     }),
 
-    addToGroup: builder.mutation({
+    addGroupMember: builder.mutation({
       query: (data) => ({
-        url: `/chat/addToGroup`,
+        url: `/chat/addGroupMember`,
         method: `PUT`,
         body: data,
         headers: { "Content-Type": "application/json" },
       }),
     }),
 
-    removeFromGroup: builder.mutation({
+    removeGroupMember: builder.mutation({
       query: (data) => ({
-        url: `/chat/removeFromGroup`,
+        url: `/chat/removeGroupMember`,
         method: `PUT`,
         body: data,
         headers: { "Content-Type": "application/json" },
@@ -73,6 +73,6 @@ export const {
   useLazyFetchChatsQuery,
   useCreateGroupChatMutation,
   useRenameGroupMutation,
-  useAddToGroupMutation,
-  useRemoveFromGroupMutation,
+  useAddGroupMemberMutation,
+  useRemoveGroupMemberMutation,
 } = chatApiSlice;
