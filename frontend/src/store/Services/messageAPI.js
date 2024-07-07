@@ -23,7 +23,7 @@ export const messageApiSlice = apiSlice.injectEndpoints({
           const { data } = await queryFulfilled;
           dispatch(populateMessages(data));
         } catch (err) {
-          console.error("couldn't fech chat messages", err);
+          console.error("couldn't fech chat messages");
         }
       },
     }),

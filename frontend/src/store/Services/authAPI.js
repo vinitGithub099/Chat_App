@@ -33,7 +33,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
 
     searchUser: builder.query({
       query: (query) => ({
-        url: `/user/allUsers`,
+        url: `/user/fetchUsers`,
         method: `GET`,
         headers: { "Content-Type": "application/json" },
         params: {
