@@ -1,7 +1,7 @@
 .messageCard {
   @apply mb-4 w-full md:w-4/5 flex flex-row gap-2;
 
-  &:nth-child(even) {
+  &:nth-child(odd) {
     @apply justify-end self-end relative;
 
     &::after {
@@ -9,7 +9,7 @@
     }
   }
 
-  &:nth-child(odd) {
+  &:nth-child(even) {
     @apply justify-start relative;
 
     &::after {

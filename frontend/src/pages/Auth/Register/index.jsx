@@ -28,7 +28,7 @@ const RegisterPage = () => {
 
   return (
     <section className={classes.container}>
-      <div className={classes.coverImageContainer}></div>(
+      <div className={classes.coverImageContainer}></div>
       <div className={classes.formContainer}>
         <Logo className="" size="xxl" />
         <Typography variant="h2" className="text-left mb-4">
