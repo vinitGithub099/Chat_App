@@ -36,7 +36,7 @@ const ChatList = () => {
 
   // subscribe the user to the chat rooms to receive updates
   useEffect(() => {
-    if (!chatList || !user) return;
+    if (!chatList?.length || !user) return;
 
     chatList.forEach((chat) => {
       chatSocket.emit("join chat", { user, room: chat });
