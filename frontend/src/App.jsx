@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
 import "./index.css";
 import { chatSocket } from "./main";
+import NotificationProvider from "./providers/NotificationProvider";
 
 export default function App() {
   const user = useSelector((state) => state.auth.user);
@@ -21,7 +22,9 @@ export default function App() {
 
   return (
     <main className="app">
-      <Outlet></Outlet>
+      <NotificationProvider>
+        <Outlet></Outlet>
+      </NotificationProvider>
     </main>
   );
 }
