@@ -1,8 +1,8 @@
+import { Button } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import chatImage from "../../assets/2796777_cropped.jpg";
 import Header from "../../components/Header";
 import classes from "./index.module.css";
-import { Button } from "@material-tailwind/react";
 
 const HomePage = () => {
   return (
