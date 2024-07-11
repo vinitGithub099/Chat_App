@@ -1,5 +1,5 @@
 import { apiSlice } from "../API/apiSlice";
-import { setCredentials } from "../Features/Auth/AuthSlice";
+import { setCredentials } from "../Features/Auth/authSlice";
 
 export const authApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -40,6 +40,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
           search: query,
         },
       }),
+      extraOptions: { shouldAbort: true },
     }),
   }),
 });
