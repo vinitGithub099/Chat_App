@@ -6,7 +6,7 @@ import ChatContent from "../../components/ChatContent";
 import { TOAST_TYPE } from "../../constants/toastTypes";
 import useNotification from "../../hooks/useNotification";
 import { chatSocket } from "../../main";
-import { appendMessage } from "../../store/Features/Message/MessageSlice";
+import { appendMessage } from "../../store/Features/Message/messageSlice";
 import classes from "./index.module.css";
 
 /* 
@@ -30,7 +30,6 @@ const Chats = () => {
     );
   };
 
-  // fix it to run only once
   useEffect(() => {
     // used for updating messages ui of sender receiver
     const updateMessages = (newMessage) => {
