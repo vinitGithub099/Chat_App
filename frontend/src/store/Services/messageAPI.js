@@ -1,5 +1,5 @@
 import { apiSlice } from "../API/apiSlice";
-import { populateMessages } from "../Features/Message/MessageSlice";
+import { populateMessages } from "../Features/Message/messageSlice";
 
 export const messageApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
