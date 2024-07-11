@@ -1,3 +1,5 @@
+import { searchTabs } from "../constants/searchTabs";
+
 export function handelTokenExpiration(error, dispatch) {
   if (
     error &&
@@ -21,8 +23,11 @@ export const getShortenedString = (str, limit = 20) => {
 export const buildChatName = (chat, user) =>
   chat?.isGroupChat
     ? chat?.chatName
-    : chat?.users.find((member) => member._id !== user?._id)?.name ?? "Unknown";
-
+    : chat?.users?.find((member) => member._id !== user?._id)?.name ??
+      "Unknown";
 
 export const formatTimestamp = (timestamp) =>
   new Date(timestamp).toTimeString().slice(0, 5);
+
+export const initSearchState = () =>
+  Object.values(searchTabs).reduce((acc, curr) => ({ ...acc, [curr]: {} }), {});
