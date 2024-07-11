@@ -23,8 +23,7 @@ export default withMT({
       colors: {
         error: "#EF4444",
         success: "#22c55e",
-        warn: "#f97316",
-        info: "#0ea5e9",
+        warn: "#ffcc00",
         primary: "#0f172a",
         secondary: "#1e293b",
         "accent-1": "#38bdf8",
