@@ -3,12 +3,23 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { searchTabs } from "../../../constants/searchTabs";
 import { apiSlice } from "../../API/apiSlice";
 
-const filterExistingData = (existingData, query) => {
-  return existingData.filter(
-    (item) =>
-      item.name?.toLowerCase().includes(query.toLowerCase()) ||
-      item.email?.toLowerCase().includes(query.toLowerCase())
-  );
+const filterExistingData = (activeTab, existingData, query) => {
+  switch (activeTab) {
+    case searchTabs.USERS:
+      return existingData.filter(
+        (item) =>
+          item.name?.toLowerCase().includes(query.toLowerCase()) ||
+          item.email?.toLowerCase().includes(query.toLowerCase())
+      );
+    case searchTabs.CHATS:
+      // Replace with the actual filtering logic for chats
+      return existingData.filter((item) =>
+        item.chatName?.toLowerCase().includes(query.toLowerCase())
+      );
+    // Extend for more tabs
+    default:
+      return existingData;
+  }
 };
 
 const fetchFromAPI = async (activeTab, query, dispatch) => {
@@ -31,12 +42,22 @@ export const fetchSearchResults = createAsyncThunk(
   async ({ query }, { getState, dispatch, rejectWithValue }) => {
     try {
       const {
-        search: { activeTab, searchState },
+        search: { activeTab },
+        chat,
       } = getState();
-      const existingData = searchState[activeTab]?.data;
+      let existingData = [];
+
+      if (activeTab === searchTabs.CHATS) {
+        existingData = chat.chats; // Access local chats data
+      } else {
+        const {
+          search: { searchState },
+        } = getState();
+        existingData = searchState[activeTab]?.data;
+      }
 
       if (existingData) {
-        const filteredData = filterExistingData(existingData, query);
+        const filteredData = filterExistingData(activeTab, existingData, query);
         if (filteredData.length) {
           return { data: filteredData };
         }
