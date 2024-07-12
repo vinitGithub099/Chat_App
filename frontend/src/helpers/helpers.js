@@ -26,8 +26,19 @@ export const buildChatName = (chat, user) =>
     : chat?.users?.find((member) => member._id !== user?._id)?.name ??
       "Unknown";
 
-export const formatTimestamp = (timestamp) =>
-  new Date(timestamp).toTimeString().slice(0, 5);
+export const formatTimestamp = (timestamp) => {
+  if (!timestamp) {
+    return "";
+  }
+
+  const date = new Date(timestamp);
+
+  if (isNaN(date.getTime())) {
+    return "";
+  }
+
+  return date.toTimeString().slice(0, 5);
+};
 
 export const initSearchState = () =>
   Object.values(searchTabs).reduce((acc, curr) => ({ ...acc, [curr]: {} }), {});
