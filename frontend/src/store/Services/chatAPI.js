@@ -1,13 +1,15 @@
 import { apiSlice } from "../API/apiSlice";
-import { populateChats } from "../Features/Chat/ChatSlice";
+import { populateChats } from "../Features/Chat/chatSlice";
 
 export const chatApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     accessChat: builder.mutation({
-      query: (data) => ({
+      query: (userId) => ({
         url: `/chat/accessChat`,
         method: `POST`,
-        body: data,
+        body: {
+          userId: userId,
+        },
         headers: { "Content-Type": "application/json" },
       }),
     }),
