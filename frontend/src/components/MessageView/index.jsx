@@ -6,7 +6,7 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import cx from "classnames";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { AiOutlineSend } from "react-icons/ai";
 import { IoIosArrowBack } from "react-icons/io";
@@ -14,9 +14,10 @@ import { useDispatch, useSelector } from "react-redux";
 import _ from "underscore";
 import userIcon from "../../assets/profile-user_64572.png";
 import { buildChatName } from "../../helpers/helpers";
+import useTypingStatus from "../../hooks/useTypingStatus";
 import { chatSocket } from "../../main";
-import { updateCurrentChat } from "../../store/Features/Chat/ChatSlice";
-import { appendMessage } from "../../store/Features/Message/MessageSlice";
+import { updateCurrentChat } from "../../store/Features/Chat/chatSlice";
+import { appendMessage } from "../../store/Features/Message/messageSlice";
 import {
   useLazyFetchChatMessagesQuery,
   useSendMessageMutation,
@@ -33,59 +34,41 @@ const MessageView = ({ className }) => {
   const [fetchCurrChatMessages, { isLoading }] =
     useLazyFetchChatMessagesQuery();
   const [sendChatMessage] = useSendMessageMutation();
-  const [typingStatus, updateTypingStatus] = useState({
-    isTyping: false,
-    name: null,
-  });
   const [messageState, updateMessageState] = useState("");
   const typingTimeout = useRef();
 
   // fetch chat messages of the current chat when this compoenent mounts and  updates
   useEffect(() => {
-    const fetchChatMessages = async (chatId) => {
-      try {
-        await fetchCurrChatMessages(chatId);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    if (currentChat) fetchChatMessages(currentChat._id);
+    if (currentChat) {
+      fetchCurrChatMessages(currentChat._id).catch(console.error);
+    }
   }, [currentChat, fetchCurrChatMessages]);
 
   // Continuously listen to the typing events of currently selected chat
-  useEffect(() => {
-    const listenStartTyping = () => {
-      chatSocket.on("typing", ({ room, user }) => {
-        if (room?._id === currentChat?._id)
-          updateTypingStatus({ isTyping: true, name: user?.name });
-      });
-    };
-
-    const listenStopTyping = () => {
-      chatSocket.on("stop typing", ({ room }) => {
-        if (room?._id === currentChat?._id)
-          updateTypingStatus({ isTyping: false, name: null });
-      });
-    };
-
-    listenStartTyping();
-    listenStopTyping();
-  });
+  const [typingStatus] = useTypingStatus(currentChat?._id);
 
   // used for updating messages ui of sender
   const updateMessages = (newMessage) => {
     dispatch(appendMessage(newMessage));
   };
 
-  const emitStartTyping = _.debounce(() => {
-    if (!currentChat || !user) return;
-    chatSocket.emit("typing", { room: currentChat, user });
-  }, 500);
+  const emitStartTyping = useCallback(
+    _.debounce(() => {
+      if (currentChat && user) {
+        chatSocket.emit("typing", { room: currentChat, user });
+      }
+    }, 200),
+    [currentChat, user]
+  );
 
-  const emitStopTyping = _.debounce(() => {
-    if (!currentChat || !user) return;
-    chatSocket.emit("stop typing", { room: currentChat, user });
-  }, 500);
+  const emitStopTyping = useCallback(
+    _.debounce(() => {
+      if (currentChat && user) {
+        chatSocket.emit("stop typing", { room: currentChat, user });
+      }
+    }, 800),
+    [currentChat, user]
+  );
 
   const sendMessage = async (formData) => {
     try {
