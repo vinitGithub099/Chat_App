@@ -1,9 +1,3 @@
-/**
- * * important links
- * * https://ui.dev/react-router-protected-routes-authentication
- * * https://dev.to/sanjayttg/jwt-authentication-in-react-with-react-router-1d03
- */
-
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
@@ -15,6 +9,16 @@ export const chatSlice = createSlice({
   name: "chat",
   initialState,
   reducers: {
+    insertChat: (state, { payload }) => {
+      const newChat = payload;
+      const existingChatIdx = state.chats.findIndex(
+        (chat) => chat._id === newChat._id
+      );
+
+      if (existingChatIdx === -1) {
+        state.chats.unshift(newChat); // Add new chat to the beginning of the array
+      }
+    },
     updateCurrentChat: (state, { payload }) => {
       state.currentChat = payload;
     },
@@ -54,5 +58,6 @@ export const {
   populateMessages,
   toggleActivity,
   setActivity,
+  insertChat,
 } = chatSlice.actions;
 export default chatSlice.reducer;
