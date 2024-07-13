@@ -7,7 +7,7 @@ import {
   setActitvityLabel,
   setContentLabel,
   toggleSidebar,
-} from "../../store/Features/UI/UISlice.js";
+} from "../../store/Features/UI/uiSlice.js";
 import classes from "./index.module.css";
 
 const ChatSidebar = ({ className }) => {
