@@ -4,7 +4,7 @@ import { AiOutlineMenu } from "react-icons/ai";
 import { TbReload } from "react-icons/tb";
 import { useDispatch, useSelector } from "react-redux";
 import { MENU_ITEMS } from "../../constants/sideMenu";
-import { toggleSidebar } from "../../store/Features/UI/UISlice";
+import { toggleSidebar } from "../../store/Features/UI/uiSlice";
 import ChatList from "../ChatList";
 import ChatSidebar from "../ChatSidebar";
 import classes from "./index.module.css";
