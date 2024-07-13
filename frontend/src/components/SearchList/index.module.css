@@ -1,0 +1,27 @@
+.searchListContainer {
+  @apply w-full h-full bg-transparent;
+}
+
+.tabsHeader {
+  @apply rounded-none bg-transparent text-primary-text-1 flex flex-row items-center justify-start;
+}
+
+.indicator {
+  @apply border-b-2 border-accent-1 text-primary-text-1 shadow-none rounded-none bg-transparent;
+}
+
+.tab {
+  @apply flex-initial text-sm text-primary-text-1;
+}
+
+.activeTab {
+  @apply bg-transparent text-accent-1;
+}
+
+.tabsBody {
+  @apply mt-2;
+}
+
+.emptyResponse {
+  @apply py-4 text-primary-text-1 text-center;
+}
