@@ -1,5 +1,5 @@
 .chatCard {
-  @apply w-full p-2 flex flex-row items-center gap-4 rounded-md hover:cursor-pointer hover:bg-highlight;
+  @apply w-full p-2 mb-2 flex flex-row items-center gap-4 rounded-md hover:cursor-pointer hover:bg-secondary;
 }
 
 .avatar {
@@ -7,7 +7,7 @@
 }
 
 .active {
-  @apply bg-secondary;
+  @apply bg-accent-1 bg-opacity-30;
 }
 
 .chatInfo {
