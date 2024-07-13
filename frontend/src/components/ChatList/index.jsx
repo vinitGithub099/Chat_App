@@ -1,112 +1,100 @@
-import { Button, Input, Spinner } from "@material-tailwind/react";
+import { Button, Input, Spinner, Typography } from "@material-tailwind/react";
 import cx from "classnames";
-import { useEffect, useState } from "react";
-import { AiOutlineClose } from "react-icons/ai";
-import { useSelector } from "react-redux";
+import { useCallback, useEffect, useState } from "react";
+import { AiFillWarning, AiOutlineClose } from "react-icons/ai";
+import { useDispatch, useSelector } from "react-redux";
 import _ from "underscore";
-import { chatSocket } from "../../main";
+import useJoinChatRooms from "../../hooks/useJoinChatRooms";
+import { fetchSearchResults } from "../../store/Features/Search/searchActions";
 import { useLazyFetchChatsQuery } from "../../store/Services/chatAPI";
 import ChatCard from "../ChatCard";
+import SearchList from "../SearchList";
 import classes from "./index.module.css";
 
-/* 
-
-Note: modify the search functionlity with original api calls
-Currently it is made with dummy data
-
-*/
-
 const ChatList = () => {
-  const [filteredChats, updateFilteredChats] = useState([]);
-  const [inputValue, setInputValue] = useState("");
-  const [fetchChats, { isLoading }] = useLazyFetchChatsQuery();
   const chatList = useSelector((state) => state.chat.chats);
   const user = useSelector((state) => state.auth.user);
+  const dispatch = useDispatch();
+
+  const [inputValue, setInputValue] = useState("");
+  const [isFocused, setIsFocused] = useState(false);
+
+  const [fetchChats, { isLoading, error }] = useLazyFetchChatsQuery();
 
   useEffect(() => {
-    const fetchChatList = async () => {
-      try {
-        await fetchChats();
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchChatList();
+    fetchChats();
   }, [fetchChats]);
 
-  // subscribe the user to the chat rooms to receive updates
-  useEffect(() => {
-    if (!chatList?.length || !user) return;
+  useJoinChatRooms(chatList, user);
 
-    chatList.forEach((chat) => {
-      chatSocket.emit("join chat", { user, room: chat });
-    });
-  }, [chatList, user]);
+  // Define the debounced function
+  const debounceChange = useCallback(
+    _.debounce(async (query) => {
+      if (query) {
+        dispatch(fetchSearchResults({ query }));
+      }
+    }, 800),
+    [] // Only create the debounce function once
+  );
 
-  // fetch chats on input change
-  const handleInputChange = (query) => {
-    if (!query) {
-      updateFilteredChats([]);
-      return;
-    }
-
-    const res = chatList.filter((chat) =>
-      chat.chatName?.toLowerCase().includes(query)
-    );
-
-    updateFilteredChats(res);
-  };
-
-  // debounce the change
-  const debounceChange = _.debounce(handleInputChange, 800);
-
-  // Immediate input change handler
+  // Input change handler
   const handleChange = (e) => {
-    // update the input state
     const value = e.target.value;
     setInputValue(value);
-
     debounceChange(value.toLowerCase().trim());
   };
 
+  // Handle clearing input
   const handleClose = () => {
     setInputValue("");
-    updateFilteredChats([]);
+    setIsFocused(false);
   };
+
+  const handleFocus = () => setIsFocused(true);
 
   return (
     <div className={classes.chatListContainer}>
-      <div className={classes.searchBar}>
-        <Input
-          type="text"
-          placeholder="Search"
-          className={classes.search}
-          value={inputValue}
-          onChange={handleChange}
-          labelProps={{ className: classes.labelProps }}
-        />
-        <Button
-          variant="text"
-          className={cx(classes.searchClose, {
-            [classes.showCloseBtn]: filteredChats?.length,
-          })}
-          onClick={handleClose}
-        >
-          <AiOutlineClose size={20} />
-        </Button>
-      </div>
-      <div className={classes.chatList}>
-        {isLoading ? (
-          <div className={classes.spinLoaderContainer}>
-            <Spinner className={classes.spinner} />
-            <span>Loading messages</span>
+      {isLoading ? (
+        <div className={classes.spinLoaderContainer}>
+          <Spinner className={classes.spinner} />
+          <span>Loading messages</span>
+        </div>
+      ) : error ? (
+        <div className={classes.chatListError}>
+          <AiFillWarning size={20} className={classes.warnIcon} />
+          <Typography variant="small">Something went wrong!</Typography>
+        </div>
+      ) : (
+        <>
+          <div className={classes.searchBar}>
+            <Input
+              type="text"
+              placeholder="Search"
+              className={classes.search}
+              value={inputValue}
+              onChange={handleChange}
+              onFocus={handleFocus}
+              labelProps={{ className: classes.labelProps }}
+            />
+            <Button
+              variant="text"
+              className={cx(classes.searchClose, {
+                [classes.showCloseBtn]: isFocused,
+              })}
+              onClick={handleClose}
+            >
+              <AiOutlineClose size={20} />
+            </Button>
           </div>
-        ) : filteredChats?.length ? (
-          filteredChats.map((chat) => <ChatCard key={chat._id} {...chat} />)
-        ) : chatList?.length ? (
-          chatList.map((chat) => <ChatCard key={chat._id} {...chat} />)
-        ) : null}
-      </div>
+          <div className={classes.chatList}>
+            {isFocused ? (
+              <SearchList />
+            ) : chatList?.length ? (
+              chatList.map((chat) => <ChatCard key={chat._id} {...chat} />)
+            ) : null}
+          </div>
+        </>
+      )}
     </div>
   );
 };
