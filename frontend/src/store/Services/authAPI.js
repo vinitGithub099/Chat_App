@@ -31,7 +31,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
       }),
     }),
 
-    searchUser: builder.query({
+    fetchUsers: builder.query({
       query: (query) => ({
         url: `/user/fetchUsers`,
         method: `GET`,
@@ -45,5 +45,5 @@ export const authApiSlice = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useLoginMutation, useRegisterMutation, useLazySearchUserQuery } =
+export const { useLoginMutation, useRegisterMutation, useLazyFetchUsersQuery } =
   authApiSlice;
