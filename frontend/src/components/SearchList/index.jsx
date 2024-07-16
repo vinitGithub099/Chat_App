@@ -10,8 +10,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { searchTabs } from "../../constants/searchTabs";
 import { updateActiveTab } from "../../store/Features/Search/searchSlice";
 import ChatCard from "../ChatCard";
-import UserCard from "../UserCard";
 import classes from "./index.module.css";
+import SearchUserCard from "./SearchUserCard";
 
 const SearchList = () => {
   const { activeTab, searchState } = useSelector((state) => state.search);
@@ -20,7 +20,7 @@ const SearchList = () => {
   const renderTabPanel = (item) => {
     switch (activeTab) {
       case searchTabs.USERS:
-        return <UserCard key={item._id} {...item} />;
+        return <SearchUserCard key={item._id} {...item} />;
       case searchTabs.CHATS:
         return <ChatCard key={item._id} {...item} />;
       default:
