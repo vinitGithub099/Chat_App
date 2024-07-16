@@ -26,7 +26,7 @@ const fetchFromAPI = async (activeTab, query, dispatch) => {
   switch (activeTab) {
     case searchTabs.USERS:
       return await dispatch(
-        apiSlice.endpoints.searchUser.initiate(query)
+        apiSlice.endpoints.fetchUsers.initiate(query)
       ).unwrap();
     case searchTabs.CHATS:
       // Replace with the actual API call for chats
