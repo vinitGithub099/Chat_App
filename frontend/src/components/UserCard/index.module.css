@@ -2,10 +2,6 @@
   @apply w-full px-4 py-2 flex flex-row items-center gap-4 rounded-md hover:bg-secondary hover:cursor-pointer;
 }
 
-.active {
-  @apply bg-accent-1 bg-opacity-30;
-}
-
 .avatar {
   @apply bg-primary-text-2 border border-primary-text-2;
 }
