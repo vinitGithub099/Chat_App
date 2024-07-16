@@ -4,10 +4,11 @@ import { useEffect, useState } from "react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import Dropdown from "../Dropdown";
 import Logo from "../Logo";
-import Navlist from "../Navlist";
-import ProfileMenu from "../ProfileMenu";
+import Navlist from "./Navlist";
 import classes from "./index.module.css";
+import { profileMenuItems } from "./profileMenuItems";
 
 const Header = ({ className }) => {
   const [openNav, setOpenNav] = useState(false);
@@ -45,7 +46,7 @@ const Header = ({ className }) => {
           Sign Up
         </Button>
         {token ? (
-          <ProfileMenu />
+          <Dropdown menuItems={profileMenuItems} />
         ) : (
           <Button
             name="login"
