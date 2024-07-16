@@ -42,28 +42,28 @@ export const chatApiSlice = apiSlice.injectEndpoints({
     }),
 
     renameGroup: builder.mutation({
-      query: (data) => ({
+      query: ({ chatId, chatName }) => ({
         url: `/chat/renameGroup`,
         method: `POST`,
-        body: data,
+        body: { chatId, chatName },
         headers: { "Content-Type": "application/json" },
       }),
     }),
 
     addGroupMember: builder.mutation({
-      query: (data) => ({
+      query: ({ chatId, userId }) => ({
         url: `/chat/addGroupMember`,
         method: `PUT`,
-        body: data,
+        body: { chatId, userId },
         headers: { "Content-Type": "application/json" },
       }),
     }),
 
     removeGroupMember: builder.mutation({
-      query: (data) => ({
+      query: ({ chatId, userId }) => ({
         url: `/chat/removeGroupMember`,
         method: `PUT`,
-        body: data,
+        body: { chatId, userId },
         headers: { "Content-Type": "application/json" },
       }),
     }),
