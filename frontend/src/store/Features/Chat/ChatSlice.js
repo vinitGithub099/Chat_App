@@ -25,27 +25,28 @@ export const chatSlice = createSlice({
     populateChats: (state, { payload }) => {
       state.chats = payload;
     },
-    removeChat: (state, { payload }) => ({
-      ...state,
-      chats:
+    removeChat: (state, { payload }) => {
+      state.chats =
         state.chats && state.chats.length
-          ? state.chats.filter((chat) => chat._id !== payload._id)
-          : [],
-    }),
-    addChatMember: (state, { payload }) => ({
-      ...state.currentChat.users.push(),
-      currentChat: {
-        ...state.currentChat,
-        users: payload ? payload : state.currentChat?.users,
-      },
-    }),
-    removeChatMember: (state, { payload }) => ({
-      ...state,
-      currentChat: {
-        ...state.currentChat,
-        users: state.currentChat?.users.filter((user) => user._id !== payload),
-      },
-    }),
+          ? state.chats.filter((chat) => chat._id !== payload)
+          : [];
+    },
+    addChatMember: (state, { payload }) => {
+      const { user, chatId } = payload;
+      state.currentChat.users.push(user);
+      let chatToModify = state.chats?.find((chat) => chat._id === chatId);
+      chatToModify.users.push(user);
+    },
+    removeChatMember: (state, { payload }) => {
+      const { userId, chatId } = payload;
+      state.currentChat.users = state.currentChat.users.filter(
+        (user) => user._id !== userId
+      );
+      let chatToModify = state.chats?.find((chat) => chat._id === chatId);
+      chatToModify.users = chatToModify.users.filter(
+        (user) => user._id !== userId
+      );
+    },
   },
 });
 
@@ -57,7 +58,6 @@ export const {
   removeChat,
   populateMessages,
   toggleActivity,
-  setActivity,
   insertChat,
 } = chatSlice.actions;
 export default chatSlice.reducer;
