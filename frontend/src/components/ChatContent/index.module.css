@@ -3,7 +3,7 @@
 }
 
 .chatContentHeader {
-  @apply mb-2 p-4 flex flex-row items-center gap-4;
+  @apply mb-2 p-4 flex flex-row items-center justify-between gap-4;
 }
 
 .menuIcon {
@@ -16,4 +16,8 @@
 
 .content {
   @apply w-full flex-1 overflow-auto;
+}
+
+.channelBtn {
+  @apply self-end p-1 text-primary-text-1 hover:bg-secondary transition-colors duration-100 ease-in-out;
 }
