@@ -1,0 +1,15 @@
+.option {
+  @apply bg-secondary bg-opacity-50 hover:cursor-pointer;
+}
+
+.focus {
+  @apply hover:bg-opacity-100;
+}
+
+.select {
+  @apply text-primary-text-1 bg-accent-1;
+}
+
+.label {
+  @apply font-bold;
+}
