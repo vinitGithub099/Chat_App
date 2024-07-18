@@ -8,7 +8,7 @@ import classes from "./index.module.css";
 const ChatActivity = ({ className }) => {
   const activityLabel = useSelector((state) => state.ui.activityLabel);
 
-  const errorFallback = (
+  const defaultFallback = (
     <Typography className={classes.errDiv}>
       Select something to see the activity!
     </Typography>
@@ -17,15 +17,11 @@ const ChatActivity = ({ className }) => {
   const renderView = (activityLabel) => {
     switch (activityLabel) {
       case MENU_ITEMS.CHATS.label:
-        return <MessageView className="" />;
+        return <MessageView />;
       case MENU_ITEMS.STATUS.label:
-        return (
-          <Typography variant="h4" className="text-center">
-            Under Development
-          </Typography>
-        );
+        return <Typography variant="h4">Under Development</Typography>;
       default:
-        return errorFallback;
+        return defaultFallback;
     }
   };
 
