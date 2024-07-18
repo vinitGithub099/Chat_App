@@ -1,6 +1,5 @@
 import {
   Avatar,
-  Button,
   Menu,
   MenuHandler,
   MenuItem,
@@ -16,44 +15,50 @@ const Dropdown = ({ menuItems }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const closeMenu = () => setIsMenuOpen(false);
+
+  const renderMenuList = () =>
+    menuItems?.length
+      ? menuItems.map(({ label, icon: Icon }, key) => {
+          const isLastItem = key === menuItems.length - 1;
+          return (
+            <MenuItem
+              key={label}
+              onClick={closeMenu}
+              className={cx(classes.menuItem, {
+                [classes.lastMenuItem]: isLastItem,
+              })}
+            >
+              <Icon
+                className={cx(classes.icon, {
+                  [classes.signOutText]: isLastItem,
+                })}
+              />
+              <Typography
+                as="span"
+                variant="small"
+                className={cx(classes.label, {
+                  [classes.signOutText]: isLastItem,
+                })}
+              >
+                {label}
+              </Typography>
+            </MenuItem>
+          );
+        })
+      : null;
+
   return (
     <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
       <MenuHandler>
-        <Button variant="text" className={classes.avatarBtn}>
-          <Avatar src={userLogo} alt="avatar" variant="rounded" size="sm" />
-        </Button>
+        <Avatar
+          src={userLogo}
+          alt="avatar"
+          variant="rounded"
+          size="sm"
+          className={classes.avatarBtn}
+        />
       </MenuHandler>
-      <MenuList className={classes.menuList}>
-        {menuItems?.length
-          ? menuItems.map(({ label, icon: Icon }, key) => {
-              const isLastItem = key === menuItems.length - 1;
-              return (
-                <MenuItem
-                  key={label}
-                  onClick={closeMenu}
-                  className={cx(classes.menuItem, {
-                    [classes.lastMenuItem]: isLastItem,
-                  })}
-                >
-                  <Icon
-                    className={cx(classes.icon, {
-                      [classes.signOutText]: isLastItem,
-                    })}
-                  />
-                  <Typography
-                    as="span"
-                    variant="small"
-                    className={cx(classes.label, {
-                      [classes.signOutText]: isLastItem,
-                    })}
-                  >
-                    {label}
-                  </Typography>
-                </MenuItem>
-              );
-            })
-          : null}
-      </MenuList>
+      <MenuList className={classes.menuList}>{renderMenuList()}</MenuList>
     </Menu>
   );
 };
