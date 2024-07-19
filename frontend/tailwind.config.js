@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 import withMT from "@material-tailwind/react/utils/withMT";
-const authCover = "./src/assets/6310507.jpg";
+const authCover = './src/assets/6310507.jpg';
 
 export default withMT({
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
@@ -8,17 +8,6 @@ export default withMT({
     extend: {
       backgroundImage: {
         "auth-cover": `url(${authCover})`,
-      },
-      screens: {
-        sm: "640px",
-
-        md: "768px",
-
-        lg: "1024px",
-
-        xl: "1280px",
-
-        "2xl": "1536px",
       },
       colors: {
         error: "#EF4444",
@@ -54,10 +43,8 @@ export default withMT({
   ],
   safelist: [
     "text-error",
-    "text-info",
     {
-      pattern:
-        /(bg|text|border)-(light-1|light-2|light-3|dark-1|dark-2|dark-3|btn|success|error|warn|info)/,
+      pattern: /(bg|text|border)-(success|error|warn)/,
     },
   ],
 });
