@@ -1,5 +1,5 @@
 .authToastContainer {
-  @apply p-2 w-60 flex flex-row items-center gap-4  rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border;
+  @apply p-2 w-60 flex flex-row items-center gap-4 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border;
 }
 
 .authToastMessage {
