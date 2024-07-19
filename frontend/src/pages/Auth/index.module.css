@@ -1,0 +1,66 @@
+/* Container */
+.container {
+  @apply p-2 h-screen w-screen flex flex-row justify-center;
+}
+
+.subContainer {
+  @apply p-2 w-full flex flex-col;
+
+  &:nth-child(2) {
+    @apply hidden md:block;
+  }
+}
+
+.icon {
+  @apply text-accent-1 flex justify-center relative top-10;
+}
+
+/* Form Container */
+.formContainer {
+  @apply mx-auto p-4 w-full sm:w-96 rounded-lg bg-gradient-to-b from-secondary to-secondary ring-1 ring-opacity-30 ring-accent-1;
+
+  > h4 {
+    @apply mt-10 mb-20 py-4 text-center border-b border-accent-1 bg-gradient-to-r from-accent-1 to-accent-2 bg-clip-text text-transparent;
+  }
+}
+
+/* Form Styles */
+.form {
+  @apply w-full;
+}
+
+.formField {
+  @apply mb-6;
+}
+
+.label {
+  @apply block text-gray-700 text-sm font-bold mb-2;
+}
+
+.input {
+  @apply px-4 !border-0 !border-l-4 !border-l-accent-2 focus:ring-1 focus:ring-accent-1 bg-accent-1 bg-opacity-15 text-primary-text-1 placeholder:text-primary-text-2 placeholder:opacity-100 rounded-none;
+}
+
+.labelProps {
+  @apply hidden !border-0 focus:border-0;
+}
+
+.error {
+  @apply text-error text-sm italic mt-1 pl-2;
+}
+
+.forgotPswd {
+  @apply pt-2 pb-4 float-right text-primary-text-1 hover:text-accent-1;
+}
+
+.submitBtn {
+  @apply mt-6 text-primary-text-1 bg-gradient-to-r from-accent-1 to-accent-2 rounded-full;
+}
+
+.linkContainer {
+  @apply mt-4 flex justify-center text-sm text-primary-text-1;
+}
+
+.link {
+  @apply px-2 font-bold text-accent-2 hover:text-accent-1;
+}
