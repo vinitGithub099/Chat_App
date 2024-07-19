@@ -1,0 +1,23 @@
+.sendMsgForm {
+  @apply w-full py-2 px-4;
+}
+
+.messageForm {
+  @apply max-h-full flex flex-row justify-between gap-2;
+}
+
+.textArea {
+  @apply min-h-full !border-0 focus:border-transparent text-primary-text-1 bg-secondary rounded-none;
+}
+
+.containerProps {
+  @apply grid h-full border-b-2 border-b-highlight;
+}
+
+.labelProps {
+  @apply before:content-none after:content-none;
+}
+
+.sendMsgBtn {
+  @apply px-4 py-2 bg-accent-1 hover:bg-opacity-80 rounded-full;
+}
