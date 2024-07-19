@@ -1,0 +1,27 @@
+.chatHeader {
+  @apply w-full mb-2 p-4 flex flex-row items-center gap-4 shadow-sm shadow-highlight;
+}
+
+.chatHeaderDetails {
+  @apply flex-1;
+}
+
+.typingStatus {
+  @apply text-xs text-accent-1 truncate col-span-3  lg:col-span-10;
+}
+
+.onlineStatus {
+  @apply text-xs text-primary-text-2;
+}
+
+.closeBtn {
+  @apply sm:hidden px-2 py-1 text-primary-text-1;
+}
+
+.avatar {
+  @apply bg-highlight;
+}
+
+.chatName {
+  @apply inline truncate hover:cursor-pointer hover:bg-gradient-to-r hover:from-accent-1 hover:to-accent-2 hover:bg-clip-text hover:text-transparent;
+}
