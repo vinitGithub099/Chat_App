@@ -1,10 +1,11 @@
 import { Button, Input, Typography } from "@material-tailwind/react";
 import { useForm } from "react-hook-form";
+import { FaHouseUser } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import Logo from "../../../components/Logo";
+import { FORM_FIELDS } from "../../../constants/formFields";
 import { EMAIL_REGEX } from "../../../constants/regex";
 import { useLoginMutation } from "../../../store/Services/authAPI";
-import classes from "./index.module.css";
+import classes from "../index.module.css";
 
 const LoginPage = () => {
   const {
@@ -32,73 +33,69 @@ const LoginPage = () => {
 
   return (
     <section className={classes.container}>
-      <div className={classes.formContainer}>
-        <Logo size="xxl" />
-        <Typography variant="h2" className="text-left mb-4">
-          Login
-        </Typography>
-        <form
-          className={classes.form}
-          onSubmit={handleSubmit(handleFormSubmit)}
-          noValidate
-        >
-          <div className={classes.formField}>
-            <Input
-              type="email"
-              variant="outlined"
-              label="Email"
-              placeholder="user@gmail.com"
-              className={classes.input}
-              labelProps={{ className: classes.labelProps }}
-              {...register("email", {
-                required: {
-                  value: true,
-                  message: "Please enter your email!",
-                },
-                pattern: { value: EMAIL_REGEX, message: "Invalid email!" },
-              })}
-            />
-            {errors && errors["email"] && (
-              <Typography color="red" variant="small" className={classes.error}>
-                {errors["email"].message}
+      <div className={classes.subContainer}>
+        <div className={classes.icon}>
+          <FaHouseUser size={80} />
+        </div>
+        <div className={classes.formContainer}>
+          <Typography variant="h4">User Login</Typography>
+          <form
+            className={classes.form}
+            onSubmit={handleSubmit(handleFormSubmit)}
+            noValidate
+          >
+            <div className={classes.formField}>
+              <Input
+                variant="outlined"
+                className={classes.input}
+                type={FORM_FIELDS.EMAIL}
+                placeholder="user@gmail.com"
+                labelProps={{ className: classes.labelProps }}
+                {...register(FORM_FIELDS.EMAIL, {
+                  required: {
+                    value: true,
+                    message: "Please enter your email!",
+                  },
+                  pattern: { value: EMAIL_REGEX, message: "Invalid email!" },
+                })}
+              />
+              {errors && errors[FORM_FIELDS.EMAIL] && (
+                <Typography variant="small" className={classes.error}>
+                  {errors[FORM_FIELDS.EMAIL].message}
+                </Typography>
+              )}
+            </div>
+            <div className={classes.formField}>
+              <Input
+                className={classes.input}
+                labelProps={{ className: classes.labelProps }}
+                variant="outlined"
+                type={FORM_FIELDS.PASSWORD}
+                placeholder="********"
+                {...register(FORM_FIELDS.PASSWORD, {
+                  required: { value: true, message: "Please enter the password!" },
+                })}
+              />
+              {errors && errors[FORM_FIELDS.PASSWORD] && (
+                <Typography variant="small" className={classes.error}>
+                  {errors[FORM_FIELDS.PASSWORD].message}
+                </Typography>
+              )}
+            </div>
+            <Button type="submit" className={classes.submitBtn} fullWidth>
+              Login
+            </Button>
+            <div className={classes.linkContainer}>
+              <Typography variant="small">
+                {`Don't have an account?`}
+                <span className={classes.link}>
+                  <Link to="/register">Register</Link>
+                </span>
               </Typography>
-            )}
-          </div>
-          <div className={classes.formField}>
-            <Input
-              type="password"
-              variant="outlined"
-              label="Password"
-              placeholder="********"
-              className={classes.input}
-              labelProps={{ className: classes.labelProps }}
-              {...register("password", {
-                required: { value: true, message: "Please enter your name!" },
-              })}
-            />
-            {errors && errors["password"] && (
-              <Typography color="red" variant="small" className={classes.error}>
-                {errors["password"].message}
-              </Typography>
-            )}
-          </div>
-          <Typography variant="small" className={classes.forgotPswd}>
-            <Link to="/login">Forgot password?</Link>
-          </Typography>
-          <Button type="submit" className={classes.submitBtn} fullWidth>
-            SUBMIT
-          </Button>
-          <div className={classes.registerLinkContainer}>
-            <Typography variant="small" className="">
-              {`Don't have an account?`}
-            </Typography>
-            <Typography variant="small" className={classes.registerLink}>
-              <Link to="/register">Register</Link>
-            </Typography>
-          </div>
-        </form>
+            </div>
+          </form>
+        </div>
       </div>
-      <div className={classes.coverImageContainer}></div>
     </section>
   );
 };
