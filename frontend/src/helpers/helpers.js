@@ -1,31 +1,11 @@
-import { searchTabs } from "../constants/searchTabs";
-
-export function handelTokenExpiration(error, dispatch) {
-  if (
-    error &&
-    error.response &&
-    (error.response.status === 403 || error.response.status === 401)
-  ) {
-    dispatch({ type: "auth/setTokenExpiration", payload: true });
-  } else {
-    dispatch({ type: "auth/setTokenExpiration", payload: false });
-  }
-}
-
-export const getShortenedString = (str, limit = 20) => {
-  let modifiedStr = str;
-  if (modifiedStr?.length > limit) {
-    modifiedStr = str.substring(0, limit) + "...";
-  }
-  return modifiedStr;
-};
-
+// build the name of chat provided chat and user
 export const buildChatName = (chat, user) =>
   chat?.isGroupChat
     ? chat?.chatName
     : chat?.users?.find((member) => member._id !== user?._id)?.name ??
       "Unknown";
 
+// format timestamp in hh:mm format
 export const formatTimestamp = (timestamp) => {
   if (!timestamp) {
     return "";
@@ -40,5 +20,16 @@ export const formatTimestamp = (timestamp) => {
   return date.toTimeString().slice(0, 5);
 };
 
-export const initSearchState = () =>
-  Object.values(searchTabs).reduce((acc, curr) => ({ ...acc, [curr]: {} }), {});
+// generate unique color from _id (ObjectId)
+export const stringToColor = (str) => {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = str.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  let color = "#";
+  for (let i = 0; i < 3; i++) {
+    const value = (hash >> (i * 8)) & 0xff;
+    color += value.toString(16).padStart(2, "0");
+  }
+  return color;
+};
