@@ -73,6 +73,10 @@
   @apply w-full px-4 py-2 flex gap-4 items-center normal-case text-primary-text-1 hover:bg-secondary;
 }
 
-.btn svg {
+.leaveChannelBtn {
+  @apply w-full px-4 py-2 flex gap-4 items-center normal-case text-primary-text-1 hover:bg-secondary;
+}
+
+.leaveChannelBtn svg {
   @apply text-error;
 }
