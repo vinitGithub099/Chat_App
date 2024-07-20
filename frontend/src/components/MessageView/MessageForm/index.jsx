@@ -1,14 +1,14 @@
 import { Button, Textarea } from "@material-tailwind/react";
 import { useCallback, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import { AiOutlineSend } from "react-icons/ai";
+import { BsFillSendFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import _ from "underscore";
+import { BUTTON_VARIANT } from "../../../constants/variants";
 import { chatSocket } from "../../../main";
 import { appendMessage } from "../../../store/Features/Message/messageSlice";
 import { useSendMessageMutation } from "../../../store/Services/messageAPI";
 import classes from "./index.module.css";
-import { BUTTON_VARIANT } from "../../../constants/variants";
 
 const MessageForm = () => {
   const { register, handleSubmit } = useForm();
@@ -100,7 +100,7 @@ const MessageForm = () => {
           {...register("message", { required: true })}
         />
         <Button variant={BUTTON_VARIANT.TEXT} type="submit" className={classes.sendMsgBtn}>
-          <AiOutlineSend />
+          <BsFillSendFill size={20} />
         </Button>
       </form>
     </div>
