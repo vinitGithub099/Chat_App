@@ -2,10 +2,16 @@ import { Controller } from "react-hook-form";
 import AsyncSelect from "react-select/async";
 import { useLazyFetchUsersQuery } from "../../store/Services/authAPI";
 import classes from "./index.module.css";
-import MultiValueLabel from "./MultiValueLabel";
 import Option from "./Option";
+import ValueLabel from "./ValueLabel";
 
-const UserSelect = ({ name, control }) => {
+const UserSelect = ({
+  name,
+  control,
+  isMulti = false,
+  disabledOptions = [],
+  validationRules
+}) => {
   const [fetchUsers] = useLazyFetchUsersQuery();
 
   const buildOptions = async (query, callback) => {
@@ -20,44 +26,52 @@ const UserSelect = ({ name, control }) => {
       console.log(error);
     }
   };
+
+  const isOptionDisabled = (option) => {
+    return disabledOptions?.includes(option.value);
+  };
+
   return (
-    <div className="focus:border focus:border-accent-1">
-      <Controller
-        name={name}
-        control={control}
-        rules={{
-          validate: (value) => value?.length > 2 || "Select at least 3 users",
-        }}
-        render={({ field }) => (
-          <AsyncSelect
-            {...field}
-            isMulti
-            placeholder="Seach here.."
-            loadOptions={buildOptions}
-            components={{ Option: Option, MultiValueLabel: MultiValueLabel }}
-            classNamePrefix={classes.reactSelect}
-            className={classes.reactSelectContainer}
-            getOptionLabel={(option) => option.label.name}
-            getOptionValue={(option) => option.value}
-            classNames={{
-              input: () => classes.input,
-              menu: () => classes.menu,
-              menuList: () => classes.menuList,
-              valueContainer: () => classes.valueContainer,
-              container: () => classes.container,
-              control: () => classes.control,
-              dropdownIndicator: () => classes.dropdownIndicator,
-              singleValue: () => classes.singleValue,
-              multiValueContainer: () => classes.multiValueContainer,
-              multiValueRemove: () => classes.multiValueRemove,
-              indicatorsContainer: () => classes.indicatorsContainer,
-              clearIndicator: () => classes.clearIndicator,
-              indicatorSeparator: () => classes.indicatorSeparator,
-            }}
-          />
-        )}
-      />
-    </div>
+    <Controller
+      name={name}
+      control={control}
+      rules={validationRules}
+      render={({ field }) => (
+        <AsyncSelect
+          {...field}
+          isMulti={isMulti}
+          placeholder="Seach here.."
+          onChange={(selected) => field.onChange(selected)}
+          value={field.value}
+          loadOptions={buildOptions}
+          components={{
+            Option: Option,
+            MultiValueLabel: ValueLabel,
+            SingleValue: ValueLabel,
+          }}
+          classNamePrefix={classes.reactSelect}
+          className={classes.reactSelectContainer}
+          getOptionLabel={(option) => option.label.name}
+          getOptionValue={(option) => option.value}
+          isOptionDisabled={isOptionDisabled}
+          classNames={{
+            input: () => classes.input,
+            menu: () => classes.menu,
+            menuList: () => classes.menuList,
+            valueContainer: () => classes.valueContainer,
+            container: () => classes.container,
+            control: () => classes.control,
+            dropdownIndicator: () => classes.dropdownIndicator,
+            singleValue: () => classes.singleValue,
+            multiValueContainer: () => classes.multiValueContainer,
+            multiValueRemove: () => classes.multiValueRemove,
+            indicatorsContainer: () => classes.indicatorsContainer,
+            clearIndicator: () => classes.clearIndicator,
+            indicatorSeparator: () => classes.indicatorSeparator,
+          }}
+        />
+      )}
+    />
   );
 };
 
