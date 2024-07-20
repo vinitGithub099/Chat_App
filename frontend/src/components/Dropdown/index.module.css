@@ -1,5 +1,5 @@
 .avatarBtn {
-  @apply border border-accent-2 bg-accent-1 hover:bg-accent-2 flex items-center rounded-full p-0;
+  @apply border border-accent-2 bg-accent-1 hover:bg-accent-2 flex items-center rounded-full p-0 hover:cursor-pointer;
 }
 
 .menuList {
@@ -20,7 +20,4 @@
 
 .icon {
   @apply h-4 w-4;
-}
-
-.label {
 }
