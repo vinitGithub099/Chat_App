@@ -94,7 +94,7 @@ const ChatForm = ({ isChatFormOpen, toggleChatForm }) => {
         {...register("description")}
       />
       <div className={classes.formField}>
-        <UserSelect name={"users"} control={control} />
+        <UserSelect isMulti={true} name={"users"} control={control} />
         {errors && errors["users"] && (
           <Typography variant="small" className={classes.error}>
             {errors["users"].message}
