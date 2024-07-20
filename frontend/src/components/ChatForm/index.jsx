@@ -139,7 +139,6 @@ const ChatForm = ({ isChatFormOpen, toggleChatForm }) => {
         container: classes.chatFormDialog,
         header: classes.chatFormHeader,
         body: classes.chatFormBody,
-        footer: classes,
       }}
       handler={toggleChatForm}
       header={<Header />}
