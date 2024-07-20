@@ -1,8 +1,11 @@
 // searchSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 import { searchTabs } from "../../../constants/searchTabs";
-import { initSearchState } from "../../../helpers/helpers";
 import { fetchSearchResults } from "./searchActions";
+
+// initialize search state of seach slice
+const initSearchState = () =>
+  Object.values(searchTabs).reduce((acc, curr) => ({ ...acc, [curr]: {} }), {});
 
 const initialState = {
   activeTab: searchTabs.USERS,
