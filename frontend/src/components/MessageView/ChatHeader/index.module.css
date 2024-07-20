@@ -1,5 +1,5 @@
 .chatHeader {
-  @apply w-full mb-2 p-4 flex flex-row items-center gap-4 shadow-sm shadow-highlight;
+  @apply w-full mb-2 p-4 flex flex-row items-center gap-2 shadow-sm shadow-highlight;
 }
 
 .chatHeaderDetails {
