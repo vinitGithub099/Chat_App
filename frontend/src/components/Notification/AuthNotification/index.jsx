@@ -6,6 +6,7 @@ import { FaCheckCircle } from "react-icons/fa";
 import { MdError } from "react-icons/md";
 import { AUTH_NOTIFICATION_STATUS } from "../../../constants/authNotficationTypes";
 import classes from "./index.module.css";
+import { BUTTON_VARIANT, TYPOGRAPHY_VARIANT } from "../../../constants/variants";
 
 const AuthNotification = ({ status, action, id }) => {
   const removeToast = () => toast.remove(id);
@@ -49,11 +50,11 @@ const AuthNotification = ({ status, action, id }) => {
   return (
     <div className={cx(classes.authToastContainer, getNotificationStyle())}>
       {renderAuthIcon()}
-      <Typography variant="small" className={classes.authToastMessage}>
+      <Typography variant={TYPOGRAPHY_VARIANT.SMALL} className={classes.authToastMessage}>
         {getDefaultMessage()}
       </Typography>
       <Button
-        variant="text"
+        variant={BUTTON_VARIANT.TEXT}
         onClick={removeToast}
         className={classes.authToastDimissBtn}
       >

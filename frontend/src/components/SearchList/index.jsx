@@ -12,6 +12,7 @@ import { updateActiveTab } from "../../store/Features/Search/searchSlice";
 import ChatCard from "../ChatCard";
 import classes from "./index.module.css";
 import SearchUserCard from "./SearchUserCard";
+import { TYPOGRAPHY_VARIANT } from "../../constants/variants";
 
 const SearchList = () => {
   const { activeTab, searchState } = useSelector((state) => state.search);
@@ -51,7 +52,7 @@ const SearchList = () => {
         {searchState[activeTab]?.data?.length ? (
           searchState[activeTab].data.map(renderTabPanel)
         ) : (
-          <Typography variant="small" className={classes.emptyResponse}>
+          <Typography variant={TYPOGRAPHY_VARIANT.SMALL} className={classes.emptyResponse}>
             Nothing to show!
           </Typography>
         )}

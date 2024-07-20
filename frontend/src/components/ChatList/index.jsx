@@ -4,6 +4,12 @@ import { useCallback, useEffect, useState } from "react";
 import { AiFillWarning, AiOutlineClose } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import _ from "underscore";
+import { FORM_FIELD } from "../../constants/formFields";
+import {
+  BUTTON_VARIANT,
+  INPUT_VARIANT,
+  TYPOGRAPHY_VARIANT,
+} from "../../constants/variants";
 import useJoinChatRooms from "../../hooks/useJoinChatRooms";
 import { fetchSearchResults } from "../../store/Features/Search/searchActions";
 import { useLazyFetchChatsQuery } from "../../store/Services/chatAPI";
@@ -62,13 +68,16 @@ const ChatList = () => {
       ) : error ? (
         <div className={classes.chatListError}>
           <AiFillWarning size={20} className={classes.warnIcon} />
-          <Typography variant="small">Something went wrong!</Typography>
+          <Typography variant={TYPOGRAPHY_VARIANT.SMALL}>
+            Something went wrong!
+          </Typography>
         </div>
       ) : (
         <>
           <div className={classes.searchBar}>
             <Input
-              type="text"
+              variant={INPUT_VARIANT.OUTLINED}
+              type={FORM_FIELD.TEXT}
               placeholder="Search"
               className={classes.search}
               value={inputValue}
@@ -77,7 +86,7 @@ const ChatList = () => {
               labelProps={{ className: classes.labelProps }}
             />
             <Button
-              variant="text"
+              variant={BUTTON_VARIANT.TEXT}
               className={cx(classes.searchClose, {
                 [classes.showCloseBtn]: isFocused,
               })}

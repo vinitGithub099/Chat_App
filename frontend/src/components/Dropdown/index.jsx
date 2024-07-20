@@ -10,6 +10,7 @@ import cx from "classnames";
 import { useState } from "react";
 import userLogo from "../../assets/profile-user_64572.png";
 import classes from "./index.module.css";
+import { TYPOGRAPHY_VARIANT } from "../../constants/variants";
 
 const Dropdown = ({ menuItems }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -34,8 +35,7 @@ const Dropdown = ({ menuItems }) => {
                 })}
               />
               <Typography
-                as="span"
-                variant="small"
+                variant={TYPOGRAPHY_VARIANT.SMALL}
                 className={cx(classes.label, {
                   [classes.signOutText]: isLastItem,
                 })}

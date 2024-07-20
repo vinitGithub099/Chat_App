@@ -3,6 +3,7 @@ import cx from "classnames";
 import { Link } from "react-router-dom";
 import classes from "./index.module.css";
 import { navList } from "./navList";
+import { TYPOGRAPHY_VARIANT } from "../../../constants/variants";
 
 const Navlist = ({ className }) => {
   return (
@@ -12,7 +13,7 @@ const Navlist = ({ className }) => {
             <Link key={index} to={path}>
               <li className={classes.navListItem}>
                 <Icon fontSize={16} />
-                <Typography variant="small">{name}</Typography>
+                <Typography variant={TYPOGRAPHY_VARIANT.SMALL}>{name}</Typography>
               </li>
             </Link>
           ))

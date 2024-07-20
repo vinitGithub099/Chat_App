@@ -6,6 +6,7 @@ import { IoCreateOutline } from "react-icons/io5";
 import { TbReload } from "react-icons/tb";
 import { useDispatch, useSelector } from "react-redux";
 import { MENU_ITEMS } from "../../constants/sideMenu";
+import { BUTTON_VARIANT, TYPOGRAPHY_VARIANT } from "../../constants/variants";
 import { toggleSidebar } from "../../store/Features/UI/uiSlice";
 import ChatForm from "../ChatForm";
 import ChatList from "../ChatList";
@@ -24,7 +25,11 @@ const ChatContent = ({ className }) => {
   const toggleChatForm = () => setisChatFormOpen((prev) => !prev);
 
   const defaultFallback = (
-    <Button variant="outlined" className={classes.errBtn} ripple={false}>
+    <Button
+      variant={BUTTON_VARIANT.OUTLINED}
+      className={classes.errBtn}
+      ripple={false}
+    >
       Refresh
       <TbReload size={20} />
     </Button>
@@ -36,7 +41,7 @@ const ChatContent = ({ className }) => {
         return <ChatList />;
       case MENU_ITEMS.STATUS.label:
         return (
-          <Typography variant="h6" className="text-center">
+          <Typography variant={TYPOGRAPHY_VARIANT.H6}>
             Under Development
           </Typography>
         );
@@ -49,16 +54,16 @@ const ChatContent = ({ className }) => {
     <div className={cx(classes.chatContentContainer, className)}>
       <div className={classes.chatContentHeader}>
         <Button
-          variant="text"
+          variant={BUTTON_VARIANT.TEXT}
           className={classes.menuIcon}
           onClick={handleSidebar}
           value={true}
         >
           <AiOutlineMenu size={20} />
         </Button>
-        <Typography variant="h5">{contentLabel}</Typography>
+        <Typography variant={TYPOGRAPHY_VARIANT.H5}>{contentLabel}</Typography>
         <Button
-          variant="text"
+          variant={BUTTON_VARIANT.TEXT}
           className={classes.channelBtn}
           onClick={toggleChatForm}
         >

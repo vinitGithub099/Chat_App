@@ -2,10 +2,16 @@ import { Button, Input, Typography } from "@material-tailwind/react";
 import { useForm } from "react-hook-form";
 import { RiShieldUserFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
-import { FORM_FIELDS } from "../../../constants/formFields";
+import { FORM_FIELD } from "../../../constants/formFields";
 import { EMAIL_REGEX } from "../../../constants/regex";
+import {
+  BUTTON_VARIANT,
+  INPUT_VARIANT,
+  TYPOGRAPHY_VARIANT,
+} from "../../../constants/variants";
 import { useRegisterMutation } from "../../../store/Services/authAPI";
 import classes from "../index.module.css";
+import { FIELD_NAME } from "./fieldNames";
 
 const RegisterPage = () => {
   const {
@@ -34,7 +40,7 @@ const RegisterPage = () => {
           <RiShieldUserFill size={80} />
         </div>
         <div className={classes.formContainer}>
-          <Typography variant="h4">Register User</Typography>
+          <Typography variant={TYPOGRAPHY_VARIANT.H4}>Register User</Typography>
           <form
             className={classes.form}
             onSubmit={handleSubmit(handleFormSubmit)}
@@ -42,32 +48,35 @@ const RegisterPage = () => {
           >
             <div className={classes.formField}>
               <Input
-                type={FORM_FIELDS.NAME}
-                variant="outlined"
+                variant={INPUT_VARIANT.OUTLINED}
+                type={FORM_FIELD.TEXT}
                 placeholder="name"
                 className={classes.input}
                 labelProps={{ className: classes.labelProps }}
-                {...register(FORM_FIELDS.NAME, {
+                {...register(FIELD_NAME.NAME, {
                   required: {
                     value: true,
                     message: "Please enter your name!",
                   },
                 })}
               />
-              {errors && errors[FORM_FIELDS.NAME] && (
-                <Typography variant="small" className={classes.error}>
-                  {errors[FORM_FIELDS.NAME].message}
+              {errors?.[FIELD_NAME.NAME] && (
+                <Typography
+                  variant={TYPOGRAPHY_VARIANT.SMALL}
+                  className={classes.error}
+                >
+                  {errors[FIELD_NAME.NAME].message}
                 </Typography>
               )}
             </div>
             <div className={classes.formField}>
               <Input
-                type={FORM_FIELDS.NAME}
-                variant="outlined"
+                variant={INPUT_VARIANT.OUTLINED}
+                type={FORM_FIELD.EMAIL}
                 placeholder="user@gmail.com"
                 className={classes.input}
                 labelProps={{ className: classes.labelProps }}
-                {...register(FORM_FIELDS.EMAIL, {
+                {...register(FIELD_NAME.EMAIL, {
                   required: {
                     value: true,
                     message: "Please enter your email!",
@@ -75,40 +84,54 @@ const RegisterPage = () => {
                   pattern: { value: EMAIL_REGEX, message: "Invalid email!" },
                 })}
               />
-              {errors && errors[FORM_FIELDS.EMAIL] && (
-                <Typography variant="small" className={classes.error}>
-                  {errors[FORM_FIELDS.EMAIL].message}
+              {errors?.[FIELD_NAME.EMAIL] && (
+                <Typography
+                  variant={TYPOGRAPHY_VARIANT.SMALL}
+                  className={classes.error}
+                >
+                  {errors[FIELD_NAME.EMAIL].message}
                 </Typography>
               )}
             </div>
             <div className={classes.formField}>
               <Input
-                type={FORM_FIELDS.PASSWORD}
-                variant="outlined"
+                variant={INPUT_VARIANT.OUTLINED}
+                type={FORM_FIELD.PASSWORD}
                 placeholder="********"
                 className={classes.input}
                 labelProps={{ className: classes.labelProps }}
-                {...register(FORM_FIELDS.PASSWORD, {
+                {...register(FIELD_NAME.PASSWORD, {
                   required: {
                     value: true,
                     message: "Please enter your password!",
                   },
                 })}
               />
-              {errors && errors[FORM_FIELDS.PASSWORD] && (
-                <Typography variant="small" className={classes.error}>
-                  {errors[FORM_FIELDS.PASSWORD].message}
+              {errors?.[FIELD_NAME.PASSWORD] && (
+                <Typography
+                  variant={TYPOGRAPHY_VARIANT.SMALL}
+                  className={classes.error}
+                >
+                  {errors[FIELD_NAME.PASSWORD].message}
                 </Typography>
               )}
             </div>
-            <Button type="submit" className={classes.submitBtn} fullWidth>
+            <Button
+              variant={BUTTON_VARIANT.TEXT}
+              type="submit"
+              className={classes.submitBtn}
+              fullWidth
+            >
               Register
             </Button>
             <div className={classes.linkContainer}>
-              <Typography variant="small">
+              <Typography variant={TYPOGRAPHY_VARIANT.SMALL}>
                 {`Already have an account?`}
               </Typography>
-              <Typography variant="small" className={classes.link}>
+              <Typography
+                variant={TYPOGRAPHY_VARIANT.SMALL}
+                className={classes.link}
+              >
                 <Link to="/login">Login</Link>
               </Typography>
             </div>

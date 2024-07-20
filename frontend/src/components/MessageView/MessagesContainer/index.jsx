@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { useLazyFetchChatMessagesQuery } from "../../../store/Services/messageAPI";
 import MessageCard from "../../MessageCard";
 import classes from "./index.module.css";
+import { TYPOGRAPHY_VARIANT } from "../../../constants/variants";
 
 const MessagesContainer = () => {
   const currentChat = useSelector((state) => state.chat.currentChat);
@@ -39,7 +40,7 @@ const MessagesContainer = () => {
           <MessageCard key={message._id} {...message} />
         ))
       ) : (
-        <Typography variant="h6" className={classes.noMessage}>
+        <Typography variant={TYPOGRAPHY_VARIANT.H6} className={classes.noMessage}>
           No messages to show!
         </Typography>
       )}

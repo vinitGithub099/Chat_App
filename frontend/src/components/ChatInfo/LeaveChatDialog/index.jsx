@@ -1,5 +1,6 @@
 import { Button } from "@material-tailwind/react";
 import { useDispatch, useSelector } from "react-redux";
+import { BUTTON_VARIANT } from "../../../constants/variants";
 import {
   removeChat,
   updateCurrentChat,
@@ -36,11 +37,15 @@ const LeaveChatDialog = ({ openLeaveChat, handleLeaveChat }) => {
 
   const Footer = () => (
     <>
-      <Button variant="text" className={classes.leaveBtn} onClick={leaveChat}>
+      <Button
+        variant={BUTTON_VARIANT.TEXT}
+        className={classes.leaveBtn}
+        onClick={leaveChat}
+      >
         Leave
       </Button>
       <Button
-        variant="text"
+        variant={BUTTON_VARIANT.TEXT}
         className={classes.cancelBtn}
         onClick={handleLeaveChat}
       >

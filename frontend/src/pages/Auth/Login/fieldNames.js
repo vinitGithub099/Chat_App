@@ -1,5 +1,4 @@
-export const FORM_FIELD = {
+export const FIELD_NAME = {
   EMAIL: "email",
   PASSWORD: "password",
-  TEXT: "name",
 };

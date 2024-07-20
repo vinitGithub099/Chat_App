@@ -3,6 +3,7 @@ import toast from "react-hot-toast";
 import { AiOutlineClose } from "react-icons/ai";
 import userLogo from "../../../assets/profile-user_64572.png";
 import classes from "./index.module.css";
+import { BUTTON_VARIANT, TYPOGRAPHY_VARIANT } from "../../../constants/variants";
 
 const MessageNotification = ({ sender, content, id }) => {
   const removeToast = () => toast.remove(id);
@@ -10,15 +11,15 @@ const MessageNotification = ({ sender, content, id }) => {
     <div className={classes.msgToastContainer}>
       <Avatar size="xs" src={userLogo} className={classes.msgToastAvatar} />
       <div className={classes.msgInfo}>
-        <Typography variant="h6" className={classes.msgSender}>
+        <Typography variant={TYPOGRAPHY_VARIANT.H6} className={classes.msgSender}>
           {sender?.name ?? "Unknown"}
         </Typography>
-        <Typography variant="small" className={classes.msgContent}>
+        <Typography variant={TYPOGRAPHY_VARIANT.SMALL} className={classes.msgContent}>
           {content}
         </Typography>
       </div>
       <Button
-        variant="text"
+        variant={BUTTON_VARIANT.TEXT}
         onClick={removeToast}
         className={classes.msgToastDimissBtn}
       >

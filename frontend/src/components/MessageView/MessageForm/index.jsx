@@ -8,6 +8,7 @@ import { chatSocket } from "../../../main";
 import { appendMessage } from "../../../store/Features/Message/messageSlice";
 import { useSendMessageMutation } from "../../../store/Services/messageAPI";
 import classes from "./index.module.css";
+import { BUTTON_VARIANT } from "../../../constants/variants";
 
 const MessageForm = () => {
   const { register, handleSubmit } = useForm();
@@ -98,7 +99,7 @@ const MessageForm = () => {
           onInput={handleChange}
           {...register("message", { required: true })}
         />
-        <Button type="submit" className={classes.sendMsgBtn}>
+        <Button variant={BUTTON_VARIANT.TEXT} type="submit" className={classes.sendMsgBtn}>
           <AiOutlineSend />
         </Button>
       </form>

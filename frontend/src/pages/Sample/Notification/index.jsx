@@ -8,6 +8,7 @@ import {
 import { TOAST_TYPE } from "../../../constants/toastTypes";
 import useNotification from "../../../hooks/useNotification";
 import classes from "./index.module.css";
+import { BUTTON_VARIANT } from "../../../constants/variants";
 
 const Notification = () => {
   const { notify } = useNotification();
@@ -38,14 +39,14 @@ const Notification = () => {
     <div className={classes.sampleContainer}>
       <div className={classes.btnContainer}>
         <Button
-          variant="text"
+          variant={BUTTON_VARIANT.TEXT}
           onClick={handleAuthToast}
           className="bg-highlight text-primary-text-1 hover:bg-secondary"
         >
           auth toast
         </Button>
         <Button
-          variant="text"
+          variant={BUTTON_VARIANT.TEXT}
           onClick={handleMsgToast}
           className="bg-highlight text-primary-text-1 hover:bg-secondary"
         >

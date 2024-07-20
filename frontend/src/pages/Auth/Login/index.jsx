@@ -2,10 +2,16 @@ import { Button, Input, Typography } from "@material-tailwind/react";
 import { useForm } from "react-hook-form";
 import { FaHouseUser } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import { FORM_FIELDS } from "../../../constants/formFields";
+import { FORM_FIELD } from "../../../constants/formFields";
 import { EMAIL_REGEX } from "../../../constants/regex";
+import {
+  BUTTON_VARIANT,
+  INPUT_VARIANT,
+  TYPOGRAPHY_VARIANT,
+} from "../../../constants/variants";
 import { useLoginMutation } from "../../../store/Services/authAPI";
 import classes from "../index.module.css";
+import { FIELD_NAME } from "./fieldNames";
 
 const LoginPage = () => {
   const {
@@ -38,7 +44,7 @@ const LoginPage = () => {
           <FaHouseUser size={80} />
         </div>
         <div className={classes.formContainer}>
-          <Typography variant="h4">User Login</Typography>
+          <Typography variant={TYPOGRAPHY_VARIANT.H4}>User Login</Typography>
           <form
             className={classes.form}
             onSubmit={handleSubmit(handleFormSubmit)}
@@ -46,47 +52,64 @@ const LoginPage = () => {
           >
             <div className={classes.formField}>
               <Input
-                variant="outlined"
+                variant={INPUT_VARIANT.OUTLINED}
                 className={classes.input}
-                type={FORM_FIELDS.EMAIL}
+                type={FORM_FIELD.EMAIL}
                 placeholder="user@gmail.com"
                 labelProps={{ className: classes.labelProps }}
-                {...register(FORM_FIELDS.EMAIL, {
+                {...register(FIELD_NAME.EMAIL, {
                   required: {
                     value: true,
                     message: "Please enter your email!",
                   },
-                  pattern: { value: EMAIL_REGEX, message: "Invalid email!" },
+                  pattern: {
+                    value: EMAIL_REGEX,
+                    message: "Invalid email!",
+                  },
                 })}
               />
-              {errors && errors[FORM_FIELDS.EMAIL] && (
-                <Typography variant="small" className={classes.error}>
-                  {errors[FORM_FIELDS.EMAIL].message}
+              {errors?.[FIELD_NAME.EMAIL] && (
+                <Typography
+                  variant={TYPOGRAPHY_VARIANT.SMALL}
+                  className={classes.error}
+                >
+                  {errors[FIELD_NAME.EMAIL].message}
                 </Typography>
               )}
             </div>
             <div className={classes.formField}>
               <Input
+                variant={INPUT_VARIANT.OUTLINED}
                 className={classes.input}
-                labelProps={{ className: classes.labelProps }}
-                variant="outlined"
-                type={FORM_FIELDS.PASSWORD}
+                type={FORM_FIELD.PASSWORD}
                 placeholder="********"
-                {...register(FORM_FIELDS.PASSWORD, {
-                  required: { value: true, message: "Please enter the password!" },
+                labelProps={{ className: classes.labelProps }}
+                {...register(FIELD_NAME.PASSWORD, {
+                  required: {
+                    value: true,
+                    message: "Please enter your password!",
+                  },
                 })}
               />
-              {errors && errors[FORM_FIELDS.PASSWORD] && (
-                <Typography variant="small" className={classes.error}>
-                  {errors[FORM_FIELDS.PASSWORD].message}
+              {errors?.[FIELD_NAME.PASSWORD] && (
+                <Typography
+                  variant={TYPOGRAPHY_VARIANT.SMALL}
+                  className={classes.error}
+                >
+                  {errors[FIELD_NAME.PASSWORD].message}
                 </Typography>
               )}
             </div>
-            <Button type="submit" className={classes.submitBtn} fullWidth>
+            <Button
+              variant={BUTTON_VARIANT.TEXT}
+              type="submit"
+              className={classes.submitBtn}
+              fullWidth
+            >
               Login
             </Button>
             <div className={classes.linkContainer}>
-              <Typography variant="small">
+              <Typography variant={TYPOGRAPHY_VARIANT.SMALL}>
                 {`Don't have an account?`}
                 <span className={classes.link}>
                   <Link to="/register">Register</Link>

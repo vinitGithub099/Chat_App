@@ -2,6 +2,7 @@ import { Button, Typography } from "@material-tailwind/react";
 import { useForm } from "react-hook-form";
 import { AiOutlineClose } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
+import { BUTTON_VARIANT, TYPOGRAPHY_VARIANT } from "../../constants/variants";
 import { addChatMember } from "../../store/Features/Chat/chatSlice";
 import { useAddGroupMemberMutation } from "../../store/Services/chatAPI";
 import Modal from "../Modal";
@@ -41,9 +42,9 @@ const AddMember = ({ openAddMember, handleAddMember }) => {
 
   const header = (
     <>
-      <Typography variant="h5">Select Member</Typography>
+      <Typography variant={TYPOGRAPHY_VARIANT.H5}>Select Member</Typography>
       <Button
-        variant="text"
+        variant={BUTTON_VARIANT.TEXT}
         onClick={handleAddMember}
         className={classes.closeBtn}
       >
@@ -63,11 +64,19 @@ const AddMember = ({ openAddMember, handleAddMember }) => {
         disabledOptions={disabledOptions}
       />
       {errors && errors["user"] && (
-        <Typography variant="small" className={classes.error}>
+        <Typography
+          variant={TYPOGRAPHY_VARIANT.SMALL}
+          className={classes.error}
+        >
           {errors["user"].message}
         </Typography>
       )}
-      <Button type="submit" className={classes.submitBtn} fullWidth>
+      <Button
+        variant={BUTTON_VARIANT.TEXT}
+        type="submit"
+        className={classes.submitBtn}
+        fullWidth
+      >
         Add
       </Button>
     </form>

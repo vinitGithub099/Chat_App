@@ -3,6 +3,7 @@ import cx from "classnames";
 import { AiOutlineClose } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { MENU_ITEMS } from "../../constants/sideMenu.js";
+import { BUTTON_VARIANT } from "../../constants/variants.js";
 import {
   setActitvityLabel,
   setContentLabel,
@@ -31,7 +32,7 @@ const ChatSidebar = ({ className }) => {
   return (
     <div className={classes.chatSidebar}>
       <Button
-        variant="text"
+        variant={BUTTON_VARIANT.TEXT}
         className={classes.closeButton}
         onClick={handleSidebar}
         value={true}

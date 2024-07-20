@@ -5,6 +5,7 @@ import { IoExitOutline } from "react-icons/io5";
 import { MdPersonAddAlt } from "react-icons/md";
 import { TiGroup } from "react-icons/ti";
 import { useDispatch, useSelector } from "react-redux";
+import { BUTTON_VARIANT, TYPOGRAPHY_VARIANT } from "../../constants/variants";
 import { buildChatName } from "../../helpers/helpers";
 import { removeChatMember } from "../../store/Features/Chat/chatSlice";
 import { useRemoveGroupMemberMutation } from "../../store/Services/chatAPI";
@@ -38,9 +39,11 @@ const ChatInfo = ({ openChatInfo, handleChatInfo }) => {
 
   const Header = () => (
     <>
-      <Typography variant="h4">{buildChatName(currentChat, user)}</Typography>
+      <Typography variant={TYPOGRAPHY_VARIANT.H4}>
+        {buildChatName(currentChat, user)}
+      </Typography>
       <Button
-        variant="text"
+        variant={BUTTON_VARIANT.TEXT}
         className={classes.closeBtn}
         onClick={handleChatInfo}
       >
@@ -64,7 +67,7 @@ const ChatInfo = ({ openChatInfo, handleChatInfo }) => {
               <Chip value="Admin" className={classes.adminChip} />
             ) : currentChat?.groupAdmin?._id === user?._id ? (
               <Button
-                variant="text"
+                variant={BUTTON_VARIANT.TEXT}
                 className={classes.removeBtn}
                 ripple={false}
                 disabled={currentChat?.groupAdmin?._id !== user?._id}
@@ -80,22 +83,28 @@ const ChatInfo = ({ openChatInfo, handleChatInfo }) => {
 
   const Body = () => (
     <>
-      <Typography variant="h6" className={classes.sectionHeading}>
+      <Typography
+        variant={TYPOGRAPHY_VARIANT.H6}
+        className={classes.sectionHeading}
+      >
         Channel Info
       </Typography>
       <section className={classes.chatInfoSection}>
         <div className={classes.sectionHeading}>
           <AiOutlineInfoCircle size={25} />
-          <Typography variant="h6">Description</Typography>
+          <Typography variant={TYPOGRAPHY_VARIANT.H6}>Description</Typography>
         </div>
-        <Typography variant="small" className={classes.chatDescription}>
+        <Typography
+          variant={TYPOGRAPHY_VARIANT.SMALL}
+          className={classes.chatDescription}
+        >
           {currentChat.description}
         </Typography>
       </section>
       <section className={classes.chatInfoSection}>
         <div className={classes.sectionHeading}>
           <TiGroup size={25} />
-          <Typography variant="h6">Members</Typography>
+          <Typography variant={TYPOGRAPHY_VARIANT.H6}>Members</Typography>
         </div>
         <div className={classes.memberList}>
           <MemberList />
@@ -106,26 +115,31 @@ const ChatInfo = ({ openChatInfo, handleChatInfo }) => {
 
   const Footer = () => (
     <>
-      <Typography variant="h6" className={classes.sectionHeading}>
+      <Typography
+        variant={TYPOGRAPHY_VARIANT.H6}
+        className={classes.sectionHeading}
+      >
         Only admin can acces below options
       </Typography>
       <Button
-        variant="text"
+        variant={BUTTON_VARIANT.TEXT}
         className={classes.btn}
         onClick={handleAddMember}
         disabled={currentChat?.groupAdmin?._id !== user?._id}
       >
         <MdPersonAddAlt size={20} />
-        <Typography variant="small">Add Member</Typography>
+        <Typography variant={TYPOGRAPHY_VARIANT.SMALL}>Add Member</Typography>
       </Button>
       <Button
-        variant="text"
+        variant={BUTTON_VARIANT.TEXT}
         className={classes.leaveChannelBtn}
         onClick={handleLeaveChat}
         disabled={currentChat?.groupAdmin?._id !== user?._id}
       >
         <IoExitOutline size={20} />
-        <Typography variant="small">Leave Channel</Typography>
+        <Typography variant={TYPOGRAPHY_VARIANT.SMALL}>
+          Leave Channel
+        </Typography>
       </Button>
     </>
   );

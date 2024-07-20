@@ -2,6 +2,7 @@ import { Avatar, Typography } from "@material-tailwind/react";
 import cx from "classnames";
 import userLogo from "../../assets/profile-user_64572.png";
 import classes from "./index.module.css";
+import { TYPOGRAPHY_VARIANT } from "../../constants/variants";
 
 const UserCard = ({ className, avatarSize, user, onClick }) => {
   return (
@@ -12,10 +13,10 @@ const UserCard = ({ className, avatarSize, user, onClick }) => {
         className={classes.avatar}
       />
       <div className={classes.userInfo}>
-        <Typography variant="small" className={classes.userName}>
+        <Typography variant={TYPOGRAPHY_VARIANT.SMALL} className={classes.userName}>
           {user.name ?? ""}
         </Typography>
-        <Typography variant="small" className={classes.userEmail}>
+        <Typography variant={TYPOGRAPHY_VARIANT.SMALL} className={classes.userEmail}>
           {user.email ?? ""}
         </Typography>
       </div>
