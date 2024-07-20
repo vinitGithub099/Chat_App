@@ -1,5 +1,5 @@
 .userCardContainer {
-  @apply w-full px-4 py-2 flex flex-row items-center gap-4 rounded-md hover:bg-secondary hover:cursor-pointer;
+  @apply w-full px-4 py-2 flex flex-row items-center gap-4 hover:bg-secondary hover:cursor-pointer;
 }
 
 .avatar {
