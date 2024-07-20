@@ -31,7 +31,7 @@
 }
 
 .chatList {
-  @apply px-1 mt-4 w-full overflow-y-scroll;
+  @apply px-1 mt-4 w-full divide-y-2 divide-accent-1 divide-opacity-5 overflow-y-scroll;
 
   &::-webkit-scrollbar {
     @apply w-1;
