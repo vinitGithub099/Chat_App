@@ -19,5 +19,5 @@
 }
 
 .sendMsgBtn {
-  @apply px-4 py-2 bg-accent-1 hover:bg-opacity-80 rounded-full;
+  @apply px-3 py-2 bg-accent-1 hover:bg-accent-1 hover:bg-opacity-80 rounded-full;
 }
