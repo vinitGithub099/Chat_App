@@ -19,7 +19,7 @@
 }
 
 .chatName {
-  @apply text-sm font-bold truncate col-span-3 lg:col-span-10;
+  @apply text-sm font-semibold truncate col-span-3 lg:col-span-10;
 }
 
 .updates {
