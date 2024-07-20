@@ -3,11 +3,11 @@ import { useForm } from "react-hook-form";
 import { AiOutlineClose } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { BUTTON_VARIANT, TYPOGRAPHY_VARIANT } from "../../constants/variants";
-import { addChatMember } from "../../store/Features/Chat/chatSlice";
 import { useAddGroupMemberMutation } from "../../store/Services/chatAPI";
 import Modal from "../Modal";
 import UserSelect from "../UserSelect";
 import classes from "./index.module.css";
+import { addChatMember } from "../../store/Features/Chat/chatSlice";
 
 const AddMember = ({ openAddMember, handleAddMember }) => {
   const [addGroupMember] = useAddGroupMemberMutation();
@@ -24,7 +24,7 @@ const AddMember = ({ openAddMember, handleAddMember }) => {
     try {
       await addGroupMember({
         chatId: currentChat?._id,
-        userId: formData?.value,
+        userId: formData?.user?.value,
       });
       dispatch(
         addChatMember({ chatId: currentChat?._id, user: formData?.user?.label })
@@ -62,6 +62,7 @@ const AddMember = ({ openAddMember, handleAddMember }) => {
         name={"user"}
         control={control}
         disabledOptions={disabledOptions}
+        validationRules={{required: "Please select a member!"}}
       />
       {errors && errors["user"] && (
         <Typography
@@ -90,7 +91,6 @@ const AddMember = ({ openAddMember, handleAddMember }) => {
         container: classes.addMemberContainer,
         header: classes.addMemberHeader,
         body: classes.addMemberBody,
-        footer: classes.addMemberFooter,
       }}
       header={header}
       body={body}
