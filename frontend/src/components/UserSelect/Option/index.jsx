@@ -8,9 +8,9 @@ const Option = (props) => {
     <div
       {...props.innerProps}
       className={cx(
-        { [classes.focus]: props.isFocused },
+        classes.option,
         { [classes.select]: props.isSelected },
-        classes.option
+        { [classes.disabled]: props.isDisabled }
       )}
     >
       <UserCard user={label} avatarSize={"sm"} />
