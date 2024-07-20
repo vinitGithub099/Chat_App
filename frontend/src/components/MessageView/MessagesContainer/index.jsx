@@ -40,7 +40,7 @@ const MessagesContainer = () => {
           <MessageCard key={message._id} {...message} />
         ))
       ) : (
-        <Typography variant={TYPOGRAPHY_VARIANT.H6} className={classes.noMessage}>
+        <Typography variant={TYPOGRAPHY_VARIANT.LEAD} className={classes.noMessage}>
           No messages to show!
         </Typography>
       )}
