@@ -27,15 +27,16 @@
 }
 
 .valueContainer {
-  @apply !border-0 flex flex-row;
+  @apply flex flex-row;
 }
 
 .multiValueContainer {
-  @apply !p-2 !border-0 focus:!border-0;
+  @apply !p-2 focus:!border-0;
 }
 
-.multiValueLabel {
-  @apply !bg-secondary py-1 px-2 rounded-none;
+/* multiValueLabe as valueLabel */
+.valueLabel {
+  @apply !bg-secondary py-1 px-2 !rounded-none;
 }
 
 .multiValueRemove {
@@ -43,11 +44,11 @@
 }
 
 .dropdownIndicator {
-  @apply !text-accent-1 hover:cursor-pointer;
+  @apply self-start !text-accent-1 hover:cursor-pointer;
 }
 
 .clearIndicator {
-  @apply !bg-highlight hover:!cursor-pointer text-primary-text-1 hover:!text-primary-text-2;
+  @apply self-start !bg-highlight hover:!cursor-pointer text-primary-text-1 hover:!text-primary-text-2;
 }
 
 .indicatorSeparator {
