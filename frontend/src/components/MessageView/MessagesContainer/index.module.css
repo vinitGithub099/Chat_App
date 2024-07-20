@@ -1,5 +1,5 @@
 .messagesContainer {
-  @apply w-full py-4 px-2 md:px-8 mx-auto flex-1 flex flex-col overflow-y-scroll drop-shadow-md;
+  @apply w-full py-4 px-2 md:px-8 mx-auto flex-1 flex flex-col overflow-y-scroll drop-shadow-md bg-gradient-to-r from-primary to-highlight;
 
   &::-webkit-scrollbar {
     @apply w-1;
