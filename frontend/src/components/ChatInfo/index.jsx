@@ -2,11 +2,13 @@ import { Button, Chip, Typography } from "@material-tailwind/react";
 import { useState } from "react";
 import { AiOutlineClose, AiOutlineInfoCircle } from "react-icons/ai";
 import { IoExitOutline } from "react-icons/io5";
+import { MdPersonAddAlt } from "react-icons/md";
 import { TiGroup } from "react-icons/ti";
 import { useDispatch, useSelector } from "react-redux";
 import { buildChatName } from "../../helpers/helpers";
 import { removeChatMember } from "../../store/Features/Chat/chatSlice";
 import { useRemoveGroupMemberMutation } from "../../store/Services/chatAPI";
+import AddMember from "../AddMember";
 import Modal from "../Modal";
 import UserCard from "../UserCard";
 import classes from "./index.module.css";
@@ -16,10 +18,12 @@ const ChatInfo = ({ openChatInfo, handleChatInfo }) => {
   const currentChat = useSelector((state) => state.chat.currentChat);
   const user = useSelector((state) => state.auth.user);
   const [openLeaveChat, setOpenLeaveChat] = useState(false);
+  const [openAddMember, setOpenAddMember] = useState(false);
   const [removeGroupMember] = useRemoveGroupMemberMutation();
   const dispatch = useDispatch();
 
   const handleLeaveChat = () => setOpenLeaveChat((prev) => !prev);
+  const handleAddMember = () => setOpenAddMember((prev) => !prev);
 
   const handleRemoveGroupMember = async (e) => {
     const memberId = e.currentTarget.value;
@@ -101,15 +105,29 @@ const ChatInfo = ({ openChatInfo, handleChatInfo }) => {
   );
 
   const Footer = () => (
-    <Button
-      variant="text"
-      className={classes.btn}
-      onClick={handleLeaveChat}
-      disabled={currentChat?.groupAdmin?._id !== user?._id}
-    >
-      <IoExitOutline size={20} />
-      <Typography variant="small">Leave Channel</Typography>
-    </Button>
+    <>
+      <Typography variant="h6" className={classes.sectionHeading}>
+        Only admin can acces below options
+      </Typography>
+      <Button
+        variant="text"
+        className={classes.btn}
+        onClick={handleAddMember}
+        disabled={currentChat?.groupAdmin?._id !== user?._id}
+      >
+        <MdPersonAddAlt size={20} />
+        <Typography variant="small">Add Member</Typography>
+      </Button>
+      <Button
+        variant="text"
+        className={classes.leaveChannelBtn}
+        onClick={handleLeaveChat}
+        disabled={currentChat?.groupAdmin?._id !== user?._id}
+      >
+        <IoExitOutline size={20} />
+        <Typography variant="small">Leave Channel</Typography>
+      </Button>
+    </>
   );
 
   return (
@@ -131,6 +149,10 @@ const ChatInfo = ({ openChatInfo, handleChatInfo }) => {
         openLeaveChat={openLeaveChat}
         handleLeaveChat={handleLeaveChat}
       />
+      <AddMember
+        openAddMember={openAddMember}
+        handleAddMember={handleAddMember}
+      ></AddMember>
     </Modal>
   );
 };
