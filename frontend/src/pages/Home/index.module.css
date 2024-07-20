@@ -3,7 +3,7 @@
 }
 
 .header {
-  @apply fixed;
+  @apply fixed top-2;
 }
 
 .main {
@@ -35,13 +35,9 @@
 }
 
 .footer {
-  @apply w-full p-4 border-2 border-highlight;
-}
-
-.footerNote {
-  @apply italic text-center text-black;
+  @apply fixed bottom-2 bg-secondary py-2 px-4 text-center rounded-full ring-1 ring-offset-accent-1;
 }
 
 .nameLink {
-  @apply font-bold hover:cursor-pointer hover:underline hover:text-highlight;
+  @apply italic font-bold text-accent-1 hover:cursor-pointer hover:underline hover:text-accent-2;
 }
