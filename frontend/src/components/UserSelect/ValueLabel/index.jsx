@@ -1,14 +1,14 @@
 import UserCard from "../../UserCard";
 import classes from "../index.module.css";
 
-const MultiValueLabel = ({ data }) => {
+const ValueLabel = ({ data }) => {
   return (
     <UserCard
       user={data.label}
       avatarSize={"xs"}
-      className={classes.multiValueLabel}
+      className={classes.valueLabel}
     />
   );
 };
 
-export default MultiValueLabel;
+export default ValueLabel;
