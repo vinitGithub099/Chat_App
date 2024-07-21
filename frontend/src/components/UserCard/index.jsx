@@ -1,8 +1,8 @@
 import { Avatar, Typography } from "@material-tailwind/react";
 import cx from "classnames";
 import userLogo from "../../assets/profile-user_64572.png";
-import classes from "./index.module.css";
 import { TYPOGRAPHY_VARIANT } from "../../constants/variants";
+import classes from "./index.module.css";
 
 const UserCard = ({ className, avatarSize, user, onClick }) => {
   return (
