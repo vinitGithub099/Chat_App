@@ -146,7 +146,6 @@ const ChatInfo = ({ openChatInfo, handleChatInfo }) => {
   return (
     <Modal
       open={openChatInfo}
-      size="sm"
       handler={handleChatInfo}
       classNames={{
         container: classes.chatInfoContainer,
