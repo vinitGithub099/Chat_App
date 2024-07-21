@@ -110,7 +110,7 @@ const ChatForm = ({ isChatFormOpen, toggleChatForm }) => {
           validationRules={{
             validate: (value) => value?.length > 2 || "Select at least 3 users",
           }}
-        />
+      />
         {errors?.[FIELD_NAME.USERS] && (
           <Typography
             variant={TYPOGRAPHY_VARIANT.SMALL}
@@ -134,7 +134,7 @@ const ChatForm = ({ isChatFormOpen, toggleChatForm }) => {
   return (
     <Modal
       open={isChatFormOpen}
-      size={"sm"}
+      // size={"sm"}
       classNames={{
         container: classes.chatFormDialog,
         header: classes.chatFormHeader,
