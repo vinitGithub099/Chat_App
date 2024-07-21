@@ -11,6 +11,7 @@ import { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { FaChevronDown } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import userLogo from "../../assets/profile-user_64572.png";
 import { MENU_ITEMS, USER_MENU_ITEMS } from "../../constants/sideMenu.js";
 import {
@@ -30,6 +31,7 @@ const ChatSidebar = ({ className }) => {
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(0);
+  const navigate = useNavigate();
 
   const [openLogoutDailog, setOpenLogoutDailog] = useState(false);
 
@@ -47,13 +49,16 @@ const ChatSidebar = ({ className }) => {
     const listItem = e.target.closest("div[data-key]");
     if (listItem) {
       const key = listItem.dataset.key;
-      if (key === MENU_ITEMS.CHATS.label || key === MENU_ITEMS.STATUS.label) {
+      if (key === MENU_ITEMS.HOME.label) {
+        navigate("/");
+      } else if (
+        key === MENU_ITEMS.CHATS.label ||
+        key === MENU_ITEMS.STATUS.label
+      ) {
         dispatch(setContentLabel(key));
         dispatch(setActitvityLabel(null));
         dispatch(toggleSidebar(false));
-      }
-
-      if (key === USER_MENU_ITEMS.LOGOUT.label) {
+      } else if (key === USER_MENU_ITEMS.LOGOUT.label) {
         handleOpenLogoutDialog();
       }
     }
@@ -91,7 +96,9 @@ const ChatSidebar = ({ className }) => {
               size="xs"
               className={classes.userAvatar}
             />
-            <Typography variant={TYPOGRAPHY_VARIANT.H6}>{user?.name}</Typography>
+            <Typography variant={TYPOGRAPHY_VARIANT.H6}>
+              {user?.name}
+            </Typography>
           </div>
         </AccordionHeader>
         <AccordionBody className={classes.accordionBody}>
@@ -120,6 +127,7 @@ const ChatSidebar = ({ className }) => {
             className={cx(classes.menuLabel, {
               [classes.menuActive]: contentLabel === label,
             })}
+            data-key={label}
           >
             <Icon size={20} />
             <Typography variant={TYPOGRAPHY_VARIANT.PARAGRAPH}>
