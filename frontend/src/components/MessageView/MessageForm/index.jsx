@@ -47,14 +47,10 @@ const MessageForm = () => {
         content: formData?.message,
         chatId: currentChat?._id,
       });
-
       updateMessageState("");
-
       emitStopTyping();
-
-      chatSocket.emit("new message", { newMessage: res.data }, () => {
-        updateMessages(res.data);
-      });
+      updateMessages(res.data);
+      chatSocket.emit("new message", { newMessage: res.data }, () => {});
     } catch (error) {
       console.log(error);
     }
