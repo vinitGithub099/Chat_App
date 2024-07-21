@@ -30,10 +30,6 @@
   @apply flex flex-row;
 }
 
-.multiValueContainer {
-  @apply !p-2 focus:!border-0;
-}
-
 /* multiValueLabe as valueLabel */
 .valueLabel {
   @apply !bg-secondary py-1 px-2 !rounded-none;

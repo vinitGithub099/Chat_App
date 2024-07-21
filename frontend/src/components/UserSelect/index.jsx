@@ -63,7 +63,6 @@ const UserSelect = ({
             control: () => classes.control,
             dropdownIndicator: () => classes.dropdownIndicator,
             singleValue: () => classes.singleValue,
-            multiValueContainer: () => classes.multiValueContainer,
             multiValueRemove: () => classes.multiValueRemove,
             indicatorsContainer: () => classes.indicatorsContainer,
             clearIndicator: () => classes.clearIndicator,
