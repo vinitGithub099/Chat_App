@@ -1,5 +1,24 @@
 .chatInfoContainer {
-  @apply p-4 bg-highlight divide-y-2 divide-primary-text-2 divide-opacity-15;
+  @apply w-full max-h-screen md:p-4 bg-highlight divide-y-2 divide-primary-text-2 divide-opacity-15 overflow-y-scroll;
+
+  &::-webkit-scrollbar {
+    @apply w-1;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    @apply bg-accent-1 bg-opacity-30 rounded-full;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    @apply bg-accent-1 bg-opacity-30;
+  }
 }
 
 .chatInfoHeader {
@@ -31,30 +50,11 @@
 }
 
 .memberList {
-  @apply py-2 flex flex-col gap-2 overflow-y-scroll;
-
-  &::-webkit-scrollbar {
-    @apply w-1;
-  }
-
-  /* Track */
-  &::-webkit-scrollbar-track {
-    @apply bg-transparent;
-  }
-
-  /* Handle */
-  &::-webkit-scrollbar-thumb {
-    @apply bg-highlight rounded-md;
-  }
-
-  /* Handle on hover */
-  &::-webkit-scrollbar-thumb:hover {
-    @apply bg-primary-text-2;
-  }
+  @apply py-2 flex flex-col gap-2;
 }
 
 .memberCard {
-  @apply px-2 flex items-center bg-secondary bg-opacity-50 hover:bg-opacity-100;
+  @apply pr-2 flex flex-row items-start bg-secondary bg-opacity-50 hover:bg-opacity-100;
 }
 
 .removeBtn {
