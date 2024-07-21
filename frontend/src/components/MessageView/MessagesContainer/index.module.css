@@ -12,12 +12,12 @@
 
   /* Handle */
   &::-webkit-scrollbar-thumb {
-    @apply bg-highlight rounded-md;
+    @apply bg-accent-1 bg-opacity-30 rounded-md;
   }
 
   /* Handle on hover */
   &::-webkit-scrollbar-thumb:hover {
-    @apply bg-primary-text-2;
+    @apply bg-accent-1;
   }
 }
 
