@@ -134,10 +134,11 @@ const ChatInfo = ({ openChatInfo, handleChatInfo }) => {
         variant={BUTTON_VARIANT.TEXT}
         className={classes.leaveChannelBtn}
         onClick={handleLeaveChat}
+        disabled={!currentChat?.isGroupChat}
       >
         <IoExitOutline size={20} />
         <Typography variant={TYPOGRAPHY_VARIANT.SMALL}>
-          Leave Channel
+          Exit
         </Typography>
       </Button>
     </>
