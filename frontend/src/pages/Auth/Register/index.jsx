@@ -2,13 +2,16 @@ import { Button, Input, Typography } from "@material-tailwind/react";
 import { useForm } from "react-hook-form";
 import { RiShieldUserFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
+import { AUTH_NOTIFICATION_ACTION, AUTH_NOTIFICATION_STATUS } from "../../../constants/authNotficationTypes";
 import { FORM_FIELD } from "../../../constants/formFields";
 import { EMAIL_REGEX } from "../../../constants/regex";
+import { TOAST_TYPE } from "../../../constants/toastTypes";
 import {
   BUTTON_VARIANT,
   INPUT_VARIANT,
   TYPOGRAPHY_VARIANT,
 } from "../../../constants/variants";
+import useNotification from "../../../hooks/useNotification";
 import { useRegisterMutation } from "../../../store/Services/authAPI";
 import classes from "../index.module.css";
 import { FIELD_NAME } from "./fieldNames";
@@ -16,15 +19,19 @@ import { FIELD_NAME } from "./fieldNames";
 const RegisterPage = () => {
   const {
     register,
-    formState: { errors },
+    formState: { errors, isValid },
     handleSubmit,
-  } = useForm();
+  } = useForm({
+    mode: "onChange",
+  });
   const [registerUser] = useRegisterMutation();
+  const notify = useNotification();
 
   const signup = async (data) => {
     try {
       await registerUser(data);
     } catch (error) {
+      notify({toastType: TOAST_TYPE.AUTH, status: AUTH_NOTIFICATION_STATUS.FAILURE, action: AUTH_NOTIFICATION_ACTION.LOGIN});
       console.log(error);
     }
   };
@@ -121,6 +128,7 @@ const RegisterPage = () => {
               type="submit"
               className={classes.submitBtn}
               fullWidth
+              disabled={!isValid}
             >
               Register
             </Button>

@@ -1,6 +1,8 @@
 import { Button, Input, Typography } from "@material-tailwind/react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaHouseUser } from "react-icons/fa";
+import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { FORM_FIELD } from "../../../constants/formFields";
 import { EMAIL_REGEX } from "../../../constants/regex";
@@ -16,10 +18,12 @@ import { FIELD_NAME } from "./fieldNames";
 const LoginPage = () => {
   const {
     register,
-    formState: { errors },
+    formState: { errors, isValid },
     handleSubmit,
-  } = useForm();
+  } = useForm({ mode: "onChange" });
   const navigate = useNavigate();
+  const user = useSelector(state => state.auth.user);
+  const [successMessage, setSuccessMessage] = useState("");
 
   const [login] = useLoginMutation();
 
@@ -39,7 +43,7 @@ const LoginPage = () => {
 
   return (
     <section className={classes.container}>
-      <div className={classes.subContainer}>
+     {successMessage ?  <div className={classes.subContainer}>
         <div className={classes.icon}>
           <FaHouseUser size={80} />
         </div>
@@ -105,6 +109,7 @@ const LoginPage = () => {
               type="submit"
               className={classes.submitBtn}
               fullWidth
+              disabled={!isValid}
             >
               Login
             </Button>
@@ -118,7 +123,12 @@ const LoginPage = () => {
             </div>
           </form>
         </div>
-      </div>
+      </div> :
+      <div className="w-full border">
+        <Typography variant={TYPOGRAPHY_VARIANT.H2}>Hey {user.name}!</Typography>
+        <Typography variant={TYPOGRAPHY_VARIANT.LEAD}>You have logged in successfully!</Typography>
+        <Typography variant={TYPOGRAPHY_VARIANT.LEAD}>Redirecting to Home!</Typography>
+      </div>}
     </section>
   );
 };
