@@ -1,7 +1,3 @@
-.avatarBtn {
-  @apply border border-accent-2 bg-accent-1 hover:bg-accent-2 flex items-center rounded-full p-0 hover:cursor-pointer;
-}
-
 .menuList {
   @apply p-1 bg-primary border-0 shadow-sm shadow-primary-text-2;
 }
