@@ -1,0 +1,27 @@
+.avatar {
+  @apply flex items-center justify-center rounded-full text-primary-text-1 font-bold;
+}
+
+.avatarXs {
+  @apply w-6 h-6 text-xs;
+}
+
+.avatarSm {
+  @apply w-8 h-8 text-sm;
+}
+
+.avatarMd {
+  @apply w-10 h-10 text-base;
+}
+
+.avatarLg {
+  @apply w-12 h-12 text-lg;
+}
+
+.avatarXl {
+  @apply w-14 h-14 text-xl;
+}
+
+.avatarXxl {
+  @apply w-16 h-16 text-2xl;
+}
