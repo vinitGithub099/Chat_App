@@ -1,6 +1,7 @@
+import AppError from "../errors/AppError.js";
+
 export const notFound = (req, res, next) => {
-  const error = new Error(`Not found - ${req.originUrl}`);
-  res.status(404);
+  const error = new AppError(`Not found - ${req.originUrl}`);
   next(error);
 };
 
