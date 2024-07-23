@@ -2,9 +2,8 @@ import {
   Accordion,
   AccordionBody,
   AccordionHeader,
-  Avatar,
   Button,
-  Typography,
+  Typography
 } from "@material-tailwind/react";
 import cx from "classnames";
 import { useState } from "react";
@@ -12,7 +11,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { FaChevronDown } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import userLogo from "../../assets/profile-user_64572.png";
+import { AVATAR_TYPE } from "../../constants/avatarType.js";
 import { MENU_ITEMS, USER_MENU_ITEMS } from "../../constants/sideMenu.js";
 import {
   BUTTON_VARIANT,
@@ -23,6 +22,7 @@ import {
   setContentLabel,
   toggleSidebar,
 } from "../../store/Features/UI/uiSlice.js";
+import AppAvatar from "../AppAvatar/index.jsx";
 import classes from "./index.module.css";
 import LogoutDialog from "./LogoutDialog/index.jsx";
 
@@ -50,6 +50,7 @@ const ChatSidebar = ({ className }) => {
     if (listItem) {
       const key = listItem.dataset.key;
       if (key === MENU_ITEMS.HOME.label) {
+        dispatch(toggleSidebar())
         navigate("/");
       } else if (
         key === MENU_ITEMS.CHATS.label ||
@@ -60,6 +61,8 @@ const ChatSidebar = ({ className }) => {
         dispatch(toggleSidebar(false));
       } else if (key === USER_MENU_ITEMS.LOGOUT.label) {
         handleOpenLogoutDialog();
+      } else {
+        dispatch(toggleSidebar());
       }
     }
   };
@@ -91,10 +94,10 @@ const ChatSidebar = ({ className }) => {
           className={classes.accordionHeader}
         >
           <div className={classes.headerItem}>
-            <Avatar
-              src={user?.pic || userLogo}
-              size="xs"
-              className={classes.userAvatar}
+            <AppAvatar
+              entity={user}
+              size="sm"
+              type={AVATAR_TYPE.USER}
             />
             <Typography variant={TYPOGRAPHY_VARIANT.H6}>
               {user?.name}
