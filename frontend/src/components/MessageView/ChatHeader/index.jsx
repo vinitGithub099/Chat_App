@@ -2,12 +2,13 @@ import { Button, Typography } from "@material-tailwind/react";
 import { useMemo } from "react";
 import { IoIosArrowBack } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
+import { AVATAR_TYPE } from "../../../constants/avatarType";
 import { BUTTON_VARIANT, TYPOGRAPHY_VARIANT } from "../../../constants/variants";
 import { buildChatName } from "../../../helpers/helpers";
 import useTypingStatus from "../../../hooks/useTypingStatus";
 import { updateCurrentChat } from "../../../store/Features/Chat/chatSlice";
 import { setActitvityLabel } from "../../../store/Features/UI/uiSlice";
-import ChatAvatar from "../../ChatAvatar";
+import AppAvatar from "../../AppAvatar";
 import classes from "./index.module.css";
 
 const ChatHeader = ({ handleChatInfo }) => {
@@ -37,7 +38,7 @@ const ChatHeader = ({ handleChatInfo }) => {
       >
         <IoIosArrowBack size={20} />
       </Button>
-      <ChatAvatar chat={currentChat} src={""} />
+      <AppAvatar entity={currentChat} src={""} type={AVATAR_TYPE.CHAT} />
       <div className={classes.chatHeaderDetails}>
         <Typography
           variant={TYPOGRAPHY_VARIANT.H6}

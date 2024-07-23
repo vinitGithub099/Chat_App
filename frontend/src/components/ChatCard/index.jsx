@@ -8,8 +8,9 @@ import { buildChatName, formatTimestamp } from "../../helpers/helpers";
 import useTypingStatus from "../../hooks/useTypingStatus";
 import { updateCurrentChat } from "../../store/Features/Chat/chatSlice";
 import { setActitvityLabel } from "../../store/Features/UI/uiSlice";
-import ChatAvatar from "../ChatAvatar";
+import AppAvatar from "../AppAvatar";
 import classes from "./index.module.css";
+import { AVATAR_TYPE } from "../../constants/avatarType";
 
 const ChatCard = (props) => {
   const { _id, latestMessage } = props;
@@ -34,7 +35,7 @@ const ChatCard = (props) => {
       })}
       onClick={handelSelectChat}
     >
-      <ChatAvatar src={""} chat={props} />
+      <AppAvatar src={""} entity={props} type={AVATAR_TYPE.CHAT} />
       <div className={classes.chatInfo}>
         <div className={classes.chatInfoField}>
           <h4 className={classes.chatName}>{chatName}</h4>

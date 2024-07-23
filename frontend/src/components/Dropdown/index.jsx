@@ -1,19 +1,22 @@
 import {
-  Avatar,
+  Button,
   Menu,
   MenuHandler,
   MenuItem,
   MenuList,
-  Typography,
+  Typography
 } from "@material-tailwind/react";
 import cx from "classnames";
 import { useState } from "react";
-import userLogo from "../../assets/profile-user_64572.png";
+import { useSelector } from "react-redux";
+import { BUTTON_VARIANT, TYPOGRAPHY_VARIANT } from "../../constants/variants";
+import AppAvatar from "../AppAvatar";
 import classes from "./index.module.css";
-import { TYPOGRAPHY_VARIANT } from "../../constants/variants";
+import { AVATAR_TYPE } from "../../constants/avatarType";
 
 const Dropdown = ({ menuItems }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const user = useSelector(state => state.auth.user);
 
   const closeMenu = () => setIsMenuOpen(false);
 
@@ -50,13 +53,13 @@ const Dropdown = ({ menuItems }) => {
   return (
     <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
       <MenuHandler>
-        <Avatar
-          src={userLogo}
-          alt="avatar"
-          variant="rounded"
+        <Button variant={BUTTON_VARIANT.TEXT} className="p-0" ripple={false}>
+        <AppAvatar
+          entity={user}
           size="sm"
-          className={classes.avatarBtn}
+          type={AVATAR_TYPE.USER}
         />
+        </Button>
       </MenuHandler>
       <MenuList className={classes.menuList}>{renderMenuList()}</MenuList>
     </Menu>
