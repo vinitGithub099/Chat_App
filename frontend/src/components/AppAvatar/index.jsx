@@ -8,7 +8,6 @@ const AppAvatar = ({ entity, className, size = "md", type }) => {
   const avatarClass = cx(classes.avatar, className, getAvatarSizeClass(size));
 
   const renderAvatar = () => {
-    console.log("renderAvatar");
     switch (type) {
       case AVATAR_TYPE.CHAT:
         return <ChatAvatar chat={entity} className={avatarClass} size={size} />;
