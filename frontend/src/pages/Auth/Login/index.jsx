@@ -43,7 +43,7 @@ const LoginPage = () => {
 
   return (
     <section className={classes.container}>
-     {successMessage ?  <div className={classes.subContainer}>
+     {!successMessage ?  <div className={classes.subContainer}>
         <div className={classes.icon}>
           <FaHouseUser size={80} />
         </div>
@@ -125,7 +125,7 @@ const LoginPage = () => {
         </div>
       </div> :
       <div className="w-full border">
-        <Typography variant={TYPOGRAPHY_VARIANT.H2}>Hey {user.name}!</Typography>
+        <Typography variant={TYPOGRAPHY_VARIANT.H2}>Hey {user?.name}!</Typography>
         <Typography variant={TYPOGRAPHY_VARIANT.LEAD}>You have logged in successfully!</Typography>
         <Typography variant={TYPOGRAPHY_VARIANT.LEAD}>Redirecting to Home!</Typography>
       </div>}
