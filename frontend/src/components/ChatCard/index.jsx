@@ -1,16 +1,17 @@
 import { Typography } from "@material-tailwind/react";
 import cx from "classnames";
+import moment from "moment";
 import { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { AVATAR_TYPE } from "../../constants/avatarType";
 import { MENU_ITEMS } from "../../constants/sideMenu";
 import { TYPOGRAPHY_VARIANT } from "../../constants/variants";
-import { buildChatName, formatTimestamp } from "../../helpers/helpers";
+import { buildChatName } from "../../helpers/helpers";
 import useTypingStatus from "../../hooks/useTypingStatus";
 import { updateCurrentChat } from "../../store/Features/Chat/chatSlice";
 import { setActitvityLabel } from "../../store/Features/UI/uiSlice";
 import AppAvatar from "../AppAvatar";
 import classes from "./index.module.css";
-import { AVATAR_TYPE } from "../../constants/avatarType";
 
 const ChatCard = (props) => {
   const { _id, latestMessage } = props;
@@ -38,28 +39,34 @@ const ChatCard = (props) => {
       <AppAvatar src={""} entity={props} type={AVATAR_TYPE.CHAT} />
       <div className={classes.chatInfo}>
         <div className={classes.chatInfoField}>
-          <h4 className={classes.chatName}>{chatName}</h4>
-          <p className={classes.updates}>
-            {formatTimestamp(latestMessage?.updatedAt) ?? ""}
-          </p>
+          <Typography
+            variant={TYPOGRAPHY_VARIANT.H4}
+            className={classes.chatName}
+          >
+            {chatName}
+          </Typography>
+          <Typography
+            variant={TYPOGRAPHY_VARIANT.SMALL}
+            className={classes.updates}
+          >
+            {moment(latestMessage?.updatedAt).format('HH:mm') ?? ""}
+          </Typography>
         </div>
-        <div className={classes.chatInfoField}>
           {typingStatus.isTyping ? (
             <Typography
               variant={TYPOGRAPHY_VARIANT.SMALL}
               className={classes.typingStatus}
             >{`${typingStatus.name} is typing`}</Typography>
           ) : (
-            <p className={classes.latestMessage}>
-              {latestMessage ? (
-                `${latestMessage?.sender?.name}: ${latestMessage?.content}`
-              ) : (
-                <span>No messages yet!</span>
-              )}
-            </p>
+            <Typography
+              variant={TYPOGRAPHY_VARIANT.SMALL}
+              className={classes.latestMessage}
+            >
+              {latestMessage
+                ? `${latestMessage?.sender?.name}: ${latestMessage?.content}`
+                : "No messages yet!"}
+            </Typography>
           )}
-          {/* build a functionality to show unread messages here */}
-        </div>
       </div>
     </div>
   );
