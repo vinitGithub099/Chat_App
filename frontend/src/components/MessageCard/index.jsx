@@ -1,8 +1,10 @@
+import { Typography } from "@material-tailwind/react";
 import cx from "classnames";
+import moment from "moment";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { AVATAR_TYPE } from "../../constants/avatarType";
-import { formatTimestamp } from "../../helpers/helpers";
+import { TYPOGRAPHY_VARIANT } from "../../constants/variants";
 import AppAvatar from "../AppAvatar";
 import classes from "./index.module.css";
 
@@ -35,8 +37,8 @@ const MessageCard = ({ sender, content, updatedAt }) => {
       >
         <div className={classes.senderName}>{buildSenderName()}</div>
         <div className={classes.messageGroup}>
-          <p className={classes.content}>{content}</p>
-          <p className={classes.timeStamp}>{formatTimestamp(updatedAt)}</p>
+          <Typography variant={TYPOGRAPHY_VARIANT.SMALL} className={classes.content}>{content}</Typography>
+          <Typography variant={TYPOGRAPHY_VARIANT.SMALL} className={classes.timeStamp}>{moment(updatedAt).format('HH:mm')}</Typography>
         </div>
       </div>
     </div>
