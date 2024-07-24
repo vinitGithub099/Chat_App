@@ -19,21 +19,18 @@
 }
 
 .chatName {
-  @apply text-sm font-semibold truncate col-span-3 lg:col-span-10;
+  @apply text-sm font-semibold truncate col-span-3 lg:col-span-9;
 }
 
 .updates {
-  @apply text-xs font-bold text-green-500 col-span-1 lg:col-span-2 justify-self-end;
+  @apply text-xs font-bold text-green-500 col-span-1 lg:col-span-3 justify-self-end;
 }
 
 .latestMessage {
-  @apply text-xs text-primary-text-2 truncate font-light col-span-3 lg:col-span-10;
+  @apply text-xs text-primary-text-2 truncate font-light col-span-3 lg:col-span-9;
 }
 
-.unreadMsgCount {
-  @apply py-1 px-2 text-xs text-primary bg-success rounded-full col-span-1 lg:col-span-2 justify-self-end;
-}
 
 .typingStatus {
-  @apply text-xs text-accent-1 truncate col-span-3 lg:col-span-10;
+  @apply text-xs text-accent-1 truncate col-span-3 lg:col-span-9;
 }
