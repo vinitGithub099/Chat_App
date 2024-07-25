@@ -71,11 +71,19 @@ const io = new Server(server, {
   },
 });
 
+const onlineUsers = new Map();
+
+const emitOnlineUsers = () => {
+  io.emit('online users', Array.from(onlineUsers.values()));
+};
+
+
 io.on("connection", (socket) => {
-  socket.on("setup", (userData) => {
-    /* console.log(userData.name + " connected --- socketId: " + socket.id); */
+  socket.on('setup', (userData) => {
+    onlineUsers.set(userData._id, userData);
     socket.join(userData._id);
-    socket.emit("connected");
+    socket.emit('connected');
+    emitOnlineUsers(); // Emit updated list of online users
   });
 
   socket.on("join chat", ({ user, room }) => {
@@ -84,12 +92,12 @@ io.on("connection", (socket) => {
   });
 
   socket.on("typing", ({ room, user }) => {
-    /* console.log(room._id + " has started typing."); */
+    // console.log(room._id + " has started typing.");
     socket.in(room._id).emit("typing", { room, user });
   });
 
   socket.on("stop typing", ({ room, user }) => {
-    /* console.log(room._id + " stopped typing."); */
+    // console.log(room._id + " stopped typing.");
     socket.in(room._id).emit("stop typing", { room, user });
   });
 
@@ -106,8 +114,22 @@ io.on("connection", (socket) => {
     });
   });
 
-  socket.off("setup", () => {
-    /* console.log("USER DISCONNECTED"); */
+   // Handle disconnections
+   socket.on('disconnect', () => {
+    // Remove the user from the online users map
+    for (let [userId, user] of onlineUsers) {
+      if (user.socketId === socket.id) {
+        onlineUsers.delete(userId);
+        break;
+      }
+    }
+    emitOnlineUsers(); // Emit updated list of online users
+  });
+
+  // Handle setup off (used if the user setup event is canceled)
+  socket.on('setup off', (userData) => {
     socket.leave(userData._id);
+    onlineUsers.delete(userData._id);
+    emitOnlineUsers(); // Emit updated list of online users
   });
 });
