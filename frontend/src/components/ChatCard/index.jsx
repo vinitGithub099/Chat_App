@@ -1,7 +1,6 @@
 import { Typography } from "@material-tailwind/react";
 import cx from "classnames";
 import moment from "moment";
-import { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AVATAR_TYPE } from "../../constants/avatarType";
 import { MENU_ITEMS } from "../../constants/sideMenu";
@@ -19,8 +18,6 @@ const ChatCard = (props) => {
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
 
-  const chatName = useMemo(() => buildChatName(props, user), [props, user]);
-
   // Continuously listen typing events for each chat card
   const [typingStatus] = useTypingStatus(_id);
 
@@ -28,6 +25,13 @@ const ChatCard = (props) => {
     dispatch(updateCurrentChat(props));
     dispatch(setActitvityLabel(MENU_ITEMS.CHATS.label));
   };
+
+  const buildTextContent = () =>
+    typingStatus.isTyping
+      ? `${typingStatus.name} is typing`
+      : latestMessage
+      ? `${latestMessage?.sender?.name}: ${latestMessage?.content}`
+      : `No messages yet!`;
 
   return (
     <div
@@ -43,30 +47,24 @@ const ChatCard = (props) => {
             variant={TYPOGRAPHY_VARIANT.H4}
             className={classes.chatName}
           >
-            {chatName}
+            {buildChatName(props, user)}
           </Typography>
           <Typography
             variant={TYPOGRAPHY_VARIANT.SMALL}
             className={classes.updates}
           >
-            {moment(latestMessage?.updatedAt).format('HH:mm') ?? ""}
+            {moment(latestMessage?.updatedAt).format("HH:mm") ?? ""}
           </Typography>
         </div>
-          {typingStatus.isTyping ? (
-            <Typography
-              variant={TYPOGRAPHY_VARIANT.SMALL}
-              className={classes.typingStatus}
-            >{`${typingStatus.name} is typing`}</Typography>
-          ) : (
-            <Typography
-              variant={TYPOGRAPHY_VARIANT.SMALL}
-              className={classes.latestMessage}
-            >
-              {latestMessage
-                ? `${latestMessage?.sender?.name}: ${latestMessage?.content}`
-                : "No messages yet!"}
-            </Typography>
+        <Typography
+          variant={TYPOGRAPHY_VARIANT.SMALL}
+          className={cx(
+            { [classes.typingStatus]: typingStatus.isTyping },
+            { [classes.latestMessage]: !typingStatus.isTyping }
           )}
+        >
+          {buildTextContent()}
+        </Typography>
       </div>
     </div>
   );
