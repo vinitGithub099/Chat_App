@@ -1,38 +1,20 @@
-import { Typography } from "@material-tailwind/react";
 import cx from "classnames";
+import { useMemo } from "react";
 import { useSelector } from "react-redux";
-import { MENU_ITEMS } from "../../constants/sideMenu";
-import { TYPOGRAPHY_VARIANT } from "../../constants/variants";
-import MessageView from "../MessageView";
+import { activityComponents } from "./activityComponents";
 import classes from "./index.module.css";
 
 const ChatActivity = ({ className }) => {
   const activityLabel = useSelector((state) => state.ui.activityLabel);
 
-  const defaultFallback = (
-    <Typography variant={TYPOGRAPHY_VARIANT.SMALL} className={classes.errDiv}>
-      Select something to see the activity!
-    </Typography>
+  const RenderComponent = useMemo(
+    () => activityComponents[activityLabel] || activityComponents.default,
+    [activityLabel]
   );
-
-  const renderView = (activityLabel) => {
-    switch (activityLabel) {
-      case MENU_ITEMS.CHATS.label:
-        return <MessageView />;
-      case MENU_ITEMS.STATUS.label:
-        return (
-          <Typography variant={TYPOGRAPHY_VARIANT.H4}>
-            Under Development
-          </Typography>
-        );
-      default:
-        return defaultFallback;
-    }
-  };
 
   return (
     <div className={cx(classes.activityContainer, className)}>
-      {renderView(activityLabel)}
+      <RenderComponent />
     </div>
   );
 };
