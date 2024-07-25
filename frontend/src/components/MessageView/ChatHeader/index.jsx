@@ -1,5 +1,4 @@
 import { Button, Typography } from "@material-tailwind/react";
-import { useMemo } from "react";
 import { IoIosArrowBack } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import { AVATAR_TYPE } from "../../../constants/avatarType";
@@ -15,11 +14,6 @@ const ChatHeader = ({ handleChatInfo }) => {
   const currentChat = useSelector((state) => state.chat.currentChat);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
-
-  const chatName = useMemo(
-    () => buildChatName(currentChat, user),
-    [currentChat, user]
-  );
 
   // Continuously listen to the typing events of currently selected chat
   const [typingStatus] = useTypingStatus(currentChat?._id);
@@ -45,7 +39,7 @@ const ChatHeader = ({ handleChatInfo }) => {
           className={classes.chatName}
           onClick={handleChatInfo}
         >
-          {chatName}
+          {buildChatName(currentChat, user)}
         </Typography>
         {typingStatus.isTyping ? (
           <Typography

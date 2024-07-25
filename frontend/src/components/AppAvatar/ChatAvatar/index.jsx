@@ -7,7 +7,7 @@ import { buildChatName, stringToColor } from "../../../helpers/helpers";
 const ChatAvatar = ({ chat, className }) => {
   const randomColor = useMemo(() => stringToColor(chat._id), [chat._id]);
   const user = useSelector((state) => state.auth.user);
-  const userName = useMemo(() => buildChatName(chat, user), [chat, user]);
+  const chatName = buildChatName(chat, user);
 
   const renderInitialAvatar = (initials) => (
     <div className={className} style={{ backgroundColor: randomColor }}>
@@ -24,7 +24,7 @@ const ChatAvatar = ({ chat, className }) => {
       </div>
     );
   } else {
-    const initials = userName.charAt(0).toUpperCase();
+    const initials = chatName.charAt(0).toUpperCase();
     return renderInitialAvatar(initials);
   }
 };
