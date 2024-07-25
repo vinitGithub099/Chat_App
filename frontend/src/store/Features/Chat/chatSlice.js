@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  chats: [],
+  chats: {},
   currentChat: null,
 };
 
@@ -10,42 +10,37 @@ export const chatSlice = createSlice({
   initialState,
   reducers: {
     insertChat: (state, { payload }) => {
-      const newChat = payload;
-      const existingChatIdx = state.chats.findIndex(
-        (chat) => chat._id === newChat._id
-      );
-
-      if (existingChatIdx === -1) {
-        state.chats.unshift(newChat); // Add new chat to the beginning of the array
-      }
+      state.chats[payload._id] = payload;
     },
     updateCurrentChat: (state, { payload }) => {
       state.currentChat = payload;
     },
     populateChats: (state, { payload }) => {
-      state.chats = payload;
+      state.chats = payload.reduce((acc, chat) => {
+        acc[chat._id] = chat;
+        return acc;
+      }, {});
     },
     removeChat: (state, { payload }) => {
-      state.chats =
-        state.chats && state.chats.length
-          ? state.chats.filter((chat) => chat._id !== payload)
-          : [];
+      delete state.chats[payload];
     },
     addChatMember: (state, { payload }) => {
       const { user, chatId } = payload;
-      state.currentChat.users.push(user);
-      let chatToModify = state.chats?.find((chat) => chat._id === chatId);
-      chatToModify.users.push(user);
+      if (state.chats[chatId]) {
+        state.chats[chatId].users.push(user);
+        if (state.currentChat && state.currentChat._id === chatId) {
+          state.currentChat.users.push(user);
+        }
+      }
     },
     removeChatMember: (state, { payload }) => {
       const { userId, chatId } = payload;
-      state.currentChat.users = state.currentChat.users.filter(
-        (user) => user._id !== userId
-      );
-      let chatToModify = state.chats?.find((chat) => chat._id === chatId);
-      chatToModify.users = chatToModify.users.filter(
-        (user) => user._id !== userId
-      );
+      if (state.chats[chatId]) {
+        state.chats[chatId].users = state.chats[chatId].users.filter(user => user._id !== userId);
+        if (state.currentChat && state.currentChat._id === chatId) {
+          state.currentChat.users = state.currentChat.users.filter(user => user._id !== userId);
+        }
+      }
     },
   },
 });
