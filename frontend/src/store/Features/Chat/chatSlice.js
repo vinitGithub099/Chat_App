@@ -56,8 +56,6 @@ export const {
   populateChats,
   addChatMember,
   removeChat,
-  populateMessages,
-  toggleActivity,
   insertChat,
 } = chatSlice.actions;
 export default chatSlice.reducer;
