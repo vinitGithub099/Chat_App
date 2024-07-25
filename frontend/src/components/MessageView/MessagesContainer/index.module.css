@@ -1,0 +1,34 @@
+.messagesContainer {
+  @apply w-full py-4 px-2 md:px-8 mx-auto flex-1 flex flex-col overflow-y-scroll drop-shadow-md bg-gradient-to-r from-primary to-highlight;
+
+  &::-webkit-scrollbar {
+    @apply w-1;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    @apply bg-accent-1 bg-opacity-30 rounded-md;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    @apply bg-accent-1;
+  }
+}
+
+.spinLoaderContainer {
+  @apply w-full text-accent-1 flex items-center justify-center gap-4;
+}
+
+.spinner {
+  @apply text-accent-1 h-8 w-8;
+}
+
+.noMessage {
+  @apply p-2 text-center shadow-sm shadow-accent-1 rounded-full;
+}

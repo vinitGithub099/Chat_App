@@ -1,0 +1,28 @@
+
+.msgToastContainer {
+  @apply py-2 px-4 w-80 flex flex-row items-center justify-between gap-4 rounded-full border-b border-b-accent-1 border-t border-t-accent-2 bg-highlight bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-40;
+}
+
+.msgToastAvatar {
+  @apply border border-accent-2 bg-accent-2;
+}
+
+.msgToastMessage {
+  @apply flex-1;
+}
+
+.msgInfo {
+  @apply flex-1;
+}
+
+.msgSender {
+  @apply text-xs text-accent-1 font-bold truncate;
+}
+
+.msgContent {
+  @apply text-sm truncate;
+}
+
+.msgToastDimissBtn {
+  @apply p-2 border border-highlight text-primary-text-1 bg-transparent hover:bg-highlight rounded-full;
+}

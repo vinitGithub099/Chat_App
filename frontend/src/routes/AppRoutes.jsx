@@ -5,6 +5,8 @@ import Chats from "../pages/Chats";
 import ErrorPage from "../pages/Error";
 import HomePage from "../pages/Home/index";
 import Profile from "../pages/Profile";
+import Notification from "../pages/Sample/Notification";
+import DevRoutes from "./DevRoute";
 import ProtectedRoute from "./ProtectedRoute";
 
 export const router = [
@@ -20,6 +22,16 @@ export const router = [
       {
         path: "register",
         element: <RegisterPage />,
+      },
+      {
+        path: "sample/",
+        element: <DevRoutes></DevRoutes>,
+        children: [
+          {
+            path: "toasts",
+            element: <Notification></Notification>,
+          },
+        ],
       },
       {
         path: "profile/",

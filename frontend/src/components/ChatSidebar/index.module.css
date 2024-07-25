@@ -6,14 +6,50 @@
   @apply p-2 m-2 self-end text-primary-text-1 hover:text-accent-2 hover:bg-primary;
 }
 
+.accordion {
+  @apply mx-auto px-2 w-4/5;
+}
+
+.accordionHeader {
+  @apply border-b-0 py-2 font-semibold text-accent-1 hover:text-accent-1;
+}
+
+.headerItem {
+  @apply flex items-center gap-4;
+}
+
+.userAvatar {
+  @apply bg-accent-1 ring-1 ring-accent-1
+}
+
+.toggleIcon {
+  @apply mx-auto text-primary-text-1 hover:text-accent-2 transition-transform
+}
+  
+.tranformIcon {
+  @apply rotate-180;
+}
+
+.accordionBody {
+  @apply p-0;
+}
+
+.userMenuItem {
+  @apply px-2 py-2 ml-auto w-4/5 flex items-center gap-4 text-primary-text-1 hover:cursor-pointer hover:bg-highlight rounded-md;
+}
+
+.logout {
+  @apply text-error hover:bg-error hover:bg-opacity-10;
+}
+
 .menuList {
-  @apply w-full;
+  @apply mx-auto w-4/5;
 }
 
 .menuLabel {
-  @apply py-2 px-4 my-2 w-full text-primary-text-1 hover:cursor-pointer rounded-md hover:bg-highlight hover:text-primary-text-1 flex flex-row items-center gap-4;
+  @apply p-2 my-2 w-full text-primary-text-1 hover:cursor-pointer rounded-md hover:bg-highlight hover:text-primary-text-1 active:!bg-secondary flex flex-row items-center gap-4;
 }
 
 .menuActive {
-  @apply bg-gray-300;
+  @apply active:!bg-secondary;
 }

@@ -7,6 +7,9 @@ import { PersistGate } from "redux-persist/integration/react";
 import "./index.css";
 import { router } from "./routes/AppRoutes";
 import store from "./store/store";
+import { socket } from "./utils/socket";
+
+export const chatSocket = socket;
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>

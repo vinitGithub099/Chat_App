@@ -10,10 +10,11 @@ import {
 } from "redux-persist";
 import localStorage from "redux-persist/es/storage";
 import { apiSlice } from "./API/apiSlice";
-import authReducer from "./Features/Auth/AuthSlice";
-import chatReducer from "./Features/Chat/ChatSlice";
-import messageReducer from "./Features/Message/MessageSlice";
-import uiReducer from "./Features/UI/UISlice";
+import authReducer from "./Features/Auth/authSlice";
+import chatReducer from "./Features/Chat/chatSlice";
+import messageReducer from "./Features/Message/messageSlice";
+import searchReducer from "./Features/Search/searchSlice";
+import uiReducer from "./Features/UI/uiSlice";
 
 const authPersistConfig = {
   key: "auth",
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
   chat: chatReducer,
   ui: uiReducer,
   message: messageReducer,
+  search: searchReducer,
   [apiSlice.reducerPath]: apiSlice.reducer,
 });
 

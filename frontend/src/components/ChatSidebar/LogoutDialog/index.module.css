@@ -1,0 +1,19 @@
+.logoutContainer {
+  @apply p-2 bg-highlight;
+}
+
+.logoutHeader {
+  @apply py-2 text-xl text-primary-text-2;
+}
+
+.logoutFooter {
+  @apply flex gap-4;
+}
+
+.leaveBtn {
+  @apply px-4 py-2 border border-error text-error hover:bg-error hover:text-primary-text-1 rounded-sm;
+}
+
+.cancelBtn {
+  @apply px-4 py-2 border border-secondary hover:bg-secondary text-primary-text-1 rounded-sm;
+}

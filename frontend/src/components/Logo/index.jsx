@@ -1,10 +1,10 @@
 import { Avatar } from "@material-tailwind/react";
 import cx from "classnames";
-import logo from "../../assets/logo2.jpg";
+import logo from "../../assets/chat.png";
 import classes from "./index.module.css";
 
 const Logo = ({ size = "md", className }) => {
-  const logoNameClass = cx({
+  const logoNameClass = cx(classes.logoName, {
     [classes.logoNameExtraSmall]: size === "xs",
     [classes.logoNameSmall]: size === "sm",
     [classes.logoNameMedium]: size === "md",
@@ -17,7 +17,7 @@ const Logo = ({ size = "md", className }) => {
 
   return (
     <div className={containerClass}>
-      <Avatar src={logo} size={size} />
+      <Avatar src={logo} size={size} variant="square" />
       <p className={logoNameClass}>chathub</p>
     </div>
   );

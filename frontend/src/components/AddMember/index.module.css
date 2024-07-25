@@ -1,0 +1,23 @@
+.addMemberContainer {
+  @apply bg-secondary;
+}
+
+.addMemberHeader {
+  @apply text-primary-text-1 flex justify-between;
+}
+
+.closeBtn {
+  @apply p-2 text-primary-text-1 bg-primary bg-opacity-50 hover:bg-primary rounded-sm;
+}
+
+.addMemberBody {
+  @apply w-full;
+}
+
+.error {
+  @apply text-error text-sm italic mt-1 pl-2;
+}
+
+.submitBtn {
+  @apply my-4 text-primary-text-1 border border-accent-1 bg-accent-1 hover:bg-transparent;
+}

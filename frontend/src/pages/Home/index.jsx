@@ -1,8 +1,9 @@
-import { Link } from "react-router-dom";
-import chatImage from "../../assets/2796777_cropped.jpg";
+import { Typography } from "@material-tailwind/react";
+import imgSrc from "../../assets/Group-Chat-Illustration-1-removebg-preview.png";
 import Header from "../../components/Header";
+import Logo from "../../components/Logo";
+import { TYPOGRAPHY_VARIANT } from "../../constants/variants";
 import classes from "./index.module.css";
-import { Button } from "@material-tailwind/react";
 
 const HomePage = () => {
   return (
@@ -10,23 +11,30 @@ const HomePage = () => {
       <Header className={classes.header} />
       <main className={classes.main}>
         <section className={classes.section}>
-          <img className={classes.image} src={chatImage}></img>
+          <Logo size="xl" className="mb-4" />
+          <Typography
+            variant={TYPOGRAPHY_VARIANT.H4}
+            className={classes.line1}
+          >
+            Welcome to
+          </Typography>
+          <Typography variant={TYPOGRAPHY_VARIANT.H2} className={classes.line2}>
+            Realtime Chat Application
+          </Typography>
+          <Typography variant={TYPOGRAPHY_VARIANT.PARAGRAPH} className={classes.para}>
+          A real-time chat application built using the MERN stack with a powerful JWT authentication system. It features real-time messaging, typing updates, and the ability for users to create both group and individual chats. The UI is built using Material-Tailwind. Additionally, the application has a sleek and engaging landing page to welcome users.
+          </Typography>
         </section>
-        <section className={classes.section}>
-          <div className={classes.content}>
-            <h2 className={classes.line1}>Hey!</h2>
-            <p className={classes.line2}>Ready to chat?</p>
-            <Button variant="text" className={classes.btn}>
-              <Link to="/chat">{`Let's go`}</Link>
-            </Button>
-          </div>
-        </section>
+          <img
+            src={imgSrc}
+            className={classes.coverImg}
+          />
       </main>
       <footer className={classes.footer}>
-        <p className={classes.footerNote}>
+        <Typography variant={TYPOGRAPHY_VARIANT.SMALL}>
           created and maintained by{" "}
           <span className={classes.nameLink}>@VinitKumbhare</span>
-        </p>
+        </Typography>
       </footer>
     </div>
   );

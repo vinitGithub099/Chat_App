@@ -1,0 +1,15 @@
+.option {
+  @apply bg-secondary bg-opacity-50 hover:cursor-pointer;
+}
+
+.select {
+  @apply text-primary-text-1 bg-accent-1;
+}
+
+.label {
+  @apply font-bold;
+}
+
+.disabled {
+  @apply opacity-50;;
+}

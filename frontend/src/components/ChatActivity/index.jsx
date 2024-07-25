@@ -2,14 +2,15 @@ import { Typography } from "@material-tailwind/react";
 import cx from "classnames";
 import { useSelector } from "react-redux";
 import { MENU_ITEMS } from "../../constants/sideMenu";
+import { TYPOGRAPHY_VARIANT } from "../../constants/variants";
 import MessageView from "../MessageView";
 import classes from "./index.module.css";
 
 const ChatActivity = ({ className }) => {
   const activityLabel = useSelector((state) => state.ui.activityLabel);
 
-  const errorFallback = (
-    <Typography className={classes.errDiv}>
+  const defaultFallback = (
+    <Typography variant={TYPOGRAPHY_VARIANT.SMALL} className={classes.errDiv}>
       Select something to see the activity!
     </Typography>
   );
@@ -17,15 +18,15 @@ const ChatActivity = ({ className }) => {
   const renderView = (activityLabel) => {
     switch (activityLabel) {
       case MENU_ITEMS.CHATS.label:
-        return <MessageView className="" />;
+        return <MessageView />;
       case MENU_ITEMS.STATUS.label:
         return (
-          <Typography variant="h4" className="text-center">
+          <Typography variant={TYPOGRAPHY_VARIANT.H4}>
             Under Development
           </Typography>
         );
       default:
-        return errorFallback;
+        return defaultFallback;
     }
   };
 

@@ -4,10 +4,12 @@ import { useEffect, useState } from "react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { BUTTON_VARIANT } from "../../constants/variants";
+import Dropdown from "../Dropdown";
 import Logo from "../Logo";
-import Navlist from "../Navlist";
-import ProfileMenu from "../ProfileMenu";
+import Navlist from "./Navlist";
 import classes from "./index.module.css";
+import { profileMenuItems } from "./profileMenuItems";
 
 const Header = ({ className }) => {
   const [openNav, setOpenNav] = useState(false);
@@ -37,7 +39,7 @@ const Header = ({ className }) => {
         <Button
           name="register"
           size="sm"
-          variant="text"
+          variant={BUTTON_VARIANT.TEXT}
           fullWidth={isFullWidth}
           onClick={handleClick}
           className={classes.registerBtn}
@@ -45,12 +47,12 @@ const Header = ({ className }) => {
           Sign Up
         </Button>
         {token ? (
-          <ProfileMenu />
+          <Dropdown menuItems={profileMenuItems} />
         ) : (
           <Button
             name="login"
-            variant="text"
             size="sm"
+            variant={BUTTON_VARIANT.TEXT}
             fullWidth={isFullWidth}
             onClick={handleClick}
             className={classes.loginBtn}
@@ -70,7 +72,7 @@ const Header = ({ className }) => {
           <Navlist className={classes.navlist} />
           {authButtons(false)}
           <Button
-            variant="text"
+            variant={BUTTON_VARIANT.TEXT}
             className={classes.toggleNavBtn}
             onClick={toggleNavbar}
           >

@@ -1,5 +1,5 @@
 import { apiSlice } from "../API/apiSlice";
-import { setCredentials } from "../Features/Auth/AuthSlice";
+import { setCredentials } from "../Features/Auth/authSlice";
 
 export const authApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -31,18 +31,19 @@ export const authApiSlice = apiSlice.injectEndpoints({
       }),
     }),
 
-    searchUser: builder.query({
+    fetchUsers: builder.query({
       query: (query) => ({
-        url: `/user/allUsers`,
+        url: `/user/fetchUsers`,
         method: `GET`,
         headers: { "Content-Type": "application/json" },
         params: {
           search: query,
         },
       }),
+      extraOptions: { shouldAbort: true },
     }),
   }),
 });
 
-export const { useLoginMutation, useRegisterMutation, useLazySearchUserQuery } =
+export const { useLoginMutation, useRegisterMutation, useLazyFetchUsersQuery } =
   authApiSlice;

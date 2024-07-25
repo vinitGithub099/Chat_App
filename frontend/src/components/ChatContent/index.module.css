@@ -1,9 +1,9 @@
 .chatContentContainer {
-  @apply flex flex-col sm:shadow-md sm:shadow-highlight;
+  @apply flex flex-col border-r border-highlight;
 }
 
 .chatContentHeader {
-  @apply mb-2 p-4 flex flex-row items-center gap-4;
+  @apply px-4 py-2 flex flex-row items-center justify-between gap-4;
 }
 
 .menuIcon {
@@ -16,4 +16,8 @@
 
 .content {
   @apply w-full flex-1 overflow-auto;
+}
+
+.channelBtn {
+  @apply self-end p-1 text-primary-text-1 hover:bg-secondary transition-colors duration-100 ease-in-out;
 }

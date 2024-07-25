@@ -1,13 +1,15 @@
 import { apiSlice } from "../API/apiSlice";
-import { populateChats } from "../Features/Chat/ChatSlice";
+import { populateChats } from "../Features/Chat/chatSlice";
 
 export const chatApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     accessChat: builder.mutation({
-      query: (data) => ({
+      query: (userId) => ({
         url: `/chat/accessChat`,
         method: `POST`,
-        body: data,
+        body: {
+          userId: userId,
+        },
         headers: { "Content-Type": "application/json" },
       }),
     }),
@@ -32,7 +34,7 @@ export const chatApiSlice = apiSlice.injectEndpoints({
 
     createGroupChat: builder.mutation({
       query: (data) => ({
-        url: `/chat/groupChat`,
+        url: `/chat/createGroup`,
         method: `POST`,
         body: data,
         headers: { "Content-Type": "application/json" },
@@ -40,28 +42,28 @@ export const chatApiSlice = apiSlice.injectEndpoints({
     }),
 
     renameGroup: builder.mutation({
-      query: (data) => ({
-        url: `/chat/groupChat`,
+      query: ({ chatId, chatName }) => ({
+        url: `/chat/renameGroup`,
         method: `POST`,
-        body: data,
+        body: { chatId, chatName },
         headers: { "Content-Type": "application/json" },
       }),
     }),
 
-    addToGroup: builder.mutation({
-      query: (data) => ({
-        url: `/chat/addToGroup`,
+    addGroupMember: builder.mutation({
+      query: ({ chatId, userId }) => ({
+        url: `/chat/addGroupMember`,
         method: `PUT`,
-        body: data,
+        body: { chatId, userId },
         headers: { "Content-Type": "application/json" },
       }),
     }),
 
-    removeFromGroup: builder.mutation({
-      query: (data) => ({
-        url: `/chat/removeFromGroup`,
+    removeGroupMember: builder.mutation({
+      query: ({ chatId, userId }) => ({
+        url: `/chat/removeGroupMember`,
         method: `PUT`,
-        body: data,
+        body: { chatId, userId },
         headers: { "Content-Type": "application/json" },
       }),
     }),
@@ -73,6 +75,6 @@ export const {
   useLazyFetchChatsQuery,
   useCreateGroupChatMutation,
   useRenameGroupMutation,
-  useAddToGroupMutation,
-  useRemoveFromGroupMutation,
+  useAddGroupMemberMutation,
+  useRemoveGroupMemberMutation,
 } = chatApiSlice;

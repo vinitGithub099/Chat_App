@@ -1,0 +1,52 @@
+.reactSelectContainer {
+  @apply !border-none focus:!border-0;
+}
+
+.input {
+  @apply !text-primary-text-1 focus:!border-0 hover:cursor-text;
+}
+
+.menu {
+  @apply p-2 !bg-highlight;
+}
+
+.menuList {
+  @apply flex flex-col gap-2;
+}
+
+.container {
+  @apply !bg-highlight focus:!ring-1 focus:!ring-accent-1;
+}
+
+.control {
+  @apply !border-0 !bg-highlight !shadow-sm focus:!ring-1 focus:!ring-accent-1;
+}
+
+.indicatorsContainer {
+  @apply !border-0;
+}
+
+.valueContainer {
+  @apply flex flex-row;
+}
+
+/* multiValueLabe as valueLabel */
+.valueLabel {
+  @apply !bg-secondary py-1 px-2 !rounded-none;
+}
+
+.multiValueRemove {
+  @apply !bg-secondary !rounded-none hover:!bg-secondary hover:!text-error;
+}
+
+.dropdownIndicator {
+  @apply self-start !text-accent-1 hover:cursor-pointer;
+}
+
+.clearIndicator {
+  @apply self-start !bg-highlight hover:!cursor-pointer text-primary-text-1 hover:!text-primary-text-2;
+}
+
+.indicatorSeparator {
+  @apply !bg-accent-2;
+}

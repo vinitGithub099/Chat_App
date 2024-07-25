@@ -4,6 +4,7 @@
 
 @layer base {
   .app {
-    @apply w-full min-h-screen bg-primary text-primary-text-1;
+    @apply w-full h-screen bg-primary text-primary-text-1;
+    
   }
 }

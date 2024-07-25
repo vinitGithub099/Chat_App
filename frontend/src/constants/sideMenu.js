@@ -1,9 +1,14 @@
-import { FaCircleNotch, FaUser } from "react-icons/fa6";
+import { FaHome, FaUser } from "react-icons/fa";
+import { FaCircleNotch } from "react-icons/fa6";
 import { IoSettingsOutline } from "react-icons/io5";
 import { MdOutlineChat } from "react-icons/md";
 import { RiLogoutCircleLine } from "react-icons/ri";
 
 export const MENU_ITEMS = {
+  HOME: {
+    label: "Home",
+    icon: FaHome,
+  },
   CHATS: {
     label: "Chats",
     icon: MdOutlineChat,
@@ -12,6 +17,13 @@ export const MENU_ITEMS = {
     label: "Status",
     icon: FaCircleNotch,
   },
+  SETTINGS: {
+    label: "Settings",
+    icon: IoSettingsOutline,
+  },
+};
+
+export const USER_MENU_ITEMS = {
   PROFILE: {
     label: "Profile",
     icon: FaUser,
@@ -19,9 +31,5 @@ export const MENU_ITEMS = {
   LOGOUT: {
     label: "Logout",
     icon: RiLogoutCircleLine,
-  },
-  SETTINGS: {
-    label: "Settings",
-    icon: IoSettingsOutline,
-  },
-};
+  }
+}

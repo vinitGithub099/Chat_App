@@ -1,5 +1,9 @@
 .logoContainer {
-  @apply flex flex-col items-center;
+  @apply flex flex-row items-center;
+}
+
+.logoName {
+  @apply px-2 uppercase font-semibold bg-gradient-to-r from-accent-1 to-accent-2 bg-clip-text text-transparent;
 }
 
 .logoNameExtraSmall {
@@ -23,5 +27,5 @@
 }
 
 .logoNameDExtraLarge {
-  @apply text-xl;
+  @apply text-4xl;
 }
