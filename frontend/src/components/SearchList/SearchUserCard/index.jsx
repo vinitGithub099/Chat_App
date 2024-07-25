@@ -1,8 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import { MENU_ITEMS } from "../../../constants/sideMenu";
+
 import {
-    insertChat,
-    updateCurrentChat,
+  insertChat,
+  updateCurrentChat,
 } from "../../../store/Features/Chat/chatSlice";
 import { setActitvityLabel } from "../../../store/Features/UI/uiSlice";
 import { useAccessChatMutation } from "../../../store/Services/chatAPI";
@@ -23,8 +24,9 @@ const SearchUserCard = (props) => {
   };
 
   const handleAccessChat = async (_id) => {
-    const singleChat = chatList?.length
-      ? chatList.find((chat) =>
+    // search in local chatList first
+    const singleChat = Object.values(chatList)?.length
+      ? Object.values(chatList).find((chat) =>
           !chat.isGroupChat
             ? chat.users?.find((user) => user?._id === _id)
             : null
@@ -36,6 +38,7 @@ const SearchUserCard = (props) => {
       return;
     }
 
+    // if not found then make api call
     try {
       const res = await accessChat(_id);
       displayCurrentChat(res?.data);

@@ -98,8 +98,10 @@ const ChatList = () => {
           <div className={classes.chatList}>
             {isFocused ? (
               <SearchList />
-            ) : chatList?.length ? (
-              chatList.map((chat) => <ChatCard key={chat._id} {...chat} />)
+            ) : chatList && Object.values(chatList)?.length ? (
+              Object.values(chatList).map((chat) => (
+                <ChatCard key={chat._id} {...chat} />
+              ))
             ) : null}
           </div>
         </>
