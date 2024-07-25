@@ -9,16 +9,11 @@ import { chatSocket } from "../../main";
 import { appendMessage } from "../../store/Features/Message/messageSlice";
 import classes from "./index.module.css";
 
-/* 
-
-Note: Keep cross checking the erraneous working of useEffect in this component
-
-*/
-
 const Chats = () => {
   const currentChat = useSelector((state) => state.chat.currentChat);
   const dispatch = useDispatch();
   const { notify } = useNotification();
+  const { activityLabel } = useSelector((state) => state.ui);
 
   const displayMsgToast = (notification) => {
     notify(
@@ -55,12 +50,12 @@ const Chats = () => {
     <div className={classes.chatContainer}>
       <ChatContent
         className={cx(classes.chatContentBar, {
-          [classes.hide]: !!currentChat === true,
+          [classes.hide]: activityLabel, // for mobile screens hide ChatContent when activityLabel is selected
         })}
       />
       <ChatActivity
         className={cx(classes.chatActivity, {
-          [classes.hide]: !!currentChat === false,
+          [classes.hide]: !activityLabel, // for mobile screens hide ChatActivity when no activityLabel is selected
         })}
       />
     </div>
