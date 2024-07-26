@@ -3,9 +3,10 @@ import { chatSocket } from "../../main";
 
 const useJoinChatRooms = (chatList, user) => {
   useEffect(() => {
-    if (!chatList?.length || !user) return;
+    const chats = Object.values(chatList);
+    if (!chats?.length || !user) return;
 
-    chatList.forEach((chat) => {
+    chats.forEach((chat) => {
       chatSocket.emit("join chat", { user, room: chat });
     });
   }, [chatList, user]);
