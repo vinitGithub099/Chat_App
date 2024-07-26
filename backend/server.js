@@ -33,7 +33,7 @@ app.use(
     methods: ["GET", "PUT", "POST", "DELETE"],
     optionSuccessStatus: 200,
     "Access-Control-Allow-Origin": allowedOrigins,
-    "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT,DELETE"
+    "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT,DELETE",
   })
 );
 
@@ -67,37 +67,37 @@ const io = new Server(server, {
     methods: ["GET", "PUT", "POST", "DELETE"],
     optionSuccessStatus: 200,
     "Access-Control-Allow-Origin": allowedOrigins,
-    "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT,DELETE"
+    "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT,DELETE",
   },
 });
 
+// to store online users
 const onlineUsers = new Map();
 
 const emitOnlineUsers = () => {
-  io.emit('online users', Array.from(onlineUsers.values()));
+  io.emit("online users", Array.from(onlineUsers.values()));
 };
 
-
 io.on("connection", (socket) => {
-  socket.on('setup', (userData) => {
-    onlineUsers.set(userData._id, userData);
+  socket.on("setup", (userData) => {
+    onlineUsers.set(userData._id, { ...userData, socketId: socket.id });
     socket.join(userData._id);
-    socket.emit('connected');
+    socket.emit("connected");
     emitOnlineUsers(); // Emit updated list of online users
   });
 
   socket.on("join chat", ({ user, room }) => {
     socket.join(room._id);
-    console.log(user.name + " Joined Room: " + room._id);
+    if (app.settings.env === "development") {
+      console.log(user.name + " Joined Room: " + room._id);
+    }
   });
 
   socket.on("typing", ({ room, user }) => {
-    // console.log(room._id + " has started typing.");
     socket.in(room._id).emit("typing", { room, user });
   });
 
   socket.on("stop typing", ({ room, user }) => {
-    // console.log(room._id + " stopped typing.");
     socket.in(room._id).emit("stop typing", { room, user });
   });
 
@@ -114,8 +114,7 @@ io.on("connection", (socket) => {
     });
   });
 
-   // Handle disconnections
-   socket.on('disconnect', () => {
+  socket.on("disconnect", () => {
     // Remove the user from the online users map
     for (let [userId, user] of onlineUsers) {
       if (user.socketId === socket.id) {
@@ -123,13 +122,6 @@ io.on("connection", (socket) => {
         break;
       }
     }
-    emitOnlineUsers(); // Emit updated list of online users
-  });
-
-  // Handle setup off (used if the user setup event is canceled)
-  socket.on('setup off', (userData) => {
-    socket.leave(userData._id);
-    onlineUsers.delete(userData._id);
     emitOnlineUsers(); // Emit updated list of online users
   });
 });
