@@ -19,7 +19,7 @@
 }
 
 .avatar {
-  @apply relative top-3 bg-accent-2;
+  @apply relative top-3 bg-accent-2 flex-shrink-0;
 }
 
 .details {
@@ -44,6 +44,10 @@
 
 .content {
   @apply text-sm text-primary-text-1 flex-1;
+}
+
+.toggleText {
+  @apply text-accent-1 hover:cursor-pointer;
 }
 
 .timeStamp {
