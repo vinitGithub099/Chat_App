@@ -1,7 +1,7 @@
 import cx from "classnames";
 import { useState } from "react";
 import ChatInfo from "../ChatInfo";
-import ChatHeader from "./ChatHeader";
+import ChatHeader from "./MessageHeader";
 import classes from "./index.module.css";
 import MessageForm from "./MessageForm";
 import MessagesContainer from "./MessagesContainer";
