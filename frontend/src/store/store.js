@@ -13,6 +13,7 @@ import { apiSlice } from "./API/apiSlice";
 import authReducer from "./Features/Auth/authSlice";
 import chatReducer from "./Features/Chat/chatSlice";
 import messageReducer from "./Features/Message/messageSlice";
+import onlineUsersReducer from "./Features/OnlineUsers/onlineUsersSlice";
 import searchReducer from "./Features/Search/searchSlice";
 import uiReducer from "./Features/UI/uiSlice";
 
@@ -29,6 +30,7 @@ const rootReducer = combineReducers({
   ui: uiReducer,
   message: messageReducer,
   search: searchReducer,
+  onlineUsers: onlineUsersReducer,
   [apiSlice.reducerPath]: apiSlice.reducer,
 });
 
