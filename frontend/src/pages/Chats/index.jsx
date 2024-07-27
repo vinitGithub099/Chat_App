@@ -15,17 +15,17 @@ const Chats = () => {
   const { notify } = useNotification();
   const { activityLabel } = useSelector((state) => state.ui);
 
-  const displayMsgToast = (notification) => {
-    notify(
-      {
-        toastType: TOAST_TYPE.MESSAGE,
-        ...notification,
-      },
-      { position: "top-right" }
-    );
-  };
-
   useEffect(() => {
+    const displayMsgToast = (notification) => {
+      notify(
+        {
+          toastType: TOAST_TYPE.MESSAGE,
+          ...notification,
+        },
+        { position: "top-right" }
+      );
+    };
+
     // used for updating messages ui of sender receiver
     const updateMessages = (newMessage) => {
       dispatch(appendMessage(newMessage));
@@ -44,7 +44,7 @@ const Chats = () => {
     return () => {
       chatSocket.off("message received", handleMessageReceived);
     };
-  });
+  }, [currentChat, dispatch, notify]);
 
   return (
     <div className={classes.chatContainer}>
