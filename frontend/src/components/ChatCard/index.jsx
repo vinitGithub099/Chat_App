@@ -26,12 +26,17 @@ const ChatCard = (props) => {
     dispatch(setActitvityLabel(MENU_ITEMS.CHATS.label));
   };
 
-  const buildTextContent = () =>
-    typingStatus.isTyping
-      ? `${typingStatus.name} is typing`
-      : latestMessage
-      ? `${latestMessage?.sender?.name}: ${latestMessage?.content}`
-      : `No messages yet!`;
+  const buildTextContent = () => {
+    if (typingStatus.isTyping) {
+      return `${typingStatus} is typing`;
+    }
+
+    if (latestMessage) {
+      return `${latestMessage.sender.name}: ${latestMessage.content}`;
+    }
+
+    return `No messages yet!`;
+  };
 
   return (
     <div
