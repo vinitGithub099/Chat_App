@@ -28,7 +28,7 @@ const ChatCard = (props) => {
 
   const buildTextContent = () => {
     if (typingStatus.isTyping) {
-      return `${typingStatus} is typing`;
+      return `${typingStatus.name} is typing`;
     }
 
     if (latestMessage) {
