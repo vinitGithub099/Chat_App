@@ -1,8 +1,11 @@
 import { Button, Input, Typography } from "@material-tailwind/react";
 import { useForm } from "react-hook-form";
 import { RiShieldUserFill } from "react-icons/ri";
-import { Link } from "react-router-dom";
-import { AUTH_NOTIFICATION_ACTION, AUTH_NOTIFICATION_STATUS } from "../../../constants/authNotficationTypes";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  AUTH_NOTIFICATION_ACTION,
+  AUTH_NOTIFICATION_STATUS,
+} from "../../../constants/authNotficationTypes";
 import { FORM_FIELD } from "../../../constants/formFields";
 import { EMAIL_REGEX } from "../../../constants/regex";
 import { TOAST_TYPE } from "../../../constants/toastTypes";
@@ -25,13 +28,30 @@ const RegisterPage = () => {
     mode: "onChange",
   });
   const [registerUser] = useRegisterMutation();
-  const notify = useNotification();
+  const { notify } = useNotification();
+  const navigate = useNavigate();
 
   const signup = async (data) => {
     try {
       await registerUser(data);
+      notify(
+        {
+          toastType: TOAST_TYPE.AUTH,
+          status: AUTH_NOTIFICATION_STATUS.SUCCESS,
+          action: AUTH_NOTIFICATION_ACTION.REGISTER,
+        },
+        { position: "top-right" }
+      );
+      navigate("/login");
     } catch (error) {
-      notify({toastType: TOAST_TYPE.AUTH, status: AUTH_NOTIFICATION_STATUS.FAILURE, action: AUTH_NOTIFICATION_ACTION.LOGIN});
+      notify(
+        {
+          toastType: TOAST_TYPE.AUTH,
+          status: AUTH_NOTIFICATION_STATUS.FAILURE,
+          action: AUTH_NOTIFICATION_ACTION.REGISTER,
+        },
+        { position: "top-right" }
+      );
       console.log(error);
     }
   };
