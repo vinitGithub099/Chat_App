@@ -28,7 +28,7 @@ export const chatSlice = createSlice({
       const { user, chatId } = payload;
       if (state.chats[chatId]) {
         state.chats[chatId].users.push(user);
-        if (state.currentChat && state.currentChat._id === chatId) {
+        if (state.currentChat?._id === chatId) {
           state.currentChat.users.push(user);
         }
       }
