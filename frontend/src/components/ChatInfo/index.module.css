@@ -53,6 +53,10 @@
   @apply py-2 flex flex-col gap-2;
 }
 
+.memberListError {
+  @apply text-error py-2 text-center;
+}
+
 .memberCard {
   @apply pr-2 flex flex-row items-start bg-secondary bg-opacity-50 hover:bg-opacity-100;
 }
@@ -79,4 +83,8 @@
 
 .leaveChannelBtn svg {
   @apply text-error;
+}
+
+.overlay {
+  @apply absolute inset-0 flex items-center justify-center bg-highlight bg-opacity-70 z-50;
 }
