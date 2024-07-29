@@ -11,18 +11,18 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   AUTH_NOTIFICATION_ACTION,
-  AUTH_NOTIFICATION_STATUS,
 } from "../../../constants/authNotficationTypes";
 import { AVATAR_TYPE } from "../../../constants/avatarType";
-import { TOAST_TYPE } from "../../../constants/toastTypes";
+import { NOTIFICATION_STATUS } from "../../../constants/notificationStatus";
+import { NOTIFICATION_TYPE } from "../../../constants/notificationType";
 import {
   BUTTON_VARIANT,
   TYPOGRAPHY_VARIANT,
 } from "../../../constants/variants";
 import useNotification from "../../../hooks/useNotification";
+import { logout } from "../../../store/Features/Auth/authSlice";
 import AppAvatar from "../../AppAvatar";
 import classes from "./index.module.css";
-import { logout } from "../../../store/Features/Auth/authSlice";
 
 const Dropdown = ({ menuItems }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -39,8 +39,8 @@ const Dropdown = ({ menuItems }) => {
       dispatch(logout());
       notify(
         {
-          toastType: TOAST_TYPE.AUTH,
-          status: AUTH_NOTIFICATION_STATUS.SUCCESS,
+          toastType: NOTIFICATION_TYPE.AUTH,
+          status: NOTIFICATION_STATUS.SUCCESS,
           action: AUTH_NOTIFICATION_ACTION.LOGOUT,
         },
         { position: "top-right" }
