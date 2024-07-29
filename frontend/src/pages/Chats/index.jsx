@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ChatActivity from "../../components/ChatActivity";
 import ChatContent from "../../components/ChatContent";
-import { TOAST_TYPE } from "../../constants/toastTypes";
+import { NOTIFICATION_TYPE } from "../../constants/notificationType";
 import useNotification from "../../hooks/useNotification";
 import { chatSocket } from "../../main";
 import { appendMessage } from "../../store/Features/Message/messageSlice";
@@ -19,7 +19,7 @@ const Chats = () => {
     const displayMsgToast = (notification) => {
       notify(
         {
-          toastType: TOAST_TYPE.MESSAGE,
+          toastType: NOTIFICATION_TYPE.MESSAGE,
           ...notification,
         },
         { position: "top-right" }
