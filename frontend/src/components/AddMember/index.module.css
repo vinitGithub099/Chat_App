@@ -14,10 +14,22 @@
   @apply w-full;
 }
 
+.addGMemberFooter {
+  @apply mb-4 p-1 flex items-center justify-center;
+}
+
+.spinner {
+  @apply h-4 w-4 text-primary-text-1;
+}
+
+.success {
+  @apply text-success mt-1 pl-2;
+}
+
 .error {
   @apply text-error text-sm italic mt-1 pl-2;
 }
 
 .submitBtn {
-  @apply my-4 text-primary-text-1 border border-accent-1 bg-accent-1 hover:bg-transparent;
+  @apply mt-8 text-primary-text-1 border border-highlight bg-accent-1 hover:border-accent-1 hover:bg-transparent flex flex-row items-center justify-center gap-4;
 }
