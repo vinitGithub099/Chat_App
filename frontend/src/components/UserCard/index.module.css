@@ -2,10 +2,6 @@
   @apply w-full p-2 flex flex-row items-center gap-x-2 hover:bg-secondary hover:cursor-pointer;
 }
 
-.avatar {
-  @apply bg-primary-text-2 border border-primary-text-2;
-}
-
 .userInfo {
   @apply flex-1 truncate;
 }
