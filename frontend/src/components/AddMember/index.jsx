@@ -1,46 +1,44 @@
-import { Button, Typography } from "@material-tailwind/react";
+import { Button, Spinner, Typography } from "@material-tailwind/react";
+import cx from "classnames";
 import { useForm } from "react-hook-form";
 import { AiOutlineClose } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { BUTTON_VARIANT, TYPOGRAPHY_VARIANT } from "../../constants/variants";
+import { addChatMember } from "../../store/Features/Chat/chatSlice";
 import { useAddGroupMemberMutation } from "../../store/Services/chatAPI";
 import Modal from "../Modal";
 import UserSelect from "../UserSelect";
+import { formFields } from "./formFields";
 import classes from "./index.module.css";
-import { addChatMember } from "../../store/Features/Chat/chatSlice";
 
 const AddMember = ({ openAddMember, handleAddMember }) => {
-  const [addGroupMember] = useAddGroupMemberMutation();
+  const [addGroupMember, { isSuccess, isLoading, isError }] =
+    useAddGroupMemberMutation();
   const currentChat = useSelector((state) => state.chat.currentChat);
   const dispatch = useDispatch();
 
   const {
     handleSubmit,
     control,
-    formState: { errors },
-  } = useForm();
+    formState: { errors, isValid },
+    reset,
+  } = useForm({ mode: "onchange" });
 
-  const addMember = async (formData) => {
-    try {
-      await addGroupMember({
-        chatId: currentChat?._id,
-        userId: formData?.user?.value,
-      });
-      dispatch(
-        addChatMember({ chatId: currentChat?._id, user: formData?.user?.label })
-      );
-      handleAddMember();
-    } catch (error) {
-      console.log(error);
-    }
+  const handleSuccess = async (formData) => {
+    dispatch(
+      addChatMember({ user: formData?.user?.label, chatId: currentChat?._id })
+    );
+    reset();
   };
 
   const handleFormSubmit = (formData) => {
-    console.log(formData);
-    addMember(formData);
+    addGroupMember({
+      chatId: currentChat?._id,
+      userId: formData?.user?.value,
+    }).then(() => handleSuccess(formData));
   };
 
-  const header = (
+  const Header = () => (
     <>
       <Typography variant={TYPOGRAPHY_VARIANT.H5}>Select Member</Typography>
       <Button
@@ -53,34 +51,57 @@ const AddMember = ({ openAddMember, handleAddMember }) => {
     </>
   );
 
-  const disabledOptions = currentChat?.users?.map((member) => member._id);
-
-  const body = (
+  const Body = () => (
     <form onSubmit={handleSubmit(handleFormSubmit)}>
       <UserSelect
         isMulti={false}
-        name={"user"}
+        name={formFields.USER}
         control={control}
-        disabledOptions={disabledOptions}
-        validationRules={{required: "Please select a member!"}}
+        disabledOptions={
+          currentChat?.users?.length
+            ? currentChat?.users?.map((member) => member._id)
+            : null
+        }
+        validationRules={{
+          required: "Please Select a member",
+        }}
       />
-      {errors && errors["user"] && (
+      {errors && errors[formFields.USER] && (
         <Typography
           variant={TYPOGRAPHY_VARIANT.SMALL}
           className={classes.error}
         >
-          {errors["user"].message}
+          {errors[formFields.USER].message}
         </Typography>
       )}
+
       <Button
         variant={BUTTON_VARIANT.TEXT}
         type="submit"
         className={classes.submitBtn}
+        disabled={!isValid}
         fullWidth
       >
-        Add
+        <span>Add</span>
+        {isLoading ? <Spinner className={classes.spinner} /> : null}
       </Button>
     </form>
+  );
+
+  const Footer = () => (
+    <Typography
+      variant={TYPOGRAPHY_VARIANT.SMALL}
+      className={cx(
+        { [classes.error]: isError },
+        { [classes.success]: isSuccess }
+      )}
+    >
+      {isSuccess
+        ? "Group Member added!"
+        : isError
+        ? "Failed to add Grouo Member"
+        : ""}
+    </Typography>
   );
 
   return (
@@ -91,10 +112,11 @@ const AddMember = ({ openAddMember, handleAddMember }) => {
         container: classes.addMemberContainer,
         header: classes.addMemberHeader,
         body: classes.addMemberBody,
+        footer: classes.addGMemberFooter,
       }}
-      header={header}
-      body={body}
-      footer={null}
+      header={<Header />}
+      body={<Body />}
+      footer={<Footer />}
     />
   );
 };
