@@ -15,5 +15,5 @@
 }
 
 .authFailure {
-  @apply border-error text-error;
+  @apply border-error text-error bg-opacity-40;
 }
