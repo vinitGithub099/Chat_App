@@ -1,17 +1,18 @@
-import { Avatar, Typography } from "@material-tailwind/react";
+import { Typography } from "@material-tailwind/react";
 import cx from "classnames";
-import userLogo from "../../assets/profile-user_64572.png";
+import { AVATAR_TYPE } from "../../constants/avatarType";
 import { TYPOGRAPHY_VARIANT } from "../../constants/variants";
+import AppAvatar from "../AppAvatar";
 import classes from "./index.module.css";
 
 const UserCard = ({ className, avatarSize, user, onClick }) => {
   return (
     <div className={cx(classes.userCardContainer, className)} onClick={onClick}>
-      <Avatar
-        src={user.pic || userLogo}
-        size={avatarSize}
-        className={classes.avatar}
-      />
+      <AppAvatar
+          entity={user}
+          size={avatarSize}
+          type={AVATAR_TYPE.USER}
+        />
       <div className={classes.userInfo}>
         <Typography variant={TYPOGRAPHY_VARIANT.SMALL} className={classes.userName}>
           {user.name ?? ""}
