@@ -64,3 +64,15 @@
 .link {
   @apply px-2 font-bold text-accent-2 hover:text-accent-1;
 }
+
+.loggedIn {
+  @apply w-full flex flex-col items-center justify-center gap-4;
+}
+
+.backBtn {
+  @apply border border-highlight !bg-inherit text-accent-1 flex items-center gap-4 px-4 py-2 hover:border-accent-1;
+}
+
+.avatarContainer {
+  @apply p-2 rounded-full bg-gradient-to-t from-accent-1 via-primary to-accent-2;
+}
