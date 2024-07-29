@@ -7,11 +7,11 @@ import { Link, useNavigate } from "react-router-dom";
 import AppAvatar, { AVATAR_TYPE } from "../../../components/AppAvatar";
 import {
   AUTH_NOTIFICATION_ACTION,
-  AUTH_NOTIFICATION_STATUS,
 } from "../../../constants/authNotficationTypes";
 import { FORM_FIELD } from "../../../constants/formFields";
+import { NOTIFICATION_STATUS } from "../../../constants/notificationStatus";
+import { NOTIFICATION_TYPE } from "../../../constants/notificationType";
 import { EMAIL_REGEX } from "../../../constants/regex";
-import { TOAST_TYPE } from "../../../constants/toastTypes";
 import {
   BUTTON_VARIANT,
   INPUT_VARIANT,
@@ -39,8 +39,8 @@ const LoginPage = () => {
       await login(userData);
       notify(
         {
-          toastType: TOAST_TYPE.AUTH,
-          status: AUTH_NOTIFICATION_STATUS.SUCCESS,
+          toastType: NOTIFICATION_TYPE.AUTH,
+          status: NOTIFICATION_STATUS.SUCCESS,
           action: AUTH_NOTIFICATION_ACTION.LOGIN,
         },
         { position: "top-right" }
@@ -48,8 +48,8 @@ const LoginPage = () => {
     } catch (error) {
       notify(
         {
-          toastType: TOAST_TYPE.AUTH,
-          status: AUTH_NOTIFICATION_STATUS.FAILURE,
+          toastType: NOTIFICATION_TYPE.AUTH,
+          status: NOTIFICATION_STATUS.FAILURE,
           action: AUTH_NOTIFICATION_ACTION.LOGIN,
         },
         { position: "top-right" }
