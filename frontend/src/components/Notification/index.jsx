@@ -1,15 +1,18 @@
-import { TOAST_TYPE } from "../../constants/toastTypes";
+import { NOTIFICATION_TYPE } from "../../constants/notificationType";
 import AuthNotification from "./AuthNotification";
+import Defaultnotification from "./DefaultNotification";
 import MessageNotification from "./MessageNotification";
 
 const Notification = ({ toastType, id, ...rest }) => {
   switch (toastType) {
-    case TOAST_TYPE.AUTH:
+    case NOTIFICATION_TYPE.AUTH:
       return <AuthNotification {...{ ...rest, id }} />;
-    case TOAST_TYPE.MESSAGE:
+    case NOTIFICATION_TYPE.MESSAGE:
       return <MessageNotification {...{ ...rest, id }} />;
     default:
-      return <></>;
+      return (
+        <Defaultnotification {...{ message: "Default Message", ...rest, id }} />
+      );
   }
 };
 
