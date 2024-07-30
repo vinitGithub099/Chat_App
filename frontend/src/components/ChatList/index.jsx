@@ -11,6 +11,7 @@ import {
   TYPOGRAPHY_VARIANT,
 } from "../../constants/variants";
 import useJoinChatRooms from "../../hooks/useJoinChatRooms";
+import { populateChats } from "../../store/Features/Chat/chatSlice";
 import { fetchSearchResults } from "../../store/Features/Search/searchActions";
 import { useLazyFetchChatsQuery } from "../../store/Services/chatAPI";
 import ChatCard from "../ChatCard";
@@ -28,8 +29,8 @@ const ChatList = () => {
   const [fetchChats, { isLoading, error }] = useLazyFetchChatsQuery();
 
   useEffect(() => {
-    fetchChats();
-  }, [fetchChats]);
+    fetchChats().then((res) => dispatch(populateChats(res.data)));
+  }, [dispatch, fetchChats]);
 
   useJoinChatRooms(chatList, user);
 
@@ -102,7 +103,11 @@ const ChatList = () => {
               Object.values(chatList).map((chat) => (
                 <ChatCard key={chat._id} {...chat} />
               ))
-            ) : null}
+            ) : (
+              <Typography variant={TYPOGRAPHY_VARIANT.PARAGRAPH} className="py-2 text-center font-semibold">
+                Oops! No chats to show.
+              </Typography>
+            )}
           </div>
         </>
       )}
