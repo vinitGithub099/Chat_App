@@ -29,8 +29,12 @@
   @apply py-4 w-full text-primary-text-1 flex justify-between;
 }
 
-.chatFormDialogBody {
+.chatFormBody {
   @apply p-4;
+}
+
+.chatFormFooter {
+  @apply p-1 font-semibold text-error flex justify-center;
 }
 
 .input {
@@ -55,4 +59,8 @@
 
 .submitBtn {
   @apply mt-6 border-2 text-primary-text-1 border-accent-1 bg-secondary hover:bg-accent-1;
+}
+
+.overlay {
+  @apply absolute inset-0 flex items-center justify-center bg-highlight bg-opacity-70 z-50;
 }
