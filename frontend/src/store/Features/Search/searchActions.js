@@ -8,13 +8,13 @@ const filterExistingData = (activeTab, existingData, query) => {
     case searchTabs.USERS:
       return existingData.filter(
         (item) =>
-          item.name?.toLowerCase().includes(query.toLowerCase()) ||
-          item.email?.toLowerCase().includes(query.toLowerCase())
+          item.name?.toLowerCase().includes(query) ||
+          item.email?.toLowerCase().includes(query)
       );
     case searchTabs.CHATS:
       // Replace with the actual filtering logic for chats
       return existingData.filter((item) =>
-        item.chatName?.toLowerCase().includes(query.toLowerCase())
+        item.chatName?.toLowerCase().includes(query)
       );
     // Extend for more tabs
     default:
