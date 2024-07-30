@@ -1,8 +1,12 @@
 import { Spinner, Typography } from "@material-tailwind/react";
 import { useEffect, useRef } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { TYPOGRAPHY_VARIANT } from "../../../constants/variants";
-import { getFormattedDateLabel, groupMessagesByDate } from "../../../helpers/helpers";
+import {
+  getFormattedDateLabel,
+  groupMessagesByDate,
+} from "../../../helpers/helpers";
+import { populateMessages } from "../../../store/Features/Message/messageSlice";
 import { useLazyFetchChatMessagesQuery } from "../../../store/Services/messageAPI";
 import MessageCard from "../../MessageCard";
 import classes from "./index.module.css";
@@ -12,16 +16,18 @@ const MessagesContainer = () => {
   const groupedMessages = groupMessagesByDate(
     useSelector((state) => state.message.messages)
   );
-  const [fetchCurrChatMessages, { isLoading }] =
+  const [fetchChatMsgs, { isLoading, isError }] =
     useLazyFetchChatMessagesQuery();
   const messagesEndRef = useRef(null);
+  const dispatch = useDispatch();
 
-  // fetch chat messages of the current chat when this compoenent mounts and  updates
   useEffect(() => {
-    if (currentChat) {
-      fetchCurrChatMessages(currentChat._id).catch(console.error);
-    }
-  }, [currentChat, fetchCurrChatMessages]);
+    if (!currentChat) return;
+
+    fetchChatMsgs(currentChat?._id).then((res) =>
+      dispatch(populateMessages(res.data))
+    );
+  }, [currentChat, dispatch, fetchChatMsgs]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -38,6 +44,13 @@ const MessagesContainer = () => {
           <Spinner className={classes.spinner} />
           <span>Loading messages</span>
         </div>
+      ) : isError ? (
+        <Typography
+          variant={TYPOGRAPHY_VARIANT.SMALL}
+          className={classes.errorMessage}
+        >
+          Error cannot not fetch messages!
+        </Typography>
       ) : groupedMessages?.length ? (
         groupedMessages.map(({ date, messages }, index) => {
           return (
@@ -58,7 +71,7 @@ const MessagesContainer = () => {
         })
       ) : (
         <Typography
-          variant={TYPOGRAPHY_VARIANT.LEAD}
+          variant={TYPOGRAPHY_VARIANT.SMALL}
           className={classes.noMessage}
         >
           No messages to show!
