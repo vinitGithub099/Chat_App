@@ -11,8 +11,9 @@ import { buildChatName } from "../../../helpers/helpers";
 import useTypingStatus from "../../../hooks/useTypingStatus";
 import { updateCurrentChat } from "../../../store/Features/Chat/chatSlice";
 import { setActitvityLabel } from "../../../store/Features/UI/uiSlice";
-import AppAvatar, { AVATAR_TYPE } from "../../AppAvatar";
+import AppAvatar from "../../AppAvatar";
 import classes from "./index.module.css";
+import { AVATAR_TYPE } from "../../../constants/avatarType";
 
 const MessageHeader = ({ handleChatInfo }) => {
   const currentChat = useSelector((state) => state.chat.currentChat);
@@ -58,7 +59,6 @@ const MessageHeader = ({ handleChatInfo }) => {
       <AppAvatar
         entity={currentChat}
         size="lg"
-        src={""}
         type={AVATAR_TYPE.CHAT}
       />
       <div className={classes.messageHeaderDetails}>
