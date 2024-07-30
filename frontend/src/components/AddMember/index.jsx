@@ -8,7 +8,7 @@ import { addChatMember } from "../../store/Features/Chat/chatSlice";
 import { useAddGroupMemberMutation } from "../../store/Services/chatAPI";
 import Modal from "../Modal";
 import UserSelect from "../UserSelect";
-import { formFields } from "./formFields";
+import { FORM_FIELD } from "./fieldNames";
 import classes from "./index.module.css";
 
 const AddMember = ({ openAddMember, handleAddMember }) => {
@@ -55,7 +55,7 @@ const AddMember = ({ openAddMember, handleAddMember }) => {
     <form onSubmit={handleSubmit(handleFormSubmit)}>
       <UserSelect
         isMulti={false}
-        name={formFields.USER}
+        name={FORM_FIELD.USER}
         control={control}
         disabledOptions={
           currentChat?.users?.length
@@ -66,12 +66,12 @@ const AddMember = ({ openAddMember, handleAddMember }) => {
           required: "Please Select a member",
         }}
       />
-      {errors && errors[formFields.USER] && (
+      {errors && errors[FORM_FIELD.USER] && (
         <Typography
           variant={TYPOGRAPHY_VARIANT.SMALL}
           className={classes.error}
         >
-          {errors[formFields.USER].message}
+          {errors[FORM_FIELD.USER].message}
         </Typography>
       )}
 
