@@ -13,7 +13,7 @@ import AppAvatar from "../AppAvatar";
 import classes from "./index.module.css";
 
 const ChatCard = (props) => {
-  const { _id, latestMessage } = props;
+  const { _id, isGroupChat, latestMessage } = props;
   const currentChat = useSelector((state) => state.chat.currentChat);
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
@@ -28,7 +28,7 @@ const ChatCard = (props) => {
 
   const buildTextContent = () => {
     if (typingStatus.isTyping) {
-      return `${typingStatus.name} is typing`;
+      return isGroupChat ? `${typingStatus.name} is typing` : `typing...`;
     }
 
     if (latestMessage) {
