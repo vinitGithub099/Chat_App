@@ -37,6 +37,10 @@
   @apply text-accent-1 h-8 w-8;
 }
 
+.errorMessage {
+  @apply font-semibold text-center text-error;
+}
+
 .noMessage {
   @apply p-2 text-center shadow-sm shadow-accent-1 rounded-full;
 }
