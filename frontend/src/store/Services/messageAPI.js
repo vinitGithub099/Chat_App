@@ -1,5 +1,4 @@
 import { apiSlice } from "../API/apiSlice";
-import { populateMessages } from "../Features/Message/messageSlice";
 
 export const messageApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -18,14 +17,6 @@ export const messageApiSlice = apiSlice.injectEndpoints({
         method: `GET`,
         headers: { "Content-Type": "application/json" },
       }),
-      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
-        try {
-          const { data } = await queryFulfilled;
-          dispatch(populateMessages(data));
-        } catch (err) {
-          console.error("couldn't fech chat messages");
-        }
-      },
     }),
   }),
 });
