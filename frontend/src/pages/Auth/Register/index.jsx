@@ -2,9 +2,7 @@ import { Button, Input, Typography } from "@material-tailwind/react";
 import { useForm } from "react-hook-form";
 import { RiShieldUserFill } from "react-icons/ri";
 import { Link, useNavigate } from "react-router-dom";
-import {
-  AUTH_NOTIFICATION_ACTION,
-} from "../../../constants/authNotficationTypes";
+import { AUTH_NOTIFICATION_ACTION } from "../../../constants/authNotficationTypes";
 import { FORM_FIELD } from "../../../constants/formFields";
 import { NOTIFICATION_STATUS } from "../../../constants/notificationStatus";
 import { NOTIFICATION_TYPE } from "../../../constants/notificationType";
@@ -42,7 +40,7 @@ const RegisterPage = () => {
         },
         { position: "top-right" }
       );
-      navigate("/login");
+      navigate("/login", { state: { showLoginForm: true } });
     } catch (error) {
       notify(
         {
