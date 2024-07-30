@@ -1,14 +1,22 @@
-import { Button, Input, Textarea, Typography } from "@material-tailwind/react";
+import {
+  Button,
+  Input,
+  Spinner,
+  Textarea,
+  Typography,
+} from "@material-tailwind/react";
 import { useForm } from "react-hook-form";
 import { AiOutlineClose } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import { FORM_FIELD } from "../../constants/formFields";
+import { NOTIFICATION_STATUS } from "../../constants/notificationStatus";
 import { MENU_ITEMS } from "../../constants/sideMenu";
 import {
   BUTTON_VARIANT,
   INPUT_VARIANT,
   TYPOGRAPHY_VARIANT,
 } from "../../constants/variants";
+import useNotification from "../../hooks/useNotification";
 import {
   insertChat,
   updateCurrentChat,
@@ -25,27 +33,31 @@ const ChatForm = ({ isChatFormOpen, toggleChatForm }) => {
     register,
     handleSubmit,
     control,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm();
-  const [createGroup] = useCreateGroupChatMutation();
+  const [createGroup, { isLoading, isError }] = useCreateGroupChatMutation();
   const dispatch = useDispatch();
+  const { notify } = useNotification();
 
   const buildGroupChat = (formData) => ({
     ...formData,
     users: JSON.stringify(formData.users.map((option) => option.value)),
   });
 
+  const handleSucces = (res) => {
+    dispatch(insertChat(res?.data));
+    dispatch(updateCurrentChat(res?.data));
+    dispatch(setActitvityLabel(MENU_ITEMS.CHATS.label));
+    toggleChatForm();
+    notify(
+      { message: "Group created!", status: NOTIFICATION_STATUS.SUCCESS },
+      { position: "top-right" }
+    );
+  };
+
   const handleFormSubmit = async (formData) => {
     const groupChat = buildGroupChat(formData);
-    try {
-      const res = await createGroup(groupChat);
-      dispatch(insertChat(res?.data));
-      dispatch(updateCurrentChat(res?.data));
-      dispatch(setActitvityLabel(MENU_ITEMS.CHATS.label));
-      toggleChatForm();
-    } catch (error) {
-      console.error(error);
-    }
+    createGroup(groupChat).then(handleSucces);
   };
 
   const Header = () => (
@@ -108,9 +120,12 @@ const ChatForm = ({ isChatFormOpen, toggleChatForm }) => {
           name={FIELD_NAME.USERS}
           control={control}
           validationRules={{
-            validate: (value) => value?.length > 2 || "Select at least 3 users",
+            validate: (value) =>
+              value?.length < 3
+                ? "Select at least 3 users"
+                : value?.length > 10 || "Only 10 member per group allowed",
           }}
-      />
+        />
         {errors?.[FIELD_NAME.USERS] && (
           <Typography
             variant={TYPOGRAPHY_VARIANT.SMALL}
@@ -124,6 +139,7 @@ const ChatForm = ({ isChatFormOpen, toggleChatForm }) => {
         variant={BUTTON_VARIANT.TEXT}
         type="submit"
         className={classes.submitBtn}
+        disabled={!isValid}
         fullWidth
       >
         SUBMIT
@@ -131,19 +147,36 @@ const ChatForm = ({ isChatFormOpen, toggleChatForm }) => {
     </form>
   );
 
+  const Footer = () =>
+    isError ? (
+      <Typography
+        variant={TYPOGRAPHY_VARIANT.SMALL}
+        className={classes.errorMsg}
+      >
+        Failed to create group!
+      </Typography>
+    ) : null;
+
   return (
     <Modal
       open={isChatFormOpen}
-      // size={"sm"}
       classNames={{
         container: classes.chatFormDialog,
         header: classes.chatFormHeader,
         body: classes.chatFormBody,
+        footer: classes.chatFormFooter,
       }}
       handler={toggleChatForm}
       header={<Header />}
       body={<Body />}
-    />
+      footer={<Footer />}
+    >
+      {isLoading ? (
+        <div className={classes.overlay}>
+          <Spinner />
+        </div>
+      ) : null}
+    </Modal>
   );
 };
 
