@@ -3,11 +3,9 @@ import { useForm } from "react-hook-form";
 import { FaHouseUser } from "react-icons/fa";
 import { IoIosArrowBack } from "react-icons/io";
 import { useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import AppAvatar, { AVATAR_TYPE } from "../../../components/AppAvatar";
-import {
-  AUTH_NOTIFICATION_ACTION,
-} from "../../../constants/authNotficationTypes";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import AppAvatar from "../../../components/AppAvatar";
+import { AUTH_NOTIFICATION_ACTION } from "../../../constants/authNotficationTypes";
 import { FORM_FIELD } from "../../../constants/formFields";
 import { NOTIFICATION_STATUS } from "../../../constants/notificationStatus";
 import { NOTIFICATION_TYPE } from "../../../constants/notificationType";
@@ -21,6 +19,7 @@ import useNotification from "../../../hooks/useNotification";
 import { useLoginMutation } from "../../../store/Services/authAPI";
 import classes from "../index.module.css";
 import { FIELD_NAME } from "./fieldNames";
+import { AVATAR_TYPE } from "../../../constants/avatarType";
 
 const LoginPage = () => {
   const {
@@ -28,6 +27,7 @@ const LoginPage = () => {
     formState: { errors, isValid },
     handleSubmit,
   } = useForm({ mode: "onChange" });
+  const location = useLocation();
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
   const { notify } = useNotification();
@@ -67,7 +67,7 @@ const LoginPage = () => {
 
   return (
     <section className={classes.container}>
-      {!user ? (
+      {!user || location.state?.showLoginForm ? (
         <div className={classes.subContainer}>
           <div className={classes.icon}>
             <FaHouseUser size={80} />
