@@ -6,8 +6,27 @@
   @apply max-h-full flex flex-row justify-between gap-2;
 }
 
-.textArea {
-  @apply min-h-full !border-0 focus:border-transparent text-primary-text-1 bg-secondary rounded-none;
+.textarea {
+  @apply w-full p-2 border border-highlight bg-highlight resize-none text-sm text-primary-text-1 outline outline-0 transition-all placeholder:text-primary-text-2 focus:border focus:border-accent-1 focus:outline-0 disabled:resize-none disabled:border-0 disabled:bg-blue-gray-50;
+
+  &::-webkit-scrollbar {
+    @apply w-1;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    @apply bg-accent-1 bg-opacity-30 rounded-md;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    @apply bg-accent-1;
+  }
 }
 
 .containerProps {
@@ -19,5 +38,5 @@
 }
 
 .sendMsgBtn {
-  @apply px-3 py-2 bg-accent-1 hover:bg-accent-1 hover:bg-opacity-80 rounded-full;
+  @apply self-end flex-grow-0 px-3 py-2 bg-accent-1 hover:bg-accent-1 hover:bg-opacity-80 rounded-md;
 }
