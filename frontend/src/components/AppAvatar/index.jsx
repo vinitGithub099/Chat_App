@@ -40,5 +40,4 @@ const getAvatarSizeClass = (size) => {
   }
 };
 
-export { AVATAR_TYPE };
 export default AppAvatar;
