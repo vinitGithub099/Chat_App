@@ -1,4 +1,4 @@
-import { Button, Textarea } from "@material-tailwind/react";
+import { Button } from "@material-tailwind/react";
 import { useCallback, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { BsFillSendFill } from "react-icons/bs";
@@ -8,16 +8,18 @@ import { BUTTON_VARIANT } from "../../../constants/variants";
 import { chatSocket } from "../../../main";
 import { appendMessage } from "../../../store/Features/Message/messageSlice";
 import { useSendMessageMutation } from "../../../store/Services/messageAPI";
+import AutoResizeTextArea from "../../AutoResizeTextArea";
+import { FORM_FIELD } from "./fieldNames";
 import classes from "./index.module.css";
 
 const MessageForm = () => {
-  const { register, handleSubmit } = useForm();
+  const { handleSubmit, control } = useForm();
   const typingTimeout = useRef();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
   const currentChat = useSelector((state) => state.chat.currentChat);
   const [sendChatMessage] = useSendMessageMutation();
-  const [messageState, updateMessageState] = useState("");
+  const [messageState, setMessageState] = useState("");
 
   const updateMessages = (newMessage) => {
     dispatch(appendMessage(newMessage));
@@ -47,7 +49,7 @@ const MessageForm = () => {
         content: formData?.message,
         chatId: currentChat?._id,
       });
-      updateMessageState("");
+      setMessageState("");
       emitStopTyping();
       updateMessages(res.data);
       chatSocket.emit("new message", { newMessage: res.data }, () => {});
@@ -63,8 +65,7 @@ const MessageForm = () => {
     if (value) emitStartTyping();
 
     // immediately update the messageState
-    updateMessageState(value);
-
+    setMessageState(value);
     // clear previous timeout
     if (typingTimeout.current) clearTimeout(typingTimeout.current);
 
@@ -79,23 +80,21 @@ const MessageForm = () => {
         className={classes.messageForm}
         onSubmit={handleSubmit(throttleSendMessage)}
       >
-        <Textarea
+        <AutoResizeTextArea
+          control={control}
+          name={FORM_FIELD.MESSAGE}
+          placeholder={"Type your message here..."}
+          className={classes.textarea}
           rows={1}
-          resize={true}
-          placeholder="Type your message"
-          className={classes.textArea}
-          containerProps={{
-            className: classes.containerProps,
-          }}
-          labelProps={{
-            className: classes.labelProps,
-          }}
-          spellCheck={true}
+          cols={70}
           value={messageState}
-          onInput={handleChange}
-          {...register("message", { required: true })}
+          onChange={handleChange}
         />
-        <Button variant={BUTTON_VARIANT.TEXT} type="submit" className={classes.sendMsgBtn}>
+        <Button
+          variant={BUTTON_VARIANT.TEXT}
+          type="submit"
+          className={classes.sendMsgBtn}
+        >
           <BsFillSendFill size={20} />
         </Button>
       </form>
