@@ -3,7 +3,7 @@ import {
   AccordionBody,
   AccordionHeader,
   Button,
-  Typography
+  Typography,
 } from "@material-tailwind/react";
 import cx from "classnames";
 import { useState } from "react";
@@ -50,7 +50,6 @@ const ChatSidebar = ({ className }) => {
     if (listItem) {
       const key = listItem.dataset.key;
       if (key === MENU_ITEMS.HOME.label) {
-        dispatch(toggleSidebar())
         navigate("/");
       } else if (
         key === MENU_ITEMS.CHATS.label ||
@@ -58,12 +57,12 @@ const ChatSidebar = ({ className }) => {
       ) {
         dispatch(setContentLabel(key));
         dispatch(setActitvityLabel(null));
-        dispatch(toggleSidebar(false));
       } else if (key === USER_MENU_ITEMS.LOGOUT.label) {
         handleOpenLogoutDialog();
-      } else {
-        dispatch(toggleSidebar());
+      } else if (key === USER_MENU_ITEMS.PROFILE.label) {
+        navigate("/profile");
       }
+      dispatch(toggleSidebar());
     }
   };
 
@@ -94,11 +93,7 @@ const ChatSidebar = ({ className }) => {
           className={classes.accordionHeader}
         >
           <div className={classes.headerItem}>
-            <AppAvatar
-              entity={user}
-              size="sm"
-              type={AVATAR_TYPE.USER}
-            />
+            <AppAvatar entity={user} size="sm" type={AVATAR_TYPE.USER} />
             <Typography variant={TYPOGRAPHY_VARIANT.H6}>
               {user?.name}
             </Typography>
