@@ -2,8 +2,12 @@
   @apply flex flex-row items-center;
 }
 
+.avatar {
+  @apply bg-transparent text-accent-1;
+}
+
 .logoName {
-  @apply px-2 uppercase font-semibold bg-gradient-to-r from-accent-1 to-accent-2 bg-clip-text text-transparent;
+  @apply px-1 font-semibold bg-gradient-to-r from-accent-1 to-accent-2 bg-clip-text text-transparent;
 }
 
 .logoNameExtraSmall {
@@ -28,4 +32,36 @@
 
 .logoNameDExtraLarge {
   @apply text-4xl;
+}
+
+.logoXs {
+  @apply w-3 h-3;
+}
+
+.logoSm {
+  @apply w-5 h-5;
+}
+
+.logoMd {
+  @apply w-6 h-6;
+}
+
+.logoLg {
+  @apply w-7 h-7;
+}
+
+.logoXl {
+  @apply w-8 h-8;
+}
+
+.logoXxl {
+  @apply w-10 h-10;
+}
+
+.logoXxxl {
+  @apply w-14 h-14;
+}
+
+.logoXxxxl {
+  @apply w-20 h-20;
 }
