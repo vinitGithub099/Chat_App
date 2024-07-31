@@ -9,9 +9,8 @@ import {
 import cx from "classnames";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  AUTH_NOTIFICATION_ACTION,
-} from "../../../constants/authNotficationTypes";
+import { useNavigate } from "react-router-dom";
+import { AUTH_NOTIFICATION_ACTION } from "../../../constants/authNotficationTypes";
 import { AVATAR_TYPE } from "../../../constants/avatarType";
 import { NOTIFICATION_STATUS } from "../../../constants/notificationStatus";
 import { NOTIFICATION_TYPE } from "../../../constants/notificationType";
@@ -22,20 +21,21 @@ import {
 import useNotification from "../../../hooks/useNotification";
 import { logout } from "../../../store/Features/Auth/authSlice";
 import AppAvatar from "../../AppAvatar";
+import { profileMenuItems as menuItems } from "../profileMenuItems";
 import classes from "./index.module.css";
 
-const Dropdown = ({ menuItems }) => {
+const Dropdown = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { notify } = useNotification();
 
   const closeMenu = () => setIsMenuOpen(false);
 
   const handleClick = (e) => {
     const listItem = e.target.closest("button[value]");
-    if (listItem?.value === "Sign Out") {
-      console.log("notified");
+    if (listItem?.value === menuItems.SIGN_OUT.label) {
       dispatch(logout());
       notify(
         {
@@ -45,13 +45,15 @@ const Dropdown = ({ menuItems }) => {
         },
         { position: "top-right" }
       );
+    } else if (listItem?.value === menuItems.PROFILE.label) {
+      navigate("/profile")
     }
   };
 
   const renderMenuList = () =>
-    menuItems?.length
-      ? menuItems.map(({ label, icon: Icon }, key) => {
-          const isLastItem = key === menuItems.length - 1;
+    Object.values(menuItems)?.length
+      ? Object.values(menuItems).map(({ label, icon: Icon }, key) => {
+          const isLastItem = key === Object.keys(menuItems).length - 1;
           return (
             <MenuItem
               key={label}
