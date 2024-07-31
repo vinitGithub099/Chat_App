@@ -25,3 +25,11 @@
 .avatarXxl {
   @apply w-16 h-16 text-2xl;
 }
+
+.avatarXxxl {
+  @apply w-20 h-20 text-3xl;
+}
+
+.avatarXxxxl {
+  @apply w-24 h-24 text-4xl;
+}
