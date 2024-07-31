@@ -26,13 +26,17 @@ const ChatCard = (props) => {
     dispatch(setActitvityLabel(MENU_ITEMS.CHATS.label));
   };
 
+  const buildTyperName = (name) => (user.name == name ? "You" : name);
+
   const buildTextContent = () => {
     if (typingStatus.isTyping) {
-      return isGroupChat ? `${typingStatus.name} is typing` : `typing...`;
+      return isGroupChat
+        ? `${typingStatus.name} is typing`
+        : `typing...`;
     }
 
     if (latestMessage) {
-      return `${latestMessage.sender.name}: ${latestMessage.content}`;
+      return `${buildTyperName(latestMessage.sender.name)}: ${latestMessage.content}`;
     }
 
     return `No messages yet!`;
