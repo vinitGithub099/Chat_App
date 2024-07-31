@@ -1,8 +1,18 @@
 .container {
-  @apply w-full h-full flex flex-col items-center justify-between bg-gradient-to-tl from-accent-1 from-10% via-primary to-primary overflow-y-scroll pb-12;
+  @apply w-full h-full flex flex-col items-center justify-between bg-gradient-to-tr overflow-y-scroll pb-12;
+
+  &:before {
+    @apply absolute top-20 right-2/4 w-4 h-96 rounded-lg bg-accent-1 transform rotate-45 blur-3xl;
+    content: "";
+  }
+
+  &:after {
+    @apply absolute top-80 right-2/4 w-4 h-96 rounded-lg bg-accent-2 transform rotate-45 blur-3xl;
+    content: "";
+  }
 
   &::-webkit-scrollbar {
-    @apply w-2 ;
+    @apply w-2;
   }
 
   /* Track */
@@ -50,7 +60,7 @@
 }
 
 .para {
-  @apply py-4
+  @apply py-4;
 }
 
 .coverImg {
@@ -62,9 +72,25 @@
 }
 
 .footer {
-  @apply fixed bottom-2 bg-secondary p-4 text-center rounded-full ring-1 ring-offset-accent-1;
+  @apply flex items-center gap-1 fixed bottom-2 bg-secondary p-4 text-center rounded-full ring-1 ring-offset-accent-1;
+}
+
+.icon {
+  @apply h-4 w-4;
 }
 
 .nameLink {
   @apply italic font-bold text-accent-1 hover:cursor-pointer hover:underline hover:text-accent-2;
+}
+
+.menuList {
+  @apply p-2 bg-primary border-0 shadow-sm shadow-primary-text-2;
+}
+
+a {
+  @apply border-0 outline-0;
+}
+
+.menuItem {
+  @apply text-primary-text-2 hover:text-primary-text-1 flex items-center gap-2 rounded hover:bg-accent-1 hover:bg-opacity-40;
 }
