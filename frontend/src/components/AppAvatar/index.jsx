@@ -19,7 +19,7 @@ const AppAvatar = ({ entity, className, size = "md", type }) => {
   };
 
   return renderAvatar();
-}
+};
 
 const getAvatarSizeClass = (size) => {
   switch (size) {
@@ -35,6 +35,10 @@ const getAvatarSizeClass = (size) => {
       return classes.avatarXl;
     case "2xl":
       return classes.avatarXxl;
+    case "3xl":
+      return classes.avatarXxxl;
+    case "4xl":
+      return classes.avatarXxxl;
     default:
       return classes.avatarMd;
   }
