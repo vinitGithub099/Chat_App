@@ -1,4 +1,4 @@
-import { Avatar } from "@material-tailwind/react";
+import { Avatar, Typography } from "@material-tailwind/react";
 import cx from "classnames";
 import logo from "../../assets/chat.png";
 import classes from "./index.module.css";
@@ -18,7 +18,7 @@ const Logo = ({ size = "md", className }) => {
   return (
     <div className={containerClass}>
       <Avatar src={logo} size={size} variant="square" />
-      <p className={logoNameClass}>chathub</p>
+      <Typography className={logoNameClass}>QuickTalk</Typography>
     </div>
   );
 };
