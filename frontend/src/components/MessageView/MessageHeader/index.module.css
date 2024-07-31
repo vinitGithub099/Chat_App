@@ -10,7 +10,7 @@
   @apply text-xs text-accent-1 truncate;
 }
 
-.chatStatus {
+.offlineStatus {
   @apply text-xs text-primary-text-2 truncate;
 }
 
