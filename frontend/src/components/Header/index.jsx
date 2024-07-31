@@ -67,7 +67,7 @@ const Header = ({ className }) => {
     <header className={cx(classes.header, className)}>
       <Navbar className={classes.navbar}>
         <div className={classes.navbarContainer}>
-          <Logo size="sm" className={classes.logo} />
+          <Logo size="md" className={classes.logo} />
           <Navlist className={classes.navlist} />
           {authButtons(false)}
           <Button
