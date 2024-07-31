@@ -52,8 +52,8 @@ const Dropdown = () => {
 
   const renderMenuList = () =>
     Object.values(menuItems)?.length
-      ? Object.values(menuItems).map(({ label, icon: Icon }, key) => {
-          const isLastItem = key === Object.keys(menuItems).length - 1;
+      ? Object.values(menuItems).map(({ label, icon: Icon }, index) => {
+          const isLastItem = index === Object.keys(menuItems).length - 1;
           return (
             <MenuItem
               key={label}
