@@ -1,0 +1,31 @@
+.profileContainer {
+  @apply w-full p-2;
+}
+
+.profileSection {
+  @apply p-4 mx-auto mt-10 max-w-xl bg-secondary bg-opacity-20 rounded-md flex flex-col;
+}
+
+.profileHeader {
+  @apply p-4 bg-highlight bg-opacity-50 flex items-center gap-4 rounded-lg;
+}
+
+.userName {
+  @apply bg-clip-text text-transparent bg-gradient-to-b from-accent-1 to-accent-2;
+}
+
+.userEmail {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-accent-2 to-primary-text-1 italic;
+}
+
+fieldset {
+  @apply mt-8 border border-highlight rounded-lg;
+}
+
+legend {
+  @apply py-1 px-4 mx-auto border border-highlight text-primary-text-2;
+}
+
+.userBio {
+  @apply p-4 text-primary-text-1;
+}
