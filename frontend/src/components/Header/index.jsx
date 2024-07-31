@@ -9,7 +9,6 @@ import Logo from "../Logo";
 import Dropdown from "./Dropdown";
 import Navlist from "./Navlist";
 import classes from "./index.module.css";
-import { profileMenuItems } from "./profileMenuItems";
 
 const Header = ({ className }) => {
   const [openNav, setOpenNav] = useState(false);
@@ -47,7 +46,7 @@ const Header = ({ className }) => {
           Sign Up
         </Button>
         {token ? (
-          <Dropdown menuItems={profileMenuItems} />
+          <Dropdown />
         ) : (
           <Button
             name="login"
