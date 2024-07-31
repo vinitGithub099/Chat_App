@@ -3,6 +3,7 @@ import cx from "classnames";
 import { useMemo } from "react";
 import { IoIosArrowBack } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
+import { AVATAR_TYPE } from "../../../constants/avatarType";
 import {
   BUTTON_VARIANT,
   TYPOGRAPHY_VARIANT,
@@ -13,7 +14,6 @@ import { updateCurrentChat } from "../../../store/Features/Chat/chatSlice";
 import { setActitvityLabel } from "../../../store/Features/UI/uiSlice";
 import AppAvatar from "../../AppAvatar";
 import classes from "./index.module.css";
-import { AVATAR_TYPE } from "../../../constants/avatarType";
 
 const MessageHeader = ({ handleChatInfo }) => {
   const currentChat = useSelector((state) => state.chat.currentChat);
@@ -72,9 +72,9 @@ const MessageHeader = ({ handleChatInfo }) => {
         <Typography
           variant={TYPOGRAPHY_VARIANT.SMALL}
           className={cx(
-            classes.chatStatus,
+            { [classes.typingStatus]: typingStatus.isTyping },
             { [classes.onlineStatus]: isOnline && !typingStatus.isTyping },
-            { [classes.typingStatus]: typingStatus.isTyping }
+            {[classes.offlineStatus]: !isOnline},
           )}
         >
           {renderOnlineStaus()}
