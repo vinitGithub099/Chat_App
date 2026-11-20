@@ -9,6 +9,7 @@ import Logo from "../Logo";
 import Dropdown from "./Dropdown";
 import Navlist from "./Navlist";
 import classes from "./index.module.css";
+import { prefetchRoute } from "../../helpers/helpers";
 
 const Header = ({ className }) => {
   const [openNav, setOpenNav] = useState(false);
@@ -28,6 +29,10 @@ const Header = ({ className }) => {
 
   const toggleNavbar = () => setOpenNav((prev) => !prev);
 
+  const handleHover = (key) => {
+    prefetchRoute(key);
+  }
+
   const authButtons = (isFullWidth) => {
     return (
       <div
@@ -42,6 +47,7 @@ const Header = ({ className }) => {
           fullWidth={isFullWidth}
           onClick={handleClick}
           className={classes.registerBtn}
+          onMouseEnter={() => handleHover("register")}
         >
           Sign Up
         </Button>
@@ -55,6 +61,7 @@ const Header = ({ className }) => {
             fullWidth={isFullWidth}
             onClick={handleClick}
             className={classes.loginBtn}
+            onMouseEnter={() => handleHover("login")}
           >
             Log In
           </Button>

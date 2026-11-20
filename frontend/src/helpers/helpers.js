@@ -58,3 +58,25 @@ export const groupMessagesByDate = (messages) => {
 
   return groupedMessages;
 };
+
+
+export const routeLoaders = {
+  login: () => import("../pages/Auth/Login"),
+  register: () => import("../pages/Auth/Register"),
+  chat: () => import("../pages/Chats"),
+  profile: () => import("../pages/Profile"),
+  toasts: () => import("../pages/Sample/Notification"),
+  error: () => import("../pages/Error"),
+}
+
+
+const prefetchedRoutes = new Set();
+
+export function prefetchRoute(routeKey) {
+  if (prefetchedRoutes.has(routeKey)) {
+    return;
+  }
+
+  prefetchedRoutes.add(routeKey);
+  routeLoaders[routeKey]();
+}
