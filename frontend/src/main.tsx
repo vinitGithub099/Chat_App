@@ -11,7 +11,13 @@ import { socket } from "./utils/socket";
 
 export const chatSocket = socket;
 
-ReactDOM.createRoot(document.getElementById("root")).render(
+const rootElement = document.getElementById("root");
+
+if (!rootElement) {
+  throw new Error("Root element not found");
+}
+
+ReactDOM.createRoot(rootElement).render(
   <Provider store={store}>
     <PersistGate persistor={persistStore(store)}>
       <ThemeProvider>
