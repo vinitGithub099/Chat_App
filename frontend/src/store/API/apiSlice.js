@@ -47,7 +47,7 @@ const baseQueryWithReauth = async (args, api, extraOptions = {}) => {
     const refreshResult = await baseQuery(
       { url: "/user/refreshToken", method: "GET" },
       api,
-      extraOptions
+      extraOptions,
     );
 
     if (refreshResult?.data) {
@@ -72,5 +72,5 @@ const baseQueryWithReauth = async (args, api, extraOptions = {}) => {
 
 export const apiSlice = createApi({
   baseQuery: baseQueryWithReauth,
-  endpoints: (builder) => ({}),
+  endpoints: () => ({}),
 });
