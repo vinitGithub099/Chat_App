@@ -332,41 +332,89 @@
   @apply text-sm text-primary-text-2 leading-relaxed;
 }
 
-/* Footer */
+/* Footer / Creator Signature */
 .footer {
-  @apply mt-16 w-full flex justify-center px-4;
+  @apply mt-20 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center gap-6;
 }
 
-.footerPill {
-  @apply inline-flex items-center gap-1.5 bg-secondary/95 backdrop-blur-md px-5 py-2.5 text-center rounded-full border border-highlight shadow-lg transition-all duration-200 hover:border-accent-1/40;
+.footerDivider {
+  @apply w-full h-px bg-gradient-to-r from-transparent via-highlight to-transparent;
+}
+
+.creatorCard {
+  @apply relative inline-flex items-center gap-3.5 px-5 py-3 rounded-2xl bg-secondary/85 backdrop-blur-md border border-highlight shadow-xl transition-all duration-300 hover:-translate-y-0.5 hover:border-accent-1/60 hover:shadow-accent-1/10;
+}
+
+.creatorAvatar {
+  @apply h-10 w-10 shrink-0 rounded-xl bg-gradient-to-br from-accent-1/25 to-accent-2/25 border border-accent-1/50 text-accent-1 font-extrabold text-xs tracking-wider flex items-center justify-center shadow-inner transition-transform duration-300;
+}
+
+.creatorCard:hover .creatorAvatar {
+  transform: scale(1.06) rotate(-3deg);
+}
+
+.creatorMeta {
+  @apply flex flex-wrap items-center gap-1.5;
 }
 
 .creditText {
-  @apply text-primary-text-2 whitespace-nowrap;
+  @apply text-primary-text-2 text-xs sm:text-sm whitespace-nowrap;
+}
+
+.nameLink {
+  @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-primary/80 border border-highlight/90 italic font-bold text-xs sm:text-sm text-accent-1 hover:cursor-pointer hover:text-accent-2 hover:border-accent-2/60 hover:bg-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-1 whitespace-nowrap transition-all duration-200;
+}
+
+.chevron {
+  @apply not-italic text-xs text-primary-text-2 transition-transform duration-200 inline-block;
+}
+
+.chevronOpen {
+  @apply text-accent-2 rotate-180;
+}
+
+.menuList {
+  @apply p-2 bg-secondary/95 backdrop-blur-xl border border-highlight shadow-2xl rounded-2xl min-w-[210px];
+}
+
+.menuHeader {
+  @apply px-3 py-1.5 mb-1 text-[11px] font-semibold uppercase tracking-wider text-primary-text-2 border-b border-highlight/70;
+}
+
+.menuLink {
+  @apply block border-0 outline-none focus-visible:ring-2 focus-visible:ring-accent-1 rounded-xl;
+}
+
+.menuItem {
+  @apply text-primary-text-2 hover:text-primary-text-1 flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl hover:bg-accent-1/15 transition-all duration-200;
+}
+
+.menuLeft {
+  @apply flex items-center gap-2.5;
+}
+
+.iconBadge {
+  @apply h-7 w-7 rounded-lg bg-primary/90 border border-highlight flex items-center justify-center text-accent-1 transition-colors duration-200;
+}
+
+.menuItem:hover .iconBadge {
+  @apply border-accent-1/50 text-accent-2;
 }
 
 .icon {
   @apply h-4 w-4 shrink-0;
 }
 
-.nameLink {
-  @apply italic font-bold text-accent-1 hover:cursor-pointer hover:underline hover:text-accent-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-1 rounded px-0.5 whitespace-nowrap transition-colors;
-}
-
-.menuList {
-  @apply p-2 bg-secondary border border-highlight shadow-xl rounded-xl min-w-[160px];
-}
-
-.menuLink {
-  @apply block border-0 outline-none focus-visible:ring-2 focus-visible:ring-accent-1 rounded-lg;
-}
-
-.menuItem {
-  @apply text-primary-text-2 hover:text-primary-text-1 flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-accent-1/15 transition-colors;
-}
-
 .label {
   @apply text-inherit font-medium;
+}
+
+.externalArrow {
+  @apply text-xs text-primary-text-2 opacity-60 transition-all duration-200;
+}
+
+.menuItem:hover .externalArrow {
+  @apply text-accent-1 opacity-100 translate-x-0.5 -translate-y-0.5;
 }
 
 /* Reduced Motion Support */

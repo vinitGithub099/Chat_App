@@ -266,44 +266,75 @@ const HomePage = () => {
       </main>
 
       {/* Creator Credit & Social Menu */}
+      {/* Creator Credit & Social Menu */}
       <footer className={classes.footer}>
-        <div className={classes.footerPill}>
-          <Typography
-            variant={TYPOGRAPHY_VARIANT.SMALL}
-            className={classes.creditText}
-          >
-            created and maintained by
-          </Typography>
+        <div className={classes.footerDivider} aria-hidden="true" />
 
-          <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="top-end">
-            <MenuHandler>
-              <button type="button" className={classes.nameLink}>
-                @VinitKumbhare
-              </button>
-            </MenuHandler>
+        <div className={classes.creatorCard}>
+          <div className={classes.creatorAvatar} aria-hidden="true">
+            VK
+          </div>
 
-            <MenuList className={classes.menuList}>
-              {profileItems.map(({ link, icon: Icon, label }) => (
-                <a
-                  key={link}
-                  href={link}
-                  target="_blank"
-                  rel="noreferrer"
-                  className={classes.menuLink}
+          <div className={classes.creatorMeta}>
+            <Typography
+              variant={TYPOGRAPHY_VARIANT.SMALL}
+              className={classes.creditText}
+            >
+              Crafted &amp; maintained by
+            </Typography>
+
+            <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="top">
+              <MenuHandler>
+                <button
+                  type="button"
+                  className={classes.nameLink}
+                  aria-expanded={isMenuOpen}
                 >
-                  <MenuItem onClick={closeMenu} className={classes.menuItem}>
-                    {Icon && <Icon className={classes.icon} />}
-                    <Typography
-                      variant={TYPOGRAPHY_VARIANT.SMALL}
-                      className={classes.label}
-                    >
-                      {label}
-                    </Typography>
-                  </MenuItem>
-                </a>
-              ))}
-            </MenuList>
-          </Menu>
+                  <span>@VinitKumbhare</span>
+                  <span
+                    className={`${classes.chevron} ${
+                      isMenuOpen ? classes.chevronOpen : ""
+                    }`}
+                    aria-hidden="true"
+                  >
+                    ▾
+                  </span>
+                </button>
+              </MenuHandler>
+
+              <MenuList className={classes.menuList}>
+                <div className={classes.menuHeader}>Connect with creator</div>
+                {profileItems.map(({ link, icon: Icon, label }) => (
+                  <a
+                    key={link}
+                    href={link}
+                    target="_blank"
+                    rel="noreferrer"
+                    className={classes.menuLink}
+                  >
+                    <MenuItem onClick={closeMenu} className={classes.menuItem}>
+                      <span className={classes.menuLeft}>
+                        {Icon && (
+                          <span className={classes.iconBadge}>
+                            <Icon className={classes.icon} />
+                          </span>
+                        )}
+                        <Typography
+                          variant={TYPOGRAPHY_VARIANT.SMALL}
+                          className={classes.label}
+                        >
+                          {label}
+                        </Typography>
+                      </span>
+                      <span className={classes.externalArrow} aria-hidden="true">
+                        ↗
+                      </span>
+                    </MenuItem>
+                  </a>
+                ))}
+              </MenuList>
+            </Menu>
+          </div>
         </div>
       </footer>
     </div>
